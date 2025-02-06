@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+	"github.com/go-chi/render"
 )
 
 func HttpServer(host string, port int, allowMethods []string, allowOrigins []string, allowHeaders []string) {
@@ -28,11 +29,9 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		})
 	})
 
-	
 	distFS, _ := fs.Sub(embed.StaticsFS(), "dist")
 	fileServer := http.FileServer(http.FS(distFS))
-	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))
-
+	r.Handle("/assets/*", fileServer)
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		index, err := embed.StaticsFS().ReadFile("dist/index.html")
 		if err != nil {
@@ -41,7 +40,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		}
 		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
-		w.Write(index)
+		render.HTML(w, r, string(index))
 	})
 
 	log.Default().Printf("HTTP Server is running on http://%s:%d", host, port)
