@@ -1,0 +1,22 @@
+# important: alpine image is not compatible because of the cgo
+FROM golang:1.23
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+COPY . .
+
+COPY ./config.docker.yaml ./config.yaml
+
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/go/pkg/sumdb \
+    go mod download
+
+RUN  --mount=type=cache,target=/root/.cache/go-build \
+    --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/go/pkg/sumdb \
+    go install github.com/cosmtrek/air@v1.44.0
+
+CMD ["air", "-c", ".air.toml"]
