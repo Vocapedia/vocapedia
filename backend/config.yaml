@@ -1,0 +1,44 @@
+host:
+port: 3000
+grpc_port: 50051
+env: production
+base_url: http://localhost:8080
+front_base_url: http://localhost:8080
+jwt_secret: vocapedia
+jwt_expire: 720 # time in hours
+jwt_issuer: vocapedia
+totp_issuer: vocapedia
+admin_email: test@vocapedia.com
+admin_name: Test
+admin_password: 123456
+
+database:
+  host: localhost
+  port: 5432
+  name: vocapedia
+  user: vocapedia
+  password: vocapedia
+  sslmode: disable
+
+redis:
+  host: localhost
+  port: 6379
+  password:
+  db: 0
+
+allow_methods:
+  - GET
+  - POST
+  - PUT
+  - PATCH
+  - DELETE
+  - OPTIONS
+
+allow_headers:
+  - Content-Type
+  - Authorization
+  - X-HASH
+  - sentry-trace
+
+allow_origins:
+  - "*"
