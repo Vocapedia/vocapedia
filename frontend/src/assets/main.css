@@ -1,1 +1,19 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "./animations.css";
+
+.smooth-click {
+    transition: all 0.3s;
+    cursor: pointer;
+    @apply hover:scale-105 active:scale-95;
+}
+
+.card {
+    @apply border border-zinc-200 dark:border-zinc-700 shadow-md rounded-lg overflow-hidden;
+}
+
+body {
+    @apply transition-all duration-300 ease-in-out;
+    @apply bg-zinc-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200;
+}
