@@ -31,3 +31,4 @@ body {
 .dark .scrollbar-hide::-webkit-scrollbar-thumb {
     @apply bg-zinc-800;
 }
+
