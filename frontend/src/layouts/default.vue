@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavbarVue />
-        <div class="container  mx-auto p-4">
+        <div class="container mx-auto p-4">
             <slot />
         </div>
     </div>

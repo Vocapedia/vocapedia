@@ -10,10 +10,24 @@
 }
 
 .card {
-    @apply border border-zinc-200 dark:border-zinc-700 shadow-md rounded-lg overflow-hidden;
+    @apply border border-zinc-200 dark:border-zinc-700 overflow-hidden;
 }
 
 body {
     @apply transition-all duration-300 ease-in-out;
     @apply bg-zinc-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+    @apply bg-zinc-200;
+    border-radius: 8px;
+}
+
+.dark .scrollbar-hide::-webkit-scrollbar-thumb {
+    @apply bg-zinc-800;
 }
