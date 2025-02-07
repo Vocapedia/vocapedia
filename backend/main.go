@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
+	//app.Execute()
+
 	server.HttpServer(
 		config.ReadValue().Host,
 		config.ReadValue().Port,
