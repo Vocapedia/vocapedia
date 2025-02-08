@@ -7,16 +7,17 @@
                 </RouterLink>
             </nav>
             <nav class="flex items-center space-x-4 p-4">
+                <RouterLink to="/settings" class="smooth-click">
+                    <mdicon name="cog-outline" size="32" />
+                </RouterLink>
                 <RouterLink to="/account" class="smooth-click">
                     <mdicon name="account-circle-outline" size="32" />
                 </RouterLink>
                 <SwitchThemeVue />
             </nav>
-
         </div>
     </div>
 </template>
 <script setup>
 import SwitchThemeVue from './SwitchTheme.vue';
-
 </script>
