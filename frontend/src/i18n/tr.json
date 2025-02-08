@@ -8,5 +8,6 @@
     "compose_post": "Gönderi Oluştur",
     "search_from_list": "Listeden ara",
     "tr": "Türkçe",
-    "en": "İngilizce"
+    "en": "İngilizce",
+    "list_helper": "Listelenen dil {lang}'dir çevrilen dil{s} ise {target_lang}'dir"
 }
