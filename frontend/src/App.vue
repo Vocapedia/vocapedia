@@ -1,9 +1,9 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="animate__animated animate__fadeInDown">
+  <div>
     <router-view v-slot="{ Component, route }">
       <transition name="fade" mode="out-in">
         <component :is="$route.meta.layoutComponent">
