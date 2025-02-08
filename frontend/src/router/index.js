@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import AccountView from "@/views/AccountView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
+import ListView from "@/views/ListView.vue";
 import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
 
 const router = createRouter({
@@ -17,6 +18,11 @@ const router = createRouter({
       path: "/account",
       name: "account",
       component: AccountView,
+    },
+    {
+      path: "/l/:id",
+      name: "list",
+      component: ListView,
     },
     {
       path: "/:pathMatch(.*)*",
