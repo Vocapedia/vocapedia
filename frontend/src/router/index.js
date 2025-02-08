@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue";
 import AccountView from "@/views/AccountView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 import ListView from "@/views/ListView.vue";
+import GameView from "@/views/GameView.vue";
 import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
 
 const router = createRouter({
@@ -23,6 +24,11 @@ const router = createRouter({
       path: "/l/:id",
       name: "list",
       component: ListView,
+    },
+    {
+      path: "/l/:id/games",
+      name: "games",
+      component: GameView,
     },
     {
       path: "/:pathMatch(.*)*",

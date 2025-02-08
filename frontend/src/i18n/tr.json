@@ -9,5 +9,10 @@
     "search_from_list": "Listeden ara",
     "tr": "Türkçe",
     "en": "İngilizce",
-    "list_helper": "Listelenen dil {lang}'dir çevrilen dil{s} ise {target_lang}'dir"
+    "list_helper": "Listelenen dil {lang}'dir çevrilen dil{s} ise {target_lang}'dir",
+    "page_not_found": {
+        "title": "Haydaa! Sayfa Bulunamadı",
+        "message": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+        "button_text": "Ana Sayfaya Git"
+    }
 }

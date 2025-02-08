@@ -1,6 +1,11 @@
 <template>
     <div>
-        <h1 class="font-bold text-4xl flex justify-center">{{ response.title }}</h1>
+        <div class=" flex justify-center items-center space-x-4">
+            <h1 class="font-bold text-4xl">
+                {{ response.title }}
+            </h1>
+        </div>
+
         <div class="p-5 text-center">
             {{
                 $t('list_helper', {
@@ -10,26 +15,29 @@
                 })
             }}
         </div>
-        <!-- <div class="flex justify-evenly">
+        <div class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
             <button class="smooth-click">
-                <mdicon name="star-outline" class=" dark:text-yellow-400 text-yellow-500" />
+                <mdicon name="star-outline" class="dark:text-yellow-400 text-yellow-500" size="32" />
             </button>
-        </div> -->
+            <router-link :to="'/l/' + $route.params.id + '/games'" class="smooth-click">
+                <mdicon name="gamepad-variant-outline" size="32" />
+            </router-link>
+        </div>
 
         <div class="flex py-5 justify-center">
             <input v-model="search" type="text" :placeholder="$t('search_from_list')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-white text-zinc-900  border-none
-             max-w-120 
+             max-w-160 
              dark:bg-zinc-800 dark:text-white " />
         </div>
         <div v-auto-animate class="space-y-5">
 
             <div v-for="item in filteredList" :key="item.id" class="flex justify-center">
-                <div class="max-w-120 w-full ">
-                    <div v-auto-animate class="card transition duration-200  hover:shadow rounded-xl p-4">
+                <div class="max-w-160 w-full ">
+                    <div v-auto-animate class="card transition duration-200  hover:shadow p-4">
 
                         <div class="font-bold text-xl capitalize ">{{ item.word }}</div>
-                        <div class="font-light">{{ item.description }}</div>
+                        <div class="font-light pt-5">{{ item.description }}</div>
 
                         <div class="languages">
                             <div v-if="item.example.length > 0">
@@ -72,7 +80,7 @@ const filteredList = computed(() => {
 
 const response = ref({
     id: 1,
-    title: 'List',
+    title: 'Sample List',
     lang: 'en',
     target_langs: ['tr'],
     list: [
