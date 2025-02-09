@@ -1,12 +1,6 @@
 <template>
     <div>
-        <div class=" flex justify-center items-center space-x-4">
-            <h1 class="font-bold text-4xl">
-                {{ response.title }}
-            </h1>
-        </div>
-
-        <div class="p-5 text-center">
+        <small class="pb-5 flex justify-center">
             {{
                 $t('list_helper', {
                     lang: $t(response.lang),
@@ -14,10 +8,18 @@
                     target_lang: response.target_langs.map(x => ' ' + $t(x)).toString()
                 })
             }}
+        </small>
+        <div class="space-y-4 text-center">
+            <h1 class="font-bold text-4xl">
+                {{ response.title }}
+            </h1>
+            <div>{{ response.description }}</div>
         </div>
+
         <div class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
-            <button class="smooth-click">
+            <button class="flex items-center smooth-click bg-yellow-50 dark:bg-yellow-900 rounded-full px-2 font-bold">
                 <mdicon name="star-outline" class="dark:text-yellow-400 text-yellow-500" size="32" />
+                <span>4198</span>
             </button>
             <router-link :to="'/l/' + $route.params.id + '/games'" class="smooth-click">
                 <mdicon name="gamepad-variant-outline" size="32" />
@@ -35,8 +37,13 @@
             <div v-for="item in filteredList" :key="item.id" class="flex justify-center">
                 <div class="max-w-160 w-full ">
                     <div v-auto-animate class="card transition duration-200  hover:shadow p-4">
-
-                        <div class="font-bold text-xl capitalize ">{{ item.word }}</div>
+                        <div class="flex justify-between items-center space-x-5">
+                            <div class="font-bold text-xl capitalize ">{{ item.word }}</div>
+                            <span
+                                class="languages bg-blue-200 dark:bg-blue-800 px-2 py-1 rounded-full text-blue-800 dark:text-blue-200">
+                                {{ item.type }}
+                            </span>
+                        </div>
                         <div class="font-light pt-5">{{ item.description }}</div>
 
                         <div class="languages">
@@ -71,6 +78,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
+import fake_response from "@/fake/list.json";
 
 const search = ref('');
 
@@ -78,184 +86,7 @@ const filteredList = computed(() => {
     return response.value.list.filter(x => x.word.toLowerCase().includes(search.value.toLowerCase()));
 });
 
-const response = ref({
-    id: 1,
-    title: 'Sample List',
-    lang: 'en',
-    target_langs: ['tr'],
-    list: [
-        {
-            id: 1,
-            lang: 'en',
-            word: 'title',
-            description: 'A title is a word or phrase that describes something, such as a book or article.',
-            example: ['The title of the book is very inspiring.'],
-            languages: [
-                {
-                    id: 'a',
-                    lang: 'tr',
-                    word: 'başlık',
-                    description: 'Başlık, bir şeyi tanımlayan kelime ya da ifadedir, örneğin bir kitap ya da makale başlığı.',
-                    example: ['Bu başlık dikkat çekici olmalı.'],
-                    base_id: 1,
-                }
-            ]
-        },
-        {
-            id: 2,
-            lang: 'en',
-            word: 'book',
-            description: 'A set of written or printed pages, usually bound with a protective cover.',
-            example: ['I am reading a book about history.'],
-            languages: [
-                {
-                    id: 'b',
-                    lang: 'tr',
-                    word: 'kitap',
-                    description: 'Yazılı ya da basılı sayfalardan oluşan, genellikle koruyucu bir kapakla bağlanmış eser.',
-                    example: ['Tarih hakkında bir kitap okuyorum.'],
-                    base_id: 2,
-                }
-            ]
-        },
-        {
-            id: 3,
-            lang: 'en',
-            word: 'computer',
-            description: 'An electronic device for storing and processing data.',
-            example: ['I use my computer to work from home.'],
-            languages: [
-                {
-                    id: 'c',
-                    lang: 'tr',
-                    word: 'bilgisayar',
-                    description: 'Veri depolama ve işleme için kullanılan elektronik cihaz.',
-                    example: ['Evden çalışmak için bilgisayarımı kullanıyorum.'],
-                    base_id: 3,
-                }
-            ]
-        },
-        {
-            id: 4,
-            lang: 'en',
-            word: 'apple',
-            description: 'A round fruit with red or green skin and a whitish interior.',
-            example: ['I ate an apple for breakfast.'],
-            languages: [
-                {
-                    id: 'd',
-                    lang: 'tr',
-                    word: 'elma',
-                    description: 'Kırmızı veya yeşil kabuğu olan, beyaz içi bulunan yuvarlak meyve.',
-                    example: ['Kahvaltıda bir elma yedim.'],
-                    base_id: 4,
-                }
-            ]
-        },
-        {
-            id: 5,
-            lang: 'en',
-            word: 'car',
-            description: 'A road vehicle powered by an engine, typically with four wheels.',
-            example: ['She drives a red car.'],
-            languages: [
-                {
-                    id: 'e',
-                    lang: 'tr',
-                    word: 'araba',
-                    description: 'Bir motor tarafından güçlendirilen, tipik olarak dört tekerleği olan kara aracı.',
-                    example: ['Kırmızı bir araba kullanıyor.'],
-                    base_id: 5,
-                }
-            ]
-        },
-        {
-            id: 6,
-            lang: 'en',
-            word: 'city',
-            description: 'A large town or urban area with a lot of buildings and people.',
-            example: ['I live in a large city.'],
-            languages: [
-                {
-                    id: 'f',
-                    lang: 'tr',
-                    word: 'şehir',
-                    description: 'Binalar ve insanlar bakımından yoğun olan büyük kasaba veya kentsel alan.',
-                    example: ['Büyük bir şehirde yaşıyorum.'],
-                    base_id: 6,
-                }
-            ]
-        },
-        {
-            id: 7,
-            lang: 'en',
-            word: 'friend',
-            description: 'A person whom one knows and with whom one has a bond of mutual affection.',
-            example: ['My best friend is coming over.'],
-            languages: [
-                {
-                    id: 'g',
-                    lang: 'tr',
-                    word: 'arkadaş',
-                    description: 'Bir kişiyle tanışan ve karşılıklı sevgi bağına sahip olunan kişi.',
-                    example: ['En iyi arkadaşım geliyor.'],
-                    base_id: 7,
-                }
-            ]
-        },
-        {
-            id: 8,
-            lang: 'en',
-            word: 'house',
-            description: 'A building for human habitation.',
-            example: ['We live in a house with a large garden.'],
-            languages: [
-                {
-                    id: 'h',
-                    lang: 'tr',
-                    word: 'ev',
-                    description: 'İnsanların barınması için kullanılan bina.',
-                    example: ['Büyük bir bahçesi olan bir evde yaşıyoruz.'],
-                    base_id: 8,
-                }
-            ]
-        },
-        {
-            id: 9,
-            lang: 'en',
-            word: 'school',
-            description: 'A place where children are educated.',
-            example: ['My children go to school every day.'],
-            languages: [
-                {
-                    id: 'i',
-                    lang: 'tr',
-                    word: 'okul',
-                    description: 'Çocukların eğitim aldığı yer.',
-                    example: ['Çocuklarım her gün okula gidiyor.'],
-                    base_id: 9,
-                }
-            ]
-        },
-        {
-            id: 10,
-            lang: 'en',
-            word: 'dog',
-            description: 'A domesticated carnivorous mammal.',
-            example: ['I have a pet dog.'],
-            languages: [
-                {
-                    id: 'j',
-                    lang: 'tr',
-                    word: 'köpek',
-                    description: 'Evcil etobur memeli.',
-                    example: ['Bir evcil köpeğim var.'],
-                    base_id: 10,
-                }
-            ]
-        }
-    ]
-});
+const response = ref(fake_response);
 </script>
 <style scoped>
 .languages {

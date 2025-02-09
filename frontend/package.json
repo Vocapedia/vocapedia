@@ -24,6 +24,7 @@
     "apexcharts": "^4.4.0",
     "mdi-vue": "^3.0.13",
     "pinia": "^2.3.1",
+    "swiper": "^11.2.2",
     "tailwind-scrollbar": "^4.0.0",
     "usemodal-vue3": "^0.3.7",
     "vue": "^3.5.13",

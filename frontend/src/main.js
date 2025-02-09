@@ -12,6 +12,13 @@ import router from "./router";
 import { i18n } from "./i18n/i18n";
 
 import "animate.css";
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/swiper-bundle.css';
+
 const app = createApp(App)
   .use(createPinia())
   .use(i18n)

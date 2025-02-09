@@ -14,5 +14,7 @@
         "title": "Haydaa! Sayfa Bulunamadı",
         "message": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
         "button_text": "Ana Sayfaya Git"
-    }
+    },
+    "games": "Oyunlar",
+    "test": "Test"
 }

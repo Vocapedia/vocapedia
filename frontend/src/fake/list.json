@@ -1,0 +1,241 @@
+{
+    "id": 1,
+    "title": "Sample List",
+    "description": "This is a sample list for testing purposes.",
+    "lang": "en",
+    "target_langs": [
+        "tr"
+    ],
+    "list": [
+        {
+            "id": 1,
+            "lang": "en",
+            "word": "title",
+            "type": "noun",
+            "description": "A title is a word or phrase that describes something, such as a book or article.",
+            "example": [
+                "The title of the book is very inspiring."
+            ],
+            "languages": [
+                {
+                    "id": "a",
+                    "lang": "tr",
+                    "word": "başlık",
+                    "type": "noun",
+                    "description": "Başlık, bir şeyi tanımlayan kelime ya da ifadedir, örneğin bir kitap ya da makale başlığı.",
+                    "example": [
+                        "Bu başlık dikkat çekici olmalı."
+                    ],
+                    "base_id": 1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "lang": "en",
+            "word": "book",
+            "type": "noun",
+            "description": "A set of written or printed pages, usually bound with a protective cover.",
+            "example": [
+                "I am reading a book about history."
+            ],
+            "languages": [
+                {
+                    "id": "b",
+                    "lang": "tr",
+                    "word": "kitap",
+                    "type": "noun",
+                    "description": "Yazılı ya da basılı sayfalardan oluşan, genellikle koruyucu bir kapakla bağlanmış eser.",
+                    "example": [
+                        "Tarih hakkında bir kitap okuyorum."
+                    ],
+                    "base_id": 2
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "lang": "en",
+            "word": "computer",
+            "type": "noun",
+            "description": "An electronic device for storing and processing data.",
+            "example": [
+                "I use my computer to work from home."
+            ],
+            "languages": [
+                {
+                    "id": "c",
+                    "lang": "tr",
+                    "word": "bilgisayar",
+                    "type": "noun",
+                    "description": "Veri depolama ve işleme için kullanılan elektronik cihaz.",
+                    "example": [
+                        "Evden çalışmak için bilgisayarımı kullanıyorum."
+                    ],
+                    "base_id": 3
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "lang": "en",
+            "word": "apple",
+            "type": "noun",
+            "description": "A round fruit with red or green skin and a whitish interior.",
+            "example": [
+                "I ate an apple for breakfast."
+            ],
+            "languages": [
+                {
+                    "id": "d",
+                    "lang": "tr",
+                    "word": "elma",
+                    "type": "noun",
+                    "description": "Kırmızı veya yeşil kabuğu olan, beyaz içi bulunan yuvarlak meyve.",
+                    "example": [
+                        "Kahvaltıda bir elma yedim."
+                    ],
+                    "base_id": 4
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "lang": "en",
+            "word": "car",
+            "type": "noun",
+            "description": "A road vehicle powered by an engine, typically with four wheels.",
+            "example": [
+                "She drives a red car."
+            ],
+            "languages": [
+                {
+                    "id": "e",
+                    "lang": "tr",
+                    "word": "araba",
+                    "type": "noun",
+                    "description": "Bir motor tarafından güçlendirilen, tipik olarak dört tekerleği olan kara aracı.",
+                    "example": [
+                        "Kırmızı bir araba kullanıyor."
+                    ],
+                    "base_id": 5
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "lang": "en",
+            "word": "city",
+            "type": "noun",
+            "description": "A large town or urban area with a lot of buildings and people.",
+            "example": [
+                "I live in a large city."
+            ],
+            "languages": [
+                {
+                    "id": "f",
+                    "lang": "tr",
+                    "word": "şehir",
+                    "type": "noun",
+                    "description": "Binalar ve insanlar bakımından yoğun olan büyük kasaba veya kentsel alan.",
+                    "example": [
+                        "Büyük bir şehirde yaşıyorum."
+                    ],
+                    "base_id": 6
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "lang": "en",
+            "word": "friend",
+            "type": "noun",
+            "description": "A person whom one knows and with whom one has a bond of mutual affection.",
+            "example": [
+                "My best friend is coming over."
+            ],
+            "languages": [
+                {
+                    "id": "g",
+                    "lang": "tr",
+                    "word": "arkadaş",
+                    "type": "noun",
+                    "description": "Bir kişiyle tanışan ve karşılıklı sevgi bağına sahip olunan kişi.",
+                    "example": [
+                        "En iyi arkadaşım geliyor."
+                    ],
+                    "base_id": 7
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "lang": "en",
+            "word": "house",
+            "type": "noun",
+            "description": "A building for human habitation.",
+            "example": [
+                "We live in a house with a large garden."
+            ],
+            "languages": [
+                {
+                    "id": "h",
+                    "lang": "tr",
+                    "word": "ev",
+                    "type": "noun",
+                    "description": "İnsanların barınması için kullanılan bina.",
+                    "example": [
+                        "Büyük bir bahçesi olan bir evde yaşıyoruz."
+                    ],
+                    "base_id": 8
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "lang": "en",
+            "word": "school",
+            "type": "noun",
+            "description": "A place where children are educated.",
+            "example": [
+                "My children go to school every day."
+            ],
+            "languages": [
+                {
+                    "id": "i",
+                    "lang": "tr",
+                    "word": "okul",
+                    "type": "noun",
+                    "description": "Çocukların eğitim aldığı yer.",
+                    "example": [
+                        "Çocuklarım her gün okula gidiyor."
+                    ],
+                    "base_id": 9
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "lang": "en",
+            "word": "dog",
+            "type": "noun",
+            "description": "A domesticated carnivorous mammal.",
+            "example": [
+                "I have a pet dog."
+            ],
+            "languages": [
+                {
+                    "id": "j",
+                    "lang": "tr",
+                    "word": "köpek",
+                    "type": "noun",
+                    "description": "Evcil etobur memeli.",
+                    "example": [
+                        "Bir evcil köpeğim var."
+                    ],
+                    "base_id": 10
+                }
+            ]
+        }
+    ]
+}
