@@ -4,8 +4,8 @@
             <router-link :to="'/l/' + $route.params.id"
                 class="smooth-click bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-full">
                 <span class="flex justify-between items-center space-x-2">
-                    <mdicon name="arrow-left" />
-                    <span class="text-xl font-semibold">{{ response.title }}</span>
+                    <mdicon name="arrow-left" size="20" />
+                    <span class="sm:text-xl font-semibold">{{ response.title }}</span>
                 </span>
             </router-link>
         </div>
