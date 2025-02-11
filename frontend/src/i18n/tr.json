@@ -17,5 +17,6 @@
     },
     "games": "Oyunlar",
     "test": "Test",
-    "search_a_list": "Bir liste ara"
+    "search_a_list": "Bir liste ara",
+    "search_results": "\"{query}\" için {count} sonuç bulundu"
 }

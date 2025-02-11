@@ -12,11 +12,11 @@ import { i18n } from "./i18n/i18n";
 
 import "animate.css";
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import 'swiper/swiper-bundle.css';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/swiper-bundle.css";
 
 const app = createApp(App)
   .use(createPinia())
@@ -26,5 +26,7 @@ const app = createApp(App)
   })
   .use(autoAnimatePlugin)
   .use(router);
-
-app.mount("#app");
+  
+router.isReady().then(() => {
+  app.mount("#app");
+});

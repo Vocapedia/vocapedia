@@ -1,0 +1,14 @@
+{
+    "list": [
+        {
+            "id": 1,
+            "title": "YDS'de en çok çıkan kelimeler",
+            "creator": {
+                "username": "akif"
+            },
+            "description": "Yabancı dil sınavında en çok çıkan kelimeleri derledim; umarım işinize yarar.",
+            "word_count": 196,
+            "fav_count": 41
+        }
+    ]
+}

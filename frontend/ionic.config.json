@@ -1,0 +1,7 @@
+{
+  "name": "vocapedia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

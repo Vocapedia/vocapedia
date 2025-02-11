@@ -22,17 +22,21 @@
             </header>
             <header v-else class="container mx-auto  max-w-160 w-full flex justify-between items-center p-4">
                 <div class="flex w-full">
-                    <input ref="searchRef" v-model="search" type="text" :placeholder="$t('search_a_list')" class="w-full p-3 border shadow-sm outline-none transition-all 
+                    <input @keyup.enter="searchSomething" ref="searchRef" v-model="search" type="text"
+                        :placeholder="$t('search_a_list')" class="w-full p-3 border shadow-sm outline-none transition-all 
              bg-white text-zinc-900 border-none rounded-full
              dark:bg-zinc-800 dark:text-white" />
-                    <button @click="searchSomething" class="w-12 cursor-pointer -ml-12 bg-zinc-500/15 rounded-r-full p-3">
+                    <button @click="searchSomething"
+                        class="w-12 cursor-pointer -ml-12 bg-zinc-500/15 rounded-r-full p-3">
                         <mdicon name="magnify" class="dark:text-zinc-400 text-zinc-600" />
                     </button>
 
-                    <button @click="closeSearch" class="smooth-click -ml-24 rounded-full p-3">
+                    <button @click="resetSearch" class="smooth-click -ml-24 rounded-full p-3">
                         <mdicon name="close" class="dark:text-red-400 text-red-600" />
                     </button>
-
+                    <button @click="closeSearch" class="ml-15 smooth-click">
+                        <mdicon name="arrow-up" class="dark:text-blue-400 text-blue-600" />
+                    </button>
                 </div>
             </header>
         </transition>
@@ -43,7 +47,8 @@
 <script setup>
 import SwitchThemeVue from "@/components/SwitchTheme.vue";
 import { ref, onMounted, onBeforeUnmount, nextTick, watch } from "vue";
-
+import { useRouter } from "vue-router";
+const router = useRouter()
 const iconSize = ref(getSize());
 const search = ref('')
 const searchRef = ref(null)
@@ -65,14 +70,22 @@ watch(searchRef, (newVal) => {
 
 function closeSearch() {
     searchable.value = false
+}
+
+function resetSearch() {
     search.value = ''
+    nextTick(() => {
+        searchRef.value?.focus();
+    });
 }
 
 function openSearchable() {
     searchable.value = true
 }
 function searchSomething() {
-    console.log(search.value)
+    if (search.value.length == 0) return
+    router.push({ name: 'search', query: { q: search.value } })
+    searchable.value = false
 }
 const updateSize = () => {
     iconSize.value = getSize();

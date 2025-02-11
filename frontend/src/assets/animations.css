@@ -15,11 +15,11 @@
 }
 
 .slide-fade-enter-from {
-  transform: translateY(-20px);
+  transform: translateY(20px);
   opacity: 0;
 }
 
 .slide-fade-leave-to {
-  transform: translateY(20px);
+  transform: translateY(-20px);
   opacity: 0;
 }

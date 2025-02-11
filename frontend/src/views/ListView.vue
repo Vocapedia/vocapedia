@@ -33,7 +33,6 @@
              dark:bg-zinc-800 dark:text-white " />
         </div>
         <div v-auto-animate class="space-y-5">
-
             <div v-for="item in filteredList" :key="item.id" class="flex justify-center">
                 <div class="max-w-160 w-full ">
                     <div v-auto-animate class="card transition duration-200  hover:shadow p-4">

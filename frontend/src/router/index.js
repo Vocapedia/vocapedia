@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "@ionic/vue-router";
 
 import HomeView from "@/views/HomeView.vue";
 import AccountView from "@/views/AccountView.vue";
@@ -7,6 +7,7 @@ import ListView from "@/views/ListView.vue";
 import GameView from "@/views/GameView.vue";
 import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
 import TestView from "@/views/game/TestView.vue";
+import SearchView from "@/views/SearchView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,11 @@ const router = createRouter({
       path: "/l/:id/game/test",
       name: "test",
       component: TestView,
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: SearchView,
     },
     {
       path: "/:pathMatch(.*)*",
