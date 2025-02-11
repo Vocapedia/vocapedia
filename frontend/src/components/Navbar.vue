@@ -83,7 +83,7 @@ function openSearchable() {
     searchable.value = true
 }
 function searchSomething() {
-    if (search.value.length == 0) return
+    if ((search.value).toString().trim().length == 0) return
     router.push({ name: 'search', query: { q: search.value } })
     searchable.value = false
 }
