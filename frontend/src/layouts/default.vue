@@ -2,7 +2,7 @@
     <div>
         <NavbarVue />
         <div class="animate__animated animate__fadeIn container mx-auto p-4">
-            <transition name="slide-fade" mode="out-in">
+            <transition name="fade" mode="out-in">
                 <slot />
             </transition>
 
