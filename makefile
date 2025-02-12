@@ -8,5 +8,5 @@ refresh-frontend:
 	sudo docker start vocapedia-frontend
 	sudo docker exec -it vocapedia-frontend sh -c "pnpm install"
 
-hot-mobile:
-	pnpm --dir ./frontend/ exec cap run android
+mobile:
+	pnpm --dir ./frontend/ exec cap run android && pnpm exec cap run android

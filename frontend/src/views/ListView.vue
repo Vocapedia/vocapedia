@@ -32,8 +32,8 @@
              max-w-160 
              dark:bg-zinc-800 dark:text-white " />
         </div>
-        <div v-auto-animate class="space-y-5">
-            <div v-for="item in filteredList" :key="item.id" class="flex justify-center">
+        <div v-auto-animate>
+            <div :id="item.word" v-for="item in filteredList" :key="item.id" class="flex justify-center py-2.5">
                 <div class="max-w-160 w-full ">
                     <div v-auto-animate class="card transition duration-200  hover:shadow p-4">
                         <div class="flex justify-between items-center space-x-5">
@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import fake_response from "@/fake/list.json";
 
 const search = ref('');
@@ -86,6 +86,15 @@ const filteredList = computed(() => {
 });
 
 const response = ref(fake_response);
+onMounted(() => {
+    if (window.location.hash) {
+        const element = document.querySelector(window.location.hash);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+});
+
 </script>
 <style scoped>
 .languages {

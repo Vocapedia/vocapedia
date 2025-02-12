@@ -18,5 +18,9 @@
     "games": "Oyunlar",
     "test": "Test",
     "search_a_list": "Bir liste ara",
-    "search_results": "\"{query}\" için {count} sonuç bulundu"
+    "search_results": "\"{query}\" için {count} sonuç bulundu",
+    "close": "Kapat",
+    "show_result": "Sonuçları göster",
+    "word": "Kelime",
+    "answer": "Cevap"
 }
