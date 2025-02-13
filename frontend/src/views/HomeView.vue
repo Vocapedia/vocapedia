@@ -17,14 +17,13 @@
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-12 gap-4">
 
-          <div @click="triggerComposePopup = true"
-            class="card col-span-12 sm:col-span-12 lg:col-span-4 rounded-xl smooth-click">
+          <router-link to="/compose" class="card col-span-12 sm:col-span-12 lg:col-span-4 rounded-xl smooth-click">
             <img class="max-h-48 md:hidden lg:block mx-auto" src="@/assets/logo_full.png" alt="compose">
             <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center text-xl font-bold p-4 space-x-1">
               <mdicon name="pencil-outline" />
               <span> {{ $t('compose_post') }}</span>
             </div>
-          </div>
+          </router-link>
 
           <router-link class="card rounded-xl smooth-click col-span-12 sm:col-span-6 lg:col-span-4 " to="/followed">
             <div class="  p-4 max-h-48 overflow-hidden">
@@ -60,31 +59,10 @@
       </div>
     </div>
   </div>
-  <div class="">
-    <ComposePost v-model="triggerComposePopup">
-      <template #description>
-        <div class="text-center">
-          <h5>!!! Şu an yapım aşamasında !!!</h5>
-        </div>
-      </template>
-      <template #buttons>
-        <div class="flex justify-around">
-          <button @click="triggerComposePopup = false"
-            class="cursor-pointer w-full px-4 py-2 bg-red-500 text-white rounded">
-            {{ $t('close') }}
-          </button>
-        </div>
-      </template>
-    </ComposePost>
-  </div>
-
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import ComposePost from '@/components/Popup.vue';
-const triggerComposePopup = ref(false)
-
 
 const follows = ref([
   {

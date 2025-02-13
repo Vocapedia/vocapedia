@@ -8,6 +8,7 @@ import GameView from "@/views/GameView.vue";
 import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
 import TestView from "@/views/game/TestView.vue";
 import SearchView from "@/views/SearchView.vue";
+import ComposePost from "@/views/ComposePost.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: "/account",
       name: "account",
       component: AccountView,
+    },
+    {
+      path: "/compose",
+      name: "compose",
+      component: ComposePost,
     },
     {
       path: "/l/:id",

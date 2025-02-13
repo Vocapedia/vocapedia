@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 import { useEventListener } from '@vueuse/core';
 
 const props = defineProps({

@@ -22,5 +22,12 @@
     "close": "Kapat",
     "show_result": "Sonuçları göster",
     "word": "Kelime",
-    "answer": "Cevap"
+    "answer": "Cevap",
+    "list_name": "Liste adı",
+    "header": "Başlık",
+    "language": "Dil",
+    "examples": "Örnekler",
+    "example": "Örnek",
+    "type": "Tip",
+    "description": "Açıklama"
 }
