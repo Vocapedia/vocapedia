@@ -67,7 +67,7 @@ const props = defineProps({
 })
 
 onMounted(() => {
-    if (window.location.hash && route.query.variant != 'lesson') {
+    if (window.location.hash && route.query.variant != 'tutorial') {
         const element = document.querySelector(window.location.hash);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
