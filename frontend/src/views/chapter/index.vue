@@ -25,19 +25,23 @@
                 <mdicon name="gamepad-variant-outline" size="32" />
             </router-link>
         </div>
-        <div class="space-x-2">
-            <button @click="changeVariant('word-list')"
-                :class="$route.query.variant == 'tutorial' ? 'text-zinc-400 dark:text-zinc-600' : ''"
-                class="cursor-pointer text-lg font-semibold">
-                {{ $t('word-list') }}
-            </button>
-            <button @click="changeVariant('tutorial')"
-                :class="$route.query.variant == 'tutorial' ? '' : 'text-zinc-400 dark:text-zinc-600'"
-                class="cursor-pointer text-lg font-semibold">
-                {{ $t('tutorial') }}
-            </button>
+
+        <div class="max-w-160 w-full mx-auto">
+            <div class="space-x-2">
+                <button @click="changeVariant('word-list')"
+                    :class="$route.query.variant == 'tutorial' ? 'text-zinc-400 dark:text-zinc-600' : ''"
+                    class="cursor-pointer text-lg font-semibold">
+                    {{ $t('word-list') }}
+                </button>
+                <button @click="changeVariant('tutorial')"
+                    :class="$route.query.variant == 'tutorial' ? '' : 'text-zinc-400 dark:text-zinc-600'"
+                    class="cursor-pointer text-lg font-semibold">
+                    {{ $t('tutorial') }}
+                </button>
+            </div>
+            <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
         </div>
-        <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
+        
         <transition name="fade" mode="out-in">
             <component :is="currentComponent" :response="response" />
         </transition>
