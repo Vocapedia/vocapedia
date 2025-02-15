@@ -29,5 +29,8 @@
     "examples": "Örnekler",
     "example": "Örnek",
     "type": "Tip",
-    "description": "Açıklama"
+    "description": "Açıklama",
+    "word-list": "Kelime Listesi",
+    "tutorial": "Kılavuz",
+    "empty": "Burası bomboş"
 }

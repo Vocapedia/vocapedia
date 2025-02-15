@@ -1,32 +1,6 @@
 <template>
     <div>
-        <small class="pb-5 flex justify-center">
-            {{
-                $t('list_helper', {
-                    lang: $t(response.lang),
-                    s: response.target_langs.length > 1 ? 'ler' : '',
-                    target_lang: response.target_langs.map(x => ' ' + $t(x)).toString()
-                })
-            }}
-        </small>
-        <div class="space-y-4 text-center">
-            <h1 class="font-bold text-4xl">
-                {{ response.title }}
-            </h1>
-            <div>{{ response.description }}</div>
-        </div>
-
-        <div class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
-            <button class="flex items-center smooth-click bg-yellow-50 dark:bg-yellow-900 rounded-full px-2 font-bold">
-                <mdicon name="star-outline" class="dark:text-yellow-400 text-yellow-500" size="32" />
-                <span>4198</span>
-            </button>
-            <router-link :to="'/l/' + $route.params.id + '/games'" class="smooth-click">
-                <mdicon name="gamepad-variant-outline" size="32" />
-            </router-link>
-        </div>
-
-        <div class="flex py-5 justify-center">
+        <div class="flex justify-center">
             <input v-model="search" type="text" :placeholder="$t('search_from_list')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-white text-zinc-900  border-none
              max-w-160 
@@ -78,23 +52,28 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
 import fake_response from "@/fake/list.json";
-
+import { useRoute } from "vue-router"
 const search = ref('');
-
+const route = useRoute()
 const filteredList = computed(() => {
-    return response.value.list.filter(x => x.word.toLowerCase().includes(search.value.toLowerCase()));
+    return props.response.list.filter(x => x.word.toLowerCase().includes(search.value.toLowerCase()));
 });
 
-const response = ref(fake_response);
+const props = defineProps({
+    response: {
+        type: Object,
+        required: true,
+    }
+})
+
 onMounted(() => {
-    if (window.location.hash) {
+    if (window.location.hash && route.query.variant != 'lesson') {
         const element = document.querySelector(window.location.hash);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
     }
 });
-
 </script>
 <style scoped>
 .languages {

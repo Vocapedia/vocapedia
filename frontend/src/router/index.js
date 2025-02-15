@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "@ionic/vue-router";
 import HomeView from "@/views/HomeView.vue";
 import AccountView from "@/views/AccountView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
-import ListView from "@/views/ListView.vue";
+import ChapterView from "@/views/chapter/index.vue";
 import GameView from "@/views/GameView.vue";
 import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
 import TestView from "@/views/game/TestView.vue";
@@ -30,8 +30,8 @@ const router = createRouter({
     },
     {
       path: "/l/:id",
-      name: "list",
-      component: ListView,
+      name: "word-list",
+      component: ChapterView,
     },
     {
       path: "/l/:id/games",
