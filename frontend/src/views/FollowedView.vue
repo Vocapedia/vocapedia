@@ -1,23 +1,16 @@
 <template>
     <div class="max-w-160 mx-auto">
         <p class="py-5">
-            {{ $t('search_results', { query: route.query.q, count: response.list.length, }) }}
+            {{ $t('followed_results', { count: response.list.length, }) }}
         </p>
         <WordLists :response="response" />
     </div>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { watch } from "vue"
 import fake_response from "@/fake/search_list.json";
 import WordLists from '@/components/WordLists.vue';
 const response = fake_response
-const route = useRoute()
-
-watch(route, async (newQuery, oldQuery) => {
-    //console.log(newQuery.query.q)
-})
 
 
 </script>

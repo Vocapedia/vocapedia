@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="max-w-160 mx-auto">
         <div>{{ $t('empty') }}</div>
     </div>
 </template>

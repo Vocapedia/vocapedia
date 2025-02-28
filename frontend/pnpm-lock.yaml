@@ -62,12 +62,21 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13
+      vue-draggable-next:
+        specifier: ^2.2.1
+        version: 2.2.1(sortablejs@1.14.0)(vue@3.5.13)
       vue-i18n:
         specifier: ^10.0.5
         version: 10.0.5(vue@3.5.13)
       vue-router:
         specifier: ^4.5.0
         version: 4.5.0(vue@3.5.13)
+      vue3-draggable:
+        specifier: ^2.0.9
+        version: 2.0.9(vue@3.5.13)
+      vuedraggable:
+        specifier: ^4.1.0
+        version: 4.1.0(vue@3.5.13)
     devDependencies:
       '@capacitor/cli':
         specifier: 7.0.1
@@ -3435,6 +3444,9 @@ packages:
   sockjs@0.3.24:
     resolution: {integrity: sha512-GJgLTZ7vYb/JtPSSZ10hsOYIvEYsjbNU+zPdIHcUaWVNUEPivzxku31865sSSud0Da0W4lEeOPlmw93zLQchuQ==}
 
+  sortablejs@1.14.0:
+    resolution: {integrity: sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==}
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -3789,6 +3801,12 @@ packages:
       '@vue/composition-api':
         optional: true
 
+  vue-draggable-next@2.2.1:
+    resolution: {integrity: sha512-EAMS1IRHF0kZO0o5PMOinsQsXIqsrKT1hKmbICxG3UEtn7zLFkLxlAtajcCcUTisNvQ6TtCB5COjD9a1raNADw==}
+    peerDependencies:
+      sortablejs: ^1.14.0
+      vue: ^3.2.2
+
   vue-hot-reload-api@2.3.4:
     resolution: {integrity: sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==}
 
@@ -3840,6 +3858,11 @@ packages:
   vue-template-es2015-compiler@1.9.1:
     resolution: {integrity: sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==}
 
+  vue3-draggable@2.0.9:
+    resolution: {integrity: sha512-OpjCSzGpkXsraBJzYrMS5LKXHThb0r+V8zItUNOZF7gZgdH0Cg2IL3XT0x4IhJdMaLvzRZCXE6UQj/459npJIw==}
+    peerDependencies:
+      vue: ^3.0.0
+
   vue@3.5.13:
     resolution: {integrity: sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==}
     peerDependencies:
@@ -3847,6 +3870,11 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  vuedraggable@4.1.0:
+    resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
+    peerDependencies:
+      vue: ^3.0.1
 
   watchpack@2.4.2:
     resolution: {integrity: sha512-TnbFSbcOCcDgjZ4piURLCbJ3nJhznVh9kw6F6iokjiFPl8ONxe9A6nMDVXDiNbrSfLILs6vB07F7wLBrwPYzJw==}
@@ -7432,6 +7460,8 @@ snapshots:
       uuid: 8.3.2
       websocket-driver: 0.7.4
 
+  sortablejs@1.14.0: {}
+
   source-map-js@1.2.1: {}
 
   source-map-support@0.5.21:
@@ -7757,6 +7787,11 @@ snapshots:
     dependencies:
       vue: 3.5.13
 
+  vue-draggable-next@2.2.1(sortablejs@1.14.0)(vue@3.5.13):
+    dependencies:
+      sortablejs: 1.14.0
+      vue: 3.5.13
+
   vue-hot-reload-api@2.3.4: {}
 
   vue-i18n@10.0.5(vue@3.5.13):
@@ -7854,6 +7889,10 @@ snapshots:
 
   vue-template-es2015-compiler@1.9.1: {}
 
+  vue3-draggable@2.0.9(vue@3.5.13):
+    dependencies:
+      vue: 3.5.13
+
   vue@3.5.13:
     dependencies:
       '@vue/compiler-dom': 3.5.13
@@ -7861,6 +7900,11 @@ snapshots:
       '@vue/runtime-dom': 3.5.13
       '@vue/server-renderer': 3.5.13(vue@3.5.13)
       '@vue/shared': 3.5.13
+
+  vuedraggable@4.1.0(vue@3.5.13):
+    dependencies:
+      sortablejs: 1.14.0
+      vue: 3.5.13
 
   watchpack@2.4.2:
     dependencies:

@@ -17,38 +17,14 @@
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-12 gap-4">
 
-          <router-link to="/compose" class="card col-span-12 sm:col-span-12 lg:col-span-4 rounded-xl smooth-click">
-            <img class="max-h-48 md:hidden lg:block mx-auto" src="@/assets/logo_full.png" alt="compose">
-            <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center text-xl font-bold p-4 space-x-1">
-              <mdicon name="pencil-outline" />
-              <span> {{ $t('compose_post') }}</span>
-            </div>
-          </router-link>
-
-          <router-link class="card rounded-xl smooth-click col-span-12 sm:col-span-6 lg:col-span-4 " to="/followed">
-            <div class="  p-4 max-h-48 overflow-hidden">
-              <div class="select-none blur" v-for="i in follows">
-                <div>
-                  <div class="text-xl font-semibold">{{ i.title }}</div>
-                  <div class="text-sm font-thin">{{ i.content }}</div>
-                </div>
-              </div>
-            </div>
+          <router-link class="card rounded-xl transition-all duration-200 hover:scale-101 col-span-12 sm:col-span-6" to="/followed">
             <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center text-xl font-bold p-4">
               <mdicon name="star-outline" />
               {{ $t('followed') }}
             </div>
           </router-link>
 
-          <router-link class="card rounded-xl smooth-click col-span-12 sm:col-span-6 lg:col-span-4 " to="/notes">
-            <div class="p-4 max-h-48 overflow-hidden">
-              <div class="select-none blur" v-for="i in notes">
-                <div>
-                  <div class="text-xl font-semibold">{{ i.title }}</div>
-                  <div class="text-sm font-thin">{{ i.content }}</div>
-                </div>
-              </div>
-            </div>
+          <router-link class="card rounded-xl transition-all duration-200 hover:scale-101 col-span-12 sm:col-span-6" to="/notes">
             <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center space-x-1 text-xl font-bold p-4">
               <mdicon name="text" />
               <span>{{ $t('notes') }}</span>
@@ -62,48 +38,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { useStorage } from '@vueuse/core';
+import fake_response from "@/fake/search_list.json";
 
-const follows = ref([
-  {
-    username: 'user1', id: 1,
-    title: 'title1',
-    content: 'content1',
-  },
-  {
-    username: 'user2', id: 2,
-    title: 'title2',
-    content: 'content2',
-  },
-  {
-    username: 'user3', id: 3,
-    title: 'title3',
-    content: 'content3',
-  },
-  {
-    username: 'user4', id: 4,
-    title: 'title4',
-    content: 'content4',
-  }
-]);
-const notes = ref([{
-  username: 'user1', id: 1,
-  title: 'title1',
-  content: 'content1',
-},
-{
-  username: 'user2', id: 2,
-  title: 'title2',
-  content: 'content2',
-},
-{
-  username: 'user3', id: 3,
-  title: 'title3',
-  content: 'content3',
-},
-{
-  username: 'user4', id: 4,
-  title: 'title4',
-  content: 'content4',
-}]);
+const follows = fake_response.list
+const notes = useStorage('notes', [])
 </script>

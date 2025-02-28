@@ -32,5 +32,8 @@
     "description": "Açıklama",
     "word-list": "Kelime Listesi",
     "tutorial": "Kılavuz",
-    "empty": "Burası bomboş"
+    "empty": "Burası bomboş",
+    "followed_results": "Takip Edilen {count} sonuç bulundu",
+    "add_new_note": "Yeni not ekleyin...",
+    "note_description": "Eklenen notlar yalnızca sizin tarayıcınızda saklanır."
 }

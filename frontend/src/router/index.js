@@ -9,6 +9,8 @@ import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
 import TestView from "@/views/game/TestView.vue";
 import SearchView from "@/views/SearchView.vue";
 import ComposePost from "@/views/ComposePost.vue";
+import FollowedView from "@/views/FollowedView.vue";
+import NotesView from "@/views/NotesView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +49,17 @@ const router = createRouter({
       path: "/search",
       name: "search",
       component: SearchView,
+    },
+
+    {
+      path: "/followed",
+      name: "followed",
+      component: FollowedView,
+    },
+    {
+      path: "/notes",
+      name: "notes",
+      component: NotesView,
     },
     {
       path: "/:pathMatch(.*)*",
