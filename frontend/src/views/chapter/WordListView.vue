@@ -51,7 +51,6 @@
 
 <script setup>
 import { computed, ref, onMounted } from 'vue';
-import fake_response from "@/fake/list.json";
 import { useRoute } from "vue-router"
 const search = ref('');
 const route = useRoute()
