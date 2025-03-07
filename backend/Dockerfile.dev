@@ -7,7 +7,7 @@ COPY go.mod go.sum ./
 
 COPY . .
 
-COPY ./config.docker.yaml ./config.yaml
+COPY ./config.yaml ./config.yaml
 
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/go/pkg/mod \

@@ -1,23 +1,6 @@
 version: "3.8"
 
 services:
-  vocapedia-frontend:
-    container_name: vocapedia-frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/node_modules
-      - ./frontend:/app
-    ports:
-      - "3001:3001"
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - vocapedia-backend
-    networks:
-      - vocapedia
-
   vocapedia-backend:
     container_name: vocapedia-backend
     build:
@@ -25,7 +8,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./backend:/app
-      - ./backend/config.docker.yaml:/app/config.yaml
+      - ./backend/config.yaml:/app/config.yaml
     ports:
       - "3000:3000"
       - "50051:50051"
@@ -48,20 +31,6 @@ services:
       POSTGRES_USER: vocapedia
       POSTGRES_PASSWORD: vocapedia
       POSTGRES_DB: vocapedia
-    networks:
-      - vocapedia
-
-  vocapedia-redis:
-    container_name: vocapedia-redis
-    image: "redis:6.2.6"
-    ports:
-      - "6379:6379"
-    networks:
-      - vocapedia
-
-  vocapedia-jaeger:
-    image: "jaegertracing/all-in-one:latest"
-    container_name: jaeger
     networks:
       - vocapedia
 

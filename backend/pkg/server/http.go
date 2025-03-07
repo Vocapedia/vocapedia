@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/search"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -27,6 +28,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		api.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Hello World!"))
 		})
+		api.Get("/search", search.Search)
 	})
 
 	distFS, _ := fs.Sub(embed.StaticsFS(), "dist")
