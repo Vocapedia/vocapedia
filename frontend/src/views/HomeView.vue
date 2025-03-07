@@ -12,20 +12,24 @@
       </div>
     </div>
 
-    <div>
-      <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
+    <div ref="captureDiv" class="py-5">
+      <div class="flex justify-between items-center">
+
+        <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
+        <button @click="shareImage" class=" p-2 bg-zinc-100 dark:bg-zinc-800 rounded-full">
+          <mdicon name="share-variant-outline" />
+        </button>
+      </div>
       <div class="container mx-auto space-y-5">
 
         <div class="space-y-5">
-          <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions"
-            :title="{ color: isDark ? 'red' : 'blue' }" :data="chartData" />
+          <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
           <div class="text-center font-semibold text-5xl">
             9535
           </div>
         </div>
       </div>
     </div>
-
 
     <div>
       <h1 class="p-4 text-3xl font-bold">{{ $t('personal_info') }}</h1>
@@ -55,16 +59,43 @@
 <script setup>
 import { useStorage } from '@vueuse/core';
 import fake_response from "@/fake/search_list.json";
-import { useDark } from "@vueuse/core";
 
-const isDark = useDark();
+import { ref } from 'vue'
+import html2canvas from 'html2canvas-pro'
+
+const captureDiv = ref(null)
+
+const shareImage = async () => {
+  try {
+    if (!navigator.canShare) {
+      alert("Tarayıcınız paylaşımı desteklemiyor!")
+      return
+    }
+
+    const canvas = await html2canvas(captureDiv.value)
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
+    const file = new File([blob], "puan-tablosu.png", { type: 'image/png' })
+
+    if (navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        title: "Puan Tablosu",
+        text: "İşte puan tablom! 🚀",
+        files: [file]
+      })
+    } else {
+      alert("Bu platform paylaşımı desteklemiyor!")
+    }
+  } catch (err) {
+    console.error("ERR:", err)
+  }
+}
 
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
-import { i18n } from '@/i18n/i18n';
+
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 const chartData = {
-  labels: ['January', 'February', 'March'],
+  labels: ['Ocak', 'Şubat', 'Mart'],
   datasets: [{
     label: ' ',
     borderWidth: 2,
