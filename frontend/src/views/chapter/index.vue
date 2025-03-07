@@ -41,7 +41,6 @@
             </div>
             <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
         </div>
-        
         <transition name="fade" mode="out-in">
             <component :is="currentComponent" :response="response" />
         </transition>
@@ -55,7 +54,6 @@ import fake_response from "@/fake/list.json";
 import { ref, watch, shallowRef, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 const response = ref(fake_response)
-const view = ref("word-list")
 const route = useRoute()
 const router = useRouter()
 function changeVariant(params) {

@@ -11,6 +11,10 @@ import SearchView from "@/views/SearchView.vue";
 import ComposePost from "@/views/ComposePost.vue";
 import FollowedView from "@/views/FollowedView.vue";
 import NotesView from "@/views/NotesView.vue";
+import FlipwordView from "@/views/game/FlipwordView.vue";
+import QuickPickView from "@/views/game/QuickPickView.vue";
+import WordMatchView from "@/views/game/WordMatchView.vue";
+import WordRushView from "@/views/game/WordRushView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +48,26 @@ const router = createRouter({
       path: "/l/:id/game/test",
       name: "test",
       component: TestView,
+    },
+    {
+      path: "/l/:id/game/flip-word",
+      name: "flip-word",
+      component: FlipwordView,
+    },
+    {
+      path: "/l/:id/game/quick-pick",
+      name: "quick-pick",
+      component: QuickPickView,
+    },
+    {
+      path: "/l/:id/game/word-match",
+      name: "word-match",
+      component: WordMatchView,
+    },
+    {
+      path: "/l/:id/game/word-rush",
+      name: "word-rush",
+      component: WordRushView,
     },
     {
       path: "/search",
