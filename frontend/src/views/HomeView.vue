@@ -13,6 +13,7 @@
     </div>
 
     <div ref="captureDiv" class="py-5 dark:bg-zinc-900">
+
       <div class="flex justify-between items-center">
         <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
         <button v-if="showShareButton" @click="shareImage"
@@ -22,10 +23,22 @@
       </div>
       <div class="container mx-auto space-y-5">
         <div class="space-y-5">
-          <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
-          <div class="text-center font-semibold text-5xl">
-            243
-          </div>
+          <swiper :navigation="showShareButton" @swiper="onSwiper" :modules="modules" :slides-per-view="1">
+            <swiper-slide>
+              <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
+              <div class="text-center font-semibold text-5xl">
+                243
+              </div>
+            </swiper-slide>
+
+            <!-- <swiper-slide>
+              <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
+              <div class="text-center font-semibold text-5xl">
+                243
+              </div>
+            </swiper-slide> -->
+
+          </swiper>
         </div>
       </div>
     </div>
@@ -63,6 +76,14 @@ import html2canvas from 'html2canvas-pro'
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import { i18n } from '@/i18n/i18n';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+const modules = ref([Navigation, Pagination, Scrollbar, A11y]);
+const swipers = ref();
+
+const onSwiper = (theSwiper) => {
+  swipers.value = theSwiper;
+};
 
 const captureDiv = ref(null)
 const showShareButton = ref(true)
@@ -108,11 +129,24 @@ const chartData = {
     color: '#0ea5e9',
   }]
 }
+const delayed = ref(false)
 const chartOptions = {
   responsive: true,
   plugins: {
     legend: {
       position: '',
+    },
+  },
+  animation: {
+    onComplete: () => {
+      delayed.value = true;
+    },
+    delay: (context) => {
+      let delay = 0;
+      if (context.type === 'data' && context.mode === 'default' && !delayed.value) {
+        delay = context.dataIndex * 300 + context.datasetIndex * 100;
+      }
+      return delay;
     },
   },
 }

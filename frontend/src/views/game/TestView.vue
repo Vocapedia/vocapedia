@@ -89,7 +89,7 @@
 
 <script setup>
 import ShowGrade from "@/components/Popup.vue"
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import fake_response from "@/fake/list.json";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
