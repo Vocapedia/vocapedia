@@ -11,7 +11,7 @@ import SearchView from "@/views/SearchView.vue";
 import ComposePost from "@/views/ComposePost.vue";
 import FollowedView from "@/views/FollowedView.vue";
 import NotesView from "@/views/NotesView.vue";
-import FlipwordView from "@/views/game/FlipWordView.vue";
+import FlipWordView from "@/views/game/FlipWordView.vue";
 import QuickPickView from "@/views/game/QuickPickView.vue";
 import WordMatchView from "@/views/game/WordMatchView.vue";
 import WordRushView from "@/views/game/WordRushView.vue";
@@ -52,7 +52,7 @@ const router = createRouter({
     {
       path: "/l/:id/game/flip-word",
       name: "flip-word",
-      component: FlipwordView,
+      component: FlipWordView,
     },
     {
       path: "/l/:id/game/quick-pick",

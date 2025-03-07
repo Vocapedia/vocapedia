@@ -12,47 +12,49 @@
       </div>
     </div>
 
-    <div ref="captureDiv" class="p-1 animated-gradient">
-      <div class="dark:bg-zinc-900 bg-zinc-50 px-5 py-2">
-        <div class="flex justify-between items-center">
-          <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
+    <div ref="captureDiv" class="p-5 dark:bg-zinc-900 bg-zinc-50">
+
+      <div class="flex justify-between items-center">
+        <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
+
+        <div class="flex items-center space-x-5">
+
+          <div v-if="showShareButton" class="flex justify-center items-center space-x-5 py-2">
+            <button class="smooth-click" @click="swipers.slidePrev()">
+              <mdicon name="arrow-left" />
+            </button>
+            <button class="smooth-click" @click="swipers.slideNext()">
+              <mdicon name="arrow-right" />
+            </button>
+          </div>
           <button v-if="showShareButton" @click="shareImage"
             class="smooth-click p-2 bg-zinc-100 dark:bg-zinc-800 rounded-full">
             <mdicon name="share-variant-outline" />
           </button>
         </div>
-        <div class="container mx-auto space-y-5">
-          <div class="space-y-5">
-            <swiper @slideChange="onSlideChange" @swiper="onSwiper" :modules="modules" :slides-per-view="1">
-              <swiper-slide>
-                <Bar v-if="activeIndex === 0" class="max-w-160 sm:max-w-140 w-full mx-auto" ref="bar"
-                  :options="chartOptions" :data="chartData" />
-                <div class="text-center font-semibold text-5xl">
-                  243
-                </div>
-              </swiper-slide>
+      </div>
+      <div class="container mx-auto space-y-5">
+        <div class="space-y-5">
+          <swiper @slideChange="onSlideChange" @swiper="onSwiper" :modules="modules" :slides-per-view="1">
+            <swiper-slide>
+              <Bar v-if="activeIndex === 0" class="max-w-160 sm:max-w-140 w-full mx-auto" ref="bar"
+                :options="chartOptions" :data="chartData" />
+              <div class="text-center font-semibold text-5xl">
+                243
+              </div>
+            </swiper-slide>
 
-              <swiper-slide>
-                <Line v-if="activeIndex === 1" class="max-w-160 sm:max-w-140 w-full mx-auto" ref="line"
-                  :options="chartOptions" :data="chartData2" />
-                <div class="text-center font-semibold text-5xl">
-                  638
-                </div>
-              </swiper-slide>
-            </swiper>
-            <div v-if="showShareButton" class="flex justify-center items-center space-x-5 py-2">
-              <button class="smooth-click" @click="swipers.slidePrev()">
-                <mdicon name="arrow-left" size="32" />
-              </button>
-              <button class="smooth-click" @click="swipers.slideNext()">
-                <mdicon name="arrow-right" size="32" />
-              </button>
-            </div>
-          </div>
+            <swiper-slide>
+              <Line v-if="activeIndex === 1" class="max-w-160 sm:max-w-140 w-full mx-auto" ref="line"
+                :options="chartOptions" :data="chartData2" />
+              <div class="text-center font-semibold text-5xl">
+                638
+              </div>
+            </swiper-slide>
+          </swiper>
         </div>
       </div>
     </div>
-
     <div>
       <h1 class="p-4 text-3xl font-bold">{{ $t('personal_info') }}</h1>
       <div class="container mx-auto space-y-5">

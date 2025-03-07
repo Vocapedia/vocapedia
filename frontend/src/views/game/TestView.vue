@@ -1,18 +1,18 @@
 <template>
     <div class="max-w-5xl mx-auto space-y-5">
         <div class="flex justify-between items-center">
-            <router-link :to="'/l/' + $route.params.id"
+            <router-link :to="'/l/' + $route.params.id + '/games'"
                 class="smooth-click dark:text-blue-100 text-blue-900 px-2 py-1 rounded-full">
                 <small class="flex justify-between items-center space-x-2">
                     <mdicon name="arrow-left" size="15" />
-                    <span class="sm:text-base font-semibold">{{ response.title }}</span>
+                    <span class="sm:text-base font-semibold">{{ $t('games') }}</span>
                 </small>
             </router-link>
         </div>
         <div>
             <swiper @slideChange="onSlideChange" @swiper="onSwiper" :scrollbar="{ draggable: false }" :modules="modules"
                 :slides-per-view="1">
-                <swiper-slide v-for="test in 10 ">
+                <swiper-slide v-for="test in 10">
                     <div class="card p-5 rounded-xl my-5">
                         <div class="text-center text-4xl font-bold capitalize pb-10">Kelime</div>
                         <div class="grid grid-cols-12 gap-4 py-5">
