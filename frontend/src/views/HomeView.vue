@@ -12,20 +12,19 @@
       </div>
     </div>
 
-    <div ref="captureDiv" class="py-5">
+    <div ref="captureDiv" class="py-5 dark:bg-zinc-900">
       <div class="flex justify-between items-center">
-
         <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
-        <button @click="shareImage" class=" p-2 bg-zinc-100 dark:bg-zinc-800 rounded-full">
+        <button v-if="showShareButton" @click="shareImage"
+          class="smooth-click p-2 bg-zinc-100 dark:bg-zinc-800 rounded-full">
           <mdicon name="share-variant-outline" />
         </button>
       </div>
       <div class="container mx-auto space-y-5">
-
         <div class="space-y-5">
           <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
           <div class="text-center font-semibold text-5xl">
-            9535
+            243
           </div>
         </div>
       </div>
@@ -59,22 +58,24 @@
 <script setup>
 import { useStorage } from '@vueuse/core';
 import fake_response from "@/fake/search_list.json";
-
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import html2canvas from 'html2canvas-pro'
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { i18n } from '@/i18n/i18n';
 
 const captureDiv = ref(null)
-
+const showShareButton = ref(true)
 const shareImage = async () => {
-  try {
-    if (!navigator.canShare) {
-      alert("Tarayıcınız paylaşımı desteklemiyor!")
-      return
-    }
-
+  if (!navigator.canShare) {
+    alert(i18n.global.t('share_not_supported'))
+    return
+  }
+  showShareButton.value = false
+  nextTick(async () => {
     const canvas = await html2canvas(captureDiv.value)
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
-    const file = new File([blob], "puan-tablosu.png", { type: 'image/png' })
+    const file = new File([blob], i18n.global.t('scoreboard') + ".png", { type: 'image/png' })
 
     if (navigator.canShare({ files: [file] })) {
       await navigator.share({
@@ -83,19 +84,18 @@ const shareImage = async () => {
         files: [file]
       })
     } else {
-      alert("Bu platform paylaşımı desteklemiyor!")
+      alert(i18n.global.t('share_not_supported'))
     }
-  } catch (err) {
-    console.error("ERR:", err)
-  }
+  })
+  nextTick(() => {
+    showShareButton.value = true
+  })
 }
 
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 const chartData = {
-  labels: ['Ocak', 'Şubat', 'Mart'],
+  labels: ['Akif', 'John', 'Mike'],
   datasets: [{
     label: ' ',
     borderWidth: 2,
