@@ -23,21 +23,23 @@
       </div>
       <div class="container mx-auto space-y-5">
         <div class="space-y-5">
-          <swiper :navigation="showShareButton" @swiper="onSwiper" :modules="modules" :slides-per-view="1">
+          <swiper :navigation="showShareButton" @slideChange="onSlideChange" @swiper="onSwiper" :modules="modules"
+            :slides-per-view="1">
             <swiper-slide>
-              <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
+              <Bar v-if="activeIndex === 0" class="max-w-160 w-full mx-auto" ref="bar" :options="chartOptions"
+                :data="chartData" />
               <div class="text-center font-semibold text-5xl">
                 243
               </div>
             </swiper-slide>
 
-            <!-- <swiper-slide>
-              <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions" :data="chartData" />
+            <swiper-slide>
+              <Line v-if="activeIndex === 1" class="max-w-160 w-full mx-auto" ref="line" :options="chartOptions"
+                :data="chartData2" />
               <div class="text-center font-semibold text-5xl">
-                243
+                638
               </div>
-            </swiper-slide> -->
-
+            </swiper-slide>
           </swiper>
         </div>
       </div>
@@ -69,20 +71,21 @@
 </template>
 
 <script setup>
-import { useStorage } from '@vueuse/core';
-import fake_response from "@/fake/search_list.json";
 import { ref, nextTick } from 'vue'
 import html2canvas from 'html2canvas-pro'
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Bar, Line } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, Filler } from 'chart.js'
 import { i18n } from '@/i18n/i18n';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 const modules = ref([Navigation, Pagination, Scrollbar, A11y]);
 const swipers = ref();
-
 const onSwiper = (theSwiper) => {
   swipers.value = theSwiper;
+};
+const activeIndex = ref(0)
+const onSlideChange = (swiper) => {
+  activeIndex.value = swiper.activeIndex; // Aktif slaytı güncelle
 };
 
 const captureDiv = ref(null)
@@ -114,7 +117,7 @@ const shareImage = async () => {
 }
 
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, Filler)
 const chartData = {
   labels: ['Akif', 'John', 'Mike'],
   datasets: [{
@@ -126,7 +129,16 @@ const chartData = {
     borderSkipped: false,
     barThickness: 25,
     data: [40, -20, 12],
-    color: '#0ea5e9',
+  }]
+}
+const chartData2 = {
+  labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran'],
+  datasets: [{
+    label: ' ',
+    backgroundColor: '#0ea5e950',
+    borderColor: '#0ea5e9',
+    data: [40, -20, 50, 60, -6, 35],
+    fill: true,
   }]
 }
 const delayed = ref(false)
@@ -150,7 +162,4 @@ const chartOptions = {
     },
   },
 }
-
-const follows = fake_response.list
-const notes = useStorage('notes', [])
 </script>
