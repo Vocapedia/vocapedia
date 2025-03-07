@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-16">
+  <div class="space-y-16 pb-16">
     <div>
       <h1 class="p-4 text-3xl font-bold">{{ $t('trends') }}</h1>
       <div class="flex justify-center">
@@ -13,33 +13,39 @@
     </div>
 
     <div>
+      <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
+      <div class="container mx-auto space-y-5">
+
+        <div class="space-y-5">
+          <Bar class="max-w-160 w-full mx-auto" id="my-chart-id" :options="chartOptions"
+            :title="{ color: isDark ? 'red' : 'blue' }" :data="chartData" />
+          <div class="text-center font-semibold text-5xl">
+            9535
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div>
       <h1 class="p-4 text-3xl font-bold">{{ $t('personal_info') }}</h1>
-      <div class="container mx-auto px-4">
+      <div class="container mx-auto space-y-5">
         <div class="grid grid-cols-12 gap-4">
-          <div class="text-gray-800 font-sans col-span-12 sm:col-span-6">
-            <Bar class="mx-auto" id="my-chart-id" :options="chartOptions" :color="isDark ? 'red' : 'blue'" :data="chartData" />
+          <router-link class="col-span-12 sm:col-span-6 transition-all duration-200 hover:scale-101" to="/followed">
+            <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center text-xl font-bold p-4">
+              <mdicon name="star-outline" />
+              <span> {{ $t('followed') }}
+              </span>
 
-          </div>
-          <div class="col-span-12 sm:col-span-6">
-            <router-link class="card rounded-xl transition-all duration-200 hover:scale-101 col-span-12 sm:col-span-6"
-              to="/followed">
-              <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center text-xl font-bold p-4">
-                <mdicon name="star-outline" />
-                {{ $t('followed') }}
-              </div>
-            </router-link>
+            </div>
+          </router-link>
 
-            <router-link class="card rounded-xl transition-all duration-200 hover:scale-101 col-span-12 sm:col-span-6"
-              to="/notes">
-              <div
-                class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center space-x-1 text-xl font-bold p-4">
-                <mdicon name="text" />
-                <span>{{ $t('notes') }}</span>
-              </div>
-            </router-link>
-
-          </div>
-
+          <router-link class="col-span-12 sm:col-span-6 transition-all duration-200 hover:scale-101" to="/notes">
+            <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center space-x-1 text-xl font-bold p-4">
+              <mdicon name="text" />
+              <span>{{ $t('notes') }}</span>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -67,7 +73,7 @@ const chartData = {
     borderColor: '#0ea5e9',
     borderSkipped: false,
     barThickness: 25,
-    data: [40, 20, 12],
+    data: [40, -20, 12],
     color: '#0ea5e9',
   }]
 }
@@ -76,11 +82,6 @@ const chartOptions = {
   plugins: {
     legend: {
       position: '',
-    },
-    title: {
-      display: true,
-      text: i18n.global.t('home_chart_title'),
-      color: '#a1a1aa',
     },
   },
 }
