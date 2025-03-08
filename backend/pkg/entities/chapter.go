@@ -8,7 +8,7 @@ import (
 type Chapter struct {
 	gorm.Model
 	ID          uuid.UUID `json:"id" gorm:"primaryKey"`
-	Title        string    `json:"name" gorm:"not null;type:text;index"`
+	Title       string    `json:"title" gorm:"not null;type:text;index"`
 	Description string    `json:"description" gorm:"not null;type:text;index"`
 }
 

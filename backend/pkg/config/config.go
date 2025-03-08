@@ -50,9 +50,15 @@ func ReadValue() *Config {
 	if configs != nil {
 		return configs
 	}
-	filename, _ := filepath.Abs("./config.yaml")
-	yamlFile, _ := os.ReadFile(filename)
-	err := yaml.Unmarshal(yamlFile, &configs)
+	filename, err := filepath.Abs("./config.yaml")
+	if err != nil {
+		log.Fatal("error loading config.yaml ", err)
+	}
+	yamlFile, err := os.ReadFile(filename)
+	if err != nil {
+		log.Fatal("error loading config.yaml ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, &configs)
 	if err != nil {
 		log.Fatal("error loading config.yaml ", err)
 	}
