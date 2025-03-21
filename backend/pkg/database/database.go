@@ -29,8 +29,8 @@ func InitDB(host string, port int, user, password, dbname string) {
 
 	/* for range 60 {
 		chapter := entities.Chapter{
-			Title:       gofakeit.Sentence(3),             // 3 kelimelik rastgele başlık
-			Description: gofakeit.Paragraph(1, 2, 3, " "), // 1-2 cümle açıklama
+			Title:       gofakeit.Sentence(3),
+			Description: gofakeit.Paragraph(1, 2, 3, " "),
 		}
 		fmt.Println(chapter)
 		if err := db.Create(&chapter).Error; err != nil {

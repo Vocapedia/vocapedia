@@ -3,13 +3,13 @@ module github.com/akifkadioglu/vocapedia
 go 1.24.0
 
 require (
+	github.com/brianvoe/gofakeit v3.18.0+incompatible
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/jwtauth/v5 v5.3.2
 	github.com/go-chi/render v1.0.3
 	github.com/google/uuid v1.6.0
 	github.com/nicksnyder/go-i18n/v2 v2.5.1
-	github.com/pelletier/go-toml v1.9.5
 	golang.org/x/text v0.21.0
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/postgres v1.5.11
