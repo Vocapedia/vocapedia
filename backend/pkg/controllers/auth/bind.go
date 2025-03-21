@@ -1,5 +1,9 @@
 package auth
 
-type loginBody struct {
+type _login struct {
 	Email string
+}
+
+type _emailData struct {
+	Code string
 }

@@ -23,6 +23,12 @@ type Config struct {
 	AdminName     string `yaml:"admin_name"`
 	AdminPassword string `yaml:"admin_password"`
 
+	SMTP struct {
+		From     string `yaml:"from"`
+		Host     string `yaml:"host"`
+		Port     string `yaml:"port"`
+		Password string `yaml:"password"`
+	}
 	Database struct {
 		Host     string `yaml:"host"`
 		Port     int    `yaml:"port"`

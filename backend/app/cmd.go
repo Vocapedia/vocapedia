@@ -8,14 +8,13 @@ import (
 )
 
 func Execute() {
+	token.InitTokenAuth()
 
 	database.InitDB(
 		config.ReadValue().Database.Host, config.ReadValue().Database.Port,
 		config.ReadValue().Database.User, config.ReadValue().Database.Password,
 		config.ReadValue().Database.Name,
 	)
-
-	token.InitTokenAuth()
 
 	server.HttpServer(
 		config.ReadValue().Host,

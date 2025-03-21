@@ -33,12 +33,10 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 			api.Use(jwtauth.Verifier(token.TokenAuth()))
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
 
-			api.Get("/", func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte("Hello World!"))
-			})
+			
 			api.Get("/search", search.Search)
 		})
-
+		api.Get("/get-token", auth.GetToken)
 		api.Group(func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
 				api.Post("/login", auth.Login)

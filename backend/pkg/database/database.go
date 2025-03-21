@@ -1,7 +1,7 @@
 package database
 
 import (
-	"fmt"
+	"log"
 
 	"gorm.io/gorm"
 
@@ -38,7 +38,7 @@ func InitDB(host string, port int, user, password, dbname string) {
 		}
 	} */
 
-	fmt.Println("Database is ready")
+	log.Println("Database is ready")
 }
 func Manager() *gorm.DB {
 	return db
