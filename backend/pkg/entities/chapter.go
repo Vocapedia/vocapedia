@@ -6,10 +6,9 @@ import (
 )
 
 type Chapter struct {
-	gorm.Model
-	ID          uuid.UUID `json:"id" gorm:"primaryKey"`
-	Title       string    `json:"title" gorm:"not null;type:text;index"`
-	Description string    `json:"description" gorm:"not null;type:text;index"`
+	base
+	Title       string `json:"title" gorm:"not null;type:text;index"`
+	Description string `json:"description" gorm:"not null;type:text;index"`
 }
 
 func (c *Chapter) BeforeCreate(tx *gorm.DB) (err error) {

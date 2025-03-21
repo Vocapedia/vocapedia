@@ -2,11 +2,11 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-  bin = "./tmp/main"
-  cmd = "go build -o ./tmp/main ."
-  include_ext = ["go", "tpl", "tmpl", "html"]
-  exclude_dir = ["tmp", "vendor"]
-  include_dir = ["."]
+  cmd = "go build -o ./tmp/main.exe ."
+  bin = "tmp/main.exe"
+  include_ext = ["go", "tmpl", "html"]
+  exclude_dir = ["*"]
+  exclude_file = ["tmp/main.exe"]
 
-[misc]
-  clean_on_exit = false
+[log]
+  level = "debug"

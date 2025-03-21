@@ -6,12 +6,16 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/akifkadioglu/vocapedia/pkg/controllers/search"
-	"github.com/akifkadioglu/vocapedia/pkg/embed"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+	"github.com/go-chi/jwtauth/v5"
 	"github.com/go-chi/render"
+
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/search"
+	"github.com/akifkadioglu/vocapedia/pkg/embed"
+	"github.com/akifkadioglu/vocapedia/pkg/token"
 )
 
 func HttpServer(host string, port int, allowMethods []string, allowOrigins []string, allowHeaders []string) {
@@ -25,11 +29,24 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 	}))
 
 	r.Route("/api/v1", func(api chi.Router) {
-		api.Get("/", func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("Hello World!"))
+		api.Group(func(api chi.Router) {
+			api.Use(jwtauth.Verifier(token.TokenAuth()))
+			api.Use(jwtauth.Authenticator(token.TokenAuth()))
+
+			api.Get("/", func(w http.ResponseWriter, r *http.Request) {
+				w.Write([]byte("Hello World!"))
+			})
+			api.Get("/search", search.Search)
 		})
-		api.Get("/search", search.Search)
+
+		api.Group(func(api chi.Router) {
+			api.Route("/auth", func(api chi.Router) {
+				api.Post("/login", auth.Login)
+			})
+		})
 	})
+
+	r.HandleFunc("/auth", auth.Token)
 
 	distFS, _ := fs.Sub(embed.StaticsFS(), "dist")
 	fileServer := http.FileServer(http.FS(distFS))

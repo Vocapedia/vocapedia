@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocapedia</title>
+</head>
+
+<body>
+    <h2>Please wait</h2>
+    <p>if you stuck, reload page</p>
+</body>
+
+</html>
+<script>
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+    let token = params.token;
+    if (token) {
+        localStorage.setItem("token", token)
+    }
+    window.location.replace("/")
+</script>

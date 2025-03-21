@@ -13,7 +13,7 @@ admin_name: Test
 admin_password: 123456
 
 database:
-  host: vocapedia-psql
+  host: localhost #  vocapedia-psql
   port: 5432
   name: vocapedia
   user: vocapedia

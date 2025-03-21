@@ -4,6 +4,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/server"
+	"github.com/akifkadioglu/vocapedia/pkg/token"
 )
 
 func Execute() {
@@ -13,6 +14,8 @@ func Execute() {
 		config.ReadValue().Database.User, config.ReadValue().Database.Password,
 		config.ReadValue().Database.Name,
 	)
+
+	token.InitTokenAuth()
 
 	server.HttpServer(
 		config.ReadValue().Host,
