@@ -14,6 +14,7 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
+	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/akifkadioglu/vocapedia/utils"
@@ -39,7 +40,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err := render.DecodeJSON(r.Body, &params)
 	if err != nil {
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
@@ -58,23 +59,29 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
 	tmpl, err := template.ParseFiles("pkg/mail/template/auth.login.html")
 	if err != nil {
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
 	var body bytes.Buffer
 
-	err = tmpl.Execute(&body, _emailData{Code: tokenString})
+	err = tmpl.Execute(&body, _emailData{
+		Code:        tokenString,
+		Header:      i18n.Localizer(r, "mail.auth.header"),
+		Description: i18n.Localizer(r, "mail.auth.description"),
+		Action:      i18n.Localizer(r, "mail.auth.action"),
+		Warning:     i18n.Localizer(r, "mail.auth.warning"),
+	})
 	if err != nil {
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
@@ -83,7 +90,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err = mail.Send(params.Email, msg, body.String())
 	if err != nil {
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
@@ -96,7 +103,7 @@ func GetToken(w http.ResponseWriter, r *http.Request) {
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}

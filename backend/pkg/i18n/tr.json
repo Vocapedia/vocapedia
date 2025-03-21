@@ -1,0 +1,8 @@
+{    
+    "mail.auth.header": "Giriş Kodunuz",
+    "mail.auth.description": "Giriş yapmak için aşağıdaki kodu kullanın:",
+    "mail.auth.action": "Giriş yap",
+    "mail.auth.warning": "Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı göz ardı edin.",
+    
+    "error.something_went_wrong": "Bir şeyler ters gitti!"
+}

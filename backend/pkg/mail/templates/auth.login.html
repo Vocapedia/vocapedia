@@ -52,15 +52,12 @@
 <body>
 
     <div class="container">
-        <h2>Giriş Kodunuz</h2>
-        <p>Giriş yapmak için aşağıdaki kodu kullanın:</p>
+        <h2>{{.Header}}</h2>
+        <p>{{.Description}}</p>
         <a href="https://vocapedia.space/auth?token={{.Code}}" target="_blank">
-            <div class="code">Giriş yap</div>
+            <div class="code">{{.Action}}</div>
         </a>
-        <p>Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı göz ardı edin.</p>
-        <div class="footer">
-            © 2025 Tüm Hakları Saklıdır.
-        </div>
+        <p>{{.Warning}}</p>
     </div>
 
 </body>

@@ -12,6 +12,12 @@ admin_email: test@vocapedia.com
 admin_name: Test
 admin_password: 123456
 
+smtp:
+  from: mail@vocapedia.space
+  host: smtp.vocapedia.space
+  password: 123
+  port: 587
+
 database:
   host: localhost #  vocapedia-psql
   port: 5432

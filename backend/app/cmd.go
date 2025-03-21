@@ -3,12 +3,14 @@ package app
 import (
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
+	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/server"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 )
 
 func Execute() {
 	token.InitTokenAuth()
+	i18n.InitI18n()
 
 	database.InitDB(
 		config.ReadValue().Database.Host, config.ReadValue().Database.Port,

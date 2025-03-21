@@ -13,6 +13,6 @@ func InitMail() {
 }
 
 func Send(to string, subject []byte, template string) error {
-	err := smtp.SendMail("smtp.example.com:587", auth, "seninmailin@example.com", []string{to}, subject)
+	err := smtp.SendMail(config.ReadValue().SMTP.Host+":"+config.ReadValue().SMTP.Port, auth, config.ReadValue().SMTP.From, []string{to}, subject)
 	return err
 }

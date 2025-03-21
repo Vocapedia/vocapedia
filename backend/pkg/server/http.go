@@ -15,6 +15,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/search"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
+	customMiddleware "github.com/akifkadioglu/vocapedia/pkg/middleware"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 )
 
@@ -27,16 +28,17 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		AllowedHeaders: allowHeaders,
 		MaxAge:         300,
 	}))
+	r.Use(customMiddleware.Language)
 
 	r.Route("/api/v1", func(api chi.Router) {
 		api.Group(func(api chi.Router) {
 			api.Use(jwtauth.Verifier(token.TokenAuth()))
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
 
-			
 			api.Get("/search", search.Search)
 		})
 		api.Get("/get-token", auth.GetToken)
+
 		api.Group(func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
 				api.Post("/login", auth.Login)

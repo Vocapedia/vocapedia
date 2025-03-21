@@ -5,5 +5,9 @@ type _login struct {
 }
 
 type _emailData struct {
-	Code string
+	Header      string
+	Description string
+	Warning     string
+	Action      string
+	Code        string
 }
