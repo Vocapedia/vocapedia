@@ -23,7 +23,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
 		page = p
 	}
-	if l, err := strconv.Atoi(limitStr); err == nil && l > 0 && l <= 50 {
+	if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
 		limit = l
 	}
 	offset := (page - 1) * limit
