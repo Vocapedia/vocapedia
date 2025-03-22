@@ -2,7 +2,8 @@
 - [ ] check login _(and mail sender)_
 - [ ] check other i18n keys and values
 - [x] improve search function
-- [ ] prepare chapter model
+- [x] prepare chapter model
+- - [ ] fix trend chapters
 - [ ] fix smtp configurations
 
 ### Later

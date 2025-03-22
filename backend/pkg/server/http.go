@@ -13,6 +13,7 @@ import (
 	"github.com/go-chi/render"
 
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/chapters"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/search"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
 	customMiddleware "github.com/akifkadioglu/vocapedia/pkg/middleware"
@@ -38,7 +39,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 			api.Get("/search", search.Search)
 		})
 		api.Get("/get-token", auth.GetToken)
-
+		api.Get("/chapters", chapters.First)
 		api.Group(func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
 				api.Post("/login", auth.Login)
