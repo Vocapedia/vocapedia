@@ -27,13 +27,18 @@ func InitDB(host string, port int, user, password, dbname string) {
 	db.AutoMigrate(
 		&entities.User{},
 		&entities.Chapter{},
+		&entities.UserFavorite{},
 		&entities.WordBase{},
 		&entities.Word{},
 	)
-	//seed()
+
+
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_title ON chapters USING gin (title gin_trgm_ops)`)
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_description ON chapters USING gin (description gin_trgm_ops)`)
 	db.Exec(`CREATE EXTENSION IF NOT EXISTS fuzzystrmatch`)
+	db.Exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_user_chapter ON user_favorites (user_id, chapter_id);")
+
+	//seed()
 
 	log.Println("Database is ready")
 }
@@ -44,11 +49,11 @@ func seed() {
 	var user entities.User
 	gofakeit.Struct(&user)
 	db.Create(&user)
-	for range 60 {
+	for range 10 {
 		chapter := entities.Chapter{
-			UserID: user.ID,
-			Lang:   "en",
-			TargetLang: "tr",
+			CreatorID:   user.ID,
+			Lang:        "en",
+			TargetLang:  "tr",
 			Title:       gofakeit.Sentence(3),
 			Description: gofakeit.Paragraph(1, 2, 3, " "),
 		}

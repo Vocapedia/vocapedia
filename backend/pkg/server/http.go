@@ -36,10 +36,15 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 			api.Use(jwtauth.Verifier(token.TokenAuth()))
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
 
-			api.Get("/search", search.Search)
+			api.Route("/chapters", func(api chi.Router) {
+				api.Get("/search", search.Search)
+				api.Get("/", chapters.First)
+				api.Post("/favorite", chapters.Favorite)
+				api.Delete("/favorite", chapters.DeleteFavorite)
+				api.Get("/trending", chapters.GetTrendingChapters)
+			})
 		})
 		api.Get("/get-token", auth.GetToken)
-		api.Get("/chapters", chapters.First)
 		api.Group(func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
 				api.Post("/login", auth.Login)

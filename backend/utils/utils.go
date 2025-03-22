@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"log"
 	"math/rand"
 	"time"
 )
@@ -18,7 +19,15 @@ func StructToMap(object any) (map[string]any, error) {
 	}
 	return newMap, err
 }
-
+func MapToStruct(mapData map[string]interface{}, structData interface{}) {
+	jsonStr, err := json.Marshal(mapData)
+	if err != nil {
+		log.Println(err)
+	}
+	if err := json.Unmarshal(jsonStr, structData); err != nil {
+		log.Println(err)
+	}
+}
 func RandomString(length int) string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 

@@ -2,6 +2,7 @@ package token
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/go-chi/jwtauth/v5"
 
@@ -36,4 +37,13 @@ func GenerateToken(model entities.JwtModel) (string, error) {
 	}
 
 	return token, err
+}
+
+func User(r *http.Request) entities.JwtModel {
+	_, claims, _ := jwtauth.FromContext(r.Context())
+
+	var user entities.JwtModel
+	utils.MapToStruct(claims, &user)
+
+	return user
 }

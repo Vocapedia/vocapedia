@@ -4,5 +4,9 @@
     "mail.auth.action": "Giriş yap",
     "mail.auth.warning": "Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı göz ardı edin.",
     
-    "error.something_went_wrong": "Bir şeyler ters gitti!"
+    "error.something_went_wrong": "Bir şeyler ters gitti!",
+
+    "ok.allright":"Her şey yolunda!",
+    "ok.success":"Başarılı"
+
 }
