@@ -1,0 +1,578 @@
+{
+  "chapter": {
+    "id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+    "created_at": "2025-03-22T15:11:05.420399Z",
+    "updated_at": "2025-03-22T15:11:05.420399Z",
+    "deleted_at": null,
+    "creator_id": "4ac1cec7-f415-4026-99c9-f631657c6a7f",
+    "creator": {
+      "id": "4ac1cec7-f415-4026-99c9-f631657c6a7f",
+      "created_at": "2025-03-22T15:11:04.742501Z",
+      "updated_at": "2025-03-22T15:11:04.742501Z",
+      "deleted_at": null,
+      "username": "hedcwqierzgwswpmdyc"
+    },
+    "title": "Qui minus quod.",
+    "description": "Reprehenderit molestias at. Molestias excepturi officia.",
+    "lang": "en",
+    "target_lang": "tr",
+    "word_bases": [
+      {
+        "id": "fe5ee411-bccf-46e9-a990-78cbb40041b0",
+        "created_at": "2025-03-22T15:11:05.423899Z",
+        "updated_at": "2025-03-22T15:11:05.423899Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "68ac5fbd-30bd-489b-9af0-9c90b46a831d",
+            "created_at": "2025-03-22T15:11:05.427093Z",
+            "updated_at": "2025-03-22T15:11:05.427093Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "est",
+            "type": "velit",
+            "description": "Rerum necessitatibus officia. Quae minima sunt.",
+            "examples": [
+              "Quisquam id consequatur."
+            ],
+            "word_base_id": "fe5ee411-bccf-46e9-a990-78cbb40041b0"
+          },
+          {
+            "id": "4b6a4a85-d968-4122-a1ee-be8d7fea4c8a",
+            "created_at": "2025-03-22T15:11:05.430665Z",
+            "updated_at": "2025-03-22T15:11:05.430665Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "aperiam",
+            "type": "dicta",
+            "description": "Similique quibusdam culpa. Deleniti unde voluptas.",
+            "examples": [
+              "Sint ullam nam."
+            ],
+            "word_base_id": "fe5ee411-bccf-46e9-a990-78cbb40041b0"
+          }
+        ]
+      },
+      {
+        "id": "efc210da-e60e-4405-b9b7-a75bb896c420",
+        "created_at": "2025-03-22T15:11:05.433702Z",
+        "updated_at": "2025-03-22T15:11:05.433702Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "ea34ba72-71c8-4819-adef-9eb8fe2184f3",
+            "created_at": "2025-03-22T15:11:05.43702Z",
+            "updated_at": "2025-03-22T15:11:05.43702Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "dolorem",
+            "type": "odio",
+            "description": "Repudiandae eum consequatur. Accusantium adipisci excepturi.",
+            "examples": [
+              "Laboriosam qui vel."
+            ],
+            "word_base_id": "efc210da-e60e-4405-b9b7-a75bb896c420"
+          },
+          {
+            "id": "d1951c66-7e1a-46bd-8358-1fc8d1f357ca",
+            "created_at": "2025-03-22T15:11:05.440246Z",
+            "updated_at": "2025-03-22T15:11:05.440246Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "qui",
+            "type": "rerum",
+            "description": "Ipsum aut et. Unde vitae quis.",
+            "examples": [
+              "Nihil praesentium perspiciatis."
+            ],
+            "word_base_id": "efc210da-e60e-4405-b9b7-a75bb896c420"
+          }
+        ]
+      },
+      {
+        "id": "8d027aed-d332-4017-8c3d-241fb26bb7f4",
+        "created_at": "2025-03-22T15:11:05.44429Z",
+        "updated_at": "2025-03-22T15:11:05.44429Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "15213b77-b944-4dd3-9dc2-63e96cfa6910",
+            "created_at": "2025-03-22T15:11:05.447576Z",
+            "updated_at": "2025-03-22T15:11:05.447576Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "voluptatibus",
+            "type": "sunt",
+            "description": "Vero voluptatem commodi. Ea maiores et.",
+            "examples": [
+              "Dolores neque sint."
+            ],
+            "word_base_id": "8d027aed-d332-4017-8c3d-241fb26bb7f4"
+          },
+          {
+            "id": "beda03f0-cc96-4a5e-9299-aac902e67671",
+            "created_at": "2025-03-22T15:11:05.450724Z",
+            "updated_at": "2025-03-22T15:11:05.450724Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "saepe",
+            "type": "vel",
+            "description": "Blanditiis accusantium molestiae. Molestiae rerum voluptas.",
+            "examples": [
+              "Cum consequatur autem."
+            ],
+            "word_base_id": "8d027aed-d332-4017-8c3d-241fb26bb7f4"
+          }
+        ]
+      },
+      {
+        "id": "7feecc5e-2ea1-467c-8028-93b7a035252c",
+        "created_at": "2025-03-22T15:11:05.453975Z",
+        "updated_at": "2025-03-22T15:11:05.453975Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "e2ddc10c-9c86-4243-8108-a30617985847",
+            "created_at": "2025-03-22T15:11:05.456913Z",
+            "updated_at": "2025-03-22T15:11:05.456913Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "ipsum",
+            "type": "expedita",
+            "description": "Sit debitis accusantium. Enim voluptatem atque.",
+            "examples": [
+              "Consequuntur necessitatibus deserunt."
+            ],
+            "word_base_id": "7feecc5e-2ea1-467c-8028-93b7a035252c"
+          },
+          {
+            "id": "b28aec3a-1b6f-4624-ac3a-8e00ed4570c2",
+            "created_at": "2025-03-22T15:11:05.460781Z",
+            "updated_at": "2025-03-22T15:11:05.460781Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "incidunt",
+            "type": "dicta",
+            "description": "Est architecto reiciendis. Id et incidunt.",
+            "examples": [
+              "Laboriosam in laborum."
+            ],
+            "word_base_id": "7feecc5e-2ea1-467c-8028-93b7a035252c"
+          }
+        ]
+      },
+      {
+        "id": "46b575c7-abaf-4a26-85c3-759d7c175e4b",
+        "created_at": "2025-03-22T15:11:05.463916Z",
+        "updated_at": "2025-03-22T15:11:05.463916Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "1dff45b1-b9bf-4b13-acc9-54b42c3e1013",
+            "created_at": "2025-03-22T15:11:05.467386Z",
+            "updated_at": "2025-03-22T15:11:05.467386Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "ea",
+            "type": "et",
+            "description": "Hic nihil qui. Cum sit et.",
+            "examples": [
+              "Maxime architecto quas."
+            ],
+            "word_base_id": "46b575c7-abaf-4a26-85c3-759d7c175e4b"
+          },
+          {
+            "id": "f05cb103-6db1-4a16-9267-0b6ea686f5f9",
+            "created_at": "2025-03-22T15:11:05.470484Z",
+            "updated_at": "2025-03-22T15:11:05.470484Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "maiores",
+            "type": "doloremque",
+            "description": "Est quia et. Pariatur doloribus eos.",
+            "examples": [
+              "Excepturi nobis et."
+            ],
+            "word_base_id": "46b575c7-abaf-4a26-85c3-759d7c175e4b"
+          }
+        ]
+      },
+      {
+        "id": "aa2ddc41-467e-4b56-8e34-e8deaa31b60b",
+        "created_at": "2025-03-22T15:11:05.473342Z",
+        "updated_at": "2025-03-22T15:11:05.473342Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "628eb75b-7f32-4e63-9108-36a450b7de36",
+            "created_at": "2025-03-22T15:11:05.476964Z",
+            "updated_at": "2025-03-22T15:11:05.476964Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "placeat",
+            "type": "tempore",
+            "description": "Aspernatur ut quia. Aut quia nulla.",
+            "examples": [
+              "Quisquam fugit odit."
+            ],
+            "word_base_id": "aa2ddc41-467e-4b56-8e34-e8deaa31b60b"
+          },
+          {
+            "id": "4e29b8a8-4d67-45cb-b774-5b31247877b7",
+            "created_at": "2025-03-22T15:11:05.479911Z",
+            "updated_at": "2025-03-22T15:11:05.479911Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "soluta",
+            "type": "est",
+            "description": "Consequuntur unde nemo. Nulla voluptatem esse.",
+            "examples": [
+              "Quis cumque veniam."
+            ],
+            "word_base_id": "aa2ddc41-467e-4b56-8e34-e8deaa31b60b"
+          }
+        ]
+      },
+      {
+        "id": "b2981cc5-938a-4639-95ee-b0fa052797bd",
+        "created_at": "2025-03-22T15:11:05.482787Z",
+        "updated_at": "2025-03-22T15:11:05.482787Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "4d82e86d-36c0-42f8-92fe-b0454b0bc151",
+            "created_at": "2025-03-22T15:11:05.485564Z",
+            "updated_at": "2025-03-22T15:11:05.485564Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "illum",
+            "type": "magnam",
+            "description": "Praesentium qui quos. Quia dignissimos aliquam.",
+            "examples": [
+              "Minima ut odit."
+            ],
+            "word_base_id": "b2981cc5-938a-4639-95ee-b0fa052797bd"
+          },
+          {
+            "id": "18dbfe87-4d41-42be-8105-ea163687d70b",
+            "created_at": "2025-03-22T15:11:05.488303Z",
+            "updated_at": "2025-03-22T15:11:05.488303Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "magni",
+            "type": "veniam",
+            "description": "Cupiditate minus iste. Autem quis et.",
+            "examples": [
+              "Reiciendis et iste."
+            ],
+            "word_base_id": "b2981cc5-938a-4639-95ee-b0fa052797bd"
+          }
+        ]
+      },
+      {
+        "id": "277f30f0-2628-4622-b395-97c90a4e50ba",
+        "created_at": "2025-03-22T15:11:05.491166Z",
+        "updated_at": "2025-03-22T15:11:05.491166Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "03a0194d-7917-4cf3-9b08-1bc06ecc75bf",
+            "created_at": "2025-03-22T15:11:05.494371Z",
+            "updated_at": "2025-03-22T15:11:05.494371Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "aut",
+            "type": "magnam",
+            "description": "Voluptatem cupiditate dolorum. Et dolor est.",
+            "examples": [
+              "Aut earum omnis."
+            ],
+            "word_base_id": "277f30f0-2628-4622-b395-97c90a4e50ba"
+          },
+          {
+            "id": "9adca984-6324-47cf-a3ec-2b76dd1e8aec",
+            "created_at": "2025-03-22T15:11:05.4973Z",
+            "updated_at": "2025-03-22T15:11:05.4973Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "voluptatum",
+            "type": "qui",
+            "description": "Dolore adipisci quia. Pariatur quod omnis.",
+            "examples": [
+              "Blanditiis atque delectus."
+            ],
+            "word_base_id": "277f30f0-2628-4622-b395-97c90a4e50ba"
+          }
+        ]
+      },
+      {
+        "id": "f2bd57fa-0491-4a94-a6b5-5783db281089",
+        "created_at": "2025-03-22T15:11:05.500112Z",
+        "updated_at": "2025-03-22T15:11:05.500112Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "29682ef9-46e0-4f73-b9c2-d6bdaa8cc90e",
+            "created_at": "2025-03-22T15:11:05.502981Z",
+            "updated_at": "2025-03-22T15:11:05.502981Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "accusamus",
+            "type": "est",
+            "description": "Nobis voluptatem in. Ad minima eum.",
+            "examples": [
+              "Tempore voluptate consequuntur."
+            ],
+            "word_base_id": "f2bd57fa-0491-4a94-a6b5-5783db281089"
+          },
+          {
+            "id": "becee12f-5b63-4691-9d82-3da61c5e4345",
+            "created_at": "2025-03-22T15:11:05.506069Z",
+            "updated_at": "2025-03-22T15:11:05.506069Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "quo",
+            "type": "mollitia",
+            "description": "Excepturi id alias. Omnis qui consectetur.",
+            "examples": [
+              "Voluptas accusamus consequatur."
+            ],
+            "word_base_id": "f2bd57fa-0491-4a94-a6b5-5783db281089"
+          }
+        ]
+      },
+      {
+        "id": "06b38466-63d8-404b-b45c-325798b939fe",
+        "created_at": "2025-03-22T15:11:05.509473Z",
+        "updated_at": "2025-03-22T15:11:05.509473Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "6c93de12-2e84-4314-baf5-8c6e13cfe28a",
+            "created_at": "2025-03-22T15:11:05.512279Z",
+            "updated_at": "2025-03-22T15:11:05.512279Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "ex",
+            "type": "aut",
+            "description": "Neque fugit quod. Suscipit velit quas.",
+            "examples": [
+              "Alias non non."
+            ],
+            "word_base_id": "06b38466-63d8-404b-b45c-325798b939fe"
+          },
+          {
+            "id": "94fcb716-0535-44fd-80c1-9eda39cb0eeb",
+            "created_at": "2025-03-22T15:11:05.515216Z",
+            "updated_at": "2025-03-22T15:11:05.515216Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "mollitia",
+            "type": "dolores",
+            "description": "Totam velit aut. Beatae nobis qui.",
+            "examples": [
+              "Recusandae dolore aliquid."
+            ],
+            "word_base_id": "06b38466-63d8-404b-b45c-325798b939fe"
+          }
+        ]
+      },
+      {
+        "id": "558a590e-ad9c-43ae-91ff-113de124601e",
+        "created_at": "2025-03-22T15:11:05.518059Z",
+        "updated_at": "2025-03-22T15:11:05.518059Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "9f58ca43-2153-4df6-ba1e-7efbffc6cdea",
+            "created_at": "2025-03-22T15:11:05.520882Z",
+            "updated_at": "2025-03-22T15:11:05.520882Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "rerum",
+            "type": "laborum",
+            "description": "Est ut quam. Architecto autem delectus.",
+            "examples": [
+              "Saepe qui sed."
+            ],
+            "word_base_id": "558a590e-ad9c-43ae-91ff-113de124601e"
+          },
+          {
+            "id": "7fe08d05-7251-4dae-be5c-18e141e3883b",
+            "created_at": "2025-03-22T15:11:05.523823Z",
+            "updated_at": "2025-03-22T15:11:05.523823Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "est",
+            "type": "sint",
+            "description": "Vel vel et. Sed et labore.",
+            "examples": [
+              "Et molestias magni."
+            ],
+            "word_base_id": "558a590e-ad9c-43ae-91ff-113de124601e"
+          }
+        ]
+      },
+      {
+        "id": "3b1b0151-3d39-4a3c-8d75-754a29505969",
+        "created_at": "2025-03-22T15:11:05.52673Z",
+        "updated_at": "2025-03-22T15:11:05.52673Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "d907873d-d59d-4443-a209-edc0c36ec4a6",
+            "created_at": "2025-03-22T15:11:05.529557Z",
+            "updated_at": "2025-03-22T15:11:05.529557Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "incidunt",
+            "type": "eum",
+            "description": "Inventore illo est. Consequatur facere ut.",
+            "examples": [
+              "Nisi beatae exercitationem."
+            ],
+            "word_base_id": "3b1b0151-3d39-4a3c-8d75-754a29505969"
+          },
+          {
+            "id": "32bd8c6d-e88f-40ea-a87d-d1042f71d32f",
+            "created_at": "2025-03-22T15:11:05.532377Z",
+            "updated_at": "2025-03-22T15:11:05.532377Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "iure",
+            "type": "suscipit",
+            "description": "Placeat eum illum. Rerum ullam qui.",
+            "examples": [
+              "Eum commodi est."
+            ],
+            "word_base_id": "3b1b0151-3d39-4a3c-8d75-754a29505969"
+          }
+        ]
+      },
+      {
+        "id": "5852fb85-0b2b-47d2-a6f0-e4b5612da39f",
+        "created_at": "2025-03-22T15:11:05.535304Z",
+        "updated_at": "2025-03-22T15:11:05.535304Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "56869ca4-909d-49e1-89bd-411b43f3dcd5",
+            "created_at": "2025-03-22T15:11:05.538092Z",
+            "updated_at": "2025-03-22T15:11:05.538092Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "rerum",
+            "type": "omnis",
+            "description": "Quae vel esse. Ab inventore quia.",
+            "examples": [
+              "Quidem dolorum ipsa."
+            ],
+            "word_base_id": "5852fb85-0b2b-47d2-a6f0-e4b5612da39f"
+          },
+          {
+            "id": "a10c2620-ee0f-435a-a810-d4c2288e7821",
+            "created_at": "2025-03-22T15:11:05.541119Z",
+            "updated_at": "2025-03-22T15:11:05.541119Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "alias",
+            "type": "et",
+            "description": "Iusto dolore dolore. Reiciendis temporibus doloribus.",
+            "examples": [
+              "Blanditiis et ab."
+            ],
+            "word_base_id": "5852fb85-0b2b-47d2-a6f0-e4b5612da39f"
+          }
+        ]
+      },
+      {
+        "id": "bcee9cfa-9d53-4e89-a2f0-0ce4c8f529e0",
+        "created_at": "2025-03-22T15:11:05.544086Z",
+        "updated_at": "2025-03-22T15:11:05.544086Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "967238af-3998-45a5-a3ab-9ea9682b7e58",
+            "created_at": "2025-03-22T15:11:05.546899Z",
+            "updated_at": "2025-03-22T15:11:05.546899Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "optio",
+            "type": "laudantium",
+            "description": "Animi autem corrupti. Molestias asperiores odit.",
+            "examples": [
+              "Ut consequatur quidem."
+            ],
+            "word_base_id": "bcee9cfa-9d53-4e89-a2f0-0ce4c8f529e0"
+          },
+          {
+            "id": "656837c4-f81b-4795-8d9c-fb63fe0e6ee0",
+            "created_at": "2025-03-22T15:11:05.549716Z",
+            "updated_at": "2025-03-22T15:11:05.549716Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "dolorem",
+            "type": "molestias",
+            "description": "Quia quam quaerat. Aut qui illo.",
+            "examples": [
+              "Omnis excepturi incidunt."
+            ],
+            "word_base_id": "bcee9cfa-9d53-4e89-a2f0-0ce4c8f529e0"
+          }
+        ]
+      },
+      {
+        "id": "b55a195b-61c9-4381-9106-15579fc4371a",
+        "created_at": "2025-03-22T15:11:05.552546Z",
+        "updated_at": "2025-03-22T15:11:05.552546Z",
+        "deleted_at": null,
+        "chapter_id": "0fe428ec-fcab-4824-86ad-16a310a527b7",
+        "words": [
+          {
+            "id": "b964cca9-bf94-473d-9081-afc40a91222a",
+            "created_at": "2025-03-22T15:11:05.555437Z",
+            "updated_at": "2025-03-22T15:11:05.555437Z",
+            "deleted_at": null,
+            "lang": "en",
+            "word": "ea",
+            "type": "reiciendis",
+            "description": "Rerum rem nesciunt. Debitis aut facilis.",
+            "examples": [
+              "Expedita quia et."
+            ],
+            "word_base_id": "b55a195b-61c9-4381-9106-15579fc4371a"
+          },
+          {
+            "id": "ddaaf8e0-753b-48fa-95d3-af2184140167",
+            "created_at": "2025-03-22T15:11:05.55839Z",
+            "updated_at": "2025-03-22T15:11:05.55839Z",
+            "deleted_at": null,
+            "lang": "tr",
+            "word": "enim",
+            "type": "quidem",
+            "description": "Inventore iste accusantium. Corrupti laboriosam facere.",
+            "examples": [
+              "Illum in numquam."
+            ],
+            "word_base_id": "b55a195b-61c9-4381-9106-15579fc4371a"
+          }
+        ]
+      }
+    ],
+    "tutorial": "<i>tutorial</i>"
+  }
+}

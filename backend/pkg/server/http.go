@@ -41,7 +41,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Get("/", chapters.First)
 				api.Post("/favorite", chapters.Favorite)
 				api.Delete("/favorite", chapters.DeleteFavorite)
-				api.Get("/trending", chapters.GetTrendingChapters)
+				api.Get("/trends", chapters.GetTrendingChapters)
 			})
 		})
 		api.Get("/get-token", auth.GetToken)

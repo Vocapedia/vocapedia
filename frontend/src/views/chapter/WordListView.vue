@@ -7,41 +7,48 @@
              dark:bg-zinc-800 dark:text-white " />
         </div>
         <div v-auto-animate>
-            <div :id="item.word" v-for="item in filteredList" :key="item.id" class="flex justify-center py-2.5">
+            <div :id="item.words[0].word" v-for="item in filteredList" :key="item.id"
+                class="flex justify-center py-2.5">
                 <div class="max-w-160 w-full ">
                     <div v-auto-animate class="card transition duration-200  hover:shadow p-4">
                         <div class="flex justify-between items-center space-x-5">
-                            <div class="font-bold text-xl capitalize ">{{ item.word }}</div>
+                            <div class="font-bold text-xl capitalize ">{{ item.words[0].word }}</div>
                             <span
-                                class="languages bg-blue-200 dark:bg-blue-800 px-2 py-1 rounded-full text-blue-800 dark:text-blue-200">
-                                {{ item.type }}
+                                class="languages bg-blue-200 dark:bg-blue-800 px-2 rounded-full text-blue-800 dark:text-blue-200">
+                                {{ item.words[0].type }}
                             </span>
                         </div>
-                        <div class="font-light pt-5">{{ item.description }}</div>
+                        <div class="font-light pt-5">{{ item.words[0].description }}</div>
 
                         <div class="languages">
-                            <div v-if="item.example.length > 0">
-                                <div v-for="example in item.example" class="p-5 flex items-end font-light text-sm">
-                                    <mdicon name="arrow-right" />
+                            <div v-if="item.words[0].examples.length > 0">
+                                <div v-for="example in item.words[0].examples"
+                                    class="p-5 space-x-2 flex items-end font-light text-sm">
+                                    <mdicon name="arrow-right" size="20" />
                                     <span>{{ example }}</span>
                                 </div>
                             </div>
-                            <div class="text-sm text-end text-sky-900 dark:text-sky-200 "> {{ $t(item.lang) }}</div>
+                            <div class="text-sm text-end text-sky-900 dark:text-sky-200 "> {{ $t(item.words[0].lang) }}
+                            </div>
                             <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
                         </div>
-                        <div class="languages" v-for="(sub, i) in item.languages" :key="i">
+
+                        <div class="languages" v-for="(sub, i) in item.words.slice(1)" :key="i">
                             <div class="font-bold text-xl capitalize py-5">{{ sub.word }}</div>
                             <div class="font-light">{{ sub.description }}</div>
-                            <div v-if="sub.example.length > 0">
-                                <div v-for="example in sub.example" class="p-5 flex items-end font-light text-sm">
-                                    <mdicon name="arrow-right" />
+                            <div v-if="sub.examples.length > 0">
+                                <div v-for="example in sub.examples"
+                                    class="space-x-2 p-5 flex items-end font-light text-sm">
+                                    <mdicon name="arrow-right" size="20" />
                                     <span>{{ example }}</span>
                                 </div>
                             </div>
                             <div class="text-sm text-end text-sky-900 dark:text-sky-200 "> {{ $t(sub.lang) }}</div>
-                            <hr v-if="i < item.languages.length - 1"
+                            <hr v-if="i < item.words.length - 2"
                                 class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
+
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -55,7 +62,7 @@ import { useRoute } from "vue-router"
 const search = ref('');
 const route = useRoute()
 const filteredList = computed(() => {
-    return props.response.list.filter(x => x.word.toLowerCase().includes(search.value.toLowerCase()));
+    return props.response.chapter.word_bases.filter(x => x.words[0].word.toLowerCase().includes(search.value.toLowerCase()))
 });
 
 const props = defineProps({

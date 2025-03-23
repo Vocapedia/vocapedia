@@ -3,17 +3,16 @@
         <small class="pb-5 flex justify-center">
             {{
                 $t('list_helper', {
-                    lang: $t(response.lang),
-                    s: response.target_langs.length > 1 ? 'ler' : '',
-                    target_lang: response.target_langs.map(x => ' ' + $t(x)).toString()
+                    lang: $t(response.chapter.lang),
+                    target_lang: $t(response.chapter.target_lang)
                 })
             }}
         </small>
         <div class="space-y-4 text-center">
             <h1 class="font-bold text-4xl">
-                {{ response.title }}
+                {{ response.chapter.title }}
             </h1>
-            <div>{{ response.description }}</div>
+            <div>{{ response.chapter.description }}</div>
         </div>
 
         <div class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
@@ -50,10 +49,10 @@
 <script setup>
 import TutorialView from "./TutorialView.vue"
 import WordListView from "./WordListView.vue"
-import fake_response from "@/fake/list.json";
+import chapter_mock from "@/fake/chapter.json";
 import { ref, watch, shallowRef, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
-const response = ref(fake_response)
+const response = ref(chapter_mock)
 const route = useRoute()
 const router = useRouter()
 function changeVariant(params) {

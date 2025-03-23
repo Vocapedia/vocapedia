@@ -4,9 +4,20 @@
       <h1 class="p-4 text-3xl font-bold">{{ $t('trends') }}</h1>
       <div class="flex justify-center">
         <div class="flex overflow-x-auto space-x-4 p-4 scrollbar-hide">
-          <div v-for="i in 10" :key="i" @click="$router.push('/l/' + i)"
-            class="min-w-[250px] md:min-w-[300px] smooth-click card h-50 flex justify-center items-center">
-            <p class="text-xl p-3">trend / {{ i }}</p>
+          <div v-for="item in trends.trends" :key="item.id" @click="$router.push('/l/' + item.id)"
+            class=" min-w-[250px] md:min-w-[300px] smooth-click card flex justify-center items-end bg-white dark:bg-zinc-800 rounded-lg shadow-lg">
+            <div class="space-y-2 w-full">
+              <div class="text-xl p-3">{{ item.title }}</div>
+              <div class="text-sm p-3 h-18 text-gray-500 dark:text-gray-400 overflow-hidden text-ellipsis">
+                {{ item.description }}
+              </div>
+              <div class="bg-sky-100 dark:bg-sky-700 text-sm flex items-center justify-center space-x-2">
+                <span>{{ item.lang }}</span>
+                <mdicon name="arrow-right" size="16" />
+                <span>{{ item.target_lang }}</span>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -81,6 +92,7 @@
 </template>
 
 <script setup>
+import trends from '@/fake/trends.json'
 import { ref, nextTick } from 'vue'
 import html2canvas from 'html2canvas-pro'
 import { Bar, Line } from 'vue-chartjs'
@@ -95,7 +107,7 @@ const onSwiper = (theSwiper) => {
 };
 const activeIndex = ref(0)
 const onSlideChange = (swiper) => {
-  activeIndex.value = swiper.activeIndex; // Aktif slaytı güncelle
+  activeIndex.value = swiper.activeIndex;
 };
 
 const captureDiv = ref(null)

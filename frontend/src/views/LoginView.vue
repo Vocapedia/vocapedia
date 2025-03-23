@@ -2,13 +2,7 @@
     <div class="pt-36 flex items-center justify-center ">
 
         <div class=" w-full max-w-120">
-            <div class="text-xl pb-4">
-                <RouterLink to="/" class="flex-shrink-0 py-2">
-                    <div class="font-logo">
-                        Vocapedia
-                    </div>
-                </RouterLink>
-            </div>
+
 
             <div class="bg-white dark:bg-zinc-800 p-8  rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold text-center mb-2">{{ $t("login.header") }}</h2>
@@ -40,6 +34,13 @@
                         </button>
                     </div>
                 </form>
+            </div>
+            <div class="text-xl text-center py-4">
+                <RouterLink to="/" class="flex-shrink-0 py-2">
+                    <div class="font-logo">
+                        Vocapedia
+                    </div>
+                </RouterLink>
             </div>
         </div>
 

@@ -16,6 +16,7 @@ type Chapter struct {
 	Lang        string     `json:"lang" gorm:"not null"`
 	TargetLang  string     `json:"target_lang" gorm:"not null"`
 	WordBase    []WordBase `json:"word_bases,omitempty"`
+	Tutorial    string     `json:"tutorial" gorm:"type:text"`
 }
 
 type UserFavorite struct {
@@ -28,4 +29,3 @@ func (u *UserFavorite) BeforeCreate(tx *gorm.DB) (err error) {
 	u.CreatedAt = time.Now()
 	return nil
 }
-

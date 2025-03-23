@@ -4,12 +4,17 @@
 - [x] improve search function
 - [x] prepare chapter model
 - - [x] fix trend chapters
-- [ ] create chapter function on frontend and backend
-- [ ] fix login page
-- [ ] add recaptcha for login
-- [ ] use real data instead of fake jsons on frontend
+- [x] create chapter function on frontend and backend
+- [x] fix login page
+- [x] add recaptcha for login
+- [x] use real data instead of fake jsons on frontend
 - [ ] add middleware for frontend _(token is required)_
-- [ ] fix smtp configurations
+- [x] fix smtp configurations
+- [ ] set games
+- [ ] add compose function for frontend and backend
+- [ ] implement favorite stuffs for frontend
+
+
 
 ### Later
 - [ ] google extention

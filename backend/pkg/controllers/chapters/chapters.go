@@ -18,7 +18,9 @@ func First(w http.ResponseWriter, r *http.Request) {
 	var chapters entities.Chapter
 
 	db.Preload("Creator").Preload("WordBase.Word").First(&chapters)
-	render.JSON(w, r, chapters)
+	render.JSON(w, r, map[string]any{
+		"chapter": chapters,
+	})
 }
 
 func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
@@ -73,5 +75,8 @@ func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 		render.JSON(w, r, err)
 		return
 	}
-	render.JSON(w, r, chapters)
+
+	render.JSON(w, r, map[string]any{
+		"trends": chapters,
+	})
 }
