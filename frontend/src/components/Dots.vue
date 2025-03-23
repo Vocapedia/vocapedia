@@ -1,5 +1,5 @@
 <template>
-    <div :class="'h-' + props.height" class="relative w-full  overflow-hidden">
+    <div class="h-64 relative w-full  overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full">
             <div v-for="(dot, index) in dots" :key="index"
                 class="absolute bg-yellow-400 rounded-full w-1 h-1 shadow-5xl" :style="getDotStyle(dot)"
