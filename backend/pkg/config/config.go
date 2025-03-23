@@ -28,7 +28,8 @@ type Config struct {
 		Host     string `yaml:"host"`
 		Port     string `yaml:"port"`
 		Password string `yaml:"password"`
-	}
+	} `yaml:"smtp"`
+
 	Database struct {
 		Host     string `yaml:"host"`
 		Port     int    `yaml:"port"`

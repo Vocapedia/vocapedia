@@ -3,6 +3,7 @@ package auth
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -45,9 +46,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if tx := db.First(&user, "email = ?", params.Email); tx.Error != gorm.ErrRecordNotFound {
+	if tx := db.First(&user, "email = ?", params.Email); tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
 		render.JSON(w, r, map[string]string{
-			"error": "user does not exist",
+			"error": tx.Error.Error(),
 		})
 		return
 	} else {
@@ -63,8 +64,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	tmpl, err := template.ParseFiles("pkg/mail/template/auth.login.html")
+	tmpl, err := template.ParseFiles("pkg/mail/templates/auth.login.html")
 	if err != nil {
+		log.Println("error", err)
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -85,15 +87,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	msg := []byte("Subject: Giriş Kodunuz\nMIME-Version: 1.0\nContent-Type: text/html; charset=UTF-8\n\n" + body.String())
+	subject := i18n.Localizer(r, "mail.auth.login.subject")
 
-	err = mail.Send(params.Email, msg, body.String())
+	isSent, err := mail.Send(params.Email, subject, body.String())
 	if err != nil {
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
+
+	render.JSON(w, r, map[string]any{
+		"isMailSent": isSent,
+		"message":    i18n.Localizer(r, "auth.login.success"),
+	})
 
 }
 

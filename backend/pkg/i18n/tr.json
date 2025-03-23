@@ -1,12 +1,14 @@
 {    
     "mail.auth.header": "Giriş Kodunuz",
-    "mail.auth.description": "Giriş yapmak için aşağıdaki kodu kullanın:",
+    "mail.auth.description": "Giriş yapmak için aşağıdaki butona tıklamanız gerekmektedir",
     "mail.auth.action": "Giriş yap",
     "mail.auth.warning": "Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı göz ardı edin.",
+    "mail.auth.login.subject": "Giriş Kodunuz",
+    
+    "auth.login.success": "Giriş başarılı!",
     
     "error.something_went_wrong": "Bir şeyler ters gitti!",
 
     "ok.allright":"Her şey yolunda!",
     "ok.success":"Başarılı"
-
 }

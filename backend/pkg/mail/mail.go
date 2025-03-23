@@ -1,18 +1,20 @@
 package mail
 
 import (
-	"net/smtp"
+	"log"
 
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 )
 
-var auth smtp.Auth
+var srv EmailIntf
 
 func InitMail() {
-	auth = smtp.PlainAuth("", config.ReadValue().SMTP.From, config.ReadValue().SMTP.Password, config.ReadValue().SMTP.Host)
-}
+	srv = NewEmailService(587, config.ReadValue().SMTP.Host, config.ReadValue().SMTP.From, config.ReadValue().SMTP.Password)
 
-func Send(to string, subject []byte, template string) error {
-	err := smtp.SendMail(config.ReadValue().SMTP.Host+":"+config.ReadValue().SMTP.Port, auth, config.ReadValue().SMTP.From, []string{to}, subject)
-	return err
+	log.Println("Mail is ready")
+}
+func Send(to, subject string, template string) (bool, error) {
+	isEmailSent, err := srv.SendEmail(to, subject, template)
+
+	return isEmailSent, err
 }

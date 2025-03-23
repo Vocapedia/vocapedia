@@ -13,9 +13,9 @@ admin_name: Test
 admin_password: 123456
 
 smtp:
-  from: mail@vocapedia.space
-  host: smtp.vocapedia.space
-  password: 123
+  from: vocapedia.space@gmail.com
+  host: smtp.gmail.com
+  password: ddef kfof cpte rwge
   port: 587
 
 database:

@@ -30,8 +30,7 @@ func Localizer(r *http.Request, key string) string {
 	localizer := r.Context().Value(LOCALIZER).(*i18n.Localizer)
 	val, err := localizer.Localize(&i18n.LocalizeConfig{MessageID: key})
 	if err != nil {
-		localizer = i18n.NewLocalizer(bundle, language.Turkish.String())
-		return localizer.MustLocalize(&i18n.LocalizeConfig{MessageID: key})
+		return key
 	} else {
 		return val
 	}

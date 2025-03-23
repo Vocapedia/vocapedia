@@ -1,5 +1,5 @@
 ### Important
-- [ ] check login _(and mail sender)_
+- [x] check login _(and mail sender)_
 - [ ] check other i18n keys and values
 - [x] improve search function
 - [x] prepare chapter model
