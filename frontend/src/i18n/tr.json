@@ -1,5 +1,4 @@
 {
-    "home": "Anasayfa",
     "account": "Hesabım",
     "followed": "Takip Edilenler",
     "notes": "Notlar",
@@ -41,9 +40,14 @@
     "followed_results": "Takip Edilen {count} sonuç bulundu",
     "add_new_note": "Yeni not ekleyin...",
     "note_description": "Eklenen notlar yalnızca sizin tarayıcınızda saklanır.",
-    "home_chart_title": "Deneyim puanı",
     "share_not_supported": "Paylaşılamıyor!.",
     "scoreboard": "Skor Tablosu",
+    "home": {
+        "title": "Anasayfa",
+        "experience": {
+            "title": "Deneyim puanı"
+        }
+    },
     "login": {
         "header": "Giriş Yap",
         "input": {

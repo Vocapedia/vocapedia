@@ -3,8 +3,9 @@
 
         <transition mode="out-in" name="slide-fade">
             <header v-if="!searchable" class="container mx-auto flex justify-between items-center p-4">
-                <RouterLink to="/" class="flex-shrink-0 py-2">
+                <RouterLink to="/" class="flex flex-shrink-0 py-2 space-x-1">
                     <span class="text-2xl font-logo">Vocapedia</span>
+                    <small>{{ lang.slice(0, 2) }}</small>
                 </RouterLink>
 
                 <nav :class="searchable ? 'max-w-160 w-full mx-auto' : ''" class="flex items-center space-x-4">
@@ -14,7 +15,7 @@
                     <RouterLink to="/settings" class="smooth-click">
                         <mdicon name="cog-outline" :size="iconSize" />
                     </RouterLink>
-                    <RouterLink to="/account" class="smooth-click">
+                    <RouterLink to="/login" class="smooth-click">
                         <mdicon name="account-circle-outline" :size="iconSize" />
                     </RouterLink>
                     <SwitchThemeVue />
@@ -53,6 +54,8 @@ const iconSize = ref(getSize());
 const search = ref('')
 const searchRef = ref(null)
 const searchable = ref(false)
+const lang = ref(navigator.language || navigator.languages[0]);
+
 function getSize() {
     const width = window.innerWidth;
 

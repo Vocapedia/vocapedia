@@ -5,7 +5,7 @@
       <div class="flex justify-center">
         <div class="flex overflow-x-auto space-x-4 p-4 scrollbar-hide">
           <div v-for="item in trends.trends" :key="item.id" @click="$router.push('/l/' + item.id)"
-            class=" min-w-[250px] md:min-w-[300px] smooth-click card flex justify-center items-end bg-white dark:bg-zinc-800 rounded-lg shadow-lg">
+            class=" min-w-[250px] md:min-w-[300px] smooth-click card flex justify-center items-end bg-white dark:bg-zinc-800 rounded-lg">
             <div class="space-y-2 w-full">
               <div class="text-xl p-3">{{ item.title }}</div>
               <div class="text-sm p-3 h-18 text-gray-500 dark:text-gray-400 overflow-hidden text-ellipsis">
@@ -23,10 +23,22 @@
       </div>
     </div>
 
+    <!-- <div class="grid grid-cols-12 gap-4">
+      <div class="col-span-12 sm:col-span-6 p-5">
+        {{ $t('home.experience.title') }}
+        <div class="bg-sky-100">
+          asd
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6 bg-red-500">
+        asd
+      </div>
+    </div>
+     -->
     <div ref="captureDiv" class="p-5 dark:bg-zinc-900 bg-zinc-50">
 
       <div class="flex justify-between items-center">
-        <h1 class="p-4 text-3xl font-bold">{{ $t('home_chart_title') }}</h1>
+        <h1 class="p-4 text-3xl font-bold">{{ $t('home.experience.title') }}</h1>
 
         <div class="flex items-center space-x-5">
 
