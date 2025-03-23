@@ -5,7 +5,7 @@
             <header v-if="!searchable" class="container mx-auto flex justify-between items-center p-4">
                 <RouterLink to="/" class="flex flex-shrink-0 py-2 space-x-1">
                     <span class="text-2xl font-logo">Vocapedia</span>
-                    <small>{{ lang.slice(0, 2) }}</small>
+                    <small>{{ lang.slice(0, 2).toUpperCase() }}</small>
                 </RouterLink>
 
                 <nav :class="searchable ? 'max-w-160 w-full mx-auto' : ''" class="flex items-center space-x-4">
@@ -29,14 +29,14 @@
              dark:bg-zinc-800 dark:text-white" />
                     <button @click="searchSomething"
                         class="w-12 cursor-pointer -ml-12 bg-zinc-500/15 rounded-r-full p-3">
-                        <mdicon name="magnify" class="dark:text-zinc-400 text-zinc-600" />
+                        <mdicon name="magnify" :size="iconSize" class="dark:text-zinc-400 text-zinc-600" />
                     </button>
 
                     <button @click="resetSearch" class="smooth-click -ml-24 rounded-full p-3">
-                        <mdicon name="close" class="dark:text-red-400 text-red-600" />
+                        <mdicon name="close" :size="iconSize" class="dark:text-red-400 text-red-600" />
                     </button>
                     <button @click="closeSearch" class="ml-15 smooth-click">
-                        <mdicon name="arrow-up" class="dark:text-blue-400 text-blue-600" />
+                        <mdicon name="arrow-up" :size="iconSize" class="dark:text-blue-400 text-blue-600" />
                     </button>
                 </div>
             </header>
@@ -59,8 +59,8 @@ const lang = ref(navigator.language || navigator.languages[0]);
 function getSize() {
     const width = window.innerWidth;
 
-    if (width < 640) return 24
-    else return 30
+    if (width < 640) return 22
+    else return 25
 }
 
 watch(searchRef, (newVal) => {
