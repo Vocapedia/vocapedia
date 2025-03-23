@@ -1,7 +1,7 @@
 package auth
 
 type _login struct {
-	Email string
+	Email string `json:"email"`
 }
 
 type _emailData struct {
@@ -10,4 +10,5 @@ type _emailData struct {
 	Warning     string
 	Action      string
 	Code        string
+	Host        string
 }

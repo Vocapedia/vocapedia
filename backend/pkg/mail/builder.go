@@ -16,7 +16,7 @@ type service struct {
 }
 
 type EmailIntf interface {
-	SendEmail(receiverEmail string, subject string, messageBody string) (bool, error)
+	SendEmail(receiverEmail string, subject string, messageBody string, lang string) (bool, error)
 }
 
 // NewEmailService() - initializes email service
@@ -30,9 +30,9 @@ func NewEmailService(emailPort int, emailHost string, emailAddress string, email
 }
 
 // SendEmail() - sends email by passing receiver email, subject and the message body
-func (s *service) SendEmail(receiverEmail string, subject string, messageBody string) (bool, error) {
+func (s *service) SendEmail(receiverEmail string, subject string, messageBody string, lang string) (bool, error) {
 	isSend := false
-	emailMessage := s.buildEmailMessage(receiverEmail, subject, messageBody)
+	emailMessage := s.buildEmailMessage(receiverEmail, subject, messageBody, lang)
 	if emailMessage == "" {
 		return isSend, errors.New("empty")
 	}
@@ -87,15 +87,17 @@ func (s *service) SendEmail(receiverEmail string, subject string, messageBody st
 	return isSend, nil
 }
 
-func (s *service) buildEmailMessage(receiverEmail string, subject string, messageBody string) string {
+func (s *service) buildEmailMessage(receiverEmail string, subject string, messageBody string, lang string) string {
 	if receiverEmail == "" || subject == "" || messageBody == "" || s.emailAddress == "" {
 		return ""
 	}
+
 	emailMessage := "From: " + s.emailAddress + "\r\n" +
 		"To: " + receiverEmail + "\r\n" +
 		"Subject: " + subject + "\r\n" +
 		"MIME-Version: 1.0\r\n" +
 		"Content-Type: text/html; charset=UTF-8\r\n" +
+		"Content-Language: " + lang + "\r\n" +
 		"\r\n" +
 		messageBody
 

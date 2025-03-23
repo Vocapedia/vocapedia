@@ -15,6 +15,7 @@ import FlipWordView from "@/views/game/FlipWordView.vue";
 import QuickPickView from "@/views/game/QuickPickView.vue";
 import WordMatchView from "@/views/game/WordMatchView.vue";
 import WordRushView from "@/views/game/WordRushView.vue";
+import LoginView from "@/views/LoginView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -84,6 +85,11 @@ const router = createRouter({
       path: "/notes",
       name: "notes",
       component: NotesView,
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView
     },
     {
       path: "/:pathMatch(.*)*",

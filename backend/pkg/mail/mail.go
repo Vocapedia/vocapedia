@@ -2,6 +2,7 @@ package mail
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 )
@@ -13,8 +14,8 @@ func InitMail() {
 
 	log.Println("Mail is ready")
 }
-func Send(to, subject string, template string) (bool, error) {
-	isEmailSent, err := srv.SendEmail(to, subject, template)
+func Send(r *http.Request, to, subject string, template string) (bool, error) {
+	isEmailSent, err := srv.SendEmail(to, subject, template, r.Header.Get("Accept-Language"))
 
 	return isEmailSent, err
 }

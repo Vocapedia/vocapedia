@@ -40,6 +40,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	params := _login{}
 	err := render.DecodeJSON(r.Body, &params)
 	if err != nil {
+		log.Println("error", err)
+
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -74,14 +76,22 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	var body bytes.Buffer
 
+	hostURL := "https://vocapedia.space"
+	if strings.HasPrefix(r.RemoteAddr, "127.0.0.1") || strings.Contains(r.Host, "localhost") {
+		hostURL = "http://localhost:3000"
+	}
+
 	err = tmpl.Execute(&body, _emailData{
 		Code:        tokenString,
 		Header:      i18n.Localizer(r, "mail.auth.header"),
 		Description: i18n.Localizer(r, "mail.auth.description"),
 		Action:      i18n.Localizer(r, "mail.auth.action"),
 		Warning:     i18n.Localizer(r, "mail.auth.warning"),
+		Host:        hostURL,
 	})
 	if err != nil {
+		log.Println("error", err)
+
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -89,8 +99,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	subject := i18n.Localizer(r, "mail.auth.login.subject")
 
-	isSent, err := mail.Send(params.Email, subject, body.String())
+	isSent, err := mail.Send(r, params.Email, subject, body.String())
 	if err != nil {
+		log.Println("error", err)
+
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -98,8 +110,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	render.JSON(w, r, map[string]any{
-		"isMailSent": isSent,
-		"message":    i18n.Localizer(r, "auth.login.success"),
+		"is_mail_sent": isSent,
+		"message":      i18n.Localizer(r, "auth.login.success"),
 	})
 
 }

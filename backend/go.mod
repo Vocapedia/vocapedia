@@ -9,7 +9,6 @@ require (
 	github.com/go-chi/jwtauth/v5 v5.3.2
 	github.com/go-chi/render v1.0.3
 	github.com/google/uuid v1.6.0
-	github.com/joho/godotenv v1.5.1
 	github.com/nicksnyder/go-i18n/v2 v2.5.1
 	golang.org/x/text v0.23.0
 	gopkg.in/yaml.v3 v3.0.1

@@ -43,5 +43,16 @@
     "note_description": "Eklenen notlar yalnızca sizin tarayıcınızda saklanır.",
     "home_chart_title": "Deneyim puanı",
     "share_not_supported": "Paylaşılamıyor!.",
-    "scoreboard": "Skor Tablosu"
+    "scoreboard": "Skor Tablosu",
+    "login": {
+        "header": "Giriş Yap",
+        "input": {
+            "label": "E-posta",
+            "placeholder": "E-posta adresinizi girin"
+        },
+        "button": "Kod gönder",
+        "success": "Giriş başarılı! E-posta adresinize giriş kodu gönderildi.",
+        "error": "Giriş başarısız!",
+        "greeting": "iyi günler diler"
+    }
 }
