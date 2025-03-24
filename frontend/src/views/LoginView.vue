@@ -1,15 +1,6 @@
 <template>
     <div class="pt-36 flex items-center justify-center ">
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div
-                class="absolute w-[400px] h-full bg-gradient-to-b from-sky-500/20 to-transparent blur-3xl opacity-60 transform rotate-[45deg]" />
-            <div
-                class="absolute w-[2px] h-full bg-gradient-to-b from-sky-300 to-transparent blur-lg opacity-70 transform rotate-[45deg]" />
-            <div
-                class="absolute w-[5px] h-full bg-gradient-to-b from-sky-400/80 to-transparent blur-md opacity-50 left-[calc(50%-50px)] transform rotate-[45deg]" />
-            <div
-                class="absolute w-[5px] h-full bg-gradient-to-b from-sky-400/80 to-transparent blur-md opacity-50 right-[calc(50%-50px)] transform rotate-[45deg]" />
-        </div>
+        <Shine />
         <div class="z-1 w-full max-w-120">
             <div class="bg-white/90 dark:bg-zinc-800/90 p-8  rounded-lg shadow-lg">
                 <div class="text-2xl text-center pb-4">
@@ -54,6 +45,7 @@
 </template>
 
 <script setup>
+import Shine from '@/components/Shine.vue';
 import { useFetch } from '@/composable/useFetch';
 import { i18n } from '@/i18n/i18n';
 import { ref, onMounted } from 'vue';
