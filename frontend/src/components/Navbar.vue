@@ -10,13 +10,13 @@
 
                 <nav :class="searchable ? 'max-w-160 w-full mx-auto' : ''" class="flex items-center space-x-4">
                     <button @click="openSearchable" class="smooth-click">
-                        <mdicon name="magnify" :size="iconSize" />
+                        <mdicon name="magnify" size="24" />
                     </button>
                     <RouterLink to="/settings" class="smooth-click">
-                        <mdicon name="cog-outline" :size="iconSize" />
+                        <mdicon name="cog-outline" size="24" />
                     </RouterLink>
                     <RouterLink to="/login" class="smooth-click">
-                        <mdicon name="account-circle-outline" :size="iconSize" />
+                        <mdicon name="account-circle-outline" size="24" />
                     </RouterLink>
                     <SwitchThemeVue />
                 </nav>
@@ -24,19 +24,19 @@
             <header v-else class="container mx-auto  max-w-160 w-full flex justify-between items-center p-4">
                 <div class="flex w-full">
                     <input @keyup.enter="searchSomething" ref="searchRef" v-model="search" type="text"
-                        :placeholder="$t('search_a_list')" class="w-full p-3 border shadow-sm outline-none transition-all 
+                        :placeholder="$t('search_a_list')" class="w-full px-4 border shadow-sm outline-none transition-all 
              bg-white text-zinc-900 border-none rounded-full
              dark:bg-zinc-800 dark:text-white" />
                     <button @click="searchSomething"
                         class="w-12 cursor-pointer -ml-12 bg-zinc-500/15 rounded-r-full p-3">
-                        <mdicon name="magnify" :size="iconSize" class="dark:text-zinc-400 text-zinc-600" />
+                        <mdicon name="magnify" size="24" class="dark:text-zinc-400 text-zinc-600" />
                     </button>
 
                     <button @click="resetSearch" class="smooth-click -ml-24 rounded-full p-3">
-                        <mdicon name="close" :size="iconSize" class="dark:text-red-400 text-red-600" />
+                        <mdicon name="close" size="24" class="dark:text-red-400 text-red-600" />
                     </button>
                     <button @click="closeSearch" class="ml-15 smooth-click">
-                        <mdicon name="arrow-up" :size="iconSize" class="dark:text-blue-400 text-blue-600" />
+                        <mdicon name="arrow-up" size="24" class="dark:text-blue-400 text-blue-600" />
                     </button>
                 </div>
             </header>
@@ -50,18 +50,11 @@ import SwitchThemeVue from "@/components/SwitchTheme.vue";
 import { ref, onMounted, onBeforeUnmount, nextTick, watch } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter()
-const iconSize = ref(getSize());
 const search = ref('')
 const searchRef = ref(null)
 const searchable = ref(false)
 const lang = ref(navigator.language || navigator.languages[0]);
 
-function getSize() {
-    const width = window.innerWidth;
-
-    if (width < 640) return 22
-    else return 25
-}
 
 watch(searchRef, (newVal) => {
     if (newVal) {
@@ -90,14 +83,4 @@ function searchSomething() {
     router.push({ name: 'search', query: { q: search.value } })
     searchable.value = false
 }
-const updateSize = () => {
-    iconSize.value = getSize();
-};
-
-onMounted(() => {
-    window.addEventListener("resize", updateSize);
-});
-onBeforeUnmount(() => {
-    window.removeEventListener("resize", updateSize);
-});
 </script>
