@@ -23,7 +23,7 @@
       </div>
     </div>
     <div>
-      <h1 class="p-4 text-3xl font-bold">{{ $t('personal_info') }}</h1>
+      <h1 class="p-4 text-3xl font-bold mb-5">{{ $t('personal_info') }}</h1>
       <div class="container mx-auto space-y-5">
         <div class="grid grid-cols-12 gap-4">
           <div class="col-span-12 md:col-span-12 lg:col-span-6  relative">
