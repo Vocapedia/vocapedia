@@ -42,6 +42,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	`, query, query, query, query, query, query, limit, offset).Find(&chapters).Error
 
 	if err != nil {
+		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
 			"error": err.Error(),
 		})

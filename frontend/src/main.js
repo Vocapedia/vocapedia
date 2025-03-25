@@ -19,6 +19,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/swiper-bundle.css";
 
+
+import "splitting/dist/splitting.css";
+import "splitting/dist/splitting-cells.css";
+import Splitting from "splitting";
+
 const app = createApp(App)
   .use(createPinia())
   .use(i18n)
@@ -27,7 +32,16 @@ const app = createApp(App)
   })
   .use(IonicVue)
   .use(autoAnimatePlugin)
-  .use(router);
+  .use(router)
+  .directive("splitting", {
+    mounted(el) {
+      const split = Splitting({ target: el }); 
+      const characters = split[0].chars;
+      characters.forEach((char, index) => {
+        char.style.animation = `fadeInLeft 0.5s ease forwards ${index * 0.1}s`; 
+      });
+    },
+  });
 
 router.isReady().then(() => {
   app.mount("#app");

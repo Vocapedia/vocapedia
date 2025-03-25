@@ -5,7 +5,7 @@
             <header v-if="!searchable" class="container mx-auto flex justify-between items-center p-4">
                 <RouterLink to="/" class="flex flex-shrink-0 py-2 space-x-1">
                     <span class="text-2xl font-logo">Vocapedia</span>
-                    <small>{{ lang.slice(0, 2).toUpperCase() }}</small>
+                    <small class="text-[10px]">{{ lang.slice(0, 2).toUpperCase() }}</small>
                 </RouterLink>
 
                 <nav :class="searchable ? 'max-w-160 w-full mx-auto' : ''" class="flex items-center space-x-4">
@@ -47,7 +47,7 @@
 
 <script setup>
 import SwitchThemeVue from "@/components/SwitchTheme.vue";
-import { ref, onMounted, onBeforeUnmount, nextTick, watch } from "vue";
+import { ref, nextTick, watch } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter()
 const search = ref('')

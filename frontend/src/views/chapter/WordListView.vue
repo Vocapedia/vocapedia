@@ -15,7 +15,7 @@
                             <div class="font-bold text-xl capitalize ">{{ item.words[0].word }}</div>
                             <span
                                 class="languages bg-blue-200 dark:bg-blue-800 px-2 rounded-full text-blue-800 dark:text-blue-200">
-                                {{ item.words[0].type }}
+                                {{ item.type }}
                             </span>
                         </div>
                         <div class="font-light pt-5">{{ item.words[0].description }}</div>

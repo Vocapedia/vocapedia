@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/jwtauth/v5"
 	"github.com/go-chi/render"
@@ -22,7 +21,7 @@ import (
 
 func HttpServer(host string, port int, allowMethods []string, allowOrigins []string, allowHeaders []string) {
 	r := chi.NewRouter()
-	r.Use(middleware.Logger)
+	r.Use(customMiddleware.Logger)
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins: allowOrigins,
 		AllowedMethods: allowMethods,
@@ -30,6 +29,8 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		MaxAge:         300,
 	}))
 	r.Use(customMiddleware.Language)
+	r.Use(customMiddleware.RateLimit)
+	r.Use(customMiddleware.SecurityHeaders)
 
 	r.Route("/api/v1", func(api chi.Router) {
 		api.Group(func(api chi.Router) {
@@ -37,11 +38,12 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
 
 			api.Route("/chapters", func(api chi.Router) {
+				api.Get("/{id}", chapters.GetByID)
 				api.Get("/search", search.Search)
-				api.Get("/", chapters.First)
 				api.Post("/favorite", chapters.Favorite)
 				api.Delete("/favorite", chapters.DeleteFavorite)
 				api.Get("/trends", chapters.GetTrendingChapters)
+				api.Get("/game-format/{id}", chapters.GameFormat)
 			})
 		})
 		api.Get("/get-token", auth.GetToken)

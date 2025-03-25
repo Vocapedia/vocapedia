@@ -23,3 +23,35 @@
   transform: translateY(-20px);
   opacity: 0;
 }
+
+.toast-move,
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.5s ease;
+}
+
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.toast-leave-active {
+  position: absolute;
+  width: 100%;
+}
+
+
+
+[data-splitting] {
+  display: inline-block;
+}
+
+[data-splitting] .word {
+  display: inline-block;
+}
+
+[data-splitting] .char {
+  display: inline-block;
+  transform: translateX(20px);
+}

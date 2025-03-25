@@ -3,7 +3,6 @@ package auth
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -40,8 +39,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	params := _login{}
 	err := render.DecodeJSON(r.Body, &params)
 	if err != nil {
-		log.Println("error", err)
-
+		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -49,6 +47,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if tx := db.First(&user, "email = ?", params.Email); tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
+		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
 			"error": tx.Error.Error(),
 		})
@@ -61,6 +60,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tokenClaim.UserID = user.ID
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
+		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -68,7 +68,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl, err := template.ParseFiles("pkg/mail/templates/auth.login.html")
 	if err != nil {
-		log.Println("error", err)
+		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
@@ -90,7 +90,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Host:        hostURL,
 	})
 	if err != nil {
-		log.Println("error", err)
+		render.Status(r, http.StatusInternalServerError)
 
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
@@ -101,7 +101,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	isSent, err := mail.Send(r, params.Email, subject, body.String())
 	if err != nil {
-		log.Println("error", err)
+		render.Status(r, http.StatusBadRequest)
 
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
@@ -121,6 +121,7 @@ func GetToken(w http.ResponseWriter, r *http.Request) {
 	tokenClaim.UserID = uuid.New()
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
+		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})

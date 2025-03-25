@@ -32,7 +32,6 @@ func InitDB(host string, port int, user, password, dbname string) {
 		&entities.Word{},
 	)
 
-
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_title ON chapters USING gin (title gin_trgm_ops)`)
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_description ON chapters USING gin (description gin_trgm_ops)`)
 	db.Exec(`CREATE EXTENSION IF NOT EXISTS fuzzystrmatch`)
@@ -64,6 +63,7 @@ func seed() {
 		for range 15 {
 			wb := entities.WordBase{
 				ChapterID: chapter.ID,
+				Type:      "noun",
 			}
 			if err := db.Create(&wb).Error; err != nil {
 				fmt.Println("veri eklerken hata:", err)
@@ -74,9 +74,9 @@ func seed() {
 					langTerm = "tr"
 				}
 				word := entities.Word{
+					ChapterID:   chapter.ID,
 					Lang:        langTerm,
 					Word:        gofakeit.Word(),
-					Type:        gofakeit.Word(),
 					Description: gofakeit.Paragraph(1, 2, 3, " "),
 					Examples:    []string{gofakeit.Sentence(3)},
 					WordBaseID:  wb.ID,

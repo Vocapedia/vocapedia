@@ -27,6 +27,7 @@
     "html2canvas-pro": "^1.5.8",
     "mdi-vue": "^3.0.13",
     "pinia": "^2.3.1",
+    "splitting": "^1.1.0",
     "swiper": "^11.2.2",
     "tailwind-scrollbar": "^4.0.0",
     "vue": "^3.5.13",

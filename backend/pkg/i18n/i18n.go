@@ -11,7 +11,7 @@ import (
 var bundle *i18n.Bundle
 
 const (
-	LOCALIZER = "localizer"
+	CONTEXT = "localizer"
 )
 
 func InitI18n() {
@@ -27,7 +27,7 @@ func Bundle() *i18n.Bundle {
 }
 
 func Localizer(r *http.Request, key string) string {
-	localizer := r.Context().Value(LOCALIZER).(*i18n.Localizer)
+	localizer := r.Context().Value(CONTEXT).(*i18n.Localizer)
 	val, err := localizer.Localize(&i18n.LocalizeConfig{MessageID: key})
 	if err != nil {
 		return key

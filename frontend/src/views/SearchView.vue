@@ -1,23 +1,33 @@
 <template>
-    <div class="max-w-160 mx-auto">
+    <div  class="max-w-160 mx-auto">
+
         <p class="py-5">
-            {{ $t('search_results', { query: route.query.q, count: response.list.length, }) }}
+            {{ $t('search_results', { query: route.query.q, count: (response.list ?? []).length, }) }}
         </p>
-        <WordLists :response="response" />
+
+        <transition name="fade" mode="out-in">
+            <WordLists v-if="response.list" :response="response" />
+            <div  v-else class="loading-spinner mx-auto" />
+        </transition>
     </div>
 </template>
 
 <script setup>
+
 import { useRoute } from 'vue-router';
-import { watch } from "vue"
-import fake_response from "@/fake/search_list.json";
+import { watch, ref, onMounted } from "vue"
 import WordLists from '@/components/WordLists.vue';
-const response = fake_response
+const response = ref("{}")
 const route = useRoute()
+import { useFetch } from "@/composable/useFetch";
+
+
+onMounted(async () => {
+    response.value = await useFetch("/chapters/search?q=" + route.query.q)
+})
 
 watch(route, async (newQuery, oldQuery) => {
     //console.log(newQuery.query.q)
 })
-
 
 </script>
