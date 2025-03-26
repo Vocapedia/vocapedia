@@ -63,7 +63,6 @@ const handleSubmit = async () => {
     const recaptchaResponse = grecaptcha.getResponse();
     if (recaptchaResponse) {
         await useFetch('/auth/login', { method: "POST", body: { "email": email.value }, recaptchaResponse }).then((response) => {
-            console.log(response);
             if (response.is_mail_sent) {
                 alert(i18n.global.t('login.success'));
             } else {

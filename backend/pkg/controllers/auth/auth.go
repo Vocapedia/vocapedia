@@ -9,13 +9,13 @@ import (
 	"text/template"
 
 	"github.com/go-chi/render"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
+	"github.com/akifkadioglu/vocapedia/pkg/snowflake"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/akifkadioglu/vocapedia/utils"
 )
@@ -118,7 +118,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 func GetToken(w http.ResponseWriter, r *http.Request) {
 	tokenClaim := entities.JwtModel{}
-	tokenClaim.UserID = uuid.New()
+	tokenClaim.UserID = snowflake.GenerateID()
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)

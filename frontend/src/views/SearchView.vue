@@ -1,5 +1,5 @@
 <template>
-    <div  class="max-w-160 mx-auto">
+    <div class="max-w-160 mx-auto">
 
         <p class="py-5">
             {{ $t('search_results', { query: route.query.q, count: (response.list ?? []).length, }) }}
@@ -7,7 +7,7 @@
 
         <transition name="fade" mode="out-in">
             <WordLists v-if="response.list" :response="response" />
-            <div  v-else class="loading-spinner mx-auto" />
+            <div v-else class="loading-spinner mx-auto" />
         </transition>
     </div>
 </template>
@@ -27,7 +27,7 @@ onMounted(async () => {
 })
 
 watch(route, async (newQuery, oldQuery) => {
-    //console.log(newQuery.query.q)
+    response.value = await useFetch("/chapters/search?q=" + newQuery.query.q)
 })
 
 </script>

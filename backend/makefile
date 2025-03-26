@@ -1,5 +1,5 @@
 frontend:
-	pnpm --dir ../frontend install >> /dev/null && pnpm --dir ../frontend build >> /dev/null && robocopy -a ../frontend/dist ./pkg/embed/dist
+	set VITE_BUILT=1 && pnpm --dir ../frontend build && robocopy "../frontend/dist" "./pkg/embed/dist" /E
 
 local:
-	air -c .air.toml
+	cmd /C "set VITE_BUILT=1 && air -c .air.toml"

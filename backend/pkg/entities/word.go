@@ -1,7 +1,6 @@
 package entities
 
 import (
-	"github.com/google/uuid"
 	"github.com/lib/pq"
 )
 
@@ -11,6 +10,6 @@ type Word struct {
 	Word        string         `json:"word" gorm:"not null;type:text"`
 	Description string         `json:"description" gorm:"not null;type:text"`
 	Examples    pq.StringArray `json:"examples" gorm:"not null;type:text"`
-	WordBaseID  uuid.UUID      `json:"word_base_id" gorm:"not null"`
-	ChapterID   uuid.UUID      `json:"chapter_id" gorm:"not null"`
+	WordBaseID  int64          `json:"word_base_id" gorm:"not null"`
+	ChapterID   int64          `json:"chapter_id" gorm:"not null"`
 }

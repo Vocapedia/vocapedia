@@ -23,7 +23,16 @@
                             </span>
                         </button>
                     </div>
-                    <small class="flex justify-end px-2 py-1">
+                    <small class="flex justify-between px-2 py-1">
+                        <span class="flex items-center space-x-2">
+                            <span>
+                                {{ l.lang }}
+                            </span>
+                            <mdicon size="16" name="arrow-right" />
+                            <span>
+                                {{ l.target_lang }}
+                            </span>
+                        </span>
                         <span>
                             {{ l.creator.username }}
                         </span>

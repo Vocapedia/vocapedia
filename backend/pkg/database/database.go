@@ -48,7 +48,7 @@ func seed() {
 	var user entities.User
 	gofakeit.Struct(&user)
 	db.Create(&user)
-	for range 10 {
+	for range 50 {
 		chapter := entities.Chapter{
 			CreatorID:   user.ID,
 			Lang:        "en",

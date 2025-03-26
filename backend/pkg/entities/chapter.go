@@ -3,13 +3,12 @@ package entities
 import (
 	"time"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Chapter struct {
 	Base
-	CreatorID   uuid.UUID  `json:"creator_id" gorm:"not null"`
+	CreatorID   int64      `json:"creator_id" gorm:"not null"`
 	Creator     *User      `json:"creator,omitempty" gorm:"foreignKey:CreatorID;references:ID;"`
 	Title       string     `json:"title" gorm:"not null;type:text;index"`
 	Description string     `json:"description" gorm:"not null;type:text;index"`
@@ -20,8 +19,8 @@ type Chapter struct {
 }
 
 type UserFavorite struct {
-	UserID    uuid.UUID `gorm:"primaryKey"`
-	ChapterID uuid.UUID `gorm:"primaryKey"`
+	UserID    int64     `gorm:"primaryKey"`
+	ChapterID int64     `gorm:"primaryKey"`
 	CreatedAt time.Time `json:"created_at" example:"2021-01-01T00:00:00Z"`
 }
 

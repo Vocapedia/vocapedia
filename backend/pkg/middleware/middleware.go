@@ -30,7 +30,7 @@ func Language(next http.Handler) http.Handler {
 	})
 }
 
-var limiter = rate.NewLimiter(1, 3)
+var limiter = rate.NewLimiter(1, 5)
 
 func RateLimit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

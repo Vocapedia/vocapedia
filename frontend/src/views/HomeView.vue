@@ -10,7 +10,7 @@
       <div v-auto-animate>
         <div v-if="response.trends" class="flex justify-center">
           <div class="flex overflow-x-auto space-x-4 p-4 scrollbar-hide">
-            <div v-for="item in response.trends" :key="item.id" @click="$router.push('/l/' + item.id)"
+            <div v-for="item in response.trends" :key="item.id" @click="$router.push('/l/' + BigInt(item.id))"
               class=" min-w-[250px] md:min-w-[300px] smooth-click card flex justify-center items-end bg-white dark:bg-zinc-800 rounded-lg">
               <div class="space-y-2 w-full">
                 <div class="text-xl p-3">{{ item.title }}</div>

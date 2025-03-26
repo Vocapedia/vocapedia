@@ -35,11 +35,19 @@ const app = createApp(App)
   .use(router)
   .directive("splitting", {
     mounted(el) {
-      const split = Splitting({ target: el }); 
+      const split = Splitting({ target: el });
       const characters = split[0].chars;
       characters.forEach((char, index) => {
-        char.style.animation = `fadeInLeft 0.5s ease forwards ${index * 0.1}s`; 
+        char.style.animation = `fadeInLeft 0.5s ease forwards ${index * 0.1}s`;
       });
+      el.addEventListener('mouseenter', () => {
+        characters.forEach((char, index) => {
+          char.style.animation = `none`;
+          char.offsetHeight;
+          char.style.animation = `fadeInLeft 0.5s ease forwards ${index * 0.1}s`;
+        });
+      });
+
     },
   });
 

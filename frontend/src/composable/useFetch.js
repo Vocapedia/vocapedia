@@ -1,5 +1,6 @@
 const cache = new Map();
 const mode = import.meta.env.VITE_MODE;
+const built = import.meta.env.VITE_BUILT;
 import _search_list from "@/fake/search_list.json";
 import _trends_list from '@/fake/trends_list.json'
 import _chapter from "@/fake/chapter.json";
@@ -16,20 +17,22 @@ export async function useFetch(
         retryDelay = 1000
     } = {}
 ) {
-    if (mode === "development") {
-        return await Mock(endpoint, method);
-    } else {
+    if (mode !== "development") {
         return await Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay });
     }
+    if (built == 1) {
+        return await Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay });
+    }
+    return await Mock(endpoint, method);
 }
 
-const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+const snowflakeRegex = /^\d{10,19}$/;
 
 async function Mock(endpoint, method = "GET") {
     await new Promise(resolve => setTimeout(resolve, 500));
 
     var term = endpoint.split("?")[0];
-    term = term.split("/").map((item) => (uuidRegex.test(item) ? ":id" : item)).join("/");
+    term = term.split("/").map((item) => (snowflakeRegex.test(item) ? ":id" : item)).join("/");
 
     if (method === "GET") {
         switch (term) {
@@ -74,7 +77,6 @@ async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry
     if (method === "GET" && cache.has(url)) {
         const { data, timestamp } = cache.get(url);
         if (Date.now() - timestamp < cacheTTL) {
-            console.log(`Cache'den alındı: ${url}`);
             return data;
         } else {
             cache.delete(url);

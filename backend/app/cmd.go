@@ -6,6 +6,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
 	"github.com/akifkadioglu/vocapedia/pkg/server"
+	"github.com/akifkadioglu/vocapedia/pkg/snowflake"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 )
 
@@ -13,6 +14,7 @@ func Execute() {
 	token.InitTokenAuth()
 	i18n.InitI18n()
 	mail.InitMail()
+	snowflake.InitSnowflake()
 
 	database.InitDB(
 		config.ReadValue().Database.Host, config.ReadValue().Database.Port,
