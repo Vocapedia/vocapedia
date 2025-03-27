@@ -37,21 +37,26 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
 
 			api.Route("/chapters", func(api chi.Router) {
-				api.Get("/{id}", chapters.GetByID)
-				api.Get("/search", chapters.Search)
+				api.Get("/favorite", chapters.Favorites)
 				api.Post("/favorite", chapters.Favorite)
 				api.Delete("/favorite", chapters.DeleteFavorite)
-				api.Get("/trends", chapters.GetTrendingChapters)
-				api.Get("/game-format/{id}", chapters.GameFormat)
 				api.Post("/compose-by-excel", chapters.ComposeByExcel)
 			})
 		})
-		api.Get("/get-token", auth.GetToken)
-		api.Group(func(api chi.Router) {
+		api.Route("/public", func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
 				api.Post("/login", auth.Login)
 			})
+			api.Route("/chapters", func(api chi.Router) {
+				api.Get("/{id}", chapters.GetByID)
+				api.Get("/search", chapters.Search)
+				api.Get("/trends", chapters.GetTrendingChapters)
+				api.Get("/game-format/{id}", chapters.GameFormat)
+			})
+
 		})
+		api.Get("/get-token", auth.GetToken)
+
 	})
 
 	r.HandleFunc("/auth", auth.Token)

@@ -1,33 +1,6 @@
 <template>
-  <div class="space-y-16 pb-16">
-    <div>
-      <div class="flex items-center">
-        <h1 class="p-4 text-3xl font-bold">{{ $t('trends') }}</h1>
-        <transition name="fade" mode="out-in">
-          <mdicon v-if="!response.trends" spin name="loading" />
-        </transition>
-      </div>
-      <div v-auto-animate>
-        <div v-if="response.trends" class="flex justify-center">
-          <div class="flex overflow-x-auto space-x-4 p-4 scrollbar-hide">
-            <div v-for="item in response.trends" :key="item.id" @click="$router.push('/l/' + BigInt(item.id))"
-              class=" min-w-[250px] md:min-w-[300px] smooth-click card flex justify-center items-end bg-white dark:bg-zinc-800 rounded-lg">
-              <div class="space-y-2 w-full">
-                <div class="text-xl p-3">{{ item.title }}</div>
-                <div class="text-sm p-3 h-18 text-gray-500 dark:text-gray-400 overflow-hidden text-ellipsis">
-                  {{ item.description }}
-                </div>
-                <div class="bg-sky-100 dark:bg-sky-700 text-sm flex items-center justify-center space-x-2">
-                  <span>{{ item.lang }}</span>
-                  <mdicon name="arrow-right" size="16" />
-                  <span>{{ item.target_lang }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="space-y-16">
+
     <div>
       <h1 class="p-4 text-3xl font-bold mb-5">{{ $t('personal_info') }}</h1>
       <div class="container mx-auto space-y-5">
@@ -77,6 +50,34 @@
         </div>
       </div>
     </div>
+    <div>
+      <div v-auto-animate class="flex items-center">
+        <h1 v-if="(response.trends ?? []).length > 0" class="p-4 text-3xl font-bold">{{ $t('trends') }}</h1>
+        <transition class="py-5" name="fade">
+          <mdicon v-if="!response.trends" spin name="loading" />
+        </transition>
+      </div>
+      <transition class="py-5" name="fade" mode="out-in">
+        <div v-if="(response.trends ?? []).length > 0" class="flex justify-center">
+          <div class="flex overflow-x-auto space-x-4 p-4 scrollbar-hide">
+            <div v-for="item in response.trends" :key="item.id" @click="$router.push('/l/' + BigInt(item.id))"
+              class=" min-w-[250px] md:min-w-[300px] smooth-click card flex justify-center items-end bg-white dark:bg-zinc-800 rounded-lg">
+              <div class="space-y-2 w-full">
+                <div class="text-xl p-3">{{ item.title }}</div>
+                <div class="text-sm p-3 h-18 text-gray-500 dark:text-gray-400 overflow-hidden text-ellipsis">
+                  {{ item.description }}
+                </div>
+                <div class="bg-sky-100 dark:bg-sky-700 text-sm flex items-center justify-center space-x-2">
+                  <span>{{ item.lang }}</span>
+                  <mdicon name="arrow-right" size="16" />
+                  <span>{{ item.target_lang }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -88,6 +89,6 @@ import { useFetch } from '@/composable/useFetch';
 const response = ref("{}")
 
 onMounted(async () => {
-  response.value = await useFetch("/chapters/trends")
+  response.value = await useFetch("/public/chapters/trends")
 })
 </script>

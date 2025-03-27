@@ -18,13 +18,22 @@ import (
 
 func GetByID(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
-	var chapters entities.Chapter
+	var chapters ChapterDTO
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
 		return
 	}
-	db.Where("id = ?", id).Preload("Creator").Preload("WordBase.Word").First(&chapters)
+	userID := token.User(r).UserID
+	db.Model(&entities.Chapter{}).
+		Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
+		Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
+		Where("chapters.id = ?", id).
+		Group("chapters.id").
+		Preload("Creator").
+		Preload("WordBase.Word").
+		First(&chapters)
+
 	render.JSON(w, r, map[string]any{
 		"chapter": chapters,
 	})
@@ -35,7 +44,9 @@ func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
 	snowflakeID, err := strconv.ParseInt(r.URL.Query().Get("chapter_id"), 10, 64)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
-		render.JSON(w, r, i18n.Localizer(r, "error.something_went_wrong"))
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
 		return
 	}
 	tx := db.Unscoped().Delete(&entities.UserFavorite{}, "user_id = ? AND chapter_id = ?", token.User(r).UserID, snowflakeID)
@@ -46,16 +57,44 @@ func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
-	render.JSON(w, r, i18n.Localizer(r, "ok.success"))
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "ok.success"),
+	})
 }
 
+func Favorites(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	userID := token.User(r).UserID
+
+	var favorites []ChapterDTO
+	err := db.Table("user_favorites").
+		Joins("JOIN chapters ON chapters.id = user_favorites.chapter_id").
+		Joins("JOIN word_bases ON word_bases.chapter_id = chapters.id").
+		Where("user_favorites.user_id = ?", userID).
+		Unscoped().
+		Select("chapters.*, user_favorites.chapter_id as fav_chapter_id, COUNT(DISTINCT user_favorites.chapter_id) as fav_count, COUNT(DISTINCT word_bases.id) as word_count").
+		Preload("Creator").
+		Group("chapters.id, user_favorites.chapter_id").
+		Find(&favorites).Error
+
+	if err != nil {
+		http.Error(w, "", http.StatusInternalServerError)
+		return
+	}
+
+	render.JSON(w, r, map[string]interface{}{
+		"list": favorites,
+	})
+
+}
 func Favorite(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	snowflakeID, err := strconv.ParseInt(r.URL.Query().Get("chapter_id"), 10, 64)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
-		render.JSON(w, r, i18n.Localizer(r, "error.something_went_wrong"))
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.id_convert"),
+		})
 		return
 	}
 	tx := db.Clauses(clause.OnConflict{
@@ -73,7 +112,9 @@ func Favorite(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	render.JSON(w, r, i18n.Localizer(r, "ok.success"))
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "ok.success"),
+	})
 }
 
 func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {

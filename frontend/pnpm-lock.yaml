@@ -29,6 +29,9 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
+      '@hoppscotch/vue-toasted':
+        specifier: ^0.1.0
+        version: 0.1.0(vue@3.5.13)
       '@ionic/vue':
         specifier: ^8.4.3
         version: 8.4.3
@@ -453,6 +456,11 @@ packages:
 
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
+
+  '@hoppscotch/vue-toasted@0.1.0':
+    resolution: {integrity: sha512-DIgmeTHxWwX5UeaHLEqDYNLJFGRosx/5N1fCHkaO8zt+sZv8GrHlkrIpjfKF2drmA3kKw5cY42Cw7WuCoabR3g==}
+    peerDependencies:
+      vue: ^3.2.37
 
   '@intlify/core-base@10.0.5':
     resolution: {integrity: sha512-F3snDTQs0MdvnnyzTDTVkOYVAZOE/MHwRvF7mn7Jw1yuih4NrFYLNYIymGlLmq4HU2iIdzYsZ7f47bOcwY73XQ==}
@@ -4411,6 +4419,10 @@ snapshots:
   '@hapi/topo@5.1.0':
     dependencies:
       '@hapi/hoek': 9.3.0
+
+  '@hoppscotch/vue-toasted@0.1.0(vue@3.5.13)':
+    dependencies:
+      vue: 3.5.13
 
   '@intlify/core-base@10.0.5':
     dependencies:

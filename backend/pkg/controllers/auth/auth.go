@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -15,7 +16,6 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
-	"github.com/akifkadioglu/vocapedia/pkg/snowflake"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/akifkadioglu/vocapedia/utils"
 )
@@ -118,7 +118,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 func GetToken(w http.ResponseWriter, r *http.Request) {
 	tokenClaim := entities.JwtModel{}
-	tokenClaim.UserID = snowflake.GenerateID()
+	tokenClaim.UserID, _ = strconv.ParseInt(r.URL.Query().Get("email"), 10, 64)
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)

@@ -8,7 +8,9 @@
     "auth.login.success": "Giriş başarılı!",
     
     "error.something_went_wrong": "Bir şeyler ters gitti!",
+    "error.id_convert":"ID çevirilemedi! doğru yerde misin?",
 
     "ok.allright":"Her şey yolunda!",
     "ok.success":"Başarılı"
+    
 }

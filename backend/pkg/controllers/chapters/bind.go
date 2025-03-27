@@ -25,3 +25,10 @@ type _search struct {
 	FavCount    int            `json:"fav_count"`
 	WordCount   int            `json:"word_count"`
 }
+
+type ChapterDTO struct {
+	entities.Chapter
+	FavCount    int64 `json:"fav_count"`
+	WordCount   int64 `json:"word_count"`
+	IsFavorited bool  `json:"is_favorited"`
+}

@@ -36,13 +36,13 @@ async function Mock(endpoint, method = "GET") {
 
     if (method === "GET") {
         switch (term) {
-            case "/chapters/search":
+            case "/public/chapters/search":
                 return _search_list;
-            case "/chapters/follows":
+            case "/chapters/favorite":
                 return _search_list;
-            case "/chapters/trends":
+            case "/public/chapters/trends":
                 return _trends_list;
-            case "/chapters/:id":
+            case "/public/chapters/:id":
                 return _chapter;
             default:
                 return "{}";
@@ -97,7 +97,7 @@ async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry
             clearTimeout(timeoutId);
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw await response.json();
             }
 
             const data = await response.json();
@@ -114,7 +114,7 @@ async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry
                 throw error;
             }
 
-            await new Promise(resolve => setTimeout(resolve, retryDelay)); // Tekrar denemeden önce bekle
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
         }
     }
 

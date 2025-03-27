@@ -18,6 +18,6 @@ import { useFetch } from '@/composable/useFetch';
 const response = ref("{}")
 
 onMounted(async () => {
-    response.value = await useFetch("/chapters/follows")
+    response.value = await useFetch("/chapters/favorite")
 })
 </script>

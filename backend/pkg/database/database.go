@@ -6,6 +6,7 @@ import (
 
 	"gorm.io/gorm"
 
+	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/brianvoe/gofakeit"
 )
@@ -45,9 +46,12 @@ func Manager() *gorm.DB {
 	return db
 }
 func seed() {
-	var user entities.User
-	gofakeit.Struct(&user)
-	db.Create(&user)
+	user := entities.User{
+		Username: config.ReadValue().AdminUsername,
+		Email:    config.ReadValue().AdminEmail,
+	}
+
+	db.FirstOrCreate(&user, entities.User{Username: user.Username})
 	for range 50 {
 		chapter := entities.Chapter{
 			CreatorID:   user.ID,

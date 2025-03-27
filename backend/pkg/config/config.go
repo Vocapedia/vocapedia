@@ -20,7 +20,7 @@ type Config struct {
 	JwtIssuer     string `yaml:"jwt_issuer"`
 	TotpIssuer    string `yaml:"totp_issuer"`
 	AdminEmail    string `yaml:"admin_email"`
-	AdminName     string `yaml:"admin_name"`
+	AdminUsername string `yaml:"admin_username"`
 	AdminPassword string `yaml:"admin_password"`
 
 	SMTP struct {

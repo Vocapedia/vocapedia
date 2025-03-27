@@ -8,8 +8,8 @@ jwt_secret: vocapedia
 jwt_expire: 720 # time in hours
 jwt_issuer: vocapedia
 totp_issuer: vocapedia
-admin_email: test@vocapedia.com
-admin_name: Test
+admin_email: test@vocapedia.space
+admin_username: Test
 admin_password: 123456
 
 smtp:
@@ -17,7 +17,7 @@ smtp:
   host: smtp.gmail.com
   password: ddef kfof cpte rwge
   port: 587
-
+  
 database:
   host: localhost #  vocapedia-psql
   port: 5432

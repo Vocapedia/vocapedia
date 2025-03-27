@@ -23,11 +23,11 @@ import { useFetch } from "@/composable/useFetch";
 
 
 onMounted(async () => {
-    response.value = await useFetch("/chapters/search?q=" + route.query.q)
+    response.value = await useFetch("/public/chapters/search?q=" + route.query.q)
 })
 
 watch(route, async (newQuery, oldQuery) => {
-    response.value = await useFetch("/chapters/search?q=" + newQuery.query.q)
+    response.value = await useFetch("/public/chapters/search?q=" + newQuery.query.q)
 })
 
 </script>

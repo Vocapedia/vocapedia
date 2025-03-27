@@ -24,6 +24,9 @@ import "splitting/dist/splitting.css";
 import "splitting/dist/splitting-cells.css";
 import Splitting from "splitting";
 
+import "@hoppscotch/vue-toasted/style.css"
+import Toasted from "@hoppscotch/vue-toasted"
+
 const app = createApp(App)
   .use(createPinia())
   .use(i18n)
@@ -33,6 +36,7 @@ const app = createApp(App)
   .use(IonicVue)
   .use(autoAnimatePlugin)
   .use(router)
+  .use(Toasted)
   .directive("splitting", {
     mounted(el) {
       const split = Splitting({ target: el });
