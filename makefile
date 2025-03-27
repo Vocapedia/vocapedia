@@ -2,7 +2,7 @@ hot:
 	docker compose -f docker-compose.hot.yaml up
 
 prepare:
-	pnpm --dir ./frontend/ install >> /dev/null && pnpm --dir ./frontend/ build >> /dev/null && rsync -a ./frontend/dist/ ./backend/pkg/embed/dist
+	set VITE_BUILT=1 && pnpm --dir ./frontend install && pnpm --dir ./frontend build && robocopy "./frontend/dist" "./backend/pkg/embed/dist" /E
 
 refresh-frontend:
 	docker start vocapedia-frontend
