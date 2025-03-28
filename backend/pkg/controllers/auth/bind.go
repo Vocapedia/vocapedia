@@ -3,6 +3,10 @@ package auth
 type _login struct {
 	Email string `json:"email"`
 }
+type _otp struct {
+	Email string `json:"email"`
+	OTP   string `json:"otp"`
+}
 
 type _emailData struct {
 	Header      string

@@ -15,7 +15,7 @@
                     <RouterLink to="/settings" class="smooth-click">
                         <mdicon name="cog-outline" size="24" />
                     </RouterLink>
-                    <RouterLink to="/login" class="smooth-click">
+                    <RouterLink :to="token ? '/' + getUser().username : '/login'" class="smooth-click">
                         <mdicon name="account-circle-outline" size="24" />
                     </RouterLink>
                     <SwitchThemeVue />
@@ -47,6 +47,7 @@
 
 <script setup>
 import SwitchThemeVue from "@/components/SwitchTheme.vue";
+import { getUser } from "@/utils/token";
 import { ref, nextTick, watch } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter()
@@ -55,7 +56,7 @@ const searchRef = ref(null)
 const searchable = ref(false)
 const lang = ref(navigator.language || navigator.languages[0]);
 
-
+const token = localStorage.getItem("token")
 watch(searchRef, (newVal) => {
     if (newVal) {
         nextTick(() => {

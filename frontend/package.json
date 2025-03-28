@@ -25,7 +25,12 @@
     "animate.css": "^4.1.1",
     "chart.js": "^4.4.8",
     "html2canvas-pro": "^1.5.8",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "jwt-decode": "^4.0.0",
     "mdi-vue": "^3.0.13",
+    "pdf-lib": "^1.17.1",
+    "pdfmake": "^0.2.18",
     "pinia": "^2.3.1",
     "splitting": "^1.1.0",
     "swiper": "^11.2.2",
@@ -34,6 +39,7 @@
     "vue-chartjs": "^5.3.2",
     "vue-i18n": "^10.0.5",
     "vue-router": "^4.5.0",
+    "vue3-otp-input": "^0.5.21",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {

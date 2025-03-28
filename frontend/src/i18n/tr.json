@@ -51,9 +51,15 @@
         "header": "Giriş Yap",
         "input": {
             "label": "E-posta",
-            "placeholder": "E-posta adresinizi girin"
+            "placeholder": "E-posta adresinizi girin",
+            "otp": "Tek kullanımlık kod"
         },
-        "button": "Kod gönder",
+        "otp": {
+            "send_button": "Tek kullanımlık kod iste",
+            "verify_button": "Giriş yap",
+            "send_success": "E-posta adresinize giriş kodu gönderildi.",
+            "verify_success": "Giriş başarılı!"
+        },
         "success": "Giriş başarılı! E-posta adresinize giriş kodu gönderildi.",
         "error": "Giriş başarısız!",
         "greeting": "iyi günler diler"
@@ -61,5 +67,22 @@
     "account": {
         "edit_profile": "Profili düzenle",
         "create_new_post": "Yeni liste oluştur"
+    },
+    "chapter": {
+        "type": "Tür",
+        "language": "Dil",
+        "word": "Kelime",
+        "description": "Açıklama",
+        "example": "Örnek"
+    },
+    "word_types": {
+        "noun": "İsim",
+        "verb": "Fiil",
+        "adjective": "Sıfat",
+        "adverb": "Zarf",
+        "pronoun": "Zamir",
+        "conjunction": "Bağlaç",
+        "preposition": "Edat",
+        "interjection": "Ünlem"
     }
 }

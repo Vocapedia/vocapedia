@@ -45,9 +45,11 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		})
 		api.Route("/public", func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
-				api.Post("/login", auth.Login)
+				api.Post("/send-otp", auth.SendOTP)
+				api.Post("/verify-otp", auth.VerifyOTP)
 			})
 			api.Route("/chapters", func(api chi.Router) {
+				api.Get("/user", chapters.UserChapters)
 				api.Get("/{id}", chapters.GetByID)
 				api.Get("/search", chapters.Search)
 				api.Get("/trends", chapters.GetTrendingChapters)

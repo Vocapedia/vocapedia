@@ -262,3 +262,23 @@ func ComposeByExcel(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Chapters uploaded successfully"))
 
 }
+
+func UserChapters(w http.ResponseWriter, r *http.Request) {
+	username := r.URL.Query().Get("username")
+	db := database.Manager()
+	var chapters []ChapterDTO
+	err := db.Table("chapters").
+		Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, COUNT(word_bases.id) AS word_count").
+		Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
+		Joins("LEFT JOIN word_bases ON word_bases.chapter_id = chapters.id").      // word_bases ile ilişkilendirme yapıyoruz
+		Joins("LEFT JOIN users AS creator ON creator.id = chapters.creator_id"). // creator ile ilişkilendirme
+		Where("creator.username = ?", username).                                 // creator.username ile filtreleme
+		Group("chapters.id").
+		Preload("Creator"). // Creator'ı preload yapıyoruz
+		Scan(&chapters).Error
+
+	if err != nil {
+		return
+	}
+	render.JSON(w, r, chapters)
+}

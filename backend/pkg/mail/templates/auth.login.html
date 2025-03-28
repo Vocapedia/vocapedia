@@ -26,6 +26,10 @@
             color: #333;
         }
 
+        .center {
+            text-align: center;
+        }
+
         .code {
             font-size: 24px;
             font-weight: bold;
@@ -54,9 +58,7 @@
     <div class="container">
         <h2>{{.Header}}</h2>
         <p>{{.Description}}</p>
-        <a href="{{.Host}}/auth?token={{.Code}}" target="_blank">
-            <div class="code">{{.Action}}</div>
-        </a>
+        <div class="code center">{{.Code}}</div>
         <p>{{.Warning}}</p>
     </div>
 

@@ -1,11 +1,10 @@
 {    
     "mail.auth.header": "Giriş Kodunuz",
-    "mail.auth.description": "Giriş yapmak için aşağıdaki butona tıklamanız gerekmektedir",
-    "mail.auth.action": "Giriş yap",
-    "mail.auth.warning": "Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı göz ardı edin.",
-    "mail.auth.login.subject": "Giriş Kodunuz",
+    "mail.auth.description": "Giriş yapmak için aşağıdaki kodu girmeniz gerekmektedir.",
+    "mail.auth.warning": "Kodun süresi 5 dakikadır. Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı görmezden gelin.",
+    "mail.auth.login.subject": "Giriş Kodu",
     
-    "auth.login.success": "Giriş başarılı!",
+    "auth.otp.success": "Tek kullanımlık kod gönderildi!",
     
     "error.something_went_wrong": "Bir şeyler ters gitti!",
     "error.id_convert":"ID çevirilemedi! doğru yerde misin?",

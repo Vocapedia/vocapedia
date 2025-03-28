@@ -33,7 +33,6 @@ async function Mock(endpoint, method = "GET") {
 
     var term = endpoint.split("?")[0];
     term = term.split("/").map((item) => (snowflakeRegex.test(item) ? ":id" : item)).join("/");
-
     if (method === "GET") {
         switch (term) {
             case "/public/chapters/search":
@@ -44,6 +43,8 @@ async function Mock(endpoint, method = "GET") {
                 return _trends_list;
             case "/public/chapters/:id":
                 return _chapter;
+            case "/public/chapters/user":
+                return _search_list;
             default:
                 return "{}";
         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-160 mx-auto">
+    <div class="max-w-160 mx-auto prose dark:prose-invert">
         <div v-html="response.chapter.tutorial" />
     </div>
 </template>

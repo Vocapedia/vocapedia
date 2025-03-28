@@ -34,7 +34,8 @@
             "word": "fugit",
             "description": "Distinctio iusto provident. Repudiandae autem veritatis.",
             "examples": [
-              "Nam dolores voluptates."
+              "Nam dolores voluptates.",
+              "Distinctio esse numquam."
             ],
             "word_base_id": 1905375336426639360,
             "chapter_id": 1905375336384696320
@@ -274,7 +275,7 @@
             "deleted_at": null,
             "lang": "tr",
             "word": "asperiores",
-            "description": "Commodi possimus a. Doloribus voluptatum molestiae.",
+            "description": "Commodi possimus a. Doloribus voluptatum molestiae. asdıjf ısad fıhs dfsad fuashd fjskad fskjdsjadf sjdk f",
             "examples": [
               "Est voluptas delectus."
             ],
@@ -588,7 +589,7 @@
         ]
       }
     ],
-    "tutorial": "",
+    "tutorial": "<div><h1>Understanding the Past Tense in English</h1><p>The <strong>past tense</strong> is used to describe actions that have already happened or were completed at some point in the past. There are two main types of past tense in English:</p><h2>1. Simple Past Tense</h2><p>The <strong>simple past tense</strong> is used to talk about actions that were completed at a specific time in the past. This tense is formed by adding <em>-ed</em> to regular verbs, or using the irregular form of irregular verbs.</p><p>For example:</p><ul><li>I <strong>went</strong> to the store yesterday. (irregular verb)</li><li>She <strong>played</strong> soccer last weekend. (regular verb)</li></ul><h2>2. Past Continuous Tense</h2><p>The <strong>past continuous tense</strong> is used to describe actions that were happening at a specific moment in the past. It is formed using the past tense of the verb <em>to be</em> (was/were) + the <em>-ing</em> form of the main verb.</p><p>For example:</p><ul><li>I <strong>was reading</strong> a book when the phone rang.</li><li>They <strong>were studying</strong> all night.</li></ul><h2>Examples of Past Tense</h2><p>Here are more examples to help you understand how the past tense works:</p><ul><li><strong>She <em>worked</em> hard yesterday.</strong></li><li><strong>We <em>visited</em> the museum last week.</strong></li><li><strong>They <em>were playing</em> tennis when it started to rain.</strong></li></ul><h2>Conclusion</h2><p>The past tense is an essential part of English grammar, allowing us to describe actions and events that have already taken place. Practice using both the simple past and past continuous tenses to improve your English skills!</p></div>",
     "fav_count": 1,
     "word_count": 0,
     "is_favorited": true

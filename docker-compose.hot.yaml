@@ -31,7 +31,17 @@ services:
       POSTGRES_DB: vocapedia
     networks:
       - vocapedia
-
+  redis:
+    container_name: vocapedia-redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - vocapedia
+    restart: unless-stopped
+    
 networks:
   vocapedia:
     name: vocapedia_network
@@ -39,4 +49,6 @@ networks:
 
 volumes:
   vocapedia_pgdata:
+    external: false
+  redis-data:
     external: false

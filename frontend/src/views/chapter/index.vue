@@ -30,22 +30,27 @@
             </div>
 
             <div class="max-w-160 w-full mx-auto">
-                <div class="flex items-center justify-between">
-                    <div class="space-x-2">
+                <div class="flex items-center justify-between space-x-5">
+                    <div class="flex items-center space-x-2">
                         <button @click="changeVariant('word-list')"
                             :class="$route.query.variant == 'tutorial' ? 'text-zinc-400 dark:text-zinc-600' : ''"
-                            class="cursor-pointer text-lg font-semibold">
+                            class="truncate cursor-pointer text-lg font-semibold">
                             {{ $t('word-list') }}
                         </button>
                         <button @click="changeVariant('tutorial')"
                             :class="$route.query.variant == 'tutorial' ? '' : 'text-zinc-400 dark:text-zinc-600'"
-                            class="cursor-pointer text-lg font-semibold">
+                            class="truncate cursor-pointer text-lg font-semibold">
                             {{ $t('tutorial') }}
                         </button>
+                        <button class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1" @click="generatePDF">
+                            <mdicon name="download-outline" />
+                        </button>
+
                     </div>
-                    <router-link class="flex items-center space-x-1 font-semibold" :to="'/' + response.chapter.creator.username">
-                        <span>
-                            {{ response.chapter.creator.username }}
+                    <router-link class="flex truncate items-center space-x-1 font-semibold"
+                        :to="'/' + response.chapter.creator.username">
+                        <span class="overflow truncate">
+                            @{{ response.chapter.creator.username }}
                         </span>
                     </router-link>
                 </div>
@@ -66,11 +71,74 @@ import TutorialView from "./TutorialView.vue"
 import WordListView from "./WordListView.vue"
 import { ref, watch, shallowRef, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import "@/assets/Roboto-bold"
+import "@/assets/Roboto-normal"
+
+const generatePDF = async () => {
+    const doc = new jsPDF();
+    const marginX = 14;
+    let startY = 20;
+
+    doc.setFont('Roboto', "bold");
+    doc.setFontSize(20);
+    doc.text(response.value.chapter.title, marginX, startY);
+    startY += 8;
+
+    doc.setFont('Roboto', "normal");
+    doc.setFontSize(12);
+    doc.text(response.value.chapter.description, marginX, startY);
+    startY += 8;
+
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text(`@${response.value.chapter.creator.username}`, marginX, startY);
+    startY += 10;
+    response.value.chapter.word_bases.forEach((base) => {
+        doc.setFontSize(12);
+        const tableData = base.words.map((word) =>
+            [
+                i18n.global.t("word_types." + base.type),
+                word.lang.toUpperCase(),
+                word.word,
+                word.description,
+                word.examples.join("\n")
+            ]
+        );
+        if (doc.lastAutoTable && (doc.lastAutoTable.finalY + tableData.length * 25) > doc.internal.pageSize.height) {
+            doc.addPage();
+            startY = 20;
+        }
+        autoTable(doc, {
+            startY,
+            head: doc.lastAutoTable ? null : [[i18n.global.t("chapter.type"), i18n.global.t("chapter.language"), i18n.global.t("chapter.word"), i18n.global.t("chapter.description"), i18n.global.t("chapter.example")]],
+            body: tableData,
+            theme: "grid",
+            styles: { font: "Roboto", fontSize: 10, cellPadding: 4, overflow: 'ellipsize', halign: "center" },
+            headStyles: { font: "Roboto", fillColor: [41, 128, 185], textColor: 255, fontStyle: "bold" },
+            columnStyles: {
+                0: { halign: "center", cellWidth: 30 },
+                1: { halign: "center", cellWidth: 15 },
+                2: { halign: "left", cellWidth: 35 },
+                3: { halign: "left", cellWidth: 50 },
+                4: { halign: "left", cellWidth: 51.77 }
+            }
+        });
+
+        startY = doc.lastAutoTable.finalY + 7;
+    });
+
+
+    doc.save(`${response.value.chapter.title}.pdf`);
+};
+
 const route = useRoute()
 const router = useRouter()
 
 import { useFetch } from '@/composable/useFetch';
 import { useToast } from "@/composable/useToast"
+import { i18n } from "@/i18n/i18n";
 
 const response = ref({})
 const toast = useToast()

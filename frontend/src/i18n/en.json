@@ -61,5 +61,22 @@
     "account": {
         "edit_profile": "Edit profile",
         "create_new_post": "Create new list"
+    },
+    "chapter": {
+        "type": "Type",
+        "language": "Language",
+        "word": "Word",
+        "description": "Description",
+        "example": "Example"
+    },
+    "word_types": {
+        "noun": "Noun",
+        "verb": "Verb",
+        "adjective": "Adjective",
+        "adverb": "Adverb",
+        "pronoun": "Pronoun",
+        "conjunction": "Conjunction",
+        "preposition": "Preposition",
+        "interjection": "Interjection"
     }
 }
