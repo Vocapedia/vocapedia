@@ -5,7 +5,7 @@ import AccountView from "@/views/AccountView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 import ChapterView from "@/views/chapter/index.vue";
 import GameView from "@/views/GameView.vue";
-import { loadLayoutMiddleware } from "./middleware/loadLayoutMiddleware";
+import { loadLayout } from "./middleware/loadLayout";
 import TestView from "@/views/game/TestView.vue";
 import SearchView from "@/views/SearchView.vue";
 import ComposePost from "@/views/ComposePost.vue";
@@ -16,6 +16,8 @@ import QuickPickView from "@/views/game/QuickPickView.vue";
 import WordMatchView from "@/views/game/WordMatchView.vue";
 import WordRushView from "@/views/game/WordRushView.vue";
 import LoginView from "@/views/LoginView.vue";
+import { authGuard } from "./middleware/authGuard";
+import SettingView from "@/views/SettingView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,11 +27,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
     },
-    {
-      path: "/account",
-      name: "account",
-      component: AccountView,
-    },
+
     {
       path: "/compose",
       name: "compose",
@@ -92,12 +90,23 @@ const router = createRouter({
       component: LoginView
     },
     {
+      path: "/settings",
+      name: "settings",
+      component: SettingView
+    },
+    {
+      path: "/:username",
+      name: "account",
+      //beforeEnter: [authGuard],
+      component: AccountView,
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not-found",
       component: NotFoundView,
     },
   ],
 });
-router.beforeEach(loadLayoutMiddleware);
+router.beforeEach(loadLayout);
 
 export default router;

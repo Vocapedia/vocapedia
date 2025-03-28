@@ -8,7 +8,7 @@ const messages = {
   tr: tr,
 };
 
-const lang = "tr";
+const lang = navigator.language || navigator.languages[0];
 const i18n = createI18n({
   locale: lang,
   fallbackLocale: "en",

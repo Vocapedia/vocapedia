@@ -1,4 +1,4 @@
-export async function loadLayoutMiddleware(route) {
+export async function loadLayout(route) {
   let layout = route.meta.layout;
   if (!layout) {
     layout = "default";

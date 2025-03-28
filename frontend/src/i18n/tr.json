@@ -1,5 +1,4 @@
 {
-    "account": "Hesabım",
     "followed": "Takip Edilenler",
     "notes": "Notlar",
     "trends": "Trendler",
@@ -58,5 +57,9 @@
         "success": "Giriş başarılı! E-posta adresinize giriş kodu gönderildi.",
         "error": "Giriş başarısız!",
         "greeting": "iyi günler diler"
+    },
+    "account": {
+        "edit_profile": "Profili düzenle",
+        "create_new_post": "Yeni liste oluştur"
     }
 }

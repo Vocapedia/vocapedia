@@ -1,8 +1,65 @@
 {
-    "home": "Home",
+    "followed": "Followed",
+    "notes": "Notes",
+    "trends": "Trends",
+    "personal_info": "Personal",
+    "compose_post": "Compose Post",
+    "search_from_list": "Search from list",
+    "tr": "Turkish",
+    "en": "English",
+    "list_helper": "Listed language is {lang}, translated language{s} is {target_lang}",
     "page_not_found": {
         "title": "Oops! Page Not Found",
-        "message": "The page you're looking for doesn't exist or has been moved.",
-        "button_text": "Go to Home Page"
+        "message": "The page you are looking for does not exist or may have been moved.",
+        "button_text": "Go to Homepage"
+    },
+    "games": "Games",
+    "test": "Test",
+    "word-rush": "Word Rush",
+    "flip-word": "Flip Word",
+    "word-match": "Word Match",
+    "quick-pick": "Quick Pick",
+    "search_a_list": "Search a list",
+    "search_results": "{count} results found for \"{query}\"",
+    "close": "Close",
+    "show_result": "Show result",
+    "word": "Word",
+    "answer": "Answer",
+    "list_name": "List name",
+    "header": "Header",
+    "language": "Language",
+    "examples": "Examples",
+    "example": "Example",
+    "type": "Type",
+    "description": "Description",
+    "word-list": "Word List",
+    "tutorial": "Tutorial",
+    "intro": "Intro",
+    "empty": "It's empty here",
+    "followed_results": "{count} followed results found",
+    "add_new_note": "Add new note...",
+    "note_description": "Added notes are stored only in your browser.",
+    "share_not_supported": "Sharing not supported!.",
+    "scoreboard": "Scoreboard",
+    "home": {
+        "title": "Homepage",
+        "experience": {
+            "title": "Experience point"
+        }
+    },
+    "login": {
+        "header": "Login",
+        "input": {
+            "label": "Email",
+            "placeholder": "Enter your email address"
+        },
+        "button": "Send code",
+        "success": "Login successful! Login code sent to your email address.",
+        "error": "Login failed!",
+        "greeting": "have a good day"
+    },
+    "account": {
+        "edit_profile": "Edit profile",
+        "create_new_post": "Create new list"
     }
 }

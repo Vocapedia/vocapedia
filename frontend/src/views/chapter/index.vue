@@ -43,8 +43,10 @@
                             {{ $t('tutorial') }}
                         </button>
                     </div>
-                    <router-link :to="'/' + response.chapter.creator.username">
-                        {{ response.chapter.creator.username }}
+                    <router-link class="flex items-center space-x-1 font-semibold" :to="'/' + response.chapter.creator.username">
+                        <span>
+                            {{ response.chapter.creator.username }}
+                        </span>
                     </router-link>
                 </div>
                 <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">

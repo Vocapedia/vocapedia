@@ -9,7 +9,6 @@ import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
 import App from "./App.vue";
 import router from "./router";
 import { i18n } from "./i18n/i18n";
-import { IonicVue } from "@ionic/vue";
 
 import "animate.css";
 
@@ -33,7 +32,6 @@ const app = createApp(App)
   .use(mdiVue, {
     icons: mdijs,
   })
-  .use(IonicVue)
   .use(autoAnimatePlugin)
   .use(router)
   .use(Toasted)
