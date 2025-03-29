@@ -25,9 +25,14 @@ func GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	userID := token.User(r).UserID
-	db.Model(&entities.Chapter{}).
-		Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
-		Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
+	tx := db.Model(&entities.Chapter{})
+	if userID != "" {
+		tx.Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID)
+	} else {
+		tx.Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count")
+
+	}
+	tx.Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
 		Where("chapters.id = ?", id).
 		Group("chapters.id").
 		Preload("Creator").
@@ -89,6 +94,10 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 }
 func Favorite(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
+	if token.User(r).UserID == "" {
+		http.Error(w, "", http.StatusBadRequest)
+		return
+	}
 	snowflakeID, err := strconv.ParseInt(r.URL.Query().Get("chapter_id"), 10, 64)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
@@ -97,11 +106,12 @@ func Favorite(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	userID, _ := strconv.ParseInt(token.User(r).UserID, 10, 64)
 	tx := db.Clauses(clause.OnConflict{
 		Columns:   []clause.Column{{Name: "user_id"}, {Name: "chapter_id"}},
 		DoNothing: true,
 	}).Create(&entities.UserFavorite{
-		UserID:    token.User(r).UserID,
+		UserID:    userID,
 		ChapterID: snowflakeID,
 	})
 
@@ -112,6 +122,7 @@ func Favorite(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
 	render.JSON(w, r, map[string]string{
 		"message": i18n.Localizer(r, "ok.success"),
 	})

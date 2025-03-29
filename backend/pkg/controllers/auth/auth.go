@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"text/template"
 	"time"
@@ -144,8 +143,18 @@ func VerifyOTP(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	tokenClaim.UserID = user.ID
+	device, err := utils.StructToMap(params.Device)
+	if err != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	tokenClaim.UserID = fmt.Sprintf("%v", user.ID)
 	tokenClaim.Username = user.Username
+	tokenClaim.Device = device
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
@@ -161,7 +170,7 @@ func VerifyOTP(w http.ResponseWriter, r *http.Request) {
 
 func GetToken(w http.ResponseWriter, r *http.Request) {
 	tokenClaim := entities.JwtModel{}
-	tokenClaim.UserID, _ = strconv.ParseInt(r.URL.Query().Get("email"), 10, 64)
+	tokenClaim.UserID = r.URL.Query().Get("user_id")
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)

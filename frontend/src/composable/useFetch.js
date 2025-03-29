@@ -96,7 +96,9 @@ async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry
         try {
             const response = await fetch(url, config);
             clearTimeout(timeoutId);
-
+            if (response.status == 401) {
+                window.location.href = "/login"
+            }
             if (!response.ok) {
                 throw await response.json();
             }

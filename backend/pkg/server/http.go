@@ -30,10 +30,11 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 	r.Use(customMiddleware.Language)
 	r.Use(customMiddleware.RateLimit)
 	r.Use(customMiddleware.SecurityHeaders)
+	r.Use(jwtauth.Verifier(token.TokenAuth()))
 
 	r.Route("/api/v1", func(api chi.Router) {
 		api.Group(func(api chi.Router) {
-			api.Use(jwtauth.Verifier(token.TokenAuth()))
+			api.Use(customMiddleware.HandleToken)
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
 
 			api.Route("/chapters", func(api chi.Router) {

@@ -5,7 +5,7 @@
         <component :is="$route.meta.layoutComponent">
           <transition name="fade" mode="out-in">
             <div :key="route.name">
-              <component :is="Component" :key="$route.fullPath" />
+              <component :is="Component" :key="$route.path" />
             </div>
           </transition>
         </component>

@@ -31,6 +31,7 @@ func InitDB(host string, port int, user, password, dbname string) {
 		&entities.UserFavorite{},
 		&entities.WordBase{},
 		&entities.Word{},
+		&entities.Token{},
 	)
 
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_title ON chapters USING gin (title gin_trgm_ops)`)

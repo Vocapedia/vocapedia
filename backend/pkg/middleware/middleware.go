@@ -3,12 +3,15 @@ package middleware
 import (
 	"context"
 	"net/http"
+	"strings"
 
+	"github.com/akifkadioglu/vocapedia/pkg/database"
+	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	customI18n "github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/text/language"
 	"golang.org/x/time/rate"
-	"github.com/sirupsen/logrus"
 )
 
 func Language(next http.Handler) http.Handler {
@@ -30,7 +33,7 @@ func Language(next http.Handler) http.Handler {
 	})
 }
 
-var limiter = rate.NewLimiter(1, 5)
+var limiter = rate.NewLimiter(1, 6)
 
 func RateLimit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -63,4 +66,24 @@ func Logger(next http.Handler) http.Handler {
 		}).Info("Request received")
 		next.ServeHTTP(w, r)
 	})
+}
+
+func HandleToken(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		db := database.Manager()
+		token := strings.Split(r.Header.Get("Authorization"), " ")[1]
+		var tokenEntity entities.Token
+		err := db.Where("token = ?", token).First(&tokenEntity).Error
+		if err != nil {
+			log.Println(err)
+			http.Error(w, "Token is not valid", http.StatusUnauthorized)
+			return
+		}
+		if !limiter.Allow() {
+			http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+
 }

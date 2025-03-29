@@ -91,6 +91,7 @@ const router = useRouter()
 const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const toast = useToast()
 import { useCountdown } from '@vueuse/core'
+import { getDevice } from '@/utils/token';
 
 const duration = 5 * 60;
 const { remaining, start } = useCountdown(duration, {
@@ -152,7 +153,11 @@ const handleVerifyOTP = async () => {
     isLoading.value = true;
     await useFetch('/public/auth/verify-otp', {
         method: "POST",
-        body: { "email": emailOTP.value, "otp": otp.value.join("") }
+        body: {
+            "email": emailOTP.value,
+            "otp": otp.value.join(""),
+            "device": getDevice()
+        }
     }
     ).then((response) => {
         if (response.token) {
@@ -162,6 +167,8 @@ const handleVerifyOTP = async () => {
         } else {
             toast.show(response.error);
         }
+    }).catch(e => {
+        toast.show(e.error);
     });
     isLoading.value = false;
 };
@@ -173,6 +180,7 @@ const recaptchaCallback = () => {
 };
 
 onMounted(() => {
+    getDevice()
     if (window.grecaptcha) {
         grecaptcha.render('recaptcha-container', {
             sitekey: recaptchaSiteKey,

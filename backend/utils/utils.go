@@ -19,7 +19,7 @@ func StructToMap(object any) (map[string]any, error) {
 	}
 	return newMap, err
 }
-func MapToStruct(mapData map[string]interface{}, structData interface{}) {
+func MapToStruct(mapData map[string]any, structData interface{}) {
 	jsonStr, err := json.Marshal(mapData)
 	if err != nil {
 		log.Println(err)
