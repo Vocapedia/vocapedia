@@ -12,7 +12,7 @@ export async function useFetch(
         body = null,
         headers = {},
         timeout = 10000,
-        cacheTTL = 60000,
+        cacheTTL = 20000,
         retry = 3,
         retryDelay = 1000
     } = {}

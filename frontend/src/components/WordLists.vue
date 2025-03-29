@@ -12,7 +12,10 @@
                     <div class="flex justify-evenly pt-5">
                         <button class="bg-yellow-50 dark:bg-yellow-900 rounded-full px-2 font-bold">
                             <span class="flex items-center space-x-1 dark:text-yellow-400 text-yellow-500">
-                                <mdicon name="star-outline" class="dark:text-yellow-400 text-yellow-500" size="27" />
+                                <mdicon v-if="l.is_favorited" name="star" class="dark:text-yellow-400 text-yellow-500"
+                                    size="27" />
+                                <mdicon v-else name="star-outline" class="dark:text-yellow-400 text-yellow-500"
+                                    size="27" />
                                 <span>{{ l.fav_count }}</span>
                             </span>
                         </button>

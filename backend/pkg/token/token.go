@@ -55,6 +55,8 @@ func User(r *http.Request) entities.JwtModel {
 	_, claims, _ := jwtauth.FromContext(r.Context())
 	var user entities.JwtModel
 	utils.MapToStruct(claims, &user)
-
+	if user.UserID == "" {
+		user.UserID = "0"
+	}
 	return user
 }

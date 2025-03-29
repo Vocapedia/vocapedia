@@ -25,20 +25,21 @@ func GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	userID := token.User(r).UserID
-	tx := db.Model(&entities.Chapter{})
-	if userID != "" {
-		tx.Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID)
-	} else {
-		tx.Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count")
-
-	}
-	tx.Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
+	tx := db.Model(&entities.Chapter{}).
+		Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
+		Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
 		Where("chapters.id = ?", id).
 		Group("chapters.id").
 		Preload("Creator").
 		Preload("WordBase.Word").
 		First(&chapters)
-
+	if tx.Error != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
 	render.JSON(w, r, map[string]any{
 		"chapter": chapters,
 	})
@@ -70,19 +71,18 @@ func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
 func Favorites(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	userID := token.User(r).UserID
-
 	var favorites []ChapterDTO
-	err := db.Table("user_favorites").
+	tx := db.Table("user_favorites").
 		Joins("JOIN chapters ON chapters.id = user_favorites.chapter_id").
 		Joins("JOIN word_bases ON word_bases.chapter_id = chapters.id").
 		Where("user_favorites.user_id = ?", userID).
 		Unscoped().
-		Select("chapters.*, user_favorites.chapter_id as fav_chapter_id, COUNT(DISTINCT user_favorites.chapter_id) as fav_count, COUNT(DISTINCT word_bases.id) as word_count").
+		Select("chapters.*, user_favorites.chapter_id as fav_chapter_id, COUNT(DISTINCT user_favorites.chapter_id) as fav_count, COUNT(DISTINCT word_bases.id) as word_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Preload("Creator").
 		Group("chapters.id, user_favorites.chapter_id").
-		Find(&favorites).Error
+		Find(&favorites)
 
-	if err != nil {
+	if tx.Error != nil {
 		http.Error(w, "", http.StatusInternalServerError)
 		return
 	}
@@ -216,8 +216,8 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		limit = l
 	}
 	offset := (page - 1) * limit
-	var results []_search
-
+	var results []ChapterDTO
+	userID := token.User(r).UserID
 	tx := db.Model(&entities.Chapter{}).Raw(`
 WITH ranked_chapters AS (
         SELECT *,
@@ -228,12 +228,12 @@ WITH ranked_chapters AS (
     )
     SELECT rc.*,
            (SELECT COUNT(*) FROM user_favorites WHERE chapter_id = rc.id) AS fav_count,
-           (SELECT COUNT(*) FROM word_bases WHERE chapter_id = rc.id) AS word_count
+           (SELECT COUNT(*) FROM word_bases WHERE chapter_id = rc.id) AS word_count,
+		   EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = rc.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited
     FROM ranked_chapters rc
     ORDER BY sim_score DESC, lev_score ASC
     LIMIT ? OFFSET ?
-`, query, query, query, query, query, query, limit, offset)
-
+`, query, query, query, query, query, query, userID, limit, offset)
 	err := tx.Preload("Creator").Find(&results).Error
 
 	if err != nil {
@@ -278,17 +278,16 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	db := database.Manager()
 	var chapters []ChapterDTO
-	err := db.Model(&entities.Chapter{}).
-		Select("chapters.*, COUNT(user_favorites.chapter_id) AS fav_count, COUNT(word_bases.id) AS word_count, creator.username").
-		Joins("LEFT JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
-		Joins("LEFT JOIN word_bases ON word_bases.chapter_id = chapters.id").
+	userID := token.User(r).UserID
+	tx := db.Model(&entities.Chapter{}).
+		Select("chapters.*,(SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE word_bases.chapter_id = chapters.id) AS word_count, creator.username, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Joins("LEFT JOIN users AS creator ON creator.id = chapters.creator_id").
 		Where("creator.username = ?", username).
 		Group("chapters.id, creator.username").
 		Preload("Creator").
-		Find(&chapters).Error
+		Find(&chapters)
 
-	if err != nil {
+	if tx.Error != nil {
 		return
 	}
 	render.JSON(w, r, map[string]any{
