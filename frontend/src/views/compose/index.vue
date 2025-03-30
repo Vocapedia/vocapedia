@@ -1,5 +1,5 @@
 <template>
-    <div v-auto-animate class="mb-10 space-y-5">
+    <div v-auto-animate class="mb-10 space-y-5 max-w-3xl mx-auto">
         <div class="flex py-5 justify-center">
             <input v-model="listName" type="text" :placeholder="$t('list_name')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-white text-zinc-900  border-none
