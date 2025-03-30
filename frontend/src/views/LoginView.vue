@@ -23,7 +23,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" :disabled="isLoading"
-                            :class="isCaptchaVerified ? 'cursor-pointer transition duration-200 hover:scale-101 active:scale-99 bg-sky-700 focus:ring-sky-700 ' : 'bg-zinc-200 dark:bg-zinc-900'"
+                            :class="isCaptchaVerified ? 'smooth-click2 bg-sky-700 focus:ring-sky-700 ' : 'bg-zinc-200 dark:bg-zinc-900'"
                             class="flex justify-between items-center py-2 px-4 rounded-lg w-full focus:outline-none">
                             <span>
                                 <mdicon :class="isCaptchaVerified ? 'text-white dark:text-zinc-900' : ''"
@@ -50,7 +50,7 @@
 
                     <div class="text-center">
                         <button type="submit" :disabled="isLoading"
-                            :class="isCaptchaVerified ? 'cursor-pointer transition duration-200 hover:scale-101 active:scale-99 bg-sky-700 focus:ring-sky-700 ' : 'bg-zinc-200 dark:bg-zinc-900'"
+                            :class="isCaptchaVerified ? 'smooth-click2 bg-sky-700 focus:ring-sky-700 ' : 'bg-zinc-200 dark:bg-zinc-900'"
                             class="flex justify-between items-center py-2 px-4 rounded-lg w-full focus:outline-none">
                             <span>
                                 <mdicon :class="isCaptchaVerified ? 'text-white dark:text-zinc-900' : ''"

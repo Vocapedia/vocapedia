@@ -16,7 +16,7 @@
     </div>
     <div class="text-center flex">
       <router-link to="/compose" v-if="isUsersAccount"
-        class="cursor-pointer w-full transition-all duration-200 hover:scale-101 active:scale-99 w-full bg-sky-100 dark:bg-sky-700 py-3 font-semibold">
+        class="cursor-pointer w-full smooth-click2 w-full bg-sky-100 dark:bg-sky-700 py-3 font-semibold">
         {{ $t('account.create_new_post') }}
       </router-link>
       <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">

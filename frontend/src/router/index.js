@@ -8,7 +8,6 @@ import GameView from "@/views/GameView.vue";
 import { loadLayout } from "./middleware/loadLayout";
 import TestView from "@/views/game/TestView.vue";
 import SearchView from "@/views/SearchView.vue";
-import ComposePost from "@/views/ComposePost.vue";
 import FollowedView from "@/views/FollowedView.vue";
 import NotesView from "@/views/NotesView.vue";
 import FlipWordView from "@/views/game/FlipWordView.vue";
@@ -18,6 +17,7 @@ import WordRushView from "@/views/game/WordRushView.vue";
 import LoginView from "@/views/LoginView.vue";
 import { authGuard } from "./middleware/authGuard";
 import SettingView from "@/views/SettingView.vue";
+import ComposePost from "@/views/compose/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,7 +97,6 @@ const router = createRouter({
     {
       path: "/:username",
       name: "account",
-      //beforeEnter: [authGuard],
       component: AccountView,
     },
     {

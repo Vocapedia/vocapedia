@@ -32,16 +32,16 @@
             <div class="max-w-160 w-full mx-auto">
                 <div class="flex items-center justify-between space-x-5">
                     <div class="flex items-center space-x-2">
-                        <button @click="changeVariant('word-list')"
+                        <router-link :to="$route.path + '?variant=word-list'"
                             :class="$route.query.variant == 'tutorial' ? 'text-zinc-400 dark:text-zinc-600' : ''"
                             class="truncate cursor-pointer text-lg font-semibold">
                             {{ $t('word-list') }}
-                        </button>
-                        <button @click="changeVariant('tutorial')"
+                        </router-link>
+                        <router-link :to="$route.path + '?variant=tutorial'"
                             :class="$route.query.variant == 'tutorial' ? '' : 'text-zinc-400 dark:text-zinc-600'"
                             class="truncate cursor-pointer text-lg font-semibold">
                             {{ $t('tutorial') }}
-                        </button>
+                        </router-link>
                         <button class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1" @click="generatePDF">
                             <mdicon name="download-outline" />
                         </button>
@@ -172,9 +172,6 @@ async function deleteFavChapter() {
         })
 }
 
-function changeVariant(params) {
-    router.push({ query: { ...route.query, variant: params } });
-}
 const currentComponent = shallowRef(WordListView)
 watch(route, (newV) => {
     if (newV.query.variant == 'tutorial') {

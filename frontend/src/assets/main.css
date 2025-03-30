@@ -9,6 +9,13 @@
     @apply hover:scale-105 active:scale-95;
 }
 
+.smooth-click2 {
+    transition: all 0.3s;
+    cursor: pointer;
+    @apply hover:scale-101 active:scale-99;
+
+}
+
 .card {
     @apply border border-zinc-200 dark:border-zinc-700 overflow-hidden;
 }

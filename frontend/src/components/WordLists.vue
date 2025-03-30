@@ -2,7 +2,7 @@
     <div class="space-y-2">
         <div v-for="l in props.response.list">
             <router-link :to="'/l/' + BigInt(l.id)">
-                <div class="card hover:scale-101 transition-all duration-200">
+                <div class="card smooth-click2 duration-200">
                     <h1 class="text-xl font-semibold p-5">
                         {{ l.title }}
                     </h1>

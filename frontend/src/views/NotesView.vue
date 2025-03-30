@@ -19,7 +19,7 @@
                     class="mt-6 space-y-3" v-auto-animate>
                     <template #item="{ element }" :key="element.id">
                         <div
-                            class="p-4 bg-white dark:bg-zinc-800 rounded-lg shadow-md flex justify-between items-center hover:scale-101 transition-transform cursor-move">
+                            class="p-4 bg-white dark:bg-zinc-800 rounded-lg shadow-md flex justify-between items-center smooth-click2 transition-transform cursor-move">
                             <div>
                                 <p class="text-zinc-800 dark:text-white text-lg">
                                     {{ element.content }}

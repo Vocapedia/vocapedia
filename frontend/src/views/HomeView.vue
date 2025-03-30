@@ -25,7 +25,7 @@
           </div>
           <div class="items-center grid grid-cols-12 gap-4 col-span-12 lg:col-span-6 sm:col-span-12">
             <router-link
-              class="h-full col-span-12 sm:col-span-6 lg:col-span-12 transition-all duration-200 hover:scale-101"
+              class="h-full col-span-12 sm:col-span-6 lg:col-span-12 smooth-click2"
               to="/followed">
               <div
                 class="h-full rounded-lg bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center text-xl font-bold p-4">
@@ -37,7 +37,7 @@
             </router-link>
 
             <router-link
-              class="h-full col-span-12 sm:col-span-6 lg:col-span-12 transition-all duration-200 hover:scale-101"
+              class="h-full col-span-12 sm:col-span-6 lg:col-span-12 smooth-click2"
               to="/notes">
               <div
                 class="h-full rounded-lg bg-zinc-100 dark:bg-zinc-800 flex justify-center items-center space-x-1 text-xl font-bold p-4">

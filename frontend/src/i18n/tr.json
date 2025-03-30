@@ -84,5 +84,12 @@
         "conjunction": "Bağlaç",
         "preposition": "Edat",
         "interjection": "Ünlem"
+    },
+    "compose": {
+        "select": {
+            "language": "Listenin ana dilini seçiniz",
+            "target_language": "Listenin ikinci dilini seçiniz"
+        },
+        "add_new_wordbase": "Yeni bir kelime ekle"
     }
 }
