@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-
+@plugin "@tailwindcss/typography";
 @import "./animations.css";
 
 .smooth-click {

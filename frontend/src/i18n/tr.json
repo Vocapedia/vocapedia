@@ -91,5 +91,10 @@
             "target_language": "Listenin ikinci dilini seçiniz"
         },
         "add_new_wordbase": "Yeni bir kelime ekle"
+    },
+    "editor": {
+        "placeholder": "Burayı düzenleyebilirsiniz!",
+        "copy": "Kopyala",
+        "copied": "Yazınız kopyalanmıştır!"
     }
 }

@@ -18,6 +18,7 @@ import LoginView from "@/views/LoginView.vue";
 import { authGuard } from "./middleware/authGuard";
 import SettingView from "@/views/SettingView.vue";
 import ComposePost from "@/views/compose/index.vue";
+import EditorView from "@/views/EditorView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,11 @@ const router = createRouter({
       path: "/settings",
       name: "settings",
       component: SettingView
+    },
+    {
+      path: "/editor",
+      name: "editor",
+      component: EditorView
     },
     {
       path: "/:username",
