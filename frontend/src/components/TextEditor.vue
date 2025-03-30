@@ -1,5 +1,62 @@
+<template>
+    <div class="editor-container ">
+        <div class="toolbar dark:bg-zinc-500">
+            <button :class="{ active: isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">B</button>
+            <button :class="{ active: isActive('italic') }"
+                @click="editor.chain().focus().toggleItalic().run()">I</button>
+            <button :class="{ active: isActive('underline') }"
+                @click="editor.chain().focus().toggleUnderline().run()">U</button>
+            <button :class="{ active: isActive('strike') }"
+                @click="editor.chain().focus().toggleStrike().run()"><s>S</s></button>
+            <button :class="{ active: isActive('code') }" @click="editor.chain().focus().toggleCode().run()">{}</button>
+            <select @change="editor.chain().focus().toggleHeading({ level: parseInt($event.target.value) }).run()">
+                <option :selected="isActive('heading', { level: 1 })" value="1">H1</option>
+                <option :selected="isActive('heading', { level: 2 })" value="2">H2</option>
+                <option :selected="isActive('heading', { level: 3 })" value="3">H3</option>
+                <option :selected="isActive('heading', { level: 4 })" value="4">H4</option>
+                <option :selected="isActive('heading', { level: 5 })" value="5">H5</option>
+                <option :selected="isActive('heading', { level: 6 })" value="6">H6</option>
+            </select>
+            <button :class="{ active: isActive('bulletList') }"
+                @click="editor.chain().focus().toggleBulletList().run()">•</button>
+            <button :class="{ active: isActive('orderedList') }"
+                @click="editor.chain().focus().toggleOrderedList().run()">1.</button>
+            <button :class="{ active: isActive('blockquote') }"
+                @click="editor.chain().focus().toggleBlockquote().run()">❝</button>
+            <button @click="editor.chain().focus().setHorizontalRule().run()">---</button>
+            <button :class="{ active: isActive('codeBlock') }" @click="editor.chain().focus().toggleCodeBlock().run()">{
+                }</button>
+            <button :class="{ active: isActive('textAlign', { align: 'left' }) }"
+                @click="setTextAlign('left')">Left</button>
+            <button :class="{ active: isActive('textAlign', { align: 'center' }) }"
+                @click="setTextAlign('center')">Center</button>
+            <button :class="{ active: isActive('textAlign', { align: 'right' }) }"
+                @click="setTextAlign('right')">Right</button>
+            <button :class="{ active: isActive('textAlign', { align: 'justify' }) }"
+                @click="setTextAlign('justify')">Justify</button>
+            <select @change="setFontFamily($event.target.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+            <select @change="setFontSize($event.target.value)">
+                <option value="12px">12px</option>
+                <option value="14px">14px</option>
+                <option value="16px">16px</option>
+                <option value="18px">18px</option>
+                <option value="20px">20px</option>
+            </select>
+            <button @click="addImage">🖼️</button>
+            <button @click="addYoutube">▶️</button>
+        </div>
+        <div class="prose-xl dark:prose-invert">
+            <EditorContent :editor="editor" class="editor-content" />
+        </div>
+    </div>
+</template>
+
 <script setup>
-import { ref, onBeforeUnmount, onMounted } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -37,8 +94,8 @@ const editor = new Editor({
     content: props.modelValue,
 });
 
-
 const emit = defineEmits(['update:modelValue']);
+
 onMounted(() => {
     document.body.classList.add('fullscreen-editor');
     editor.on('update', () => {
@@ -80,75 +137,7 @@ const setFontFamily = (family) => {
 const setFontSize = (size) => {
     editor.chain().focus().setFontSize(size).run();
 };
-
-
-
 </script>
-
-<template>
-
-    <div class="editor-container ">
-        <div class="toolbar dark:bg-zinc-500">
-            <button :class="{ active: isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">B</button>
-            <button :class="{ active: isActive('italic') }"
-                @click="editor.chain().focus().toggleItalic().run()">I</button>
-            <button :class="{ active: isActive('underline') }"
-                @click="editor.chain().focus().toggleUnderline().run()">U</button>
-            <button :class="{ active: isActive('strike') }"
-                @click="editor.chain().focus().toggleStrike().run()"><s>S</s></button>
-            <button :class="{ active: isActive('code') }" @click="editor.chain().focus().toggleCode().run()">{}</button>
-
-            <select @change="editor.chain().focus().toggleHeading({ level: parseInt($event.target.value) }).run()">
-                <option :selected="isActive('heading', { level: 1 })" value="1">H1</option>
-                <option :selected="isActive('heading', { level: 2 })" value="2">H2</option>
-                <option :selected="isActive('heading', { level: 3 })" value="3">H3</option>
-                <option :selected="isActive('heading', { level: 4 })" value="4">H4</option>
-                <option :selected="isActive('heading', { level: 5 })" value="5">H5</option>
-                <option :selected="isActive('heading', { level: 6 })" value="6">H6</option>
-            </select>
-
-            <button :class="{ active: isActive('bulletList') }"
-                @click="editor.chain().focus().toggleBulletList().run()">•</button>
-            <button :class="{ active: isActive('orderedList') }"
-                @click="editor.chain().focus().toggleOrderedList().run()">1.</button>
-            <button :class="{ active: isActive('blockquote') }"
-                @click="editor.chain().focus().toggleBlockquote().run()">❝</button>
-            <button @click="editor.chain().focus().setHorizontalRule().run()">---</button>
-            <button :class="{ active: isActive('codeBlock') }" @click="editor.chain().focus().toggleCodeBlock().run()">{
-                }</button>
-
-            <button :class="{ active: isActive('textAlign', { align: 'left' }) }"
-                @click="setTextAlign('left')">Left</button>
-            <button :class="{ active: isActive('textAlign', { align: 'center' }) }"
-                @click="setTextAlign('center')">Center</button>
-            <button :class="{ active: isActive('textAlign', { align: 'right' }) }"
-                @click="setTextAlign('right')">Right</button>
-            <button :class="{ active: isActive('textAlign', { align: 'justify' }) }"
-                @click="setTextAlign('justify')">Justify</button>
-
-            <select @change="setFontFamily($event.target.value)">
-                <option value="Arial">Arial</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Courier New">Courier New</option>
-            </select>
-            <select @change="setFontSize($event.target.value)">
-                <option value="12px">12px</option>
-                <option value="14px">14px</option>
-                <option value="16px">16px</option>
-                <option value="18px">18px</option>
-                <option value="20px">20px</option>
-            </select>
-
-            <button @click="addImage">🖼️</button>
-            <button @click="addYoutube">▶️</button>
-
-        </div>
-        <div class="prose-xl dark:prose-invert">
-            <EditorContent :editor="editor" class="editor-content" />
-
-        </div>
-    </div>
-</template>
 
 <style scoped>
 .editor-container {
@@ -163,14 +152,9 @@ const setFontSize = (size) => {
 
 .dark .editor-container {
     background: #1e1e1e;
-    /* Koyu arka plan */
     border-color: #444;
-    /* Daha koyu bir sınır */
     color: #ddd;
-    /* Açık renkli metin */
 }
-
-
 
 .fullscreen-editor {
     position: fixed;
@@ -212,8 +196,6 @@ const setFontSize = (size) => {
     align-items: center;
 }
 
-
-
 button,
 select {
     padding: 6px 12px;
@@ -235,10 +217,6 @@ button.active {
     background: #007bff;
     color: white;
 }
-
-
-
-
 
 .dark button,
 .dark select {
@@ -278,7 +256,6 @@ button.active {
     background: #333;
     color: #bbb;
 }
-
 
 .editor-content {
     padding: 10px;
