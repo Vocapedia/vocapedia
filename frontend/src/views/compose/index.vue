@@ -1,11 +1,6 @@
 <template>
     <div v-auto-animate class="mb-10 space-y-5 max-w-3xl mx-auto">
-        <div class="flex py-5 justify-center">
-            <input v-model="listName" type="text" :placeholder="$t('list_name')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
-             bg-white text-zinc-900  border-none
-             max-w-160 
-             dark:bg-zinc-800 dark:text-white " />
-        </div>
+
         <div class="flex gap-4 max-w-160 mx-auto p-4">
             <div class="z-1 relative w-full">
                 <input v-model="languageQuery"
@@ -36,6 +31,16 @@
                 </ul>
             </div>
         </div>
+        <div v-if="targetLanguageCode && languageCode" class="text-center py-5 space-y-5">
+            <input v-model="listName" type="text" :placeholder="$t('compose.list.title')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+             bg-white text-zinc-900  border-none
+             max-w-160 
+             dark:bg-zinc-800 dark:text-white " />
+            <textarea v-model="listDescription" type="text" :placeholder="$t('compose.list.description')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+             bg-white text-zinc-900  border-none
+             max-w-160 
+             dark:bg-zinc-800 dark:text-white " />
+        </div>
         <div v-if="targetLanguageCode && languageCode" class="max-w-160 w-full mx-auto">
             <div class="flex items-center justify-between space-x-5">
                 <div class="flex items-center space-x-2">
@@ -50,10 +55,13 @@
                         {{ $t('tutorial') }}
                     </router-link>
                 </div>
-
+                <button @click="compose" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 px-2 py-1">{{
+                    $t('compose.compose_button') }}
+                </button>
             </div>
             <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
         </div>
+
         <div v-if="targetLanguageCode && languageCode">
 
 
@@ -66,7 +74,7 @@
                         <div class="w-96 p-2">
                             <h6>{{ $t('type') }}</h6>
                             <div class="pl-5 w-96 ">
-                                <select
+                                <select v-model="w.type"
                                     class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600">
                                     <option value="noun">{{ $t('word_types.noun') }}</option>
                                     <option value="verb">{{ $t('word_types.verb') }}</option>
@@ -99,9 +107,10 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h6>{{ $t('header') }}</h6>
+                                        <h6>{{ $t('compose.input.description') }}</h6>
                                         <div class="pl-5">
-                                            <input v-model="word.word" type="text" :placeholder="$t('list_name')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+                                            <input v-model="word.word" type="text"
+                                                :placeholder="$t('compose.input.word')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
                              bg-white text-zinc-900  border-none
                              max-w-160 
                              dark:bg-zinc-800 dark:text-white " />
@@ -109,10 +118,10 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h6>{{ $t('description') }}</h6>
+                                        <h6>{{ $t('compose.input.description') }}</h6>
                                         <div class="pl-5">
-                                            <input v-model="word.description" type="text" :placeholder="$t('list_name')"
-                                                class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+                                            <input v-model="word.description" type="text"
+                                                :placeholder="$t('compose.input.description')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
                              bg-white text-zinc-900  border-none
                              max-w-160 
                              dark:bg-zinc-800 dark:text-white " />
@@ -122,8 +131,8 @@
                                         <h6>{{ $t('examples') }}</h6>
 
                                         <div class="pl-5">
-                                            <input v-model="word.examples" type="text" :placeholder="$t('example')"
-                                                class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+                                            <input v-model="word.examples" type="text"
+                                                :placeholder="$t('compose.input.example')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
                            bg-white text-zinc-900  border-none
                            max-w-160 
                            dark:bg-zinc-800 dark:text-white " />
@@ -153,14 +162,32 @@
 import { ref, reactive, computed, watch } from "vue"
 import languages from "@/utils/language/languages.json"
 import TextEditor from "@/components/TextEditor.vue"
-const listName = ref()
+import { useFetch } from "@/composable/useFetch"
+import { useRouter } from "vue-router"
+const router = useRouter()
+const listName = ref("")
+const listDescription = ref("")
 const wordBases = reactive([])
 const isFirstWordBaseAdded = ref(false)
 const editorContent = ref("<p></p>");
-
+async function compose() {
+    await useFetch("/chapters/compose", {
+        method: "POST",
+        body: {
+            title: listName.value,
+            description: listDescription.value,
+            lang: languageCode.value,
+            target_lang: targetLanguageCode.value,
+            tutorial: editorContent.value,
+            word_bases: wordBases
+        }
+    }).then(r => {
+        router.replace('/l/' + r.chapter_id)
+    })
+}
 function addWordBase() {
     wordBases.push({
-        type: "",
+        type: "noun",
         words: [{
             lang: languageCode.value,
         }, {
@@ -194,11 +221,21 @@ watch(isFirstWordBaseAdded, (n, o) => {
 
 
 const filteredLanguages = computed(() => {
-    return languages.filter(lang => lang.name.toLowerCase().includes(languageQuery.value.toLowerCase()));
+    var result = languages
+    result = result.filter(lang => lang.name.toLowerCase().includes(languageQuery.value.toLowerCase()))
+    if (targetLanguageCode.value) {
+        result = result.filter(lang => !lang.code.toLowerCase().includes(targetLanguageCode.value.toLowerCase()))
+    }
+    return result
 });
 
 const filteredTargetLanguages = computed(() => {
-    return languages.filter(lang => lang.name.toLowerCase().includes(targetLanguageQuery.value.toLowerCase()));
+    var result = languages
+    result = result.filter(lang => lang.name.toLowerCase().includes(targetLanguageQuery.value.toLowerCase()))
+    if (languageCode.value) {
+        result = result.filter(lang => !lang.code.toLowerCase().includes(languageQuery.value.toLowerCase()))
+    }
+    return result
 });
 
 const selectLanguage = (lang, langCode) => {

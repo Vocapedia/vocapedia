@@ -29,11 +29,11 @@
                     <small class="flex justify-between px-2 py-1">
                         <span class="flex items-center space-x-2">
                             <span>
-                                {{ l.lang }}
+                                {{ getLangByCode(l.lang).name }}
                             </span>
                             <mdicon size="16" name="arrow-right" />
                             <span>
-                                {{ l.target_lang }}
+                                {{ getLangByCode(l.target_lang).name }}
                             </span>
                         </span>
                         <span>
@@ -48,6 +48,8 @@
 
 
 <script setup>
+import { getLangByCode } from '@/utils/language/languages';
+
 const props = defineProps({
     response: {
         type: Object,

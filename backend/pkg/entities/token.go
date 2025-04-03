@@ -4,7 +4,7 @@ type Token struct {
 	Base
 	UserID int64  `json:"user_id"`
 	Token  string `json:"token"`
-	Device Attrs `json:"device"`
+	Device Attrs  `json:"device"`
 }
 
 type Device struct {

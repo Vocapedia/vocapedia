@@ -4,6 +4,9 @@
     "mail.auth.warning": "Kodun süresi 5 dakikadır. Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı görmezden gelin.",
     "mail.auth.login.subject": "Giriş Kodu",
     
+    "mail.edit.user.header": "Profiliniz güncellendi!",
+    "mail.edit.user.description": "Bu işlemi siz yapmadıysanız http://vocapedia.space/settings adresinden kimin giriş yaptığını tespit edebilirsiniz.",
+
     "auth.otp.success": "Tek kullanımlık kod gönderildi!",
     
     "error.something_went_wrong": "Bir şeyler ters gitti!",

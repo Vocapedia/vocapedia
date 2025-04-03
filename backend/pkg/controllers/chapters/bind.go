@@ -4,17 +4,23 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 )
 
-type _gameFormat struct {
-	Answers []string `json:"answers"`
-	Matchs  []_match `json:"matchs"`
+
+type _compose struct {
+	Title       string `json:"title" gorm:"not null;type:text;index"`
+	Description string `json:"description" gorm:"not null;type:text;index"`
+	Lang        string `json:"lang" gorm:"not null"`
+	TargetLang  string `json:"target_lang" gorm:"not null"`
+	WordBase    []struct {
+		Type string `json:"type" gorm:"not null"`
+		Word []struct {
+			Lang        string `json:"lang" gorm:"not null"`
+			Word        string `json:"word" gorm:"not null;type:text"`
+			Description string `json:"description" gorm:"not null;type:text"`
+			Examples    string `json:"examples" gorm:"not null;type:text"`
+		} `json:"words,omitempty"`
+	} `json:"word_bases,omitempty"`
+	Tutorial string `json:"tutorial" gorm:"type:text"`
 }
-
-type _match struct {
-	Word   string `json:"word"`
-	Answer string `json:"answer"`
-}
-
-
 type ChapterDTO struct {
 	entities.Chapter
 	FavCount    int64 `json:"fav_count"`

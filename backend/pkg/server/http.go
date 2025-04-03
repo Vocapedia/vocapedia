@@ -13,6 +13,7 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/chapters"
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/user"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
 	customMiddleware "github.com/akifkadioglu/vocapedia/pkg/middleware"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
@@ -42,6 +43,13 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Post("/favorite", chapters.Favorite)
 				api.Delete("/favorite", chapters.DeleteFavorite)
 				api.Post("/compose-by-excel", chapters.ComposeByExcel)
+				api.Post("/compose", chapters.Compose)
+			})
+			api.Route("/auth", func(api chi.Router) {
+				api.Get("/token", user.Tokens)
+			})
+			api.Route("/user", func(api chi.Router) {
+				api.Put("/", user.EditUser)
 			})
 		})
 		api.Route("/public", func(api chi.Router) {
@@ -55,6 +63,9 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Get("/search", chapters.Search)
 				api.Get("/trends", chapters.GetTrendingChapters)
 				api.Get("/game-format/{id}", chapters.GameFormat)
+			})
+			api.Route("/user", func(api chi.Router) {
+				api.Get("/", user.GetByUsername)
 			})
 
 		})

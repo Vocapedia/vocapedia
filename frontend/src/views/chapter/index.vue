@@ -4,8 +4,8 @@
             <small class="pb-5 flex justify-center">
                 {{
                     $t('list_helper', {
-                        lang: $t(response.chapter.lang),
-                        target_lang: $t(response.chapter.target_lang)
+                        lang: getLangByCode(response.chapter.lang).name,
+                        target_lang: getLangByCode(response.chapter.target_lang).name
                     })
                 }}
             </small>
@@ -134,17 +134,21 @@ const generatePDF = async () => {
 };
 
 const route = useRoute()
-const router = useRouter()
-
 import { useFetch } from '@/composable/useFetch';
 import { useToast } from "@/composable/useToast"
 import { i18n } from "@/i18n/i18n";
+import { getLangByCode } from "@/utils/language/languages";
 
 const response = ref({})
 const toast = useToast()
 
 onMounted(async () => {
     response.value = await useFetch("/public/chapters/" + route.params.id)
+    if (route.query.variant == 'tutorial') {
+        currentComponent.value = TutorialView
+    } else {
+        currentComponent.value = WordListView
+    }
 })
 
 async function favoriteChapter() {
@@ -181,11 +185,4 @@ watch(route, (newV) => {
     }
 })
 
-onMounted(() => {
-    if (route.query.variant == 'tutorial') {
-        currentComponent.value = TutorialView
-    } else {
-        currentComponent.value = WordListView
-    }
-});
 </script>

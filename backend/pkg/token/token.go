@@ -31,6 +31,12 @@ func TokenAuth() *jwtauth.JWTAuth {
 func GenerateToken(model entities.JwtModel) (string, error) {
 	db := database.Manager()
 	var tokenEntity entities.Token
+
+	userID, err := strconv.ParseInt(model.UserID, 10, 64)
+	if err != nil {
+		return "", err
+	}
+
 	mapData, err := utils.StructToMap(model)
 	if err != nil {
 		return "", err
@@ -39,11 +45,18 @@ func GenerateToken(model entities.JwtModel) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	tokenEntity.Token = token
-	tokenEntity.UserID, _ = strconv.ParseInt(model.UserID, 10, 64)
-	tokenEntity.Device = model.Device
+	if model.UserID == "0" {
+		tokenEntity.Token = token
+		tokenEntity.UserID, _ = strconv.ParseInt(model.UserID, 10, 64)
+		tokenEntity.Device = model.Device
+		err = db.Create(&tokenEntity).Error
+	} else {
 
-	err = db.Create(&tokenEntity).Error
+		err = db.Where(entities.Token{UserID: userID, Device: model.Device}).
+			Assign(entities.Token{Token: token}).
+			FirstOrCreate(&tokenEntity).Error
+
+	}
 	if err != nil {
 		return "", err
 	}

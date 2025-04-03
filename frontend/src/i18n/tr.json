@@ -13,7 +13,6 @@
         "message": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
         "button_text": "Ana Sayfaya Git"
     },
-    "games": "Oyunlar",
     "test": "Test",
     "word-rush": "Kelime Yarışı",
     "flip-word": "Kelime Kartları",
@@ -22,6 +21,7 @@
     "search_a_list": "Bir liste ara",
     "search_results": "\"{query}\" için {count} sonuç bulundu",
     "close": "Kapat",
+    "save": "Kaydet",
     "show_result": "Sonuçları göster",
     "word": "Kelime",
     "answer": "Cevap",
@@ -45,7 +45,8 @@
         "title": "Anasayfa",
         "experience": {
             "title": "Deneyim puanı"
-        }
+        },
+        "welcome": "Hoş geldiniz"
     },
     "login": {
         "header": "Giriş Yap",
@@ -66,7 +67,13 @@
     },
     "account": {
         "edit_profile": "Profili düzenle",
-        "create_new_post": "Yeni liste oluştur"
+        "create_new_post": "Yeni liste oluştur",
+        "edit": {
+            "name": "Yeni adınızı giriniz",
+            "username": "Yeni kullanıcı adınızı giriniz",
+            "biography": "Bir biyografi giriniz",
+            "success": "Profiliniz başarıyla güncellendi!"
+        }
     },
     "chapter": {
         "type": "Tür",
@@ -90,11 +97,35 @@
             "language": "Listenin ana dilini seçiniz",
             "target_language": "Listenin ikinci dilini seçiniz"
         },
-        "add_new_wordbase": "Yeni bir kelime ekle"
+        "add_new_wordbase": "Yeni bir kelime ekle",
+        "input": {
+            "word": "Kelime",
+            "description": "Açıklama",
+            "example": "Örnek"
+        },
+        "list": {
+            "title": "Liste adı",
+            "description": "Liste açıklaması"
+        },
+        "compose_button": "Oluştur"
     },
     "editor": {
         "placeholder": "Burayı düzenleyebilirsiniz!",
         "copy": "Kopyala",
         "copied": "Yazınız kopyalanmıştır!"
+    },
+    "games": {
+        "header": "Oyunlar",
+        "test": {
+            "error": {
+                "not_enough_wrong": "Yeterli kelime yok!"
+            }
+        }
+    },
+    "settings": {
+        "change_lang": "Dili değiştir",
+        "updated_at": "Değiştirilme zamanı",
+        "created_at": "Oluşturulma zamanı",
+        "device_info": "Cihaz bilgileri"
     }
 }

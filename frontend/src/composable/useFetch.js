@@ -4,6 +4,7 @@ const built = import.meta.env.VITE_BUILT;
 import _search_list from "@/fake/search_list.json";
 import _trends_list from '@/fake/trends_list.json'
 import _chapter from "@/fake/chapter.json";
+import { GetLang } from "@/i18n/i18n";
 
 export async function useFetch(
     endpoint,
@@ -45,6 +46,8 @@ async function Mock(endpoint, method = "GET") {
                 return _chapter;
             case "/public/chapters/user":
                 return _search_list;
+            case "chapters/compose":
+                return { "chapter_id": "1905375336384696320" }
             default:
                 return "{}";
         }
@@ -60,6 +63,7 @@ async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry
 
     const defaultHeaders = {
         "Content-Type": "application/json",
+        "Accept-Language": GetLang(),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...headers,
     };

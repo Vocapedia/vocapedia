@@ -5,21 +5,21 @@
                 class="smooth-click dark:text-blue-100 text-blue-900 px-2 py-1 rounded-full">
                 <small class="flex justify-between items-center space-x-2">
                     <mdicon name="arrow-left" size="15" />
-                    <span class="sm:text-base font-semibold">{{ $t('games') }}</span>
+                    <span class="sm:text-base font-semibold">{{ $t('games.header') }}</span>
                 </small>
             </router-link>
         </div>
         <div>
-            <swiper @slideChange="onSlideChange" @swiper="onSwiper" :scrollbar="{ draggable: false }" :modules="modules"
-                :slides-per-view="1">
-                <swiper-slide v-for="test in 10">
+            <swiper @swiper="onSwiper" :scrollbar="{ draggable: false }" :modules="modules" :slides-per-view="1">
+                <swiper-slide v-for="test in response">
                     <div class="card p-5 rounded-xl my-5">
-                        <div class="text-center text-4xl font-bold capitalize pb-10">Kelime</div>
+                        <div class="text-center text-4xl font-bold capitalize pb-2">{{ test.word }}</div>
+                        <div class="text-center text-sm capitalize pb-10">{{ test.description }} </div>
                         <div class="grid grid-cols-12 gap-4 py-5">
-                            <button @click="answer(test)"
+                            <button @click="answer(i)"
                                 class="capitalize text-center col-span-12 md:col-span-6 lg:col-span-3 card rounded-full px-4 py-2 smooth-click"
-                                v-for="i in 4">
-                                Cevap
+                                v-for="i in test.choices">
+                                {{ i }}
                             </button>
                         </div>
                     </div>
@@ -37,9 +37,8 @@
         <transition name="slide-fade" mode="out-in">
             <div v-if="canShowResult" class="text-center">
                 <div class="flex justify-center items-center">
-                    <button @click="triggerComposePopup = true"
-                        class="flex justify-center items-center smooth-click bg-yellow-100 dark:bg-yellow-900 p-2 space-x-1 rounded-full">
-                        <mdicon name="certificate-outline" size="20" />
+                    <button @click="ShowPoint"
+                        class="flex justify-center smooth-click bg-sky-100 dark:bg-sky-700 px-3 py-2 space-x-1 rounded-full">
                         <span class="sm:text-xl font-semibold">
                             {{ $t('show_result') }}
                         </span>
@@ -49,14 +48,14 @@
         </transition>
         <ShowGrade v-model="triggerComposePopup">
             <template #header>
-                <h2 class="text-xl font-semibold text-red-600 dark:text-red-500">
+                <h2 v-if="progress != 100" class="text-xl font-semibold" :class="progressClass">
                     Hoppp! buralara dikkat et
                 </h2>
             </template>
             <template #description>
-                <div>
+                <div class="space-y-5">
                     <h2 class="text-5xl font-semibold" :class="progressClass">
-                        %{{ progress }}
+                        %{{ progress.toFixed(1) }}
                     </h2>
 
                     <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-1">
@@ -66,11 +65,11 @@
                 </div>
 
                 <div>
-                    <router-link v-for="item in response.list" :to="'/l/' + $route.params.id + '#' + item.word"
-                        :key="item.word">
-                        <div class="smooth-click p-2">
+                    <router-link v-for="item in wrongAnswers"
+                        :to="'/l/' + $route.params.id + '#' + item.word.replace(/\s+/g, '-')" :key="item.word">
+                        <div class="smooth-click2 p-2">
                             <h4>{{ item.word }}</h4>
-                            <small>{{ item.languages[0].word }}</small>
+                            <small>{{ item.choices[item.correctIndex] }}</small>
                         </div>
                     </router-link>
                 </div>
@@ -78,7 +77,8 @@
             <template #buttons>
                 <div class="flex justify-around">
                     <button @click="triggerComposePopup = false"
-                        class="cursor-pointer bg-red-500 w-full px-4 py-2 text-white rounded">
+                    :class="buttonClass"
+                        class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded">
                         {{ $t('close') }}
                     </button>
                 </div>
@@ -89,12 +89,46 @@
 
 <script setup>
 import ShowGrade from "@/components/Popup.vue"
-import { ref, computed } from 'vue';
-import fake_response from "@/fake/list.json";
+import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { useFetch } from "@/composable/useFetch";
+import { useRoute, useRouter } from "vue-router";
+import { useToast } from "@/composable/useToast";
+import { i18n } from "@/i18n/i18n";
+
+const toast = useToast()
+const route = useRoute()
+const router = useRouter()
+
 const progress = ref(5)
 const canShowResult = ref(false)
+const wrongAnswers = ref([])
+const triggerComposePopup = ref(false)
+const swipers = ref();
+const result = ref([]);
+const modules = ref([Navigation, Pagination, Scrollbar, A11y]);
+const response = ref([]);
+
+onMounted(async () => {
+    var listLang
+    var listTargetLang
+    var wordCount = 0
+    await useFetch("/public/chapters/" + route.params.id).then(r => {
+        listLang = r.chapter.lang
+        listTargetLang = r.chapter.target_lang
+        wordCount = r.chapter.word_count
+    })
+    if (wordCount < 4) {
+        toast.show(i18n.global.t('games.test.error.not_enough_wrong'))
+        router.replace('/l/' + route.params.id + '/games')
+        return
+    }
+    await useFetch(`/public/chapters/game-format/${route.params.id}?lang=${listLang}&target_lang=${listTargetLang}`).then(r => {
+        response.value = r.questions
+    })
+})
+
 const progressClass = computed(() => {
     if (progress.value < 33) {
         return "text-red-500"
@@ -109,16 +143,48 @@ const progressClass = computed(() => {
 
     }
 })
-function onSlideChange(newSlide) {
-    if (newSlide.activeIndex == 9) {
+
+const buttonClass = computed(() => {
+    if (progress.value < 33) {
+        return "bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-100"
+
+    }
+    else if (progress.value < 66) {
+        return "bg-yellow-100 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-100"
+
+    }
+    else {
+        return "bg-green-100 text-green-900 dark:bg-green-900 dark:text-green-100"
+
+    }
+})
+
+
+
+
+watch(result.value, (n, o) => {
+    if (result.value.length == response.value.length) {
         canShowResult.value = true
     }
+})
+
+function ShowPoint() {
+    var correctCount = 0
+    wrongAnswers.value = []
+    response.value.forEach((element, i) => {
+        if (element.choices[element.correctIndex] == result.value[i]) {
+            correctCount += 1
+        } else {
+            wrongAnswers.value.push(element)
+        }
+    });
+    progress.value = (correctCount / response.value.length) * 100
+    nextTick(() => {
+        triggerComposePopup.value = true
+    })
 }
-const triggerComposePopup = ref(false)
-const swipers = ref();
-const result = ref([]);
-const modules = ref([Navigation, Pagination, Scrollbar, A11y]);
-const onSwiper = (theSwiper) => {
+
+function onSwiper(theSwiper) {
     swipers.value = theSwiper;
 };
 
@@ -126,6 +192,4 @@ function answer(ev) {
     result.value[swipers.value.activeIndex] = ev
     swipers.value.slideNext()
 }
-
-const response = ref(fake_response);
 </script>

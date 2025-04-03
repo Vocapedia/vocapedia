@@ -75,12 +75,8 @@ func HandleToken(next http.Handler) http.Handler {
 		var tokenEntity entities.Token
 		err := db.Where("token = ?", token).First(&tokenEntity).Error
 		if err != nil {
-			log.Println(err)
+			log.Println("err", err)
 			http.Error(w, "Token is not valid", http.StatusUnauthorized)
-			return
-		}
-		if !limiter.Allow() {
-			http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
 			return
 		}
 		next.ServeHTTP(w, r)

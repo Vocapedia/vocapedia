@@ -1,65 +1,155 @@
 <template>
-  <div class="max-w-160 mx-auto space-y-5" :key="componentKey">
-    <div>
-      <div class="flex items-center justify-between">
-        <div class="flex space-x-1 items-center">
-          <h2 class="text-xl font-extrabold ">{{ user.name }}</h2>
-          <!-- <mdicon name="check-decagram" size="18" /> -->
-        </div>
-        <button v-if="isUsersAccount"
-          class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
-          {{ $t('account.edit_profile') }}
-        </button>
-      </div>
-      <p class="text-zinc-400 mt-1">@{{ user.username }}</p>
-      <p class="mt-1">{{ user.bio }}</p>
+  <div>
+    <div v-if="isUserLoading">
+      <div class="loading-spinner mx-auto" />
     </div>
-    <div class="text-center flex">
-      <router-link to="/compose" v-if="isUsersAccount"
-        class="cursor-pointer w-full smooth-click2 w-full bg-sky-100 dark:bg-sky-700 py-3 font-semibold">
-        {{ $t('account.create_new_post') }}
-      </router-link>
+    <div v-else class="max-w-160 mx-auto space-y-5">
+      <div>
+        <div class="flex items-center justify-between">
+          <div class="flex space-x-1 items-center">
+            <h2 class="text-xl font-extrabold ">{{ user.name }}</h2>
+            <mdicon v-if="user.approved" name="check-decagram" class="text-xl text-sky-500" />
+          </div>
+          <button @click="triggerSettingsPopup = true" v-if="isUsersAccount"
+            class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
+            {{ $t('account.edit_profile') }}
+          </button>
+        </div>
+        <p class="text-zinc-400 mt-1">@{{ user.username }}</p>
+        <p class="mt-1" v-html="transformBiography(user.biography)" />
+      </div>
+      <div class="text-center flex" v-if="isUsersAccount">
+        <router-link to="/compose"
+          class="cursor-pointer w-full smooth-click2 w-full bg-sky-100 dark:bg-sky-700 py-3 font-semibold">
+          {{ $t('account.create_new_post') }}
+        </router-link>
+      </div>
       <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
 
+      <transition name="fade" mode="out-in">
+        <WordLists v-if="response.list" :response="response" />
+        <div v-else class="loading-spinner mx-auto" />
+      </transition>
+      <SettingsPopup v-model="triggerSettingsPopup">
+        <template #header>
+          <h2 class="text-xl font-semibold">
+            {{ $t('account.edit_profile') }}
+          </h2>
+        </template>
+        <template #description>
+          <div class="space-y-5">
+            <hr class="border-t-2 border-zinc-200 dark:border-zinc-700 opacity-50">
+            <div class="space-y-3">
+              <div>
+                <label>name</label>
+                <input v-model="EditUser.name" type="text" :placeholder="$t('account.edit.name')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+             bg-zinc-100 text-zinc-900  border-none
+             max-w-160 
+             dark:bg-zinc-900 dark:text-white " />
+
+              </div>
+
+              <input v-model="EditUser.username" type="text" :placeholder="$t('account.edit.username')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+             bg-zinc-100 text-zinc-900  border-none
+             max-w-160 
+             dark:bg-zinc-900 dark:text-white " />
+
+              <textarea v-model="EditUser.biography" type="text" :placeholder="$t('account.edit.biography')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+             bg-zinc-100 text-zinc-900  border-none
+             max-w-160 
+             dark:bg-zinc-900 dark:text-white " />
+
+            </div>
+
+          </div>
+
+
+        </template>
+        <template #buttons>
+          <div class="flex justify-around space-x-5">
+            <button @click="triggerSettingsPopup = false"
+              class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-red-100 text-red-900 dark:bg-red-700/20 dark:text-red-100">
+              {{ $t('close') }}
+            </button>
+            <div v-auto-animate class="w-full">
+              <div v-if="isLoading">
+                <div class="loading-spinner mx-auto"></div>
+              </div>
+              <button v-else @click="Edit"
+                class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-sky-100 text-sky-900 dark:bg-sky-700/20 dark:text-sky-100">
+                {{ $t('save') }}
+              </button>
+            </div>
+          </div>
+        </template>
+      </SettingsPopup>
+
     </div>
-    <transition name="fade" mode="out-in">
-      <WordLists v-if="response.list" :response="response" />
-      <div v-else class="loading-spinner mx-auto" />
-    </transition>
-
   </div>
-
 </template>
 <script setup>
+import SettingsPopup from "@/components/Popup.vue"
+
 import WordLists from "@/components/WordLists.vue";
 import { useFetch } from "@/composable/useFetch";
-import { getUser } from "@/utils/token";
+import { useToast } from "@/composable/useToast";
+import { i18n } from "@/i18n/i18n";
+import { getDevice, getUser } from "@/utils/token";
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
 const response = ref("{}")
 const route = useRoute()
-const componentKey = ref(0);
-
+const router = useRouter()
+const triggerSettingsPopup = ref(false)
 const isUsersAccount = ref(false)
-
+const isLoading = ref(false)
 const user = ref({
-  name: "Vocapedia",
-  username: "Vocapedia",
-  bio: "Explore the World of Words!",
-  lists: [
-    { id: 1, title: "Kelime Listem", items: 20 },
-    { id: 2, title: "Favoriler", items: 10 },
-  ],
+  name: "",
+  username: "",
+  biography: "",
 });
-
+const EditUser = ref({
+  name: "",
+  username: "",
+  biography: "",
+})
+const transformBiography = (text) => {
+  return text.replace(/@([a-zA-Z0-9_]+)/g, (match, username) => {
+    return `<a class="dark:text-blue-400 text-blue-700" href="/${username}">@${username}</a>`;
+  });
+};
+const toast = useToast()
+const isUserLoading = ref(false)
 onMounted(async () => {
-  isUsersAccount.value = route.params.username == getUser().username
+  isUserLoading.value = true
+  isUsersAccount.value = route.params.username.toLowerCase() == getUser().username.toLowerCase()
   response.value = await useFetch("/public/chapters/user?username=" + route.params.username)
+  user.value = await useFetch("/public/user?username=" + route.params.username).catch(e => {
+    router.replace("/search?q=" + route.params.username)
+  })
+  EditUser.value.biography = user.value.biography
+  EditUser.value.username = user.value.username
+  EditUser.value.name = user.value.name
+  isUserLoading.value = false
 })
 
-const createPost = () => {
-  console.log("Gönderi oluşturma ekranı açıldı");
-};
-</script>
+async function Edit() {
+  isLoading.value = true
+  await useFetch("/user", {
+    method: "PUT",
+    body: {
+      name: EditUser.value.name,
+      username: EditUser.value.username,
+      biography: EditUser.value.biography,
+      device: getDevice(),
+    }
+  }).then(r => {
+    toast.show(i18n.global.t('account.edit.success'))
+    localStorage.setItem("token", r.token)
+    router.replace("/" + EditUser.value.username).then(() => router.go())
+  })
+  isLoading.value = false
 
-<style scoped></style>
+}
+</script>
