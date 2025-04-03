@@ -5,7 +5,7 @@
       <h1 class="p-4 text-3xl font-bold mb-5">{{ $t('personal_info') }}</h1>
       <div class="container mx-auto space-y-5">
         <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-12 md:col-span-12 lg:col-span-6 lg:col-span-12 relative">
+          <div class="col-span-12 md:col-span-12 lg:col-span-6 relative">
 
             <div class="dark:bg-zinc-900 bg-zinc-50 card relative rounded-lg">
               <div class="bg-yellow-100/5 ">
@@ -18,7 +18,7 @@
                   </span>
                 </div>
 
-              <!--   <div class="bg-sky-100 dark:bg-sky-700 font-semibold text-lg text-center p-2">
+                <!--   <div class="bg-sky-100 dark:bg-sky-700 font-semibold text-lg text-center p-2">
                   {{ $t('home.experience.title') }}
                 </div> -->
               </div>

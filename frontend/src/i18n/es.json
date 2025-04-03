@@ -1,0 +1,131 @@
+{
+    "followed": "Seguidos",
+    "notes": "Notas",
+    "trends": "Tendencias",
+    "personal_info": "Información personal",
+    "compose_post": "Redactar publicación",
+    "search_from_list": "Buscar en la lista",
+    "tr": "Turco",
+    "en": "Inglés",
+    "list_helper": "El idioma enumerado es {lang}, y el idioma traducido es {target_lang}",
+    "page_not_found": {
+        "title": "¡Vaya! Página no encontrada",
+        "message": "Es posible que la página que estás buscando no exista o se haya movido.",
+        "button_text": "Ir a la página de inicio"
+    },
+    "test": "Prueba",
+    "word-rush": "Carrera de palabras",
+    "flip-word": "Tarjetas de palabras",
+    "word-match": "Coincidencia de palabras",
+    "quick-pick": "Selección rápida",
+    "search_a_list": "Buscar una lista",
+    "search_results": "{count} resultados encontrados para \"{query}\"",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "show_result": "Mostrar resultados",
+    "word": "Palabra",
+    "answer": "Respuesta",
+    "list_name": "Nombre de la lista",
+    "header": "Encabezado",
+    "language": "Idioma",
+    "examples": "Ejemplos",
+    "example": "Ejemplo",
+    "type": "Tipo",
+    "description": "Descripción",
+    "word-list": "Lista de palabras",
+    "tutorial": "Tutorial",
+    "intro": "Resumen",
+    "empty": "Este lugar está vacío",
+    "followed_results": "{count} resultados seguidos encontrados",
+    "add_new_note": "Agregar una nueva nota...",
+    "note_description": "Las notas agregadas se almacenan solo en tu navegador.",
+    "share_not_supported": "¡Compartir no compatible!.",
+    "scoreboard": "Marcador",
+    "home": {
+        "title": "Página de inicio",
+        "experience": {
+            "title": "Puntos de experiencia"
+        },
+        "welcome": "Bienvenido"
+    },
+    "login": {
+        "header": "Iniciar sesión",
+        "input": {
+            "label": "Correo electrónico",
+            "placeholder": "Introduce tu dirección de correo electrónico",
+            "otp": "Código de un solo uso"
+        },
+        "otp": {
+            "send_button": "Solicitar código de un solo uso",
+            "verify_button": "Iniciar sesión",
+            "send_success": "Código de inicio de sesión enviado a tu dirección de correo electrónico.",
+            "verify_success": "¡Inicio de sesión exitoso!"
+        },
+        "success": "¡Inicio de sesión exitoso! Código de inicio de sesión enviado a tu dirección de correo electrónico.",
+        "error": "¡Inicio de sesión fallido!",
+        "greeting": "Que tengas un buen día"
+    },
+    "account": {
+        "edit_profile": "Editar perfil",
+        "create_new_post": "Crear nueva lista",
+        "edit": {
+            "name": "Introduce tu nuevo nombre",
+            "username": "Introduce tu nuevo nombre de usuario",
+            "biography": "Introduce una biografía",
+            "success": "¡Tu perfil se ha actualizado correctamente!"
+        }
+    },
+    "chapter": {
+        "type": "Tipo",
+        "language": "Idioma",
+        "word": "Palabra",
+        "description": "Descripción",
+        "example": "Ejemplo"
+    },
+    "word_types": {
+        "noun": "Sustantivo",
+        "verb": "Verbo",
+        "adjective": "Adjetivo",
+        "adverb": "Adverbio",
+        "pronoun": "Pronombre",
+        "conjunction": "Conjunción",
+        "preposition": "Preposición",
+        "interjection": "Interjección"
+    },
+    "compose": {
+        "select": {
+            "language": "Selecciona el idioma principal de la lista",
+            "target_language": "Selecciona el segundo idioma de la lista"
+        },
+        "add_new_wordbase": "Agregar una nueva palabra",
+        "input": {
+            "word": "Palabra",
+            "description": "Descripción",
+            "example": "Ejemplo"
+        },
+        "list": {
+            "title": "Nombre de la lista",
+            "description": "Descripción de la lista"
+        },
+        "compose_button": "Redactar"
+    },
+    "editor": {
+        "placeholder": "¡Puedes editar aquí!",
+        "copy": "Copiar",
+        "copied": "¡Tu texto ha sido copiado!"
+    },
+    "games": {
+        "header": "Juegos",
+        "test": {
+            "error": {
+                "not_enough_wrong": "¡No hay suficientes palabras!"
+            }
+        }
+    },
+    "settings": {
+        "change_lang": "Cambiar idioma",
+        "updated_at": "Actualizado en",
+        "created_at": "Creado en",
+        "device_info": "Información del dispositivo"
+    }
+}

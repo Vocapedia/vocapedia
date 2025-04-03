@@ -1,0 +1,131 @@
+{
+    "followed": "Gefolgt",
+    "notes": "Notizen",
+    "trends": "Trends",
+    "personal_info": "Persönliche Informationen",
+    "compose_post": "Beitrag verfassen",
+    "search_from_list": "Aus Liste suchen",
+    "tr": "Türkisch",
+    "en": "Englisch",
+    "list_helper": "Die aufgelistete Sprache ist {lang}, und die übersetzte Sprache ist {target_lang}",
+    "page_not_found": {
+        "title": "Hoppla! Seite nicht gefunden",
+        "message": "Die gesuchte Seite existiert möglicherweise nicht oder wurde verschoben.",
+        "button_text": "Zur Startseite gehen"
+    },
+    "test": "Test",
+    "word-rush": "Wortrausch",
+    "flip-word": "Wortkarten",
+    "word-match": "Wortübereinstimmung",
+    "quick-pick": "Schnellauswahl",
+    "search_a_list": "Liste durchsuchen",
+    "search_results": "{count} Ergebnisse für \"{query}\" gefunden",
+    "close": "Schließen",
+    "save": "Speichern",
+    "show_result": "Ergebnisse anzeigen",
+    "word": "Wort",
+    "answer": "Antwort",
+    "list_name": "Listenname",
+    "header": "Überschrift",
+    "language": "Sprache",
+    "examples": "Beispiele",
+    "example": "Beispiel",
+    "type": "Typ",
+    "description": "Beschreibung",
+    "word-list": "Wortliste",
+    "tutorial": "Anleitung",
+    "intro": "Zusammenfassung",
+    "empty": "Dieser Ort ist leer",
+    "followed_results": "{count} gefolgte Ergebnisse gefunden",
+    "add_new_note": "Neue Notiz hinzufügen...",
+    "note_description": "Hinzugefügte Notizen werden nur in Ihrem Browser gespeichert.",
+    "share_not_supported": "Teilen nicht unterstützt!.",
+    "scoreboard": "Anzeigetafel",
+    "home": {
+        "title": "Startseite",
+        "experience": {
+            "title": "Erfahrungspunkte"
+        },
+        "welcome": "Willkommen"
+    },
+    "login": {
+        "header": "Anmelden",
+        "input": {
+            "label": "E-Mail",
+            "placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+            "otp": "Einmalcode"
+        },
+        "otp": {
+            "send_button": "Einmalcode anfordern",
+            "verify_button": "Anmelden",
+            "send_success": "Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
+            "verify_success": "Anmeldung erfolgreich!"
+        },
+        "success": "Anmeldung erfolgreich! Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
+        "error": "Anmeldung fehlgeschlagen!",
+        "greeting": "Schönen Tag noch"
+    },
+    "account": {
+        "edit_profile": "Profil bearbeiten",
+        "create_new_post": "Neue Liste erstellen",
+        "edit": {
+            "name": "Geben Sie Ihren neuen Namen ein",
+            "username": "Geben Sie Ihren neuen Benutzernamen ein",
+            "biography": "Geben Sie eine Biografie ein",
+            "success": "Ihr Profil wurde erfolgreich aktualisiert!"
+        }
+    },
+    "chapter": {
+        "type": "Typ",
+        "language": "Sprache",
+        "word": "Wort",
+        "description": "Beschreibung",
+        "example": "Beispiel"
+    },
+    "word_types": {
+        "noun": "Nomen",
+        "verb": "Verb",
+        "adjective": "Adjektiv",
+        "adverb": "Adverb",
+        "pronoun": "Pronomen",
+        "conjunction": "Konjunktion",
+        "preposition": "Präposition",
+        "interjection": "Interjektion"
+    },
+    "compose": {
+        "select": {
+            "language": "Wählen Sie die Hauptsprache der Liste aus",
+            "target_language": "Wählen Sie die zweite Sprache der Liste aus"
+        },
+        "add_new_wordbase": "Neues Wort hinzufügen",
+        "input": {
+            "word": "Wort",
+            "description": "Beschreibung",
+            "example": "Beispiel"
+        },
+        "list": {
+            "title": "Listenname",
+            "description": "Listenbeschreibung"
+        },
+        "compose_button": "Verfassen"
+    },
+    "editor": {
+        "placeholder": "Sie können hier bearbeiten!",
+        "copy": "Kopieren",
+        "copied": "Ihr Text wurde kopiert!"
+    },
+    "games": {
+        "header": "Spiele",
+        "test": {
+            "error": {
+                "not_enough_wrong": "Nicht genügend Wörter!"
+            }
+        }
+    },
+    "settings": {
+        "change_lang": "Sprache ändern",
+        "updated_at": "Aktualisiert am",
+        "created_at": "Erstellt am",
+        "device_info": "Geräteinformationen"
+    }
+}

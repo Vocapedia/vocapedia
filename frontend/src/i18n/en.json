@@ -2,27 +2,27 @@
     "followed": "Followed",
     "notes": "Notes",
     "trends": "Trends",
-    "personal_info": "Personal",
+    "personal_info": "Personal Info",
     "compose_post": "Compose Post",
     "search_from_list": "Search from list",
     "tr": "Turkish",
     "en": "English",
-    "list_helper": "Listed language is {lang}, translated language{s} is {target_lang}",
+    "list_helper": "The listed language is {lang}, and the translated language is {target_lang}",
     "page_not_found": {
         "title": "Oops! Page Not Found",
-        "message": "The page you are looking for does not exist or may have been moved.",
+        "message": "The page you're looking for might not exist or may have been moved.",
         "button_text": "Go to Homepage"
     },
-    "games": "Games",
     "test": "Test",
     "word-rush": "Word Rush",
-    "flip-word": "Flip Word",
+    "flip-word": "Flip Words",
     "word-match": "Word Match",
     "quick-pick": "Quick Pick",
     "search_a_list": "Search a list",
     "search_results": "{count} results found for \"{query}\"",
     "close": "Close",
-    "show_result": "Show result",
+    "save": "Save",
+    "show_result": "Show results",
     "word": "Word",
     "answer": "Answer",
     "list_name": "List name",
@@ -34,33 +34,46 @@
     "description": "Description",
     "word-list": "Word List",
     "tutorial": "Tutorial",
-    "intro": "Intro",
-    "empty": "It's empty here",
+    "intro": "Summary",
+    "empty": "This place is empty",
     "followed_results": "{count} followed results found",
-    "add_new_note": "Add new note...",
+    "add_new_note": "Add a new note...",
     "note_description": "Added notes are stored only in your browser.",
     "share_not_supported": "Sharing not supported!.",
     "scoreboard": "Scoreboard",
     "home": {
         "title": "Homepage",
         "experience": {
-            "title": "Experience point"
-        }
+            "title": "Experience points"
+        },
+        "welcome": "Welcome"
     },
     "login": {
         "header": "Login",
         "input": {
             "label": "Email",
-            "placeholder": "Enter your email address"
+            "placeholder": "Enter your email address",
+            "otp": "One-time code"
         },
-        "button": "Send code",
+        "otp": {
+            "send_button": "Request one-time code",
+            "verify_button": "Login",
+            "send_success": "Login code sent to your email address.",
+            "verify_success": "Login successful!"
+        },
         "success": "Login successful! Login code sent to your email address.",
         "error": "Login failed!",
-        "greeting": "have a good day"
+        "greeting": "Have a nice day"
     },
     "account": {
         "edit_profile": "Edit profile",
-        "create_new_post": "Create new list"
+        "create_new_post": "Create new list",
+        "edit": {
+            "name": "Enter your new name",
+            "username": "Enter your new username",
+            "biography": "Enter a biography",
+            "success": "Your profile has been updated successfully!"
+        }
     },
     "chapter": {
         "type": "Type",
@@ -78,5 +91,41 @@
         "conjunction": "Conjunction",
         "preposition": "Preposition",
         "interjection": "Interjection"
+    },
+    "compose": {
+        "select": {
+            "language": "Select the main language of the list",
+            "target_language": "Select the second language of the list"
+        },
+        "add_new_wordbase": "Add a new word",
+        "input": {
+            "word": "Word",
+            "description": "Description",
+            "example": "Example"
+        },
+        "list": {
+            "title": "List name",
+            "description": "List description"
+        },
+        "compose_button": "Compose"
+    },
+    "editor": {
+        "placeholder": "You can edit here!",
+        "copy": "Copy",
+        "copied": "Your text has been copied!"
+    },
+    "games": {
+        "header": "Games",
+        "test": {
+            "error": {
+                "not_enough_wrong": "Not enough words!"
+            }
+        }
+    },
+    "settings": {
+        "change_lang": "Change language",
+        "updated_at": "Updated at",
+        "created_at": "Created at",
+        "device_info": "Device information"
     }
 }

@@ -154,12 +154,11 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 </template>
 <script setup>
-import { ref, reactive, computed, watch } from "vue"
+import { ref, reactive, computed, watch, onMounted } from "vue"
 import languages from "@/utils/language/languages.json"
 import TextEditor from "@/components/TextEditor.vue"
 import { useFetch } from "@/composable/useFetch"
@@ -170,6 +169,15 @@ const listDescription = ref("")
 const wordBases = reactive([])
 const isFirstWordBaseAdded = ref(false)
 const editorContent = ref("<p></p>");
+const languageQuery = ref('');
+const targetLanguageQuery = ref('');
+const languageCode = ref('');
+const targetLanguageCode = ref('');
+const showLanguageDropdown = ref(false);
+const showTargetDropdown = ref(false);
+onMounted(async () => {
+    await useFetch("/user/check")
+})
 async function compose() {
     await useFetch("/chapters/compose", {
         method: "POST",
@@ -198,13 +206,6 @@ function addWordBase() {
 function addWordToWordBase(i) {
     wordBases[i].words.push({})
 }
-const languageQuery = ref('');
-const targetLanguageQuery = ref('');
-const languageCode = ref('');
-const targetLanguageCode = ref('');
-const showLanguageDropdown = ref(false);
-const showTargetDropdown = ref(false);
-
 watch(
     () => [languageCode.value, targetLanguageCode.value], ([newLang, newTargetLang], [oldLang, oldTargetLang]) => {
         if (newLang && newTargetLang) {

@@ -1,0 +1,131 @@
+{
+    "followed": "已关注",
+    "notes": "笔记",
+    "trends": "趋势",
+    "personal_info": "个人信息",
+    "compose_post": "撰写帖子",
+    "search_from_list": "从列表中搜索",
+    "tr": "土耳其语",
+    "en": "英语",
+    "list_helper": "列出的语言是 {lang}，翻译的语言是 {target_lang}",
+    "page_not_found": {
+      "title": "糟糕！页面未找到",
+      "message": "您要查找的页面可能不存在或已被移动。",
+      "button_text": "转到主页"
+    },
+    "test": "测试",
+    "word-rush": "单词冲刺",
+    "flip-word": "翻转单词",
+    "word-match": "单词匹配",
+    "quick-pick": "快速选择",
+    "search_a_list": "搜索列表",
+    "search_results": "找到 {query} 的 {count} 个结果",
+    "close": "关闭",
+    "save": "保存",
+    "show_result": "显示结果",
+    "word": "单词",
+    "answer": "答案",
+    "list_name": "列表名称",
+    "header": "标题",
+    "language": "语言",
+    "examples": "示例",
+    "example": "示例",
+    "type": "类型",
+    "description": "描述",
+    "word-list": "单词列表",
+    "tutorial": "教程",
+    "intro": "简介",
+    "empty": "这里是空的",
+    "followed_results": "找到 {count} 个已关注的结果",
+    "add_new_note": "添加新笔记...",
+    "note_description": "添加的笔记仅存储在您的浏览器中。",
+    "share_not_supported": "不支持共享！。",
+    "scoreboard": "记分牌",
+    "home": {
+      "title": "主页",
+      "experience": {
+        "title": "经验值"
+      },
+      "welcome": "欢迎"
+    },
+    "login": {
+      "header": "登录",
+      "input": {
+        "label": "电子邮件",
+        "placeholder": "输入您的电子邮件地址",
+        "otp": "一次性代码"
+      },
+      "otp": {
+        "send_button": "请求一次性代码",
+        "verify_button": "登录",
+        "send_success": "登录代码已发送到您的电子邮件地址。",
+        "verify_success": "登录成功！"
+      },
+      "success": "登录成功！登录代码已发送到您的电子邮件地址。",
+      "error": "登录失败！",
+      "greeting": "祝您愉快"
+    },
+    "account": {
+      "edit_profile": "编辑个人资料",
+      "create_new_post": "创建新列表",
+      "edit": {
+        "name": "输入您的新名称",
+        "username": "输入您的新用户名",
+        "biography": "输入个人简介",
+        "success": "您的个人资料已成功更新！"
+      }
+    },
+    "chapter": {
+      "type": "类型",
+      "language": "语言",
+      "word": "单词",
+      "description": "描述",
+      "example": "示例"
+    },
+    "word_types": {
+      "noun": "名词",
+      "verb": "动词",
+      "adjective": "形容词",
+      "adverb": "副词",
+      "pronoun": "代词",
+      "conjunction": "连词",
+      "preposition": "介词",
+      "interjection": "感叹词"
+    },
+    "compose": {
+      "select": {
+        "language": "选择列表的主要语言",
+        "target_language": "选择列表的第二种语言"
+      },
+      "add_new_wordbase": "添加新单词",
+      "input": {
+        "word": "单词",
+        "description": "描述",
+        "example": "示例"
+      },
+      "list": {
+        "title": "列表名称",
+        "description": "列表描述"
+      },
+      "compose_button": "撰写"
+    },
+    "editor": {
+      "placeholder": "您可以在这里编辑！",
+      "copy": "复制",
+      "copied": "您的文本已被复制！"
+    },
+    "games": {
+      "header": "游戏",
+      "test": {
+        "error": {
+          "not_enough_wrong": "单词不够！"
+        }
+      }
+    },
+    "settings": {
+      "change_lang": "更改语言",
+      "updated_at": "更新于",
+      "created_at": "创建于",
+      "device_info": "设备信息"
+    }
+  }

@@ -45,15 +45,15 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Post("/compose-by-excel", chapters.ComposeByExcel)
 				api.Post("/compose", chapters.Compose)
 			})
-			api.Route("/auth", func(api chi.Router) {
-				api.Get("/token", user.Tokens)
-			})
 			api.Route("/user", func(api chi.Router) {
 				api.Put("/", user.EditUser)
+				api.Delete("/token/{id}", user.DeleteToken)
+				api.Get("/check", user.Check)
 			})
 		})
 		api.Route("/public", func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
+				api.Get("/token", user.Tokens)
 				api.Post("/send-otp", auth.SendOTP)
 				api.Post("/verify-otp", auth.VerifyOTP)
 			})

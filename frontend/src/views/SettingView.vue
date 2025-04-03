@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="overflow-x-auto rounded-xl">
+        <div v-if="tokenInfo.length > 0" class="overflow-x-auto rounded-xl">
             <table class="w-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-md">
                 <thead class="bg-sky-100 dark:bg-sky-700  text-gray-900 dark:text-white">
                     <tr>
@@ -27,20 +27,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(token, index) in tokenInfo" :key="index"
+                    <tr v-for="(tkn, index) in tokenInfo" :key="index"
                         class="transition border-t dark:border-zinc-800 border-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-                        <td class="w-45 px-4 py-2">{{ dayjs(token.created_at).format("YYYY MM DD HH:mm:ss") }}</td>
-                        <td class="w-45 px-4 py-2">{{ dayjs(token.updated_at).format("YYYY-MM-DD HH:mm:ss") }}</td>
+                        <td class="w-45 px-4 py-2">{{ dayjs(tkn.created_at).format("YYYY MM DD HH:mm:ss") }}</td>
+                        <td class="w-45 px-4 py-2">{{ dayjs(tkn.updated_at).format("YYYY-MM-DD HH:mm:ss") }}</td>
                         <td class="w-36 px-4 py-2">
-                            <p v-for="d in token.device">{{ d }}</p>
+                            <p v-for="d in tkn.device">{{ d }}</p>
                         </td>
                         <td class="px-4 py-2 text-center">
-                            <button @click="deleteToken(BigInt(token.id))"
+                            <button v-if="tkn.token != token" @click="deleteToken(BigInt(tkn.id))"
                                 class="smooth-click bg-red-100 hover:bg-red-300 dark:bg-red-950 dark:hover:bg-red-700  p-1.5 rounded-full">
                                 <mdicon name="close" />
                             </button>
+                            <button v-else
+                                class="smooth-click bg-green-100 hover:bg-green-300 dark:bg-green-950 dark:hover:bg-green-700 p-1.5 rounded-full">
+                                <mdicon name="check" />
+                            </button>
                         </td>
-
                     </tr>
                 </tbody>
             </table>
@@ -51,39 +54,44 @@
 <script setup>
 import { useFetch } from '@/composable/useFetch';
 import { ref, onMounted } from 'vue';
-import { ChangeLang } from '../i18n/i18n';
+import { ChangeLang, GetLang } from '../i18n/i18n';
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
+import { getLangByCode } from '@/utils/language/languages';
 const router = useRouter()
+const token = localStorage.getItem("token")
+const modules = import.meta.glob("../i18n/*.json", { eager: true });
 
-// Available languages (example)
-const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'tr', name: 'Türkçe' },
-    { code: 'es', name: 'Español' },
-    { code: 'fr', name: 'Français' }
-];
+const languages = Object.entries(modules).map(([path, module]) => {
+    const code = path.replace("../i18n/", "").replace(".json", "");
+    const language = getLangByCode(code);
 
-// Currently selected language (default: English)
-const selectedLanguage = ref('en');
+    return { code, name: language ? language.name : code }; // Eğer dil ismi varsa onu al, yoksa kodu döndür
+});
+
+const selectedLanguage = ref(GetLang());
 function SaveLang() {
     ChangeLang(selectedLanguage.value.toString())
     router.go()
 }
-function deleteToken(tokenID) {
+async function deleteToken(tokenID) {
     console.log(BigInt(tokenID))
+    await useFetch("/user/token/" + tokenID, {
+        method: "DELETE"
+    }).then(
+        tokenInfo.value = tokenInfo.value.filter(e => e.id != tokenID)
+    )
 }
-// Token Info
 const tokenInfo = ref([]);
 
-// Fetch current token information and selected language
 const fetchTokenInfo = async () => {
-    await useFetch('/auth/token').then(r => {
+    await useFetch('/public/auth/token').then(r => {
         tokenInfo.value = r.tokens
     });
 };
 
 onMounted(() => {
+
     fetchTokenInfo();
 });
 </script>

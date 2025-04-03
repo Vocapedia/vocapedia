@@ -1,12 +1,14 @@
 import { createI18n } from "vue-i18n";
 import { ref } from "vue"
 
-import en from "./en.json";
-import tr from "./tr.json";
-const messages = {
-  en: en,
-  tr: tr,
-};
+const modules = import.meta.glob("./*.json", { eager: true });
+
+const messages = Object.entries(modules).reduce((acc, [path, module]) => {
+  const key = path.replace("./", "").replace(".json", "");
+  acc[key] = module.default;
+  return acc;
+}, {});
+
 
 const lang = ref(localStorage.getItem('lang') || navigator.language || navigator.languages[0]);
 const i18n = createI18n({

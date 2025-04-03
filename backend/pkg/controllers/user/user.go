@@ -14,6 +14,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/akifkadioglu/vocapedia/utils"
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 	"gorm.io/gorm"
 )
@@ -154,8 +155,17 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 func Tokens(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	var tokenEntity []entities.Token
+	tokenStr := strings.Split(r.Header.Get("Authorization"), " ")[1]
+	err := db.Where("token = ?", tokenStr).First(&tokenEntity).Error
+	if err != nil {
+		render.JSON(w, r, map[string][]entities.Token{
+			"tokens": []entities.Token{},
+		})
+		return
+	}
 	userID := token.User(r).UserID
-	err := db.Where("user_id = ?", userID).Find(&tokenEntity).Error
+
+	err = db.Where("user_id = ?", userID).Find(&tokenEntity).Error
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
@@ -169,3 +179,32 @@ func Tokens(w http.ResponseWriter, r *http.Request) {
 	})
 
 }
+
+func DeleteToken(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	tokenIDStr := chi.URLParam(r, "id")
+
+	userID := token.User(r).UserID
+	var tokenEntity entities.Token
+	if err := db.Where("id = ? AND user_id = ?", tokenIDStr, userID).First(&tokenEntity).Error; err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.token_not_found"),
+		})
+		return
+	}
+
+	if err := db.Delete(&tokenEntity).Error; err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "success.token_deleted"),
+	})
+}
+
+func Check(w http.ResponseWriter, r *http.Request) {}

@@ -32,6 +32,7 @@ const router = createRouter({
     {
       path: "/compose",
       name: "compose",
+      beforeEnter: [authGuard],
       component: ComposePost,
     },
     {
@@ -78,6 +79,7 @@ const router = createRouter({
     {
       path: "/followed",
       name: "followed",
+      beforeEnter: [authGuard],
       component: FollowedView,
     },
     {

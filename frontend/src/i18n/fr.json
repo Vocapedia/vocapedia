@@ -1,0 +1,131 @@
+{
+    "followed": "Suivis",
+    "notes": "Notes",
+    "trends": "Tendances",
+    "personal_info": "Informations personnelles",
+    "compose_post": "Rédiger une publication",
+    "search_from_list": "Rechercher dans la liste",
+    "tr": "Turc",
+    "en": "Anglais",
+    "list_helper": "La langue listée est {lang}, et la langue traduite est {target_lang}",
+    "page_not_found": {
+        "title": "Oups ! Page non trouvée",
+        "message": "La page que vous recherchez n'existe peut-être pas ou a été déplacée.",
+        "button_text": "Aller à la page d'accueil"
+    },
+    "test": "Test",
+    "word-rush": "Course de mots",
+    "flip-word": "Cartes de mots",
+    "word-match": "Correspondance de mots",
+    "quick-pick": "Sélection rapide",
+    "search_a_list": "Rechercher une liste",
+    "search_results": "{count} résultats trouvés pour \"{query}\"",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "show_result": "Afficher les résultats",
+    "word": "Mot",
+    "answer": "Réponse",
+    "list_name": "Nom de la liste",
+    "header": "En-tête",
+    "language": "Langue",
+    "examples": "Exemples",
+    "example": "Exemple",
+    "type": "Type",
+    "description": "Description",
+    "word-list": "Liste de mots",
+    "tutorial": "Tutoriel",
+    "intro": "Résumé",
+    "empty": "Cet endroit est vide",
+    "followed_results": "{count} résultats suivis trouvés",
+    "add_new_note": "Ajouter une nouvelle note...",
+    "note_description": "Les notes ajoutées sont stockées uniquement dans votre navigateur.",
+    "share_not_supported": "Partage non pris en charge!.",
+    "scoreboard": "Tableau de scores",
+    "home": {
+        "title": "Page d'accueil",
+        "experience": {
+            "title": "Points d'expérience"
+        },
+        "welcome": "Bienvenue"
+    },
+    "login": {
+        "header": "Se connecter",
+        "input": {
+            "label": "Courriel",
+            "placeholder": "Entrez votre adresse courriel",
+            "otp": "Code à usage unique"
+        },
+        "otp": {
+            "send_button": "Demander un code à usage unique",
+            "verify_button": "Se connecter",
+            "send_success": "Code de connexion envoyé à votre adresse courriel.",
+            "verify_success": "Connexion réussie !"
+        },
+        "success": "Connexion réussie ! Code de connexion envoyé à votre adresse courriel.",
+        "error": "Échec de la connexion !",
+        "greeting": "Passez une bonne journée"
+    },
+    "account": {
+        "edit_profile": "Modifier le profil",
+        "create_new_post": "Créer une nouvelle liste",
+        "edit": {
+            "name": "Entrez votre nouveau nom",
+            "username": "Entrez votre nouveau nom d'utilisateur",
+            "biography": "Entrez une biographie",
+            "success": "Votre profil a été mis à jour avec succès !"
+        }
+    },
+    "chapter": {
+        "type": "Type",
+        "language": "Langue",
+        "word": "Mot",
+        "description": "Description",
+        "example": "Exemple"
+    },
+    "word_types": {
+        "noun": "Nom",
+        "verb": "Verbe",
+        "adjective": "Adjectif",
+        "adverb": "Adverbe",
+        "pronoun": "Pronom",
+        "conjunction": "Conjonction",
+        "preposition": "Préposition",
+        "interjection": "Interjection"
+    },
+    "compose": {
+        "select": {
+            "language": "Sélectionnez la langue principale de la liste",
+            "target_language": "Sélectionnez la deuxième langue de la liste"
+        },
+        "add_new_wordbase": "Ajouter un nouveau mot",
+        "input": {
+            "word": "Mot",
+            "description": "Description",
+            "example": "Exemple"
+        },
+        "list": {
+            "title": "Nom de la liste",
+            "description": "Description de la liste"
+        },
+        "compose_button": "Composer"
+    },
+    "editor": {
+        "placeholder": "Vous pouvez modifier ici !",
+        "copy": "Copier",
+        "copied": "Votre texte a été copié !"
+    },
+    "games": {
+        "header": "Jeux",
+        "test": {
+            "error": {
+                "not_enough_wrong": "Pas assez de mots !"
+            }
+        }
+    },
+    "settings": {
+        "change_lang": "Changer de langue",
+        "updated_at": "Mis à jour le",
+        "created_at": "Créé le",
+        "device_info": "Informations sur l'appareil"
+    }
+}
