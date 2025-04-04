@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div v-if="tokenInfo.length > 0" class="overflow-x-auto rounded-xl">
+        <div v-if="(tokenInfo??[]).length > 0" class="overflow-x-auto rounded-xl">
             <table class="w-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-md">
                 <thead class="bg-sky-100 dark:bg-sky-700  text-gray-900 dark:text-white">
                     <tr>
