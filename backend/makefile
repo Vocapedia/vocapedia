@@ -1,5 +1,5 @@
 frontend:
-	set VITE_BUILT=1 && pnpm --dir ../frontend install && pnpm --dir ../frontend build && robocopy "../frontend/dist" "./pkg/embed/dist" /E
+	export VITE_BUILT=1 && pnpm --dir ../frontend install && pnpm --dir ../frontend build && rsync -av --delete ../frontend/dist/ ./pkg/embed/dist/
 
 local:
-	set VITE_BUILT=1 && air -c .air.toml
+	export VITE_BUILT=1 && air -c .air.toml

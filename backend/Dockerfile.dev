@@ -3,22 +3,18 @@ FROM golang:1.23
 
 WORKDIR /app
 
-RUN go install github.com/air-verse/air@latest
-
 COPY go.mod go.sum ./
-
-COPY . .
-
-COPY ./config.yaml ./config.yaml
-COPY ./.air.toml ./.air.toml
 
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/go/pkg/sumdb \
     go mod download
 
-RUN  --mount=type=cache,target=/root/.cache/go-build \
-    --mount=type=cache,target=/go/pkg/mod \
-    --mount=type=cache,target=/go/pkg/sumdb
+COPY . .
+
+RUN go install github.com/air-verse/air@latest
+
+COPY ./config.yaml ./config.yaml
+COPY ./.air.toml ./.air.toml
 
 CMD ["air", "-c", ".air.toml"]

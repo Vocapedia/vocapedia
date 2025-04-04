@@ -1,22 +1,21 @@
 services:
-  # vocapedia-backend:
-  #   container_name: vocapedia-backend
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - ./backend:/app
-  #     - ./backend/config.yaml:/app/config.yaml
-  #   ports:
-  #     - "3000:3000"
-  #     - "50051:50051"
-  #   environment:
-  #     - MIGRATE=true
-  #     - SEED=true
-  #   depends_on:
-  #     - vocapedia-psql
-  #   networks:
-  #     - vocapedia
+  vocapedia-backend:
+    container_name: vocapedia-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend:/app
+      - ./backend/config.yaml:/app/config.yaml
+      - ./backend/.air.toml:/app/.air.toml
+    ports:
+      - "3000:3000"
+      - "50051:50051"
+    depends_on:
+      - vocapedia-psql
+      - vocapedia-redis
+    networks:
+      - vocapedia
 
   vocapedia-psql:
     container_name: vocapedia-psql
@@ -31,7 +30,7 @@ services:
       POSTGRES_DB: vocapedia
     networks:
       - vocapedia
-  redis:
+  vocapedia-redis:
     container_name: vocapedia-redis
     image: redis:latest
     ports:

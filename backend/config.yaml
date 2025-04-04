@@ -17,9 +17,9 @@ smtp:
   host: smtp.gmail.com
   password: ddef kfof cpte rwge
   port: 587
-  
+
 database:
-  host: localhost #  vocapedia-psql
+  host: vocapedia-psql
   port: 5432
   name: vocapedia
   user: vocapedia
@@ -27,7 +27,7 @@ database:
   sslmode: disable
 
 redis:
-  host: localhost
+  host: vocapedia-redis
   port: 6379
   password:
   db: 0

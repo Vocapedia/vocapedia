@@ -4,7 +4,7 @@ tmp_dir = "tmp"
 [build]
   cmd = "go build -o ./tmp/main.exe ."
   bin = "tmp/main.exe"
-  include_ext = ["go", "tmpl", "html", "json"]
+  include_ext = ["go", "tmpl", "html", "json", "yaml"]
   exclude_dir = ["*"]
   exclude_file = ["tmp/main.exe"]
 
