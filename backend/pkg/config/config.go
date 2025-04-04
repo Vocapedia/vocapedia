@@ -9,19 +9,21 @@ import (
 )
 
 type Config struct {
-	Host          string `yaml:"host"`
-	Port          int    `yaml:"port"`
-	GrpcPort      int    `yaml:"grpc_port"`
-	Env           string `yaml:"env"`
-	BaseURL       string `yaml:"base_url"`
-	FrontBaseURL  string `yaml:"front_base_url"`
-	JwtSecret     string `yaml:"jwt_secret"`
-	JwtExpire     int    `yaml:"jwt_expire"`
-	JwtIssuer     string `yaml:"jwt_issuer"`
-	TotpIssuer    string `yaml:"totp_issuer"`
-	AdminEmail    string `yaml:"admin_email"`
-	AdminUsername string `yaml:"admin_username"`
-	AdminPassword string `yaml:"admin_password"`
+	Host           string `yaml:"host"`
+	Port           int    `yaml:"port"`
+	GrpcPort       int    `yaml:"grpc_port"`
+	Env            string `yaml:"env"`
+	BaseURL        string `yaml:"base_url"`
+	FrontBaseURL   string `yaml:"front_base_url"`
+	JwtSecret      string `yaml:"jwt_secret"`
+	JwtExpire      int    `yaml:"jwt_expire"`
+	JwtIssuer      string `yaml:"jwt_issuer"`
+	TotpIssuer     string `yaml:"totp_issuer"`
+	AdminEmail     string `yaml:"admin_email"`
+	AdminUsername  string `yaml:"admin_username"`
+	AdminName      string `yaml:"admin_name"`
+	AdminBiography string `yaml:"admin_biography"`
+	AdminPassword  string `yaml:"admin_password"`
 
 	SMTP struct {
 		From     string `yaml:"from"`

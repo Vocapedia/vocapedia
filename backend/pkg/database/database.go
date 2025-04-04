@@ -40,16 +40,31 @@ func InitDB(host string, port int, user, password, dbname string) {
 	db.Exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_user_chapter ON user_favorites (user_id, chapter_id);")
 
 	//seed()
+	createAdmin()
 
 	log.Println("Database is ready")
 }
 func Manager() *gorm.DB {
 	return db
 }
+
+func createAdmin() {
+	user := entities.User{
+		Username:  config.ReadValue().AdminUsername,
+		Email:     config.ReadValue().AdminEmail,
+		Name:      config.ReadValue().AdminName,
+		Biography: config.ReadValue().AdminBiography,
+		Approved:  true,
+	}
+	if err := db.Save(&user).Error; err != nil {
+		fmt.Println("veri eklerken hata:", err)
+	}
+}
 func seed() {
 	user := entities.User{
 		Username: config.ReadValue().AdminUsername,
 		Email:    config.ReadValue().AdminEmail,
+		Name:     config.ReadValue().AdminName,
 	}
 
 	db.FirstOrCreate(&user, entities.User{Username: user.Username})

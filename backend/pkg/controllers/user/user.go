@@ -207,4 +207,6 @@ func DeleteToken(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func Check(w http.ResponseWriter, r *http.Request) {}
+func Check(w http.ResponseWriter, r *http.Request) {
+	render.JSON(w, r, map[string]string{})
+}

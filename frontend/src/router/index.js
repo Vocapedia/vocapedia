@@ -28,10 +28,15 @@ const router = createRouter({
       name: "home",
       component: HomeView,
     },
-
     {
       path: "/compose",
       name: "compose",
+      beforeEnter: [authGuard],
+      component: ComposePost,
+    },
+    {
+      path: "/update/:id",
+      name: "update",
       beforeEnter: [authGuard],
       component: ComposePost,
     },

@@ -342,6 +342,106 @@ func ComposeByExcel(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Chapters uploaded successfully"))
 
 }
+func Update(w http.ResponseWriter, r *http.Request) {
+	var params _compose
+	var chapter entities.Chapter
+	db := database.Manager()
+
+	err := render.DecodeJSON(r.Body, &params)
+	if err != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	chapterID, err := strconv.ParseInt(params.ChapterID, 10, 64)
+	if err != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": "invalid chapter_id",
+		})
+		return
+	}
+
+	userID, err := strconv.ParseInt(token.User(r).UserID, 10, 64)
+	if err != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	err = db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Where("creator_id = ?", userID).Where("id = ?", chapterID).First(&chapter).Error; err != nil {
+			return err
+		}
+
+		chapter.Title = params.Title
+		chapter.Description = params.Description
+		chapter.Lang = params.Lang
+		chapter.TargetLang = params.TargetLang
+		chapter.Tutorial = params.Tutorial
+		chapter.CreatorID = userID
+
+		if err := tx.Save(&chapter).Error; err != nil {
+			return err
+		}
+
+		if err := tx.Where("chapter_id = ?", chapter.ID).Delete(&entities.Word{}).Error; err != nil {
+			return err
+		}
+		if err := tx.Where("chapter_id = ?", chapter.ID).Delete(&entities.WordBase{}).Error; err != nil {
+			return err
+		}
+
+		for _, wb := range params.WordBase {
+			if len(wb.Word) < 2 {
+				continue
+			}
+			termWB := entities.WordBase{
+				ChapterID: chapter.ID,
+				Type:      wb.Type,
+			}
+			if err := tx.Create(&termWB).Error; err != nil {
+				return err
+			}
+
+			for _, word := range wb.Word {
+				termW := entities.Word{
+					ChapterID:   chapter.ID,
+					WordBaseID:  termWB.ID,
+					Lang:        word.Lang,
+					Word:        word.Word,
+					Description: word.Description,
+				}
+				if word.Examples != "" {
+					termW.Examples = []string{word.Examples}
+				}
+
+				if err := tx.Create(&termW).Error; err != nil {
+					return err
+				}
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]string{
+		"chapter_id": fmt.Sprintf("%v", chapter.ID),
+	})
+}
+
 func Compose(w http.ResponseWriter, r *http.Request) {
 	var params _compose
 	var chapter entities.Chapter
@@ -414,9 +514,8 @@ func Compose(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, map[string]string{
 		"chapter_id": fmt.Sprintf("%v", chapter.ID),
 	})
-
-	log.Println(params)
 }
+
 func UserChapters(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	db := database.Manager()

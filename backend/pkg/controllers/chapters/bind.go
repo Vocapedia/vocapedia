@@ -4,22 +4,22 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 )
 
-
 type _compose struct {
-	Title       string `json:"title" gorm:"not null;type:text;index"`
-	Description string `json:"description" gorm:"not null;type:text;index"`
-	Lang        string `json:"lang" gorm:"not null"`
-	TargetLang  string `json:"target_lang" gorm:"not null"`
+	ChapterID   string `json:"chapter_id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Lang        string `json:"lang"`
+	TargetLang  string `json:"target_lang"`
 	WordBase    []struct {
-		Type string `json:"type" gorm:"not null"`
+		Type string `json:"type"`
 		Word []struct {
-			Lang        string `json:"lang" gorm:"not null"`
-			Word        string `json:"word" gorm:"not null;type:text"`
-			Description string `json:"description" gorm:"not null;type:text"`
-			Examples    string `json:"examples" gorm:"not null;type:text"`
+			Lang        string `json:"lang"`
+			Word        string `json:"word"`
+			Description string `json:"description"`
+			Examples    string `json:"examples"`
 		} `json:"words,omitempty"`
 	} `json:"word_bases,omitempty"`
-	Tutorial string `json:"tutorial" gorm:"type:text"`
+	Tutorial string `json:"tutorial"`
 }
 type ChapterDTO struct {
 	entities.Chapter

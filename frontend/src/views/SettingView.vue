@@ -15,8 +15,7 @@
                 </div>
             </div>
         </div>
-
-        <div v-if="(tokenInfo??[]).length > 0" class="overflow-x-auto rounded-xl">
+        <div v-if="(tokenInfo ?? []).length > 0" class="overflow-x-auto rounded-xl">
             <table class="w-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-md">
                 <thead class="bg-sky-100 dark:bg-sky-700  text-gray-900 dark:text-white">
                     <tr>
@@ -69,13 +68,12 @@ const languages = Object.entries(modules).map(([path, module]) => {
     return { code, name: language ? language.name : code }; // Eğer dil ismi varsa onu al, yoksa kodu döndür
 });
 
-const selectedLanguage = ref(GetLang());
+const selectedLanguage = ref(GetLang().slice(0, 2));
 function SaveLang() {
     ChangeLang(selectedLanguage.value.toString())
     router.go()
 }
 async function deleteToken(tokenID) {
-    console.log(BigInt(tokenID))
     await useFetch("/user/token/" + tokenID, {
         method: "DELETE"
     }).then(
@@ -85,13 +83,14 @@ async function deleteToken(tokenID) {
 const tokenInfo = ref([]);
 
 const fetchTokenInfo = async () => {
-    await useFetch('/public/auth/token').then(r => {
+    await useFetch('/auth/token').then(r => {
         tokenInfo.value = r.tokens
     });
 };
 
 onMounted(() => {
-
-    fetchTokenInfo();
+    if (token) {
+        fetchTokenInfo();
+    }
 });
 </script>

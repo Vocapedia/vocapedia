@@ -148,6 +148,9 @@ async function Edit() {
     toast.show(i18n.global.t('account.edit.success'))
     localStorage.setItem("token", r.token)
     router.replace("/" + EditUser.value.username).then(() => router.go())
+  }).catch(e => {
+    toast.show(e.error)
+    isLoading.value = false
   })
   isLoading.value = false
 
