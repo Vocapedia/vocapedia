@@ -55,7 +55,7 @@
                     </router-link>
                 </div>
                 <button @click="compose" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 px-2 py-1">{{
-                    $t('compose.compose_button') }}
+                    $t('save') }}
                 </button>
             </div>
             <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">

@@ -7,7 +7,7 @@
       <div>
         <div class="flex items-center justify-between">
           <div class="flex space-x-1 items-center">
-            <h2 class="text-xl font-extrabold ">{{ user.name }}</h2>
+            <h2 v-if="user.name" class="text-xl font-extrabold ">{{ user.name }}</h2>
             <mdicon v-if="user.approved" name="check-decagram" class="text-xl text-sky-500" />
           </div>
           <button @click="triggerSettingsPopup = true" v-if="isUsersAccount"
@@ -15,8 +15,8 @@
             {{ $t('account.edit_profile') }}
           </button>
         </div>
-        <p class="text-zinc-400 mt-1">@{{ user.username }}</p>
-        <p class="mt-1" v-html="transformBiography(user.biography)" />
+        <p v-if="user.username" class="text-zinc-400 mt-1">@{{ user.username }}</p>
+        <p v-if="user.biography" class="mt-1" v-html="transformBiography(user.biography)" />
       </div>
       <div class="text-center flex" v-if="isUsersAccount">
         <router-link to="/compose"
@@ -115,7 +115,7 @@ const EditUser = ref({
   biography: "",
 })
 const transformBiography = (text) => {
-  return text.replace(/@([a-zA-Z0-9_]+)/g, (match, username) => {
+  return (text ?? "").replace(/@([a-zA-Z0-9_]+)/g, (match, username) => {
     return `<a class="dark:text-blue-400 text-blue-700" href="/${username}">@${username}</a>`;
   });
 };

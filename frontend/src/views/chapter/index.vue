@@ -45,7 +45,10 @@
                         <button class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1" @click="generatePDF">
                             <mdicon name="download-outline" />
                         </button>
-
+                        <router-link :to="'/update/' + route.params.id"
+                            class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1">
+                            <mdicon name="puzzle-edit-outline" />
+                        </router-link>
                     </div>
                     <router-link class="flex truncate items-center space-x-1 font-semibold"
                         :to="'/' + response.chapter.creator.username">
@@ -70,7 +73,7 @@
 import TutorialView from "./TutorialView.vue"
 import WordListView from "./WordListView.vue"
 import { ref, watch, shallowRef, onMounted } from "vue"
-import { useRoute, useRouter } from "vue-router"
+import { useRoute } from "vue-router"
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import "@/assets/Roboto-bold"
@@ -103,7 +106,7 @@ const generatePDF = async () => {
                 word.lang.toUpperCase(),
                 word.word,
                 word.description,
-                word.examples.join("\n")
+                (word.examples ?? []).join("\n")
             ]
         );
         if (doc.lastAutoTable && (doc.lastAutoTable.finalY + tableData.length * 25) > doc.internal.pageSize.height) {
