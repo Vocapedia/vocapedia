@@ -123,7 +123,7 @@ const toast = useToast()
 const isUserLoading = ref(false)
 onMounted(async () => {
   isUserLoading.value = true
-  isUsersAccount.value = route.params.username.toLowerCase() == getUser().username.toLowerCase()
+  isUsersAccount.value = route.params.username.toLowerCase() == (getUser().username ?? "").toLowerCase()
   response.value = await useFetch("/public/chapters/user?username=" + route.params.username)
   user.value = await useFetch("/public/user?username=" + route.params.username).catch(e => {
     router.replace("/search?q=" + route.params.username)
