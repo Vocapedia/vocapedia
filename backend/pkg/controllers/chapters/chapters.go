@@ -544,7 +544,7 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 }
 
 func Extension(w http.ResponseWriter, r *http.Request) {
-	chapterID := r.URL.Query().Get("chapter_id")
+	chapterID := chi.URLParam(r, "id")
 	var response _extension
 	db := database.Manager()
 	var wordBase entities.WordBase
