@@ -27,3 +27,9 @@ type ChapterDTO struct {
 	WordCount   int64 `json:"word_count"`
 	IsFavorited bool  `json:"is_favorited"`
 }
+type _extension struct {
+	ChapterID int64  `json:"chapter_id"`
+	WordID    int64  `json:"word_id"`
+	Main      string `json:"main"`
+	Second    string `json:"second"`
+}

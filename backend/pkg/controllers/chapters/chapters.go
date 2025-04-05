@@ -542,3 +542,26 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 		"list": chapters,
 	})
 }
+
+func Extension(w http.ResponseWriter, r *http.Request) {
+	chapterID := r.URL.Query().Get("chapter_id")
+	var response _extension
+	db := database.Manager()
+	var wordBase entities.WordBase
+	db.Where("chapter_id = ?", chapterID).
+		Preload("Word").
+		Preload("Chapter").
+		Order("RANDOM()").
+		First(&wordBase)
+	response.ChapterID = wordBase.ChapterID
+	for _, v := range wordBase.Word {
+		if v.Lang == wordBase.Chapter.Lang {
+			response.Main = v.Word
+			response.WordID = v.ID
+		}
+		if v.Lang == wordBase.Chapter.TargetLang {
+			response.Second = v.Word
+		}
+	}
+	render.JSON(w, r, response)
+}

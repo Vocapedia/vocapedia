@@ -61,6 +61,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Post("/verify-otp", auth.VerifyOTP)
 			})
 			api.Route("/chapters", func(api chi.Router) {
+				api.Get("/extension", chapters.Extension)
 				api.Get("/user", chapters.UserChapters)
 				api.Get("/{id}", chapters.GetByID)
 				api.Get("/search", chapters.Search)
@@ -70,7 +71,6 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 			api.Route("/user", func(api chi.Router) {
 				api.Get("/", user.GetByUsername)
 			})
-
 		})
 		api.Get("/get-token", auth.GetToken)
 
