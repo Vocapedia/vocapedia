@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"strings"
 
@@ -13,7 +14,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
-	"github.com/akifkadioglu/vocapedia/utils"
+	"github.com/akifkadioglu/vocapedia/pkg/utils"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 	"gorm.io/gorm"
@@ -209,4 +210,47 @@ func DeleteToken(w http.ResponseWriter, r *http.Request) {
 
 func Check(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, map[string]string{})
+}
+func UpdateVocaToken(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	userID := token.User(r).UserID
+	vocatoken, err := utils.GenerateVocaToken(10)
+	if err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": "something went wrong",
+		})
+		return
+	}
+	err = db.Model(&entities.User{}).
+		Where("id = ?", userID).
+		Update("vocatoken", vocatoken).Error
+	if err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": "something went wrong",
+		})
+		return
+	}
+	render.JSON(w, r, map[string]string{
+		"vocatoken": vocatoken,
+	})
+}
+
+func GetVocaToken(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	userID := token.User(r).UserID
+	var user entities.User
+	err := db.Where("id = ?", userID).First(&user).Error
+	if err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": "something went wrong",
+		})
+		return
+	}
+	log.Println(user.Vocatoken)
+	render.JSON(w, r, map[string]any{
+		"vocatoken": user.Vocatoken,
+	})
 }

@@ -1,8 +1,10 @@
 package utils
 
 import (
+	crand "crypto/rand"
 	"encoding/json"
 	"log"
+	"math/big"
 	"math/rand"
 	"time"
 )
@@ -39,4 +41,17 @@ func RandomString(length int) string {
 	}
 
 	return string(result)
+}
+
+func GenerateVocaToken(length int) (string, error) {
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	result := make([]byte, length)
+	for i := range result {
+		num, err := crand.Int(crand.Reader, big.NewInt(int64(len(charset))))
+		if err != nil {
+			return "", err
+		}
+		result[i] = charset[num.Int64()]
+	}
+	return string(result), nil
 }

@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" mode="out-in">
         <div v-if="response.chapter">
-            <small class="pb-5 flex justify-center">
+            <small v-motion-slide-visible-once-left class="pb-5 flex justify-center">
                 {{
                     $t('list_helper', {
                         lang: getLangByCode(response.chapter.lang).name,
@@ -9,14 +9,14 @@
                     })
                 }}
             </small>
-            <div class="space-y-4 text-center">
+            <div v-motion-slide-visible-once-top class="space-y-4 text-center">
                 <h1 class="font-bold text-4xl">
                     {{ response.chapter.title }}
                 </h1>
                 <div>{{ response.chapter.description }}</div>
             </div>
 
-            <div class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
+            <div v-motion-slide-visible-once-bottom class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
                 <button @click="response.chapter.is_favorited ? deleteFavChapter() : favoriteChapter()"
                     class="space-x-2 flex items-center smooth-click bg-yellow-50 dark:bg-yellow-900 rounded-full py-px pl-2 pr-4 font-bold">
                     <mdicon v-if="response.chapter.is_favorited" name="star"
@@ -29,7 +29,7 @@
                 </router-link>
             </div>
 
-            <div class="max-w-160 w-full mx-auto">
+            <div v-motion-slide-visible-once-right class="max-w-160 w-full mx-auto">
                 <div class="flex items-center justify-between space-x-5">
                     <div class="flex items-center space-x-2">
                         <router-link :to="$route.path + '?variant=word-list'"
@@ -45,7 +45,8 @@
                         <button class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1" @click="generatePDF">
                             <mdicon name="download-outline" />
                         </button>
-                        <router-link :to="'/update/' + route.params.id"
+                        <router-link v-if="BigInt(response.chapter.creator.id) == BigInt(getUser().user_id ?? 0)"
+                            :to="'/update/' + route.params.id"
                             class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1">
                             <mdicon name="puzzle-edit-outline" />
                         </router-link>
@@ -141,6 +142,7 @@ import { useFetch } from '@/composable/useFetch';
 import { useToast } from "@/composable/useToast"
 import { i18n } from "@/i18n/i18n";
 import { getLangByCode } from "@/utils/language/languages";
+import { getUser } from "@/utils/token";
 
 const response = ref({})
 const toast = useToast()

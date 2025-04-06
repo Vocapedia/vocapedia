@@ -126,6 +126,66 @@
         "change_lang": "Dili değiştir",
         "updated_at": "Değiştirilme zamanı",
         "created_at": "Oluşturulma zamanı",
-        "device_info": "Cihaz bilgileri"
+        "device_info": "Cihaz bilgileri",
+        "vocatoken_copied": "Vocatoken kopyalandı!",
+        "logout": "Çıkış yap",
+        "delete_account": "Hesabımı sil"
+    },
+    "landing": {
+        "heroTitle": "Dil Öğrenmenin Yeni Yolu",
+        "heroSubtitle": "Vocapedia ile kelimeleri daha hızlı öğrenin ve paylaşın!",
+        "feature1Title": "Liste Oluşturma ve Paylaşma",
+        "feature1Description": "Herkesin kendi kelime listelerini oluşturup paylaşabileceği bir platform sunuyoruz.",
+        "feature2Title": "Oyunlarla Öğrenme",
+        "feature2Description": "Oluşturduğunuz listelerle kelimeleri oyunlar aracılığıyla eğlenceli bir şekilde öğrenebilirsiniz.",
+        "feature3Title": "PDF Olarak İndirme",
+        "feature3Description": "Oluşturduğunuz kelime listelerini kolayca PDF formatında indirip saklayabilirsiniz.",
+        "securityTitle": "Güvenlik",
+        "securityDescription": "Uygulamamız, OTP kullanarak kullanıcı güvenliğini ön planda tutuyor, hesap çalınma riskini neredeyse sıfıra indiriyor.",
+        "chromeExtensionTitle": "Chrome Eklentisi",
+        "chromeExtensionDescription": "Vocapedia Chrome eklentisi ile, listedeki kelimeler size ara ara hatırlatılır, böylece unutmazsınız.",
+        "whyLearnTitle": "Dil Öğrenmek Neden Önemlidir?",
+        "whyLearnDescription": "Dil öğrenmek, dünyaya daha geniş bir perspektiften bakmanıza yardımcı olur. Vocapedia, dil öğrenme sürecinizi hızlandırır ve verimli hale getirir.",
+        "chartTitle": "Öğrenme hızı (tamamen objektif)",
+        "speed": "Hız",
+        "vocapedia_users": "Vocapedia kullanıcıları",
+        "traditional_methods": "Geleneksel yöntemler"
+    },
+    "privacy": {
+        "title": "Gizlilik Politikası",
+        "introduction": "Bu Gizlilik Politikası, uygulamamızı kullanırken topladığımız kişisel verilerin nasıl toplandığını, kullanıldığını, korunduğunu ve paylaşıldığını açıklamaktadır. Lütfen bu politikayı dikkatlice inceleyin.",
+        "dataCollection": {
+            "title": "Topladığımız Veriler",
+            "text": "Uygulamamızda şu kişisel verileri topluyoruz: Ad ve E-posta: Kullanıcıların giriş yapabilmesi için OTP (One-Time Password) sistemini kullanıyoruz. Bu nedenle, e-posta adresinizi topluyoruz. Cihaz Bilgileri: Kullanıcıların cihaz bilgileri, analiz yapmak ve güvenli erişim sağlamak amacıyla toplanır. Ayrıca JWT token oluşturulurken bu bilgiler kullanılır."
+        },
+        "dataUsage": {
+            "title": "Veri Kullanımı",
+            "text": "Topladığımız verileri aşağıdaki amaçlarla kullanıyoruz: Kullanıcı Girişi ve Güvenlik: E-posta adresinizi, OTP ile doğrulama yapmak ve güvenli oturum açma sağlamak için kullanıyoruz. Veri Analizi: Cihaz bilgilerini, kullanıcı deneyimini geliştirmek amacıyla analiz yapabilmek için kullanıyoruz. JWT Token Yönetimi: Kullanıcı kimlik doğrulaması için JWT token'ları oluşturuyoruz."
+        },
+        "thirdPartySharing": {
+            "title": "Üçüncü Taraf Paylaşımlar",
+            "text": "Google Analytics kullanıyoruz, ancak kullanıcı verilerini üçüncü taraflarla doğrudan paylaşmıyoruz. Google Analytics yalnızca uygulamanın kullanımını analiz etmek için kullanılan anonim verilerdir."
+        },
+        "dataSecurity": {
+            "title": "Veri Güvenliği",
+            "text": "Verileri güvenli bir şekilde saklamak için bazı önlemler alıyoruz: API Güvenliği: API'lerimiz rate limiting gibi güvenlik önlemleriyle korunmaktadır. Veri Saklama: Veriler doğrudan veritabanına kaydedilir, ancak veritabanında ek bir şifreleme uygulanmamaktadır."
+        },
+        "userRights": {
+            "title": "Kullanıcı Hakları",
+            "text": "Kullanıcılara aşağıdaki hakları tanıyoruz: Verilere Erişim: Kullanıcılar, topladığımız kişisel verilere erişim hakkına sahiptir. Veri Düzeltme: Kullanıcılar, kişisel verilerini güncelleyebilir. Veri Silme: Kullanıcılar, hesaplarını silme ve kişisel verilerini kaldırma hakkına sahiptir."
+        },
+        "cookies": {
+            "title": "Çerezler ve İzleme Teknolojileri",
+            "text": "Uygulamamızda çerez kullanmıyoruz. Veriler, yalnızca localStorage üzerinde saklanır."
+        },
+        "dataStorage": {
+            "title": "Veri Saklama Süresi",
+            "text": "Toplanan veriler, localStorage'da sonsuza kadar saklanır."
+        },
+        "childrenPrivacy": {
+            "title": "Çocukların Gizliliği",
+            "text": "Uygulamamız, çocuklardan özel veri toplamaz. 13 yaş altındaki kullanıcıların verilerini bilerek toplamıyoruz."
+        },
+        "lastUpdated": "Son Güncelleme"
     }
 }

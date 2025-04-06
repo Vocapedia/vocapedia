@@ -47,12 +47,15 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Put("/compose", chapters.Update)
 			})
 			api.Route("/user", func(api chi.Router) {
+				api.Get("/token", user.Tokens)
 				api.Put("/", user.EditUser)
 				api.Delete("/token/{id}", user.DeleteToken)
 				api.Get("/check", user.Check)
+				api.Put("/vocatoken", user.UpdateVocaToken)
+				api.Get("/vocatoken", user.GetVocaToken)
 			})
 			api.Route("/auth", func(api chi.Router) {
-				api.Get("/token", user.Tokens)
+				api.Delete("/logout", auth.Logout)
 			})
 		})
 		api.Route("/public", func(api chi.Router) {

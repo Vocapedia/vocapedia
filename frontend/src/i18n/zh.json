@@ -1,131 +1,191 @@
 {
-    "followed": "已关注",
-    "notes": "笔记",
-    "trends": "趋势",
-    "personal_info": "个人信息",
-    "compose_post": "撰写帖子",
-    "search_from_list": "从列表中搜索",
-    "tr": "土耳其语",
-    "en": "英语",
-    "list_helper": "列出的语言是 {lang}，翻译的语言是 {target_lang}",
-    "page_not_found": {
-      "title": "糟糕！页面未找到",
-      "message": "您要查找的页面可能不存在或已被移动。",
-      "button_text": "转到主页"
+  "followed": "已关注",
+  "notes": "笔记",
+  "trends": "趋势",
+  "personal_info": "个人信息",
+  "compose_post": "撰写帖子",
+  "search_from_list": "从列表中搜索",
+  "tr": "土耳其语",
+  "en": "英语",
+  "list_helper": "列出的语言是 {lang}，翻译的语言是 {target_lang}",
+  "page_not_found": {
+    "title": "糟糕！找不到页面",
+    "message": "您要查找的页面可能不存在或已被移动。",
+    "button_text": "转到主页"
+  },
+  "test": "测试",
+  "word-rush": "单词冲刺",
+  "flip-word": "翻转单词",
+  "word-match": "单词匹配",
+  "quick-pick": "快速选择",
+  "search_a_list": "搜索列表",
+  "search_results": "找到 {count} 个 \"{query}\" 的结果",
+  "close": "关闭",
+  "save": "保存",
+  "show_result": "显示结果",
+  "word": "单词",
+  "answer": "答案",
+  "list_name": "列表名称",
+  "header": "标题",
+  "language": "语言",
+  "examples": "示例",
+  "example": "示例",
+  "type": "类型",
+  "description": "描述",
+  "word-list": "单词列表",
+  "tutorial": "教程",
+  "intro": "简介",
+  "empty": "这里是空的",
+  "followed_results": "找到 {count} 个已关注的结果",
+  "add_new_note": "添加新笔记...",
+  "note_description": "添加的笔记仅存储在您的浏览器中。",
+  "share_not_supported": "不支持分享!。",
+  "scoreboard": "记分牌",
+  "home": {
+    "title": "主页",
+    "experience": {
+      "title": "经验值"
     },
-    "test": "测试",
-    "word-rush": "单词冲刺",
-    "flip-word": "翻转单词",
-    "word-match": "单词匹配",
-    "quick-pick": "快速选择",
-    "search_a_list": "搜索列表",
-    "search_results": "找到 {query} 的 {count} 个结果",
-    "close": "关闭",
-    "save": "保存",
-    "show_result": "显示结果",
-    "word": "单词",
-    "answer": "答案",
-    "list_name": "列表名称",
-    "header": "标题",
-    "language": "语言",
-    "examples": "示例",
-    "example": "示例",
+    "welcome": "欢迎"
+  },
+  "login": {
+    "header": "登录",
+    "input": {
+      "label": "电子邮件",
+      "placeholder": "输入您的电子邮件地址",
+      "otp": "一次性代码"
+    },
+    "otp": {
+      "send_button": "请求一次性代码",
+      "verify_button": "登录",
+      "send_success": "登录代码已发送到您的电子邮件地址。",
+      "verify_success": "登录成功！"
+    },
+    "success": "登录成功！登录代码已发送到您的电子邮件地址。",
+    "error": "登录失败！",
+    "greeting": "祝您愉快"
+  },
+  "account": {
+    "edit_profile": "编辑个人资料",
+    "create_new_post": "创建新列表",
+    "edit": {
+      "name": "输入您的新名称",
+      "username": "输入您的新用户名",
+      "biography": "输入个人简介",
+      "success": "您的个人资料已成功更新！"
+    }
+  },
+  "chapter": {
     "type": "类型",
+    "language": "语言",
+    "word": "单词",
     "description": "描述",
-    "word-list": "单词列表",
-    "tutorial": "教程",
-    "intro": "简介",
-    "empty": "这里是空的",
-    "followed_results": "找到 {count} 个已关注的结果",
-    "add_new_note": "添加新笔记...",
-    "note_description": "添加的笔记仅存储在您的浏览器中。",
-    "share_not_supported": "不支持共享！。",
-    "scoreboard": "记分牌",
-    "home": {
-      "title": "主页",
-      "experience": {
-        "title": "经验值"
-      },
-      "welcome": "欢迎"
+    "example": "示例"
+  },
+  "word_types": {
+    "noun": "名词",
+    "verb": "动词",
+    "adjective": "形容词",
+    "adverb": "副词",
+    "pronoun": "代词",
+    "conjunction": "连词",
+    "preposition": "介词",
+    "interjection": "感叹词"
+  },
+  "compose": {
+    "select": {
+      "language": "选择列表的主要语言",
+      "target_language": "选择列表的第二种语言"
     },
-    "login": {
-      "header": "登录",
-      "input": {
-        "label": "电子邮件",
-        "placeholder": "输入您的电子邮件地址",
-        "otp": "一次性代码"
-      },
-      "otp": {
-        "send_button": "请求一次性代码",
-        "verify_button": "登录",
-        "send_success": "登录代码已发送到您的电子邮件地址。",
-        "verify_success": "登录成功！"
-      },
-      "success": "登录成功！登录代码已发送到您的电子邮件地址。",
-      "error": "登录失败！",
-      "greeting": "祝您愉快"
-    },
-    "account": {
-      "edit_profile": "编辑个人资料",
-      "create_new_post": "创建新列表",
-      "edit": {
-        "name": "输入您的新名称",
-        "username": "输入您的新用户名",
-        "biography": "输入个人简介",
-        "success": "您的个人资料已成功更新！"
-      }
-    },
-    "chapter": {
-      "type": "类型",
-      "language": "语言",
+    "add_new_wordbase": "添加新单词",
+    "input": {
       "word": "单词",
       "description": "描述",
       "example": "示例"
     },
-    "word_types": {
-      "noun": "名词",
-      "verb": "动词",
-      "adjective": "形容词",
-      "adverb": "副词",
-      "pronoun": "代词",
-      "conjunction": "连词",
-      "preposition": "介词",
-      "interjection": "感叹词"
+    "list": {
+      "title": "列表名称",
+      "description": "列表描述"
     },
-    "compose": {
-      "select": {
-        "language": "选择列表的主要语言",
-        "target_language": "选择列表的第二种语言"
-      },
-      "add_new_wordbase": "添加新单词",
-      "input": {
-        "word": "单词",
-        "description": "描述",
-        "example": "示例"
-      },
-      "list": {
-        "title": "列表名称",
-        "description": "列表描述"
-      },
-      "compose_button": "撰写"
-    },
-    "editor": {
-      "placeholder": "您可以在这里编辑！",
-      "copy": "复制",
-      "copied": "您的文本已被复制！"
-    },
-    "games": {
-      "header": "游戏",
-      "test": {
-        "error": {
-          "not_enough_wrong": "单词不够！"
-        }
+    "compose_button": "撰写"
+  },
+  "editor": {
+    "placeholder": "您可以在此处编辑！",
+    "copy": "复制",
+    "copied": "您的文本已被复制！"
+  },
+  "games": {
+    "header": "游戏",
+    "test": {
+      "error": {
+        "not_enough_wrong": "单词不足！"
       }
-    },
-    "settings": {
-      "change_lang": "更改语言",
-      "updated_at": "更新于",
-      "created_at": "创建于",
-      "device_info": "设备信息"
     }
+  },
+  "settings": {
+    "change_lang": "更改语言",
+    "updated_at": "更新时间",
+    "created_at": "创建时间",
+    "device_info": "设备信息",
+    "vocatoken_copied": "Vocatoken 已复制！",
+    "logout": "退出登录",
+    "delete_account": "删除账户"
+  },
+  "landing": {
+    "heroTitle": "学习语言的新方式",
+    "heroSubtitle": "使用 Vocapedia 更快地学习和分享单词！",
+    "feature1Title": "创建和分享列表",
+    "feature1Description": "我们提供了一个平台，每个人都可以创建和分享自己的单词列表。",
+    "feature2Title": "通过游戏学习",
+    "feature2Description": "您可以通过游戏以有趣的方式学习您创建的列表中的单词。",
+    "feature3Title": "下载为 PDF",
+    "feature3Description": "您可以轻松地以 PDF 格式下载和保存您创建的单词列表。",
+    "securityTitle": "安全",
+    "securityDescription": "我们的应用程序通过使用 OTP 优先考虑用户安全，将帐户接管的风险降低到几乎为零。",
+    "chromeExtensionTitle": "Chrome 扩展程序",
+    "chromeExtensionDescription": "使用 Vocapedia Chrome 扩展程序，您会偶尔收到列表中的单词提醒，这样您就不会忘记它们。",
+    "whyLearnTitle": "为什么学习语言很重要？",
+    "whyLearnDescription": "学习语言可以帮助您从更广阔的角度看待世界。 Vocapedia 加速并简化了您的语言学习过程。",
+    "chartTitle": "学习速度（完全客观）",
+    "speed": "速度",
+    "vocapedia_users": "Vocapedia 用户",
+    "traditional_methods": "传统方法"
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "introduction": "本隐私政策描述了我们如何收集、使用、保护和共享您在使用我们的应用程序时我们收集的个人数据。请仔细阅读本政策。",
+    "dataCollection": {
+      "title": "我们收集的数据",
+      "text": "我们在我们的应用程序中收集以下个人数据：姓名和电子邮件：我们使用 OTP（一次性密码）系统供用户登录。因此，我们收集您的电子邮件地址。设备信息：收集用户设备信息用于分析和提供安全访问。创建 JWT 令牌时也会使用此信息。"
+    },
+    "dataUsage": {
+      "title": "数据使用",
+      "text": "我们将收集的数据用于以下目的：用户登录和安全：我们使用您的电子邮件地址通过 OTP 进行验证并提供安全登录。数据分析：我们使用设备信息进行分析以改善用户体验。JWT 令牌管理：我们创建 JWT 令牌用于用户身份验证。"
+    },
+    "thirdPartySharing": {
+      "title": "第三方共享",
+      "text": "我们使用 Google Analytics，但我们不会直接与第三方共享用户数据。 Google Analytics 仅用于分析应用程序使用的匿名数据。"
+    },
+    "dataSecurity": {
+      "title": "数据安全",
+      "text": "我们采取措施安全地存储数据：API 安全：我们的 API 受速率限制等安全措施保护。数据存储：数据直接存储在数据库中，但数据库中没有额外的加密。"
+    },
+    "userRights": {
+      "title": "用户权利",
+      "text": "我们授予用户以下权利：数据访问：用户有权访问我们收集的个人数据。数据更正：用户可以更新他们的个人数据。数据删除：用户有权删除他们的帐户并删除他们的个人数据。"
+    },
+    "cookies": {
+      "title": "Cookies 和跟踪技术",
+      "text": "我们在我们的应用程序中不使用 cookies。 数据仅存储在 localStorage 中。"
+    },
+    "dataStorage": {
+      "title": "数据存储期限",
+      "text": "收集的数据无限期地存储在 localStorage 中。"
+    },
+    "childrenPrivacy": {
+      "title": "儿童隐私",
+      "text": "我们的应用程序不收集儿童的特殊数据。 我们不会故意收集 13 岁以下用户的数据。"
+    },
+    "lastUpdated": "最后更新"
   }
+}

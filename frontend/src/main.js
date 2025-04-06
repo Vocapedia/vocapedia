@@ -5,6 +5,7 @@ import { createPinia } from "pinia";
 import mdiVue from "mdi-vue/v3";
 import * as mdijs from "@mdi/js";
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
+import { MotionPlugin } from '@vueuse/motion'
 
 import App from "./App.vue";
 import router from "./router";
@@ -32,6 +33,7 @@ const app = createApp(App)
   .use(mdiVue, {
     icons: mdijs,
   })
+  .use(MotionPlugin)
   .use(autoAnimatePlugin)
   .use(router)
   .use(Toasted)

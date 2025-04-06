@@ -2,14 +2,14 @@
     "followed": "Suivis",
     "notes": "Notes",
     "trends": "Tendances",
-    "personal_info": "Informations personnelles",
-    "compose_post": "Rédiger une publication",
+    "personal_info": "Personnel",
+    "compose_post": "Composer un message",
     "search_from_list": "Rechercher dans la liste",
     "tr": "Turc",
     "en": "Anglais",
-    "list_helper": "La langue listée est {lang}, et la langue traduite est {target_lang}",
+    "list_helper": "La langue listée est {lang}, la/les langue(s) traduite(s) est/sont {target_lang}",
     "page_not_found": {
-        "title": "Oups ! Page non trouvée",
+        "title": "Oups ! Page introuvable",
         "message": "La page que vous recherchez n'existe peut-être pas ou a été déplacée.",
         "button_text": "Aller à la page d'accueil"
     },
@@ -34,15 +34,15 @@
     "description": "Description",
     "word-list": "Liste de mots",
     "tutorial": "Tutoriel",
-    "intro": "Résumé",
-    "empty": "Cet endroit est vide",
-    "followed_results": "{count} résultats suivis trouvés",
+    "intro": "Introduction",
+    "empty": "C'est vide",
+    "followed_results": "{count} résultats trouvés pour Suivis",
     "add_new_note": "Ajouter une nouvelle note...",
     "note_description": "Les notes ajoutées sont stockées uniquement dans votre navigateur.",
     "share_not_supported": "Partage non pris en charge!.",
-    "scoreboard": "Tableau de scores",
+    "scoreboard": "Tableau de score",
     "home": {
-        "title": "Page d'accueil",
+        "title": "Accueil",
         "experience": {
             "title": "Points d'expérience"
         },
@@ -53,16 +53,16 @@
         "input": {
             "label": "Courriel",
             "placeholder": "Entrez votre adresse courriel",
-            "otp": "Code à usage unique"
+            "otp": "Code unique"
         },
         "otp": {
-            "send_button": "Demander un code à usage unique",
+            "send_button": "Demander un code unique",
             "verify_button": "Se connecter",
-            "send_success": "Code de connexion envoyé à votre adresse courriel.",
+            "send_success": "Le code de connexion a été envoyé à votre adresse courriel.",
             "verify_success": "Connexion réussie !"
         },
-        "success": "Connexion réussie ! Code de connexion envoyé à votre adresse courriel.",
-        "error": "Échec de la connexion !",
+        "success": "Connexion réussie ! Le code de connexion a été envoyé à votre adresse courriel.",
+        "error": "Connexion échouée !",
         "greeting": "Passez une bonne journée"
     },
     "account": {
@@ -110,7 +110,7 @@
         "compose_button": "Composer"
     },
     "editor": {
-        "placeholder": "Vous pouvez modifier ici !",
+        "placeholder": "Vous pouvez modifier ceci ici !",
         "copy": "Copier",
         "copied": "Votre texte a été copié !"
     },
@@ -126,6 +126,66 @@
         "change_lang": "Changer de langue",
         "updated_at": "Mis à jour le",
         "created_at": "Créé le",
-        "device_info": "Informations sur l'appareil"
+        "device_info": "Informations sur l'appareil",
+        "vocatoken_copied": "Vocatoken copié !",
+        "logout": "Se déconnecter",
+        "delete_account": "Supprimer le compte"
+    },
+    "landing": {
+        "heroTitle": "La nouvelle façon d'apprendre les langues",
+        "heroSubtitle": "Apprenez et partagez des mots plus rapidement avec Vocapedia !",
+        "feature1Title": "Créer et partager des listes",
+        "feature1Description": "Nous offrons une plateforme où chacun peut créer et partager ses propres listes de mots.",
+        "feature2Title": "Apprendre avec des jeux",
+        "feature2Description": "Vous pouvez apprendre des mots à partir des listes que vous créez de manière amusante grâce à des jeux.",
+        "feature3Title": "Télécharger en PDF",
+        "feature3Description": "Vous pouvez facilement télécharger et enregistrer vos listes de mots créées au format PDF.",
+        "securityTitle": "Sécurité",
+        "securityDescription": "Notre application priorise la sécurité des utilisateurs en utilisant OTP, réduisant presque à zéro le risque de prise de contrôle de compte.",
+        "chromeExtensionTitle": "Extension Chrome",
+        "chromeExtensionDescription": "Avec l'extension Chrome Vocapedia, les mots de la liste vous sont rappelés occasionnellement, afin que vous ne les oubliiez pas.",
+        "whyLearnTitle": "Pourquoi est-il important d'apprendre les langues ?",
+        "whyLearnDescription": "Apprendre les langues vous aide à voir le monde sous un angle plus large. Vocapedia accélère et rationalise votre processus d'apprentissage des langues.",
+        "chartTitle": "Vitesse d'apprentissage (complètement objective)",
+        "speed": "Vitesse",
+        "vocapedia_users": "Utilisateurs de Vocapedia",
+        "traditional_methods": "Méthodes traditionnelles"
+    },
+    "privacy": {
+        "title": "Politique de confidentialité",
+        "introduction": "Cette politique de confidentialité décrit comment nous recueillons, utilisons, protégeons et partageons les données personnelles que nous recueillons lorsque vous utilisez notre application. Veuillez lire attentivement cette politique.",
+        "dataCollection": {
+            "title": "Données que nous recueillons",
+            "text": "Nous recueillons les données personnelles suivantes dans notre application : Nom et courriel : Nous utilisons le système OTP (Mot de passe à usage unique) pour que les utilisateurs se connectent. Par conséquent, nous recueillons votre adresse courriel. Informations sur l'appareil : Les informations sur l'appareil de l'utilisateur sont recueillies à des fins d'analyse et pour fournir un accès sécurisé. Ces informations sont également utilisées lors de la création de jetons JWT."
+        },
+        "dataUsage": {
+            "title": "Utilisation des données",
+            "text": "Nous utilisons les données que nous recueillons aux fins suivantes : Connexion et sécurité de l'utilisateur : Nous utilisons votre adresse courriel pour effectuer la vérification avec OTP et fournir une connexion sécurisée. Analyse des données : Nous utilisons les informations sur l'appareil pour effectuer des analyses afin d'améliorer l'expérience utilisateur. Gestion des jetons JWT : Nous créons des jetons JWT pour l'authentification de l'utilisateur."
+        },
+        "thirdPartySharing": {
+            "title": "Partage avec des tiers",
+            "text": "Nous utilisons Google Analytics, mais nous ne partageons pas directement les données utilisateur avec des tiers. Google Analytics ne sont que des données anonymes utilisées pour analyser l'utilisation de l'application."
+        },
+        "dataSecurity": {
+            "title": "Sécurité des données",
+            "text": "Nous prenons des mesures pour stocker les données en toute sécurité : Sécurité de l'API : Nos API sont protégées par des mesures de sécurité telles que la limitation de débit. Stockage des données : Les données sont stockées directement dans la base de données, mais il n'y a pas de cryptage supplémentaire dans la base de données."
+        },
+        "userRights": {
+            "title": "Droits de l'utilisateur",
+            "text": "Nous accordons aux utilisateurs les droits suivants : Accès aux données : Les utilisateurs ont le droit d'accéder aux données personnelles que nous recueillons. Correction des données : Les utilisateurs peuvent mettre à jour leurs données personnelles. Suppression des données : Les utilisateurs ont le droit de supprimer leurs comptes et de supprimer leurs données personnelles."
+        },
+        "cookies": {
+            "title": "Cookies et technologies de suivi",
+            "text": "Nous n'utilisons pas de cookies dans notre application. Les données sont uniquement stockées dans localStorage."
+        },
+        "dataStorage": {
+            "title": "Durée de stockage des données",
+            "text": "Les données recueillies sont stockées indéfiniment dans localStorage."
+        },
+        "childrenPrivacy": {
+            "title": "Confidentialité des enfants",
+            "text": "Notre application ne recueille pas de données spéciales auprès des enfants. Nous ne recueillons pas sciemment de données auprès d'utilisateurs de moins de 13 ans."
+        },
+        "lastUpdated": "Dernière mise à jour"
     }
 }

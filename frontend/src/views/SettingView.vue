@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-160 mx-auto space-y-10">
-        <div>
-            <div class="flex items-center space-x-5">
+        <div class="space-y-5">
+            <div v-motion-slide-visible-once-top class="flex items-center space-x-5">
                 <div class="flex items-center space-x-2 w-full">
                     <select v-model="selectedLanguage"
                         class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600">
@@ -14,8 +14,19 @@
                     </button>
                 </div>
             </div>
+            <div v-motion-slide-visible-once-left v-if="vocatoken" class="flex w-full items-center space-x-5">
+                <input placeholder="VocaToken" disabled :value="'VOCATOKEN-' + vocatoken"
+                    class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600" />
+                <button @click="UpdateVocatoken" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
+                    <mdicon name="reload" />
+                </button>
+                <button @click="CopyVocatoken" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
+                    <mdicon name="content-copy" />
+                </button>
+            </div>
         </div>
-        <div v-if="(tokenInfo ?? []).length > 0" class="overflow-x-auto rounded-xl">
+        <div v-motion-slide-visible-once-bottom v-if="(tokenInfo ?? []).length > 0"
+            class="overflow-x-auto rounded-xl space-y-5">
             <table class="w-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-md">
                 <thead class="bg-sky-100 dark:bg-sky-700  text-gray-900 dark:text-white">
                     <tr>
@@ -47,20 +58,37 @@
                 </tbody>
             </table>
         </div>
+
+        <div v-motion-slide-visible-once-right v-if="(tokenInfo ?? []).length > 0" class="flex justify-between">
+            <div class="flex items-center justify-end space-x-5">
+                <span>{{ $t('settings.delete_account') }}</span>
+                <button @click="logout" class="smooth-click rounded-full bg-red-100 dark:bg-red-700 p-2">
+                    <mdicon name="account-remove-outline" />
+                </button>
+            </div>
+            <div class="flex items-center justify-end space-x-5">
+                <span>{{ $t('settings.logout') }}</span>
+                <button @click="logout" class="smooth-click rounded-full bg-red-100 dark:bg-red-700 p-2">
+                    <mdicon name="logout" />
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { useFetch } from '@/composable/useFetch';
 import { ref, onMounted } from 'vue';
-import { ChangeLang, GetLang } from '../i18n/i18n';
+import { ChangeLang, GetLang, i18n } from '../i18n/i18n';
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 import { getLangByCode } from '@/utils/language/languages';
+import { useToast } from '@/composable/useToast';
 const router = useRouter()
 const token = localStorage.getItem("token")
 const modules = import.meta.glob("../i18n/*.json", { eager: true });
 
+const toast = useToast();
 const languages = Object.entries(modules).map(([path, module]) => {
     const code = path.replace("../i18n/", "").replace(".json", "");
     const language = getLangByCode(code);
@@ -83,9 +111,15 @@ async function deleteToken(tokenID) {
 const tokenInfo = ref([]);
 
 const fetchTokenInfo = async () => {
-    await useFetch('/auth/token').then(r => {
+    await useFetch('/user/token').then(r => {
         tokenInfo.value = r.tokens
     });
+    await useFetch('/user/vocatoken', {
+        method: "GET"
+    }).then(r => {
+        vocatoken.value = r.vocatoken
+    });
+
 };
 
 onMounted(() => {
@@ -93,4 +127,23 @@ onMounted(() => {
         fetchTokenInfo();
     }
 });
+const vocatoken = ref("");
+async function UpdateVocatoken() {
+    await useFetch('/user/vocatoken', {
+        method: "PUT"
+    }).then(r => {
+        vocatoken.value = r.vocatoken
+    });
+}
+async function CopyVocatoken() {
+    await navigator.clipboard.writeText("VOCATOKEN-" + vocatoken.value);
+    toast.show(i18n.global.t('settings.vocatoken_copied'))
+}
+async function logout() {
+    await useFetch("/auth/logout", {
+        method: "DELETE"
+    })
+    localStorage.removeItem("token");
+    router.replace("/login");
+}
 </script>

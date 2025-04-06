@@ -5,7 +5,7 @@
     </div>
     <div v-else class="max-w-160 mx-auto space-y-5">
       <div>
-        <div class="flex items-center justify-between">
+        <div v-motion-slide-visible-once-top class="flex items-center justify-between">
           <div class="flex space-x-1 items-center">
             <h2 v-if="user.name" class="text-xl font-extrabold ">{{ user.name }}</h2>
             <mdicon v-if="user.approved" name="check-decagram" class="text-xl text-sky-500" />
@@ -15,10 +15,10 @@
             {{ $t('account.edit_profile') }}
           </button>
         </div>
-        <p v-if="user.username" class="text-zinc-400 mt-1">@{{ user.username }}</p>
-        <p v-if="user.biography" class="mt-1" v-html="transformBiography(user.biography)" />
+        <p v-motion-slide-visible-once-right v-if="user.username" class="text-zinc-400 mt-1">@{{ user.username }}</p>
+        <p v-motion-slide-visible-once-left v-if="user.biography" class="mt-1" v-html="transformBiography(user.biography)" />
       </div>
-      <div class="text-center flex" v-if="isUsersAccount">
+      <div v-motion-slide-visible-once-bottom class="text-center flex" v-if="isUsersAccount">
         <router-link to="/compose"
           class="cursor-pointer w-full smooth-click2 w-full bg-sky-100 dark:bg-sky-700 py-3 font-semibold">
           {{ $t('account.create_new_post') }}

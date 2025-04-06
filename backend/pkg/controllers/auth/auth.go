@@ -18,7 +18,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
-	"github.com/akifkadioglu/vocapedia/utils"
+	"github.com/akifkadioglu/vocapedia/pkg/utils"
 )
 
 func Token(w http.ResponseWriter, r *http.Request) {
@@ -53,15 +53,28 @@ func SendOTP(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	} else {
+		user.Name = strings.Split(params.Email, "@")[0]
 		user.Email = params.Email
 		user.Username = strings.Split(params.Email, "@")[0] + utils.RandomString(5)
+		user.Vocatoken, err = utils.GenerateVocaToken(10)
+		if err != nil {
+			render.Status(r, http.StatusInternalServerError)
+			render.JSON(w, r, map[string]string{
+				"error": i18n.Localizer(r, "error.something_went_wrong"),
+			})
+			return
+		}
 		db.Create(&user)
 	}
 	otp := generateOTP()
 
 	err = cache.Redis().Set(r.Context(), user.Email, otp, 5*time.Minute).Err()
 	if err != nil {
-		panic(err)
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
 	}
 
 	tmpl, err := template.ParseFiles("pkg/mail/templates/auth.login.html")
@@ -182,4 +195,9 @@ func GetToken(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, map[string]string{
 		"token": tokenString,
 	})
+}
+func Logout(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	token := strings.Split(r.Header.Get("Authorization"), " ")[1]
+	db.Where("token = ?", token).Delete(&entities.Token{})
 }

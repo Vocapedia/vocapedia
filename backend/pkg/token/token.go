@@ -10,7 +10,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
-	"github.com/akifkadioglu/vocapedia/utils"
+	"github.com/akifkadioglu/vocapedia/pkg/utils"
 )
 
 var tokenAuth *jwtauth.JWTAuth

@@ -8,6 +8,7 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
+	"github.com/akifkadioglu/vocapedia/pkg/utils"
 	"github.com/brianvoe/gofakeit"
 )
 
@@ -24,7 +25,9 @@ func InitDB(host string, port int, user, password, dbname string) {
 	if err := db.Exec(`CREATE EXTENSION IF NOT EXISTS pg_trgm`).Error; err != nil {
 		panic(err)
 	}
-
+	if err := db.Exec(`	CREATE EXTENSION IF NOT EXISTS citext`).Error; err != nil {
+		panic(err)
+	}
 	db.AutoMigrate(
 		&entities.User{},
 		&entities.Chapter{},
@@ -38,7 +41,6 @@ func InitDB(host string, port int, user, password, dbname string) {
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_description ON chapters USING gin (description gin_trgm_ops)`)
 	db.Exec(`CREATE EXTENSION IF NOT EXISTS fuzzystrmatch`)
 	db.Exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_user_chapter ON user_favorites (user_id, chapter_id);")
-
 	//seed()
 	createAdmin()
 
@@ -49,7 +51,12 @@ func Manager() *gorm.DB {
 }
 
 func createAdmin() {
+	vocatoken, err := utils.GenerateVocaToken(10)
+	if err != nil {
+		fmt.Println("veri eklerken hata:", err)
+	}
 	user := entities.User{
+		Vocatoken: vocatoken,
 		Username:  config.ReadValue().AdminUsername,
 		Email:     config.ReadValue().AdminEmail,
 		Name:      config.ReadValue().AdminName,
