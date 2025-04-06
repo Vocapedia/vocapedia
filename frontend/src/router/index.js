@@ -1,26 +1,6 @@
-import { createRouter, createWebHistory } from "@ionic/vue-router";
-
-import HomeView from "@/views/HomeView.vue";
-import AccountView from "@/views/AccountView.vue";
-import NotFoundView from "@/views/NotFoundView.vue";
-import ChapterView from "@/views/chapter/index.vue";
-import GameView from "@/views/GameView.vue";
-import { loadLayout } from "./middleware/loadLayout";
-import TestView from "@/views/game/TestView.vue";
-import SearchView from "@/views/SearchView.vue";
-import FollowedView from "@/views/FollowedView.vue";
-import NotesView from "@/views/NotesView.vue";
-import FlipWordView from "@/views/game/FlipWordView.vue";
-import QuickPickView from "@/views/game/QuickPickView.vue";
-import WordMatchView from "@/views/game/WordMatchView.vue";
-import WordRushView from "@/views/game/WordRushView.vue";
-import LoginView from "@/views/LoginView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 import { authGuard } from "./middleware/authGuard";
-import SettingView from "@/views/SettingView.vue";
-import ComposePost from "@/views/compose/index.vue";
-import EditorView from "@/views/EditorView.vue";
-import LandingView from "@/views/LandingView.vue";
-import PrivacyPolicy from "@/views/PrivacyPolicy.vue";
+import { loadLayout } from "./middleware/loadLayout";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,109 +8,109 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
+      component: () => import('@/views/HomeView.vue'),
     },
     {
       path: "/landing",
       name: "landing",
-      component: LandingView,
+      component: () => import('@/views/LandingView.vue'),
     },
     {
       path: "/compose",
       name: "compose",
       beforeEnter: [authGuard],
-      component: ComposePost,
+      component: () => import('@/views/compose/index.vue'),
     },
     {
       path: "/update/:id",
       name: "update",
       beforeEnter: [authGuard],
-      component: ComposePost,
+      component: () => import('@/views/compose/index.vue'),
     },
     {
       path: "/l/:id",
       name: "word-list",
-      component: ChapterView,
+      component: () => import('@/views/chapter/index.vue'),
     },
     {
       path: "/l/:id/games",
       name: "games",
-      component: GameView,
+      component: () => import('@/views/GameView.vue'),
     },
     {
       path: "/l/:id/game/test",
       name: "test",
-      component: TestView,
+      component: () => import('@/views/game/TestView.vue'),
     },
     {
       path: "/l/:id/game/flip-word",
       name: "flip-word",
-      component: FlipWordView,
+      component: () => import('@/views/game/FlipWordView.vue'),
     },
     {
       path: "/l/:id/game/quick-pick",
       name: "quick-pick",
-      component: QuickPickView,
+      component: () => import('@/views/game/QuickPickView.vue'),
     },
     {
       path: "/l/:id/game/word-match",
       name: "word-match",
-      component: WordMatchView,
+      component: () => import('@/views/game/WordMatchView.vue'),
     },
     {
       path: "/l/:id/game/word-rush",
       name: "word-rush",
-      component: WordRushView,
+      component: () => import('@/views/game/WordRushView.vue'),
     },
     {
       path: "/search",
       name: "search",
-      component: SearchView,
+      component: () => import('@/views/SearchView.vue'),
     },
-
     {
       path: "/followed",
       name: "followed",
       beforeEnter: [authGuard],
-      component: FollowedView,
+      component: () => import('@/views/FollowedView.vue'),
     },
     {
       path: "/notes",
       name: "notes",
-      component: NotesView,
+      component: () => import('@/views/NotesView.vue'),
     },
     {
       path: "/login",
       name: "login",
-      component: LoginView
+      component: () => import('@/views/LoginView.vue'),
     },
     {
       path: "/settings",
       name: "settings",
-      component: SettingView
+      component: () => import('@/views/SettingView.vue'),
     },
     {
       path: "/editor",
       name: "editor",
-      component: EditorView
+      component: () => import('@/views/EditorView.vue'),
     },
     {
       path: "/privacy-policy",
       name: "privacy-policy",
-      component: PrivacyPolicy,
+      component: () => import('@/views/PrivacyPolicy.vue'),
     },
     {
       path: "/:username",
       name: "account",
-      component: AccountView,
+      component: () => import('@/views/AccountView.vue'),
     },
     {
       path: "/:pathMatch(.*)*",
       name: "not-found",
-      component: NotFoundView,
+      component: () => import('@/views/NotFoundView.vue'),
     },
   ],
 });
+
 router.beforeEach(loadLayout);
 
 export default router;
