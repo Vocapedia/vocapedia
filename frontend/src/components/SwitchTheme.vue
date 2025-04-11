@@ -1,5 +1,5 @@
 <template>
-    <button @click="toggleDark()" class="cursor-pointer transition ease-in-out delay-50 hover:scale-105 duration-300">
+    <button @click="toggleDark()" class="cursor-pointer p-2 transition ease-in-out delay-50 hover:scale-105 duration-300">
         <mdicon name="white-balance-sunny" class="text-orange-400 dark:text-orange-300" />
     </button>
 </template>

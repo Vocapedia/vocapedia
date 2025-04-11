@@ -34,7 +34,7 @@ const games = ref([
     {
         location: "/flip-word",
         name: "flip-word",
-        wordCount: 99
+        wordCount: 1
     },
     {
         location: "/quick-pick",

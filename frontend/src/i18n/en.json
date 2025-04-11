@@ -187,5 +187,16 @@
             "text": "Our application does not collect special data from children. We do not knowingly collect data from users under the age of 13."
         },
         "lastUpdated": "Last Updated"
+    },
+    "game-flipword": {
+        "question": "\"{from}\" language's word \"{word}\" in \"{to}\"?",
+        "submit": "Submit",
+        "correct": "Correct!",
+        "wrong": "Wrong!",
+        "time_up": "Time's up! The correct answer is:",
+        "placeholder": "Type your answer...",
+        "no_more_words": "No more words!",
+        "time_left": "Time left",
+        "wait_for_next": "Waiting 5 seconds before the next word."
     }
 }

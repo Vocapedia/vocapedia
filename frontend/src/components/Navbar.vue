@@ -18,7 +18,6 @@
                     <RouterLink :to="token ? '/' + getUser().username : '/login'" class="smooth-click">
                         <mdicon name="account-circle-outline" size="24" />
                     </RouterLink>
-                    <SwitchThemeVue />
                 </nav>
             </header>
             <header v-else class="container mx-auto  max-w-160 w-full flex justify-between items-center p-4">
@@ -46,7 +45,6 @@
 </template>
 
 <script setup>
-import SwitchThemeVue from "@/components/SwitchTheme.vue";
 import { getUser } from "@/utils/token";
 import { ref, nextTick, watch } from "vue";
 import { useRouter } from "vue-router";

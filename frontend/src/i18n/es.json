@@ -187,5 +187,16 @@
             "text": "Nuestra aplicación no recopila datos especiales de niños. No recopilamos conscientemente datos de usuarios menores de 13 años."
         },
         "lastUpdated": "Última actualización"
+    },
+    "game-flipword": {
+        "question": "¿Cuál es la palabra \"{word}\" en \"{to}\" en el idioma \"{from}\"?",
+        "submit": "Enviar",
+        "correct": "¡Correcto!",
+        "wrong": "¡Incorrecto!",
+        "time_up": "¡Se acabó el tiempo! La respuesta correcta es:",
+        "placeholder": "Escribe tu respuesta...",
+        "no_more_words": "¡No hay más palabras!",
+        "time_left": "Tiempo restante",
+        "wait_for_next": "Esperando 5 segundos antes de la siguiente palabra."
     }
 }

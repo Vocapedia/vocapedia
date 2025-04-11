@@ -64,7 +64,6 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Post("/verify-otp", auth.VerifyOTP)
 			})
 			api.Route("/chapters", func(api chi.Router) {
-				api.Get("/extension/{id}", chapters.Extension)
 				api.Get("/user", chapters.UserChapters)
 				api.Get("/{id}", chapters.GetByID)
 				api.Get("/search", chapters.Search)
@@ -75,8 +74,10 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Get("/", user.GetByUsername)
 			})
 		})
-		api.Get("/get-token", auth.GetToken)
-
+		api.Route("/usage", func(api chi.Router) {
+			api.Use(customMiddleware.HandleVocatoken)
+			api.Get("/extension/chapter/{id}", chapters.Extension)
+		})
 	})
 
 	r.HandleFunc("/auth", auth.Token)

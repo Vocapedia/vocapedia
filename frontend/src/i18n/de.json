@@ -187,5 +187,16 @@
             "text": "Unsere Anwendung erfasst keine besonderen Daten von Kindern. Wir erfassen nicht wissentlich Daten von Benutzern unter 13 Jahren."
         },
         "lastUpdated": "Letzte Aktualisierung"
+    },
+    "game-flipword": {
+        "question": "Wie lautet das Wort \"{word}\" auf \"{to}\" in der Sprache \"{from}\"?",
+        "submit": "Absenden",
+        "correct": "Richtig!",
+        "wrong": "Falsch!",
+        "time_up": "Die Zeit ist abgelaufen! Die richtige Antwort ist:",
+        "placeholder": "Gib deine Antwort ein...",
+        "no_more_words": "Keine weiteren Wörter!",
+        "time_left": "Verbleibende Zeit",
+        "wait_for_next": "Warten Sie 5 Sekunden, bevor das nächste Wort kommt."
     }
 }

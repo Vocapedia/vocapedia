@@ -187,5 +187,16 @@
             "text": "Notre application ne recueille pas de données spéciales auprès des enfants. Nous ne recueillons pas sciemment de données auprès d'utilisateurs de moins de 13 ans."
         },
         "lastUpdated": "Dernière mise à jour"
+    },
+    "game-flipword": {
+        "question": "Quel est le mot \"{word}\" en \"{to}\" dans la langue \"{from}\" ?",
+        "submit": "Soumettre",
+        "correct": "Correct!",
+        "wrong": "Faux!",
+        "time_up": "Temps écoulé ! La bonne réponse est :",
+        "placeholder": "Tapez votre réponse...",
+        "no_more_words": "Plus de mots !",
+        "time_left": "Temps restant",
+        "wait_for_next": "Attente de 5 secondes avant le mot suivant."
     }
 }

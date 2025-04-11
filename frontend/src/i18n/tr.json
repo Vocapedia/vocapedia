@@ -187,5 +187,16 @@
             "text": "Uygulamamız, çocuklardan özel veri toplamaz. 13 yaş altındaki kullanıcıların verilerini bilerek toplamıyoruz."
         },
         "lastUpdated": "Son Güncelleme"
+    },
+    "game-flipword": {
+        "question": "\"{from}\" dilinde \"{word}\" kelimesinin \"{to}\" karşılığı nedir?",
+        "submit": "Gönder",
+        "correct": "Doğru!",
+        "wrong": "Yanlış!",
+        "time_up": "Süre doldu! Doğru cevap:",
+        "placeholder": "Cevabınızı yazın...",
+        "no_more_words": "Daha fazla kelime kalmadı!",
+        "time_left": "Kalan süre",
+        "wait_for_next": "Yeni kelimeye geçmeden önce 5 saniye bekliyoruz"
     }
 }

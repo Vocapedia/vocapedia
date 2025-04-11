@@ -1,27 +1,36 @@
 <template>
     <div class="max-w-160 mx-auto space-y-10">
         <div class="space-y-5">
-            <div v-motion-slide-visible-once-top class="flex items-center space-x-5">
-                <div class="flex items-center space-x-2 w-full">
-                    <select v-model="selectedLanguage"
-                        class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600">
-                        <option v-for="lang in languages" :value="lang.code"> {{ lang.name.valueOf() }}</option>
-                    </select>
+            <div class="flex space-x-5">
+                <div v-motion-slide-visible-once-top class="flex items-center space-x-5 w-full">
+                    <div class="flex items-center space-x-2 w-full">
+                        <select v-model="selectedLanguage"
+                            class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600">
+                            <option v-for="lang in languages" :value="lang.code"> {{ lang.name.valueOf() }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button @click="SaveLang" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
+                            <mdicon name="content-save" />
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <button @click="SaveLang" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
-                        <mdicon name="content-save" />
-                    </button>
-                </div>
+                <SwitchThemeVue />
             </div>
             <div v-motion-slide-visible-once-left v-if="vocatoken" class="flex w-full items-center space-x-5">
-                <input placeholder="VocaToken" disabled :value="'VOCATOKEN-' + vocatoken"
-                    class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600" />
-                <button @click="UpdateVocatoken" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
-                    <mdicon name="reload" />
+                <button @click="isVocatokenShowing = !isVocatokenShowing"
+                    class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
+                    <mdicon v-if="isVocatokenShowing" name="eye-off-outline" />
+                    <mdicon v-else name="eye-outline" />
                 </button>
+                <input placeholder="VocaToken" disabled :value="'VOCATOKEN-' + vocatoken"
+                    :type="isVocatokenShowing ? '' : 'password'"
+                    class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600" />
                 <button @click="CopyVocatoken" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
                     <mdicon name="content-copy" />
+                </button>
+                <button @click="UpdateVocatoken" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 p-2">
+                    <mdicon name="reload" />
                 </button>
             </div>
         </div>
@@ -77,6 +86,7 @@
 </template>
 
 <script setup>
+import SwitchThemeVue from "@/components/SwitchTheme.vue";
 import { useFetch } from '@/composable/useFetch';
 import { ref, onMounted } from 'vue';
 import { ChangeLang, GetLang, i18n } from '../i18n/i18n';
@@ -88,6 +98,7 @@ const router = useRouter()
 const token = localStorage.getItem("token")
 const modules = import.meta.glob("../i18n/*.json", { eager: true });
 
+const isVocatokenShowing = ref(false)
 const toast = useToast();
 const languages = Object.entries(modules).map(([path, module]) => {
     const code = path.replace("../i18n/", "").replace(".json", "");

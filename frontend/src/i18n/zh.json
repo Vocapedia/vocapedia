@@ -187,5 +187,16 @@
       "text": "我们的应用程序不收集儿童的特殊数据。 我们不会故意收集 13 岁以下用户的数据。"
     },
     "lastUpdated": "最后更新"
+  },
+  "game-flipword": {
+    "question": "\"{from}\"语言中\"{word}\"一词在\"{to}\"中的对应是什么？",
+    "submit": "提交",
+    "correct": "正确！",
+    "wrong": "错误！",
+    "time_up": "时间到！正确答案是：",
+    "placeholder": "输入您的答案...",
+    "no_more_words": "没有更多单词了！",
+    "time_left": "剩余时间",
+    "wait_for_next": "等待5秒钟，进入下一个单词。"
   }
 }

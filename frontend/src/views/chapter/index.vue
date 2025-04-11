@@ -16,7 +16,8 @@
                 <div>{{ response.chapter.description }}</div>
             </div>
 
-            <div v-motion-slide-visible-once-bottom class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
+            <div v-motion-slide-visible-once-bottom
+                class="max-w-160 w-full mx-auto flex justify-around items-center py-5">
                 <button @click="response.chapter.is_favorited ? deleteFavChapter() : favoriteChapter()"
                     class="space-x-2 flex items-center smooth-click bg-yellow-50 dark:bg-yellow-900 rounded-full py-px pl-2 pr-4 font-bold">
                     <mdicon v-if="response.chapter.is_favorited" name="star"
@@ -84,7 +85,7 @@ const generatePDF = async () => {
     const doc = new jsPDF();
     const marginX = 14;
     let startY = 20;
-
+    doc.html("<div>" + response.value.chapter.tutorial + "</div>")
     doc.setFont('Roboto', "bold");
     doc.setFontSize(20);
     doc.text(response.value.chapter.title, marginX, startY);
