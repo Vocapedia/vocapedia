@@ -1,6 +1,7 @@
 <template>
     <div>
         <div v-if="!isPDFGenerating">
+
             <transition name="fade" mode="out-in">
                 <div v-if="response.chapter">
                     <small v-motion-slide-visible-once-left class="pb-5 flex justify-center">
@@ -137,8 +138,6 @@ const generatePDF = async () => {
 
     saveAndRemoveStyles();
     const tutorialDiv = document.createElement('div');
-    tutorialDiv.style.display = 'flex';
-    tutorialDiv.style.justifyContent = 'center';
     tutorialDiv.style.width = '80%';
 
     const innerDiv = document.createElement('div');
@@ -159,13 +158,45 @@ const generatePDF = async () => {
         img.style.marginLeft = 'auto';
         img.style.marginRight = 'auto';
     });
-
+    let wb = response.value.chapter.word_bases
     tutorialDiv.appendChild(innerDiv);
+    const tableContainer = document.createElement('div');
+    tableContainer.style.fontFamily = "'Roboto', sans-serif";
+    tableContainer.style.gap = '16px';
+    tableContainer.style.width = '100%';
+    tableContainer.innerHTML = `
+<table style="width: 100%; border-collapse: separate;border-spacing: 0 8px; font-size: 13px; font-family: 'Roboto', sans-serif;">
+  <thead>
+    <tr style="background-color: #2980b9; color: #fff; font-size: 15px;">
+      <th style="border: 1px solid #2980b9; padding: 15px 12px; border-top-left-radius: 6px;">${i18n.global.t("chapter.type")}</th>
+      <th style="border: 1px solid #2980b9; padding: 15px 12px;">${i18n.global.t("chapter.language")}</th>
+      <th style="border: 1px solid #2980b9; padding: 15px 12px; border-top-right-radius: 6px;">${i18n.global.t("chapter.word")}</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${wb.map((base) =>
+      base.words.map((word, i) => `
+      ${i%2==0?'<tr style="background-color: #ecf0f1">':'<tr>'}
+      
+        ${i === 0 ? `
+          <td rowspan="${base.words.length}" style="border-top: 0.5px solid #ccc;border-bottom: 0.5px solid #ccc;border-left: 0.5px solid #ccc; padding: 6px 8px; text-align:center; font-weight: 500; background-color: #ecf0f1;">
+            ${i18n.global.t("word_types." + base.type)}
+          </td>` : ``}
+          <td style="padding: 10px 8px; text-align:center;">
+            ${getLangByCode(word.lang).name}
+          </td>
+          <td style="padding: 10px 8px;">
+            ${word.word}
+          </td>
+        </tr>
+      `).join('')
+    ).join('')}
+  </tbody>
+</table>
+`;
 
+    tutorialDiv.appendChild(tableContainer);
     document.body.appendChild(tutorialDiv);
-
-    const tutorialHeight = tutorialDiv.scrollHeight;
-
     await doc.html(tutorialDiv,
         {
             useCORS: true,
@@ -173,39 +204,8 @@ const generatePDF = async () => {
             x: marginX,
             y: startY,
             html2canvas: { scale: 0.3 },
-            callback: (doc) => {
-
+            callback: () => {
                 restoreStyles()
-                startY = tutorialHeight
-                response.value.chapter.word_bases.forEach((base) => {
-                    doc.setFontSize(12);
-                    const tableData = base.words.map((word) =>
-                        [
-                            i18n.global.t("word_types." + base.type),
-                            word.lang.toUpperCase(),
-                            word.word,
-                        ]
-                    );
-                    if (doc.lastAutoTable && (doc.lastAutoTable.finalY + tableData.length * 25) > doc.internal.pageSize.height) {
-                        doc.addPage();
-                        startY = 20;
-                    }
-                    autoTable(doc, {
-                        startY,
-                        head: doc.lastAutoTable ? null : [[i18n.global.t("chapter.type"), i18n.global.t("chapter.language"), i18n.global.t("chapter.word")]],
-                        body: tableData,
-                        theme: "grid",
-                        styles: { font: "Roboto", fontSize: 10, cellPadding: 4, overflow: 'ellipsize', halign: "center" },
-                        headStyles: { font: "Roboto", fillColor: [41, 128, 185], textColor: 255, fontStyle: "bold" },
-                        columnStyles: {
-                            0: { halign: "center", cellWidth: 30 },
-                            1: { halign: "center", cellWidth: 15 },
-                            2: { halign: "left", cellWidth: 35 },
-                        }
-                    });
-
-                    startY = doc.lastAutoTable.finalY + 7;
-                });
                 document.body.removeChild(tutorialDiv);
             }
         },

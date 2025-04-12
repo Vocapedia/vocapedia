@@ -80,10 +80,9 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 	var favorites []ChapterDTO
 	tx := db.Table("user_favorites").
 		Joins("JOIN chapters ON chapters.id = user_favorites.chapter_id").
-		Joins("JOIN word_bases ON word_bases.chapter_id = chapters.id").
 		Where("user_favorites.user_id = ?", userID).
 		Unscoped().
-		Select("chapters.*, user_favorites.chapter_id as fav_chapter_id, COUNT(DISTINCT user_favorites.chapter_id) as fav_count, COUNT(DISTINCT word_bases.id) as word_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
+		Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE deleted_at is null AND chapter_id = chapters.id) as fav_count, (SELECT COUNT(*) FROM word_bases WHERE deleted_at is null AND chapter_id = chapters.id) as word_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Preload("Creator").
 		Group("chapters.id, user_favorites.chapter_id").
 		Order("id desc").
@@ -516,7 +515,8 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 	var chapters []ChapterDTO
 	userID := token.User(r).UserID
 	tx := db.Model(&entities.Chapter{}).
-		Select("chapters.*,(SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE word_bases.chapter_id = chapters.id) AS word_count, creator.username, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
+	
+		Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE word_bases.deleted_at is null and word_bases.chapter_id = chapters.id) AS word_count, creator.username, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Joins("LEFT JOIN users AS creator ON creator.id = chapters.creator_id").
 		Where("LOWER(creator.username) = ?", strings.ToLower(username)).
 		Group("chapters.id, creator.username").
