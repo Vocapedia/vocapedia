@@ -27,6 +27,12 @@ database:
   password: vocapedia
   sslmode: disable
 
+meilisearch:
+  host: http://meilisearch:7700
+  api_key: vocapedia
+  index: chapters
+  timeout: 10
+
 redis:
   host: vocapedia-redis
   port: 6379

@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"strings"
 
@@ -249,7 +248,6 @@ func GetVocaToken(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	log.Println(user.Vocatoken)
 	render.JSON(w, r, map[string]any{
 		"vocatoken": user.Vocatoken,
 	})

@@ -2,7 +2,7 @@
     <div class="max-w-160 mx-auto">
 
         <p class="py-5">
-            {{ $t('search_results', { query: route.query.q, count: (response.list ?? []).length, }) }}
+            {{ $t('search_results', { query: decodeURIComponent(route.query.q), count: (response.list ?? []).length, }) }}
         </p>
 
         <transition name="fade" mode="out-in">

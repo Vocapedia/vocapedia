@@ -79,7 +79,10 @@ function openSearchable() {
 }
 function searchSomething() {
     if ((search.value).toString().trim().length == 0) return
-    router.push({ name: 'search', query: { q: search.value } })
+    
+    const trimmedSearch = search.value.trim();
+    
+    router.push({ name: 'search', query: { q: encodeURIComponent(trimmedSearch)  } })
     searchable.value = false
 }
 </script>

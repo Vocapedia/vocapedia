@@ -48,6 +48,13 @@ type Config struct {
 		DB       int    `yaml:"db"`
 	} `yaml:"redis"`
 
+	Meili struct {
+		Host    string `yaml:"host"`
+		APIKey  string `yaml:"api_key"`
+		Index   string `yaml:"index"`
+		Timeout int    `yaml:"timeout"`
+	} `yaml:"meilisearch"`
+
 	AllowMethods []string `yaml:"allow_methods"`
 	AllowHeaders []string `yaml:"allow_headers"`
 	AllowOrigins []string `yaml:"allow_origins"`

@@ -3,7 +3,7 @@ package entities
 type User struct {
 	Base
 	Name      string    `json:"name"`
-	Vocatoken string    `json:"vocatoken" gorm:"not null;unique"`
+	Vocatoken string    `json:"-" gorm:"not null;unique"`
 	Biography string    `json:"biography"`
 	Username  string    `json:"username" gorm:"type:citext;not null;unique"`
 	Email     string    `json:"-" gorm:"not null;unique"`

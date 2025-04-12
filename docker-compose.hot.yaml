@@ -43,7 +43,23 @@ services:
     networks:
       - vocapedia
     restart: unless-stopped
-    
+  
+  meilisearch:
+    container_name: vocapedia-meilisearch
+    image: getmeili/meilisearch:v1.8.1
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_MASTER_KEY: vocapedia
+
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+    networks:
+      - vocapedia
+    restart: always
+
+ 
 networks:
   vocapedia:
     name: vocapedia_network
@@ -53,4 +69,6 @@ volumes:
   pg-data:
     external: false
   redis-data:
+    external: false
+  meili_data:
     external: false

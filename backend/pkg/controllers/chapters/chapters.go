@@ -12,9 +12,11 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
+	"github.com/akifkadioglu/vocapedia/pkg/search"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
+	"github.com/meilisearch/meilisearch-go"
 	"github.com/xuri/excelize/v2"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -270,52 +272,44 @@ func GameFormat(w http.ResponseWriter, r *http.Request) {
 }
 
 func Search(w http.ResponseWriter, r *http.Request) {
-	db := database.Manager()
 	query := r.URL.Query().Get("q")
-	pageStr := r.URL.Query().Get("page")
-	limitStr := r.URL.Query().Get("limit")
+	db := database.Manager()
+	var chapters []ChapterDTO
+	client := search.Meili()
+	index := client.Index("chapters")
 
-	page := 1
-	limit := 10
-
-	if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
-		page = p
+	searchRequest := &meilisearch.SearchRequest{
+		Query: query,
 	}
-	if l, err := strconv.Atoi(limitStr); err == nil && l > 0 {
-		limit = l
-	}
-	offset := (page - 1) * limit
-	var results []ChapterDTO
-	userID := token.User(r).UserID
-	tx := db.Model(&entities.Chapter{}).Raw(`
-WITH ranked_chapters AS (
-        SELECT *,
-            (0.7 * similarity(title, ?) + 0.3 * similarity(description, ?)) AS sim_score,
-            LEAST(levenshtein(title, ?), levenshtein(description, ?)) AS lev_score
-        FROM chapters
-        WHERE title % ? OR description % ?
-    )
-    SELECT rc.*,
-           (SELECT COUNT(*) FROM user_favorites WHERE chapter_id = rc.id) AS fav_count,
-           (SELECT COUNT(*) FROM word_bases WHERE chapter_id = rc.id) AS word_count,
-		   EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = rc.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited
-    FROM ranked_chapters rc
-    ORDER BY sim_score DESC, lev_score ASC
-    LIMIT ? OFFSET ?
-`, query, query, query, query, query, query, userID, limit, offset)
-	err := tx.Preload("Creator").Order("id desc").Find(&results).Error
 
+	searchRes, err := index.Search(query, searchRequest) // searchRequest parametresini geçiyoruz
 	if err != nil {
-		render.Status(r, http.StatusBadRequest)
+		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
-			"error": err.Error(),
+			"error": "Search error: " + err.Error(),
 		})
 		return
 	}
+
+	var ids []int64
+	for _, hit := range searchRes.Hits {
+		var chapterID int64
+		hitData, ok := hit.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		if id, ok := hitData["id"].(float64); ok {
+			chapterID = int64(id)
+		}
+		ids = append(ids, chapterID)
+	}
+
+	db.Table("chapters").Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE deleted_at is null AND chapter_id = chapters.id) AS word_count").
+		Where("chapters.id IN ?", ids).
+		Preload("Creator").
+		Find(&chapters)
 	render.JSON(w, r, map[string]any{
-		"page":  page,
-		"limit": limit,
-		"list":  results,
+		"list": chapters,
 	})
 }
 
