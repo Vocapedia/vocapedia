@@ -55,7 +55,7 @@
             </ul>
         </div>
 
-        <div v-else-if="search.length >= 3 && (searchList ?? []).length === 0"
+        <div v-else-if="searchable && search.length >= 3 && (searchList ?? []).length === 0"
             class="p-2 max-w-160 mx-auto top-full left-0 w-full rounded-md mt-1">
             <div class="p-5 w-full border border-zinc-200 dark:border-zinc-700">
                 {{ $t('no_results_found') }}
