@@ -138,7 +138,7 @@ const generatePDF = async () => {
 
     saveAndRemoveStyles();
     const tutorialDiv = document.createElement('div');
-    tutorialDiv.style.width = '80%';
+    tutorialDiv.style.width = '160mm';
 
     const innerDiv = document.createElement('div');
     innerDiv.style.width = '100%';
