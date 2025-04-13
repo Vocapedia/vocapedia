@@ -143,12 +143,19 @@ func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 		Joins("JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
 		Where("user_favorites.created_at >= ?", sevenDaysAgo).
 		Group("chapters.id").
-		Order("COUNT(user_favorites.chapter_id) DESC, SUM(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at)) DESC").
+		Order(`
+			COUNT(user_favorites.chapter_id) DESC, 
+			SUM(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at)) DESC, 
+			MAX(user_favorites.created_at) DESC
+		`).
 		Limit(10).
 		Find(&chapters).Error
+
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
-		render.JSON(w, r, err)
+		render.JSON(w, r, map[string]string{
+			"error": "Error fetching trending chapters: " + err.Error(),
+		})
 		return
 	}
 
@@ -269,19 +276,17 @@ func GameFormat(w http.ResponseWriter, r *http.Request) {
 
 	render.JSON(w, r, response)
 }
-
-func Search(w http.ResponseWriter, r *http.Request) {
+func SearchShort(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("q")
-	db := database.Manager()
-	var chapters []ChapterDTO
 	client := search.Meili()
 	index := client.Index("chapters")
 
 	searchRequest := &meilisearch.SearchRequest{
 		Query: query,
+		Limit: 10,
 	}
 
-	searchRes, err := index.Search(query, searchRequest) // searchRequest parametresini geçiyoruz
+	searchRes, err := index.Search(query, searchRequest)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
@@ -290,23 +295,39 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var ids []int64
-	for _, hit := range searchRes.Hits {
-		var chapterID int64
-		hitData, ok := hit.(map[string]interface{})
-		if !ok {
-			continue
-		}
-		if id, ok := hitData["id"].(float64); ok {
-			chapterID = int64(id)
-		}
-		ids = append(ids, chapterID)
+	render.JSON(w, r, map[string]any{
+		"list": searchRes.Hits,
+	})
+}
+
+func Search(w http.ResponseWriter, r *http.Request) {
+	query := r.URL.Query().Get("q")
+	db := database.Manager()
+	var chapters []ChapterDTO
+
+	err := db.Table("chapters").
+		Select(`
+		chapters.*, 
+		(SELECT COUNT(*) FROM user_favorites WHERE chapter_id = chapters.id) AS fav_count,
+		(SELECT COUNT(*) FROM word_bases WHERE deleted_at IS NULL AND chapter_id = chapters.id) AS word_count,
+		pgroonga_score(tableoid, ctid) AS score,  
+		similarity(title, ?) AS sim_title,       
+		similarity(description, ?) AS sim_desc
+	`, query, query).
+		Where("similarity(title, ?) > 0.2 OR similarity(description, ?) > 0.2", query, query).
+		Where("chapters.deleted_at IS NULL").
+		Order(gorm.Expr(`GREATEST(pgroonga_score(tableoid, ctid), similarity(title, ?), similarity(description, ?)) DESC`, query, query)).
+		Preload("Creator").
+		Find(&chapters).Error
+
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": "Search error: " + err.Error(),
+		})
+		return
 	}
 
-	db.Table("chapters").Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE deleted_at is null AND chapter_id = chapters.id) AS word_count").
-		Where("chapters.id IN ?", ids).
-		Preload("Creator").
-		Find(&chapters)
 	render.JSON(w, r, map[string]any{
 		"list": chapters,
 	})
@@ -515,7 +536,6 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 	var chapters []ChapterDTO
 	userID := token.User(r).UserID
 	tx := db.Model(&entities.Chapter{}).
-	
 		Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE word_bases.deleted_at is null and word_bases.chapter_id = chapters.id) AS word_count, creator.username, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Joins("LEFT JOIN users AS creator ON creator.id = chapters.creator_id").
 		Where("LOWER(creator.username) = ?", strings.ToLower(username)).

@@ -1,7 +1,6 @@
 package search
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/akifkadioglu/vocapedia/pkg/config"
@@ -18,7 +17,7 @@ func Meili() meilisearch.ServiceManager {
 		log.Println("Meilisearch is healthy")
 
 	} else {
-		log.Fatalf("Meilisearch is not healthy")
+		log.Println("Meilisearch is not healthy")
 	}
 	return ms
 
@@ -28,15 +27,11 @@ func InitMeili() {
 	apiKey := config.ReadValue().Meili.APIKey
 	indexName := config.ReadValue().Meili.Index
 
-	fmt.Println("Connecting to Meilisearch at:", host)
-
 	ms := meilisearch.New(host, meilisearch.WithAPIKey(apiKey))
 
 	if !ms.IsHealthy() {
-		log.Fatalf("❌ Meilisearch is not healthy")
+		log.Println("Meilisearch is not healthy")
 	}
-
-	log.Println("✅ Meilisearch is healthy")
 
 	index := ms.Index(indexName)
 
@@ -46,16 +41,13 @@ func InitMeili() {
 			Uid: indexName,
 		})
 		if err != nil {
-			log.Fatalf("❌ Failed to create index: %s", err)
+			log.Println("Meilisearch is not healthy")
 		}
-		log.Println("📦 Index created:", indexName)
-	} else {
-		log.Println("📦 Index already exists:", indexName)
 	}
 
 	_, err = index.UpdateSearchableAttributes(&[]string{"title", "description"})
 	if err != nil {
-		log.Fatalf("❌ Failed to set searchable attributes: %s", err)
+		log.Println("❌ Failed to set searchable attributes:", err)
 	}
-	log.Println("🔍 Searchable attributes set: title, description")
+	log.Println("Meili is ready")
 }

@@ -20,7 +20,7 @@ services:
 
   vocapedia-psql:
     container_name: vocapedia-psql
-    image: "postgres:14.6"
+    image: groonga/pgroonga:latest
     volumes:
       - pg-data:/var/lib/postgresql/data
     ports:
@@ -43,14 +43,13 @@ services:
     networks:
       - vocapedia
     restart: unless-stopped
-  
+
   meilisearch:
     container_name: vocapedia-meilisearch
     image: getmeili/meilisearch:v1.8.1
     environment:
       MEILI_NO_ANALYTICS: "true"
       MEILI_MASTER_KEY: vocapedia
-
     ports:
       - "7700:7700"
     volumes:
@@ -59,7 +58,6 @@ services:
       - vocapedia
     restart: always
 
- 
 networks:
   vocapedia:
     name: vocapedia_network

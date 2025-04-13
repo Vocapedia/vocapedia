@@ -13,6 +13,7 @@
         "message": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
         "button_text": "Ana Sayfaya Git"
     },
+    "no_results_found": "Sonuç bulunamadı!",
     "test": "Test",
     "word-rush": "Kelime Yarışı",
     "flip-word": "Kelime Kartları",

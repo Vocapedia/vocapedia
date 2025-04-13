@@ -29,7 +29,6 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		MaxAge:         300,
 	}))
 	r.Use(customMiddleware.Language)
-	r.Use(customMiddleware.RateLimit)
 	r.Use(customMiddleware.SecurityHeaders)
 	r.Use(jwtauth.Verifier(token.TokenAuth()))
 
@@ -67,6 +66,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Get("/user", chapters.UserChapters)
 				api.Get("/{id}", chapters.GetByID)
 				api.Get("/search", chapters.Search)
+				api.Get("/search-short", chapters.SearchShort)
 				api.Get("/trends", chapters.GetTrendingChapters)
 				api.Get("/game-format/{id}", chapters.GameFormat)
 			})

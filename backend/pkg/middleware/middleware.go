@@ -15,7 +15,6 @@ import (
 	"github.com/redis/go-redis/v9"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/text/language"
-	"golang.org/x/time/rate"
 )
 
 func Language(next http.Handler) http.Handler {
@@ -34,18 +33,6 @@ func Language(next http.Handler) http.Handler {
 		ctx = context.WithValue(ctx, customI18n.CONTEXT, localizer)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
-	})
-}
-
-var limiter = rate.NewLimiter(1, 6)
-
-func RateLimit(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !limiter.Allow() {
-			http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
-			return
-		}
-		next.ServeHTTP(w, r)
 	})
 }
 
