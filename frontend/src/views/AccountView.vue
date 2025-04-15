@@ -16,7 +16,8 @@
           </button>
         </div>
         <p v-motion-slide-visible-once-right v-if="user.username" class="text-zinc-400 mt-1">@{{ user.username }}</p>
-        <p v-motion-slide-visible-once-left v-if="user.biography" class="mt-1" v-html="transformBiography(user.biography)" />
+        <p v-motion-slide-visible-once-left v-if="user.biography" class="mt-1"
+          v-html="transformBiography(user.biography)" />
       </div>
       <div v-motion-slide-visible-once-bottom class="text-center flex" v-if="isUsersAccount">
         <router-link to="/compose"
@@ -27,7 +28,11 @@
       <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
 
       <transition name="fade" mode="out-in">
-        <WordLists v-if="response.list" :response="response" />
+        <div v-if="response.list">
+          <WordLists :response="response" />
+          <!-- <WordLists v-infinite-scroll="onLoadMore" :response="response" />-->
+        </div>
+
         <div v-else class="loading-spinner mx-auto" />
       </transition>
       <SettingsPopup v-model="triggerSettingsPopup">
@@ -89,6 +94,7 @@
 </template>
 <script setup>
 import SettingsPopup from "@/components/Popup.vue"
+import { vInfiniteScroll } from '@vueuse/components'
 
 import WordLists from "@/components/WordLists.vue";
 import { useFetch } from "@/composable/useFetch";
@@ -119,6 +125,30 @@ const transformBiography = (text) => {
     return `<a class="dark:text-blue-400 text-blue-700" href="/${username}">@${username}</a>`;
   });
 };
+
+async function onLoadMore() {
+  console.log("sdkjafnk")
+  return
+  isLoading.value = true;
+
+  // Load more data when scrolled to the bottom
+  try {
+    const newItems = await fetchData(response.value.list.length);
+    response.value.list = [...response.value.list, ...newItems]; // Append new items to the list
+  } catch (error) {
+    console.error('Error loading data:', error);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+
+const fetchData = async (startIndex) => {
+  // Fetch additional items from API (update this with your real API endpoint)
+  const response = await useFetch(`/public/chapters/user?username=${route.params.username}&page=${startIndex}&limit=10`);
+  return response.list; // Return the new items for the list
+};
+
 const toast = useToast()
 const isUserLoading = ref(false)
 onMounted(async () => {

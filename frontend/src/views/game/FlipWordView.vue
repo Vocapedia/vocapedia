@@ -1,15 +1,5 @@
 <template>
     <div class="p-4 max-w-md mx-auto space-y-10">
-        <div class="flex justify-between items-center">
-            <router-link :to="'/l/' + $route.params.id + '/games'"
-                class="smooth-click dark:text-blue-100 text-blue-900 px-2 py-1 rounded-full">
-                <small class="flex justify-between items-center space-x-2">
-                    <mdicon name="arrow-left" size="15" />
-                    <span class="sm:text-base font-semibold">{{ $t('games.header') }}</span>
-                </small>
-            </router-link>
-        </div>
-
         <div v-auto-animate v-if="currentWord">
             <p class="text-lg mb-2">
                 {{ $t('game-flipword.question', {

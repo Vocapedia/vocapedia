@@ -23,7 +23,6 @@ onMounted(async () => {
     await useFetch("/public/chapters/" + route.params.id).then(r => {
         wordCount.value = r.chapter.word_count
     })
-
 })
 const games = ref([
     {
@@ -34,6 +33,11 @@ const games = ref([
     {
         location: "/flip-word",
         name: "flip-word",
+        wordCount: 1
+    },
+    {
+        location: "/hangman",
+        name: "hangman",
         wordCount: 1
     },
     {

@@ -40,11 +40,26 @@ const router = createRouter({
     {
       path: "/l/:id/game/test",
       name: "test",
+      meta: {
+        layout: "game",
+      },
       component: () => import('@/views/game/TestView.vue'),
+    },
+
+    {
+      path: "/l/:id/game/hangman",
+      name: "hangman",
+      meta: {
+        layout: "game",
+      },
+      component: () => import('@/views/game/HangmanView.vue'),
     },
     {
       path: "/l/:id/game/flip-word",
       name: "flip-word",
+      meta: {
+        layout: "game",
+      },
       component: () => import('@/views/game/FlipWordView.vue'),
     },
     {

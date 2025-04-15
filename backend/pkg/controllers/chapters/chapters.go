@@ -535,6 +535,14 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	var chapters []ChapterDTO
 	userID := token.User(r).UserID
+	page := 1
+	limit := 10
+	if r.Header.Get("page") == "" {
+		page, _ = strconv.Atoi(r.Header.Get("page"))
+	}
+	if page == 0 {
+		page = 1
+	}
 	tx := db.Model(&entities.Chapter{}).
 		Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE word_bases.deleted_at is null and word_bases.chapter_id = chapters.id) AS word_count, creator.username, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Joins("LEFT JOIN users AS creator ON creator.id = chapters.creator_id").
@@ -542,6 +550,8 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 		Group("chapters.id, creator.username").
 		Preload("Creator").
 		Order("id desc").
+		Offset(page).
+		Limit(limit).
 		Find(&chapters)
 
 	if tx.Error != nil {

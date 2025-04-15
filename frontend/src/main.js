@@ -3,8 +3,8 @@ import "./assets/main.css";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import mdiVue from "mdi-vue/v3";
-import { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline } from "@mdi/js";
-const mdijs = { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline }
+import { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline, mdiVolumeHigh } from "@mdi/js";
+const mdijs = { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline, mdiVolumeHigh }
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
 import { MotionPlugin } from '@vueuse/motion'
 import App from "./App.vue";

@@ -17,6 +17,7 @@
     "test": "Test",
     "word-rush": "Kelime Yarışı",
     "flip-word": "Kelime Kartları",
+    "hangman": "Adam Asmaca",
     "word-match": "Kelime Eşleştirme",
     "quick-pick": "Hızlı Seçim",
     "search_a_list": "Bir liste ara",
@@ -199,5 +200,16 @@
         "no_more_words": "Daha fazla kelime kalmadı!",
         "time_left": "Kalan süre",
         "wait_for_next": "Yeni kelimeye geçmeden önce 5 saniye bekliyoruz"
+    },
+    "game-hangman": {
+        "title": "Adam Asmaca",
+        "enterGuess": "Tahminini gir",
+        "guess": "Tahmin Et",
+        "attemptsLeft": "Kalan Haklar",
+        "alreadyGuessed": "Zaten bu harfi tahmin ettin!",
+        "youWon": "Kazandınız!",
+        "youLost": "Kaybettiniz!",
+        "theWordWas": "Kelime",
+        "restart": "Yeniden Başlat"
     }
 }
