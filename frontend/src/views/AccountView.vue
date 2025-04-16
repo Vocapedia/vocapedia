@@ -27,14 +27,9 @@
       </div>
       <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
 
-      <transition name="fade" mode="out-in">
-        <div v-if="response.list">
-          <WordLists :response="response" />
-          <!-- <WordLists v-infinite-scroll="onLoadMore" :response="response" />-->
-        </div>
-
-        <div v-else class="loading-spinner mx-auto" />
-      </transition>
+      <div v-motion-slide-bottom>
+        <WordLists :key="$route.params.username" :uri="'/public/chapters/user?username=' + $route.params.username" />
+      </div>
       <SettingsPopup v-model="triggerSettingsPopup">
         <template #header>
           <h2 class="text-xl font-semibold">
@@ -94,7 +89,6 @@
 </template>
 <script setup>
 import SettingsPopup from "@/components/Popup.vue"
-import { vInfiniteScroll } from '@vueuse/components'
 
 import WordLists from "@/components/WordLists.vue";
 import { useFetch } from "@/composable/useFetch";
@@ -126,36 +120,14 @@ const transformBiography = (text) => {
   });
 };
 
-async function onLoadMore() {
-  console.log("sdkjafnk")
-  return
-  isLoading.value = true;
-
-  // Load more data when scrolled to the bottom
-  try {
-    const newItems = await fetchData(response.value.list.length);
-    response.value.list = [...response.value.list, ...newItems]; // Append new items to the list
-  } catch (error) {
-    console.error('Error loading data:', error);
-  } finally {
-    isLoading.value = false;
-  }
-}
-
-
-const fetchData = async (startIndex) => {
-  // Fetch additional items from API (update this with your real API endpoint)
-  const response = await useFetch(`/public/chapters/user?username=${route.params.username}&page=${startIndex}&limit=10`);
-  return response.list; // Return the new items for the list
-};
 
 const toast = useToast()
 const isUserLoading = ref(false)
 onMounted(async () => {
   isUserLoading.value = true
   isUsersAccount.value = route.params.username.toLowerCase() == (getUser().username ?? "").toLowerCase()
-  response.value = await useFetch("/public/chapters/user?username=" + route.params.username)
-  user.value = await useFetch("/public/user?username=" + route.params.username).catch(e => {
+  /* response.value = await useFetch("/public/chapters/user?username=" + route.params.username)
+   */user.value = await useFetch("/public/user?username=" + route.params.username).catch(e => {
     router.replace("/search?q=" + route.params.username)
   })
   EditUser.value.biography = user.value.biography

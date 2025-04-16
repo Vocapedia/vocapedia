@@ -78,6 +78,17 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	userID := token.User(r).UserID
 	var favorites []ChapterDTO
+
+	page := 1
+	limit := 10
+	pageStr := r.URL.Query().Get("page")
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+	offset := (page - 1) * limit
+
 	tx := db.Table("user_favorites").
 		Joins("JOIN chapters ON chapters.id = user_favorites.chapter_id").
 		Where("user_favorites.user_id = ?", userID).
@@ -86,6 +97,8 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 		Preload("Creator").
 		Group("chapters.id, user_favorites.chapter_id").
 		Order("id desc").
+		Offset(offset).
+		Limit(limit).
 		Find(&favorites)
 
 	if tx.Error != nil {
@@ -304,20 +317,33 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("q")
 	db := database.Manager()
 	var chapters []ChapterDTO
+	userID := token.User(r).UserID
+	page := 1
+	limit := 10
+	pageStr := r.URL.Query().Get("page")
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+	offset := (page - 1) * limit
 
 	err := db.Table("chapters").
 		Select(`
 		chapters.*, 
 		(SELECT COUNT(*) FROM user_favorites WHERE chapter_id = chapters.id) AS fav_count,
 		(SELECT COUNT(*) FROM word_bases WHERE deleted_at IS NULL AND chapter_id = chapters.id) AS word_count,
+		EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited,
 		pgroonga_score(tableoid, ctid) AS score,  
 		similarity(title, ?) AS sim_title,       
 		similarity(description, ?) AS sim_desc
-	`, query, query).
+	`, userID, query, query).
 		Where("similarity(title, ?) > 0.2 OR similarity(description, ?) > 0.2", query, query).
 		Where("chapters.deleted_at IS NULL").
 		Order(gorm.Expr(`GREATEST(pgroonga_score(tableoid, ctid), similarity(title, ?), similarity(description, ?)) DESC`, query, query)).
 		Preload("Creator").
+		Offset(offset).
+		Limit(limit).
 		Find(&chapters).Error
 
 	if err != nil {
@@ -535,14 +561,17 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	var chapters []ChapterDTO
 	userID := token.User(r).UserID
+
 	page := 1
 	limit := 10
-	if r.Header.Get("page") == "" {
-		page, _ = strconv.Atoi(r.Header.Get("page"))
+	pageStr := r.URL.Query().Get("page")
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
 	}
-	if page == 0 {
-		page = 1
-	}
+	offset := (page - 1) * limit
+
 	tx := db.Model(&entities.Chapter{}).
 		Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count, (SELECT COUNT(*) FROM word_bases WHERE word_bases.deleted_at is null and word_bases.chapter_id = chapters.id) AS word_count, creator.username, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
 		Joins("LEFT JOIN users AS creator ON creator.id = chapters.creator_id").
@@ -550,7 +579,7 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 		Group("chapters.id, creator.username").
 		Preload("Creator").
 		Order("id desc").
-		Offset(page).
+		Offset(offset).
 		Limit(limit).
 		Find(&chapters)
 
@@ -562,6 +591,7 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
 	render.JSON(w, r, map[string]any{
 		"list": chapters,
 	})

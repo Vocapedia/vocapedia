@@ -1,6 +1,6 @@
 <template>
     <div class="space-y-2">
-        <div v-for="l in props.response.list">
+        <div v-for="l in response" :key="l.id">
             <router-link :to="'/l/' + BigInt(l.id)">
                 <div class="card smooth-click2 duration-200">
                     <h1 class="text-xl font-semibold p-5">
@@ -43,17 +43,68 @@
                 </div>
             </router-link>
         </div>
+        <InfiniteLoading @infinite="load">
+            <template #complete>
+                <div class="text-center">.</div>
+            </template>
+            <template #error="{ retry }">
+                <div class="text-center">
+                    <button class="smooth-click bg-red-200 dark:bg-red-700 rounded-full p-2" @click="retry">
+                        <mdicon name="reload" />
+                    </button>
+                </div>
+            </template>
+            <template #spinner>
+                <div v-motion-fade class="flex justify-center p-2">
+                    <mdicon class="text-center" spin name="loading"/>
+                </div>
+            </template>
+
+        </InfiniteLoading>
     </div>
 </template>
 
-
 <script setup>
+import { useFetch } from '@/composable/useFetch';
 import { getLangByCode } from '@/utils/language/languages';
+import { ref } from 'vue';
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 
 const props = defineProps({
-    response: {
-        type: Object,
-        required: true,
+    uri: {
+        type: String,
+        default: ""
+    },
+});
+
+const page = ref(1);
+const response = ref([]);
+
+const load = async $state => {
+    try {
+        const res = await fetchData(page.value)
+        response.value.push(...res);
+        if (res.length < 10) {
+            $state.complete()
+        }
+        else {
+            $state.loaded();
+        }
+        page.value++;
+    } catch (error) {
+        $state.error();
     }
-})
+};
+
+const fetchData = async (page) => {
+    const urlWithPage = addQueryParamToUri(props.uri, 'page', page);
+    const result = await useFetch(urlWithPage);
+    return result.list;
+};
+
+const addQueryParamToUri = (uri, key, value) => {
+    const separator = uri.includes('?') ? '&' : '?';
+    return `${uri}${separator}${key}=${value}`;
+};
 </script>

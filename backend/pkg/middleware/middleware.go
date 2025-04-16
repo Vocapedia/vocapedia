@@ -124,3 +124,48 @@ func HandleVocatoken(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+func RateLimiter(limit int, window time.Duration) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			rds := cache.Redis()
+
+			var identifier string
+
+			ip := getIP(r)
+			identifier = fmt.Sprintf("voca:rate:%s", ip)
+
+			count, err := rds.Get(context.Background(), identifier).Int()
+			if err == redis.Nil {
+				err := rds.Set(context.Background(), identifier, limit-1, window).Err()
+				if err != nil {
+					http.Error(w, "Rate limit error", http.StatusInternalServerError)
+					return
+				}
+			} else if err != nil {
+				http.Error(w, "Rate limit error", http.StatusInternalServerError)
+				return
+			} else {
+				if count <= 0 {
+					http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
+					return
+				}
+				_ = rds.Decr(context.Background(), identifier)
+			}
+
+			next.ServeHTTP(w, r)
+		})
+	}
+}
+
+func getIP(r *http.Request) string {
+	xff := r.Header.Get("X-Forwarded-For")
+	if xff != "" {
+		parts := strings.Split(xff, ",")
+		if len(parts) > 0 {
+			return strings.TrimSpace(parts[0])
+		}
+	}
+	ip := strings.Split(r.RemoteAddr, ":")[0]
+	return ip
+}

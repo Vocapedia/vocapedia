@@ -110,6 +110,9 @@ importers:
       tailwindcss:
         specifier: ^4.1.3
         version: 4.1.3
+      v3-infinite-loading:
+        specifier: ^1.3.2
+        version: 1.3.2
       vue:
         specifier: ^3.5.13
         version: 3.5.13
@@ -1938,6 +1941,9 @@ packages:
 
   utrie@1.0.2:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
+
+  v3-infinite-loading@1.3.2:
+    resolution: {integrity: sha512-2Bg8X8nqd9tKEOJdITABtuX2BMSYo/t+eZOAD+9/xz0fGyGDclglmWjo9Zs4dr/T63liO7EniBAunBesM2QhBA==}
 
   vite-hot-client@0.2.4:
     resolution: {integrity: sha512-a1nzURqO7DDmnXqabFOliz908FRmIppkBKsJthS8rbe8hBEXwEwe4C3Pp33Z1JoFCYfVL4kTOMLKk0ZZxREIeA==}
@@ -3956,6 +3962,8 @@ snapshots:
     dependencies:
       base64-arraybuffer: 1.0.2
     optional: true
+
+  v3-infinite-loading@1.3.2: {}
 
   vite-hot-client@0.2.4(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.2)):
     dependencies:

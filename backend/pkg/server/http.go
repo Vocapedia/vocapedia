@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
@@ -30,6 +31,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 	}))
 	r.Use(customMiddleware.Language)
 	r.Use(customMiddleware.SecurityHeaders)
+	r.Use(customMiddleware.RateLimiter(6, time.Second))
 	r.Use(jwtauth.Verifier(token.TokenAuth()))
 
 	r.Route("/api/v1", func(api chi.Router) {

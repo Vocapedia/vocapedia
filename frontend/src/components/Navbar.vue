@@ -40,8 +40,8 @@
             </div>
 
         </header>
-        <div v-if="searchable && (searchList ?? []).length > 0"
-            class="max-w-160 mx-auto top-full left-0 w-full border border-zinc-200 dark:border-zinc-700 h-64 overflow-y-auto scrollbar-hide rounded-md mt-1">
+        <div auto-animate v-if="searchable && (searchList ?? []).length > 0"
+            class="max-w-160 mx-auto top-full left-0 w-full border border-zinc-200 dark:border-zinc-700 max-h-64 overflow-y-auto scrollbar-hide rounded-md mt-1">
             <ul>
                 <li v-for="item in searchList" :key="item.id"
                     class="p-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">

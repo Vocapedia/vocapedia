@@ -13,15 +13,21 @@
             </p>
         </div>
         <div>{{ displayDescription }}</div>
-        <div>
+        <div v-auto-animate class="flex space-x-2">
             <input v-model="currentGuess" @keyup.enter="guessLetter" type="text" maxlength="1"
-                class="p-2 text-xl border border-gray-300 rounded-md" :placeholder="$t('game-hangman.enterGuess')" />
-            <button @click="guessLetter" class="bg-green-500 text-white py-2 px-4 ml-4 rounded-md hover:bg-green-600">{{
-                $t('game-hangman.guess') }}</button>
+                class="p-2 w-full text-xl border border-gray-300 rounded-md"
+                :disabled="gameOver" :placeholder="gameOver ? wordToGuess : $t('game-hangman.enterGuess')" />
+            <div v-if="!gameOver" class="flex">
+                <button @click="guessLetter"
+                    class="smooth-click bg-green-100 hover:bg-green-300 dark:bg-green-950 dark:hover:bg-green-700 p-2.5 rounded-full">
+                    <mdicon name="check" />
+                </button>
+            </div>
         </div>
         <div>
-            <p class="text-lg font-semibold">{{ $t('game-hangman.attemptsLeft') }}: <span class="text-red-500">{{
-                attemptsLeft }}</span></p>
+            <p class="text-lg font-semibold">{{ $t('game-hangman.attemptsLeft') }}:
+                <span class="text-red-500">{{ attemptsLeft }}</span>
+            </p>
         </div>
         <div v-motion-fade v-if="attemptsLeft < 6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-48 w-48" viewBox="0 0 100 100">
@@ -49,7 +55,7 @@
     </div>
 </template>
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useDark } from "@vueuse/core";
 import { useI18n } from 'vue-i18n';
 
@@ -78,7 +84,7 @@ const guessLetter = () => {
 
     guessedLetters.value.push(guess);
 
-    if (wordToGuess.value.toLowerCase().includes(guess)) {  // Ensure wordToGuess is also in lowercase
+    if (wordToGuess.value.toLowerCase().includes(guess)) {
         updateDisplayWord(guess);
         if (!displayWord.value.includes("_")) {
             gameOver.value = true;
