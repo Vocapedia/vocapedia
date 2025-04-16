@@ -1,5 +1,8 @@
 <template>
     <div v-auto-animate class="mb-10 space-y-5 max-w-3xl mx-auto">
+        <div class="text-center bg-zinc-800 p-5 rounded-lg border border-zinc-700">
+            {{ $t('compose.warn') }}
+        </div>
         <div v-if="!isLanguagesSelected" class="flex gap-4 max-w-160 mx-auto p-4">
             <div class="z-1 relative w-full">
                 <input v-model="languageQuery"

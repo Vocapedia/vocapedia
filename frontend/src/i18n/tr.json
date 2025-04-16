@@ -109,7 +109,8 @@
             "title": "Liste adı",
             "description": "Liste açıklaması"
         },
-        "compose_button": "Oluştur"
+        "compose_button": "Oluştur",
+        "warn": "Ne kadar çok kelime eklerseniz, o kadar dikkatli olmanız gerekir. Düzenli ve dikkatli bir liste oluşturmak daha verimli olacaktır."
     },
     "editor": {
         "placeholder": "Burayı düzenleyebilirsiniz!",
