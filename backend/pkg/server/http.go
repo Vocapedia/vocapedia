@@ -46,6 +46,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Post("/compose-by-excel", chapters.ComposeByExcel)
 				api.Post("/compose", chapters.Compose)
 				api.Put("/compose", chapters.Update)
+				api.Delete("/archive/{id}", chapters.Archive)
 			})
 			api.Route("/user", func(api chi.Router) {
 				api.Get("/token", user.Tokens)

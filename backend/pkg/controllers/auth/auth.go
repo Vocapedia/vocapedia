@@ -41,7 +41,7 @@ func SendOTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.invalid_request_body"),
 		})
 		return
 	}
@@ -49,7 +49,7 @@ func SendOTP(w http.ResponseWriter, r *http.Request) {
 	if tx := db.First(&user, "email = ?", params.Email); tx.Error != nil && tx.Error != gorm.ErrRecordNotFound {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
-			"error": tx.Error.Error(),
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	} else {

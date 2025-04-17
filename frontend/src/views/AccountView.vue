@@ -10,10 +10,18 @@
             <h2 v-if="user.name" class="text-xl font-extrabold ">{{ user.name }}</h2>
             <mdicon v-if="user.approved" name="check-decagram" class="text-xl text-sky-500" />
           </div>
-          <button @click="triggerSettingsPopup = true" v-if="isUsersAccount"
-            class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
-            {{ $t('account.edit_profile') }}
-          </button>
+          <div class="flex space-x-2">
+
+            <button @click="triggerSettingsPopup = true" v-if="isUsersAccount"
+              class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
+              {{ $t('account.edit_profile') }}
+            </button>
+            <button v-if="isUsersAccount"
+              class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
+              <mdicon name="archive-arrow-down-outline" />
+            </button>
+          </div>
+
         </div>
         <p v-motion-slide-visible-once-right v-if="user.username" class="text-zinc-400 mt-1">@{{ user.username }}</p>
         <p v-motion-slide-visible-once-left v-if="user.biography" class="mt-1"

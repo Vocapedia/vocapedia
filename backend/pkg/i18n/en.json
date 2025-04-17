@@ -1,3 +1,33 @@
 {
-    "mail.auth.header": "Login Code"
+    "mail.auth.header": "Your Login Code",
+    "mail.auth.description": "You need to enter the following code to log in.",
+    "mail.auth.warning": "The code will expire in 5 minutes. If you did not make this request, please ignore this email.",
+    "mail.auth.login.subject": "Login Code",
+    
+    "mail.edit.user.header": "Your profile has been updated!",
+    "mail.edit.user.description": "If you did not perform this action, you can identify who logged in at http://vocapedia.space/settings.",
+
+    "auth.otp.success": "One-time code sent!",
+    
+    "error.something_went_wrong": "Something went wrong!",
+    "error.id_convert":"ID could not be converted! Are you in the right place?",
+    "errors.favorites_fetch":"An error occurred while fetching favorite chapters.",
+    "error.unauthorized":"You need to log in.",
+    "error.invalid_request_body":"Invalid request data.",
+    "error.invalid_user_id":"Invalid user ID.",
+    "error.invalid_chapter_id":"Invalid chapter ID.",
+    "error.tokens_fetch_failed":"An error occurred while fetching tokens.",
+    "error.user_id_required":"User ID is required.",
+    "error.user_not_found":"User not found.",
+    "error.failed_to_update_user":"Failed to update user.",
+    "error.token_not_found":"Token not found.",
+    "error.chapter_not_found":"List not found.",
+
+
+    "ok.allright":"All right!",
+    "ok.success":"Successful",
+
+    "success.token_deleted":"Token deleted successfully.",
+    "success.chapter_archived":"Archived!"
+    
 }

@@ -17,8 +17,12 @@ const (
 func InitI18n() {
 	bundle = i18n.NewBundle(language.Turkish)
 
-	bundle.LoadMessageFile("pkg/i18n/tr.json")
+	bundle.LoadMessageFile("pkg/i18n/de.json")
 	bundle.LoadMessageFile("pkg/i18n/en.json")
+	bundle.LoadMessageFile("pkg/i18n/es.json")
+	bundle.LoadMessageFile("pkg/i18n/fr.json")
+	bundle.LoadMessageFile("pkg/i18n/tr.json")
+	bundle.LoadMessageFile("pkg/i18n/zh.json")
 	log.Println("i18n is ready")
 }
 

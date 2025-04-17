@@ -59,7 +59,9 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 	userID := token.User(r).UserID
 	if userID == "" {
 		render.Status(r, http.StatusBadRequest)
-		render.JSON(w, r, map[string]string{"error": "User ID is required"})
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.user_id_required"),
+		})
 		return
 	}
 	var user entities.User
@@ -67,20 +69,24 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, map[string]string{
-			"error": "User not found",
+			"error": i18n.Localizer(r, "error.user_not_found"),
 		})
 		return
 	}
 	var updatedUser _updateUser
 	if err := render.Decode(r, &updatedUser); err != nil {
 		render.Status(r, http.StatusBadRequest)
-		render.JSON(w, r, map[string]string{"error": "Invalid input"})
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.invalid_request_body"),
+		})
 		return
 	}
 	device, err := utils.StructToMap(updatedUser.Device)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
-		render.JSON(w, r, map[string]string{"error": "Failed to update user"})
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
 		return
 	}
 
@@ -94,7 +100,9 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 		"biography": updatedUser.Biography,
 	}).Where("id = ?", userID).Error; err != nil {
 		render.Status(r, http.StatusInternalServerError)
-		render.JSON(w, r, map[string]string{"error": "Failed to update user"})
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.failed_to_update_user"),
+		})
 		return
 	}
 
@@ -121,7 +129,7 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	subject := i18n.Localizer(r, "mail.auth.login.subject")
+	subject := i18n.Localizer(r, "mail.edit.user.header")
 
 	isSent, err := mail.Send(r, user.Email, subject, body.String())
 	if err != nil && isSent {
@@ -159,7 +167,7 @@ func Tokens(w http.ResponseWriter, r *http.Request) {
 	err := db.Where("token = ?", tokenStr).First(&tokenEntity).Error
 	if err != nil {
 		render.JSON(w, r, map[string][]entities.Token{
-			"tokens": []entities.Token{},
+			"tokens": {},
 		})
 		return
 	}
@@ -169,7 +177,7 @@ func Tokens(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.tokens_fetch_failed"),
 		})
 		return
 	}
@@ -217,7 +225,7 @@ func UpdateVocaToken(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
@@ -227,7 +235,7 @@ func UpdateVocaToken(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}
@@ -244,7 +252,7 @@ func GetVocaToken(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, map[string]string{
-			"error": "something went wrong",
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
 		})
 		return
 	}

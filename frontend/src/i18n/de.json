@@ -3,23 +3,25 @@
     "notes": "Notizen",
     "trends": "Trends",
     "personal_info": "Persönlich",
-    "compose_post": "Beitrag verfassen",
-    "search_from_list": "Aus Liste suchen",
+    "compose_post": "Beitrag erstellen",
+    "search_from_list": "In Liste suchen",
     "tr": "Türkisch",
     "en": "Englisch",
-    "list_helper": "Die aufgeführte Sprache ist {lang}, die übersetzte Sprache(n) ist/sind {target_lang}",
+    "list_helper": "Die gelistete Sprache ist {lang}, die übersetzte Sprache{s} ist {target_lang}",
     "page_not_found": {
         "title": "Hoppla! Seite nicht gefunden",
-        "message": "Die gesuchte Seite ist möglicherweise nicht vorhanden oder wurde verschoben.",
-        "button_text": "Zur Startseite gehen"
+        "message": "Die gesuchte Seite ist nicht verfügbar oder wurde verschoben.",
+        "button_text": "Zur Startseite"
     },
+    "no_results_found": "Keine Ergebnisse gefunden!",
     "test": "Test",
     "word-rush": "Wortrausch",
     "flip-word": "Wortkarten",
-    "word-match": "Wortübereinstimmung",
+    "hangman": "Galgenmännchen",
+    "word-match": "Wortzuordnung",
     "quick-pick": "Schnellauswahl",
-    "search_a_list": "Eine Liste durchsuchen",
-    "search_results": "{count} Ergebnisse für \"{query}\" gefunden",
+    "search_a_list": "Eine Liste suchen",
+    "search_results": "Ergebnisse für \"{query}\"",
     "close": "Schließen",
     "save": "Speichern",
     "show_result": "Ergebnisse anzeigen",
@@ -34,9 +36,9 @@
     "description": "Beschreibung",
     "word-list": "Wortliste",
     "tutorial": "Anleitung",
-    "intro": "Zusammenfassung",
+    "intro": "Einleitung",
     "empty": "Hier ist es leer",
-    "followed_results": "{count} Ergebnisse für Gefolgte gefunden",
+    "followed_results": "Gefolgte",
     "add_new_note": "Neue Notiz hinzufügen...",
     "note_description": "Hinzugefügte Notizen werden nur in Ihrem Browser gespeichert.",
     "share_not_supported": "Teilen nicht unterstützt!.",
@@ -52,18 +54,18 @@
         "header": "Anmelden",
         "input": {
             "label": "E-Mail",
-            "placeholder": "E-Mail-Adresse eingeben",
-            "otp": "Einmalcode"
+            "placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+            "otp": "Einmaliger Code"
         },
         "otp": {
-            "send_button": "Einmalcode anfordern",
+            "send_button": "Einmaligen Code anfordern",
             "verify_button": "Anmelden",
-            "send_success": "Der Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
+            "send_success": "Ein Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
             "verify_success": "Anmeldung erfolgreich!"
         },
-        "success": "Anmeldung erfolgreich! Der Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
+        "success": "Anmeldung erfolgreich! Ein Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
         "error": "Anmeldung fehlgeschlagen!",
-        "greeting": "Schönen Tag"
+        "greeting": "Ich wünsche Ihnen einen schönen Tag"
     },
     "account": {
         "edit_profile": "Profil bearbeiten",
@@ -94,8 +96,8 @@
     },
     "compose": {
         "select": {
-            "language": "Wählen Sie die Hauptsprache der Liste aus",
-            "target_language": "Wählen Sie die zweite Sprache der Liste aus"
+            "language": "Wählen Sie die Hauptsprache der Liste",
+            "target_language": "Wählen Sie die zweite Sprache der Liste"
         },
         "add_new_wordbase": "Neues Wort hinzufügen",
         "input": {
@@ -107,7 +109,8 @@
             "title": "Listenname",
             "description": "Listenbeschreibung"
         },
-        "compose_button": "Verfassen"
+        "compose_button": "Erstellen",
+        "warn": "Je mehr Wörter Sie hinzufügen, desto sorgfältiger müssen Sie sein. Eine ordentliche und sorgfältige Liste zu erstellen, ist effizienter."
     },
     "editor": {
         "placeholder": "Sie können dies hier bearbeiten!",
@@ -118,85 +121,96 @@
         "header": "Spiele",
         "test": {
             "error": {
-                "not_enough_wrong": "Nicht genügend Wörter!"
+                "not_enough_wrong": "Nicht genügend falsche Wörter!"
             }
         }
     },
     "settings": {
         "change_lang": "Sprache ändern",
-        "updated_at": "Aktualisierungszeit",
-        "created_at": "Erstellungszeit",
+        "updated_at": "Änderungszeitpunkt",
+        "created_at": "Erstellungszeitpunkt",
         "device_info": "Geräteinformationen",
-        "vocatoken_copied": "Vocatoken wurde kopiert!",
+        "vocatoken_copied": "Vocatoken kopiert!",
         "logout": "Abmelden",
         "delete_account": "Konto löschen"
     },
     "landing": {
         "heroTitle": "Der neue Weg, Sprachen zu lernen",
-        "heroSubtitle": "Lernen und teilen Sie Wörter schneller mit Vocapedia!",
+        "heroSubtitle": "Lerne und teile Wörter schneller mit Vocapedia!",
         "feature1Title": "Listen erstellen und teilen",
         "feature1Description": "Wir bieten eine Plattform, auf der jeder seine eigenen Wortlisten erstellen und teilen kann.",
         "feature2Title": "Lernen mit Spielen",
-        "feature2Description": "Sie können Wörter aus den von Ihnen erstellten Listen spielerisch lernen.",
+        "feature2Description": "Mit den erstellten Listen können Sie Wörter spielerisch und unterhaltsam lernen.",
         "feature3Title": "Als PDF herunterladen",
         "feature3Description": "Sie können Ihre erstellten Wortlisten einfach im PDF-Format herunterladen und speichern.",
         "securityTitle": "Sicherheit",
-        "securityDescription": "Unsere Anwendung priorisiert die Benutzersicherheit durch die Verwendung von OTP, wodurch das Risiko von Kontoübernahmen nahezu auf null reduziert wird.",
+        "securityDescription": "Unsere Anwendung priorisiert die Benutzersicherheit durch die Verwendung von OTP, wodurch das Risiko des Konto-Diebstahls nahezu auf Null reduziert wird.",
         "chromeExtensionTitle": "Chrome-Erweiterung",
-        "chromeExtensionDescription": "Mit der Vocapedia Chrome-Erweiterung werden Sie gelegentlich an die Wörter in der Liste erinnert, sodass Sie sie nicht vergessen.",
-        "whyLearnTitle": "Warum ist das Sprachenlernen wichtig?",
-        "whyLearnDescription": "Das Sprachenlernen hilft Ihnen, die Welt aus einer breiteren Perspektive zu betrachten. Vocapedia beschleunigt und optimiert Ihren Sprachlernprozess.",
+        "chromeExtensionDescription": "Mit der Vocapedia Chrome-Erweiterung werden Ihnen die Wörter in der Liste von Zeit zu Zeit erinnert, sodass Sie sie nicht vergessen.",
+        "whyLearnTitle": "Warum ist Sprachenlernen wichtig?",
+        "whyLearnDescription": "Sprachenlernen hilft Ihnen, die Welt aus einer breiteren Perspektive zu betrachten. Vocapedia beschleunigt und effizientiert Ihren Sprachlernprozess.",
         "chartTitle": "Lerngeschwindigkeit (völlig objektiv)",
         "speed": "Geschwindigkeit",
-        "vocapedia_users": "Vocapedia-Benutzer",
+        "vocapedia_users": "Vocapedia-Nutzer",
         "traditional_methods": "Traditionelle Methoden"
     },
     "privacy": {
         "title": "Datenschutzrichtlinie",
-        "introduction": "Diese Datenschutzrichtlinie beschreibt, wie wir personenbezogene Daten, die wir bei Ihrer Nutzung unserer Anwendung sammeln, erfassen, verwenden, schützen und weitergeben. Bitte lesen Sie diese Richtlinie sorgfältig durch.",
+        "introduction": "Diese Datenschutzrichtlinie beschreibt, wie wir personenbezogene Daten erfassen, verwenden, schützen und weitergeben, wenn Sie unsere Anwendung nutzen. Bitte lesen Sie diese Richtlinie sorgfältig durch.",
         "dataCollection": {
-            "title": "Von uns erfasste Daten",
-            "text": "Wir erfassen die folgenden personenbezogenen Daten in unserer Anwendung: Name und E-Mail: Wir verwenden das OTP-System (Einmalpasswort), damit Benutzer sich anmelden können. Daher erfassen wir Ihre E-Mail-Adresse. Geräteinformationen: Geräteinformationen von Benutzern werden zur Analyse und zur Gewährleistung eines sicheren Zugriffs erfasst. Diese Informationen werden auch beim Erstellen von JWT-Tokens verwendet."
+            "title": "Erfasste Daten",
+            "text": "Wir erfassen in unserer Anwendung folgende personenbezogene Daten: Name und E-Mail: Wir verwenden das OTP-System (One-Time Password) für die Benutzeranmeldung. Daher erfassen wir Ihre E-Mail-Adresse. Geräteinformationen: Geräteinformationen der Benutzer werden zur Analyse und zur Gewährleistung eines sicheren Zugriffs erfasst. Diese Informationen werden auch bei der Erstellung von JWT-Tokens verwendet."
         },
         "dataUsage": {
-            "title": "Datennutzung",
-            "text": "Wir verwenden die von uns erfassten Daten für die folgenden Zwecke: Benutzeranmeldung und Sicherheit: Wir verwenden Ihre E-Mail-Adresse, um die Überprüfung mit OTP durchzuführen und eine sichere Anmeldung zu ermöglichen. Datenanalyse: Wir verwenden Geräteinformationen, um Analysen zur Verbesserung der Benutzererfahrung durchzuführen. JWT-Token-Verwaltung: Wir erstellen JWT-Token zur Benutzerauthentifizierung."
+            "title": "Datenverwendung",
+            "text": "Wir verwenden die erfassten Daten für folgende Zwecke: Benutzeranmeldung und Sicherheit: Wir verwenden Ihre E-Mail-Adresse, um die Überprüfung mit OTP durchzuführen und eine sichere Anmeldung zu gewährleisten. Datenanalyse: Geräteinformationen verwenden wir zur Analyse, um die Benutzererfahrung zu verbessern. JWT-Token-Verwaltung: Wir erstellen JWT-Tokens zur Benutzerauthentifizierung."
         },
         "thirdPartySharing": {
             "title": "Weitergabe an Dritte",
-            "text": "Wir verwenden Google Analytics, geben jedoch keine Benutzerdaten direkt an Dritte weiter. Google Analytics sind nur anonyme Daten, die zur Analyse der Anwendungsnutzung verwendet werden."
+            "text": "Wir verwenden Google Analytics, geben jedoch keine Benutzerdaten direkt an Dritte weiter. Google Analytics verwendet lediglich anonyme Daten zur Analyse der Anwendungsnutzung."
         },
         "dataSecurity": {
             "title": "Datensicherheit",
-            "text": "Wir ergreifen Maßnahmen, um Daten sicher zu speichern: API-Sicherheit: Unsere APIs sind durch Sicherheitsmaßnahmen wie Ratenbegrenzung geschützt. Datenspeicherung: Daten werden direkt in der Datenbank gespeichert, es gibt jedoch keine zusätzliche Verschlüsselung in der Datenbank."
+            "text": "Wir treffen bestimmte Maßnahmen, um Daten sicher zu speichern: API-Sicherheit: Unsere APIs sind durch Sicherheitsmaßnahmen wie Rate Limiting geschützt. Datenspeicherung: Daten werden direkt in der Datenbank gespeichert, es erfolgt jedoch keine zusätzliche Verschlüsselung in der Datenbank."
         },
         "userRights": {
             "title": "Benutzerrechte",
-            "text": "Wir gewähren Benutzern die folgenden Rechte: Datenzugriff: Benutzer haben das Recht auf Zugriff auf die von uns erfassten personenbezogenen Daten. Datenkorrektur: Benutzer können ihre personenbezogenen Daten aktualisieren. Datenlöschung: Benutzer haben das Recht, ihre Konten zu löschen und ihre personenbezogenen Daten zu entfernen."
+            "text": "Wir gewähren Benutzern folgende Rechte: Datenzugriff: Benutzer haben das Recht auf Zugriff auf ihre von uns erfassten personenbezogenen Daten. Datenkorrektur: Benutzer können ihre personenbezogenen Daten aktualisieren. Datenlöschung: Benutzer haben das Recht, ihre Konten zu löschen und ihre personenbezogenen Daten entfernen zu lassen."
         },
         "cookies": {
             "title": "Cookies und Tracking-Technologien",
-            "text": "Wir verwenden in unserer Anwendung keine Cookies. Daten werden nur im localStorage gespeichert."
+            "text": "Wir verwenden in unserer Anwendung keine Cookies. Daten werden ausschließlich im localStorage gespeichert."
         },
         "dataStorage": {
             "title": "Datenspeicherungsdauer",
-            "text": "Die erfassten Daten werden unbegrenzt im localStorage gespeichert."
+            "text": "Die erfassten Daten werden dauerhaft im localStorage gespeichert."
         },
         "childrenPrivacy": {
             "title": "Privatsphäre von Kindern",
-            "text": "Unsere Anwendung erfasst keine besonderen Daten von Kindern. Wir erfassen nicht wissentlich Daten von Benutzern unter 13 Jahren."
+            "text": "Unsere Anwendung erfasst keine besonderen Daten von Kindern. Wir erfassen wissentlich keine Daten von Benutzern unter 13 Jahren."
         },
         "lastUpdated": "Letzte Aktualisierung"
     },
     "game-flipword": {
-        "question": "Wie lautet das Wort \"{word}\" auf \"{to}\" in der Sprache \"{from}\"?",
+        "question": "Was ist die \"{to}\"-Übersetzung von \"{word}\" in \"{from}\"? ",
         "submit": "Absenden",
         "correct": "Richtig!",
         "wrong": "Falsch!",
-        "time_up": "Die Zeit ist abgelaufen! Die richtige Antwort ist:",
-        "placeholder": "Gib deine Antwort ein...",
-        "no_more_words": "Keine weiteren Wörter!",
+        "time_up": "Zeit abgelaufen! Die richtige Antwort war:",
+        "placeholder": "Schreiben Sie Ihre Antwort...",
+        "no_more_words": "Keine weiteren Wörter vorhanden!",
         "time_left": "Verbleibende Zeit",
-        "wait_for_next": "Warten Sie 5 Sekunden, bevor das nächste Wort kommt."
+        "wait_for_next": "Wir warten 5 Sekunden, bevor wir zum nächsten Wort übergehen"
+    },
+    "game-hangman": {
+        "title": "Galgenmännchen",
+        "enterGuess": "Gib deinen Tipp ein",
+        "guess": "Tippen",
+        "attemptsLeft": "Verbleibende Versuche",
+        "alreadyGuessed": "Diesen Buchstaben hast du schon getippt!",
+        "youWon": "Du hast gewonnen!",
+        "youLost": "Du hast verloren!",
+        "theWordWas": "Das Wort war",
+        "restart": "Neustarten"
     }
 }

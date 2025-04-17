@@ -1,0 +1,33 @@
+{
+    "mail.auth.header": "Ihr Anmeldecode",
+    "mail.auth.description": "Sie müssen den folgenden Code eingeben, um sich anzumelden.",
+    "mail.auth.warning": "Der Code ist 5 Minuten gültig. Wenn Sie diese Anfrage nicht gestellt haben, ignorieren Sie diese E-Mail bitte.",
+    "mail.auth.login.subject": "Anmeldecode",
+    
+    "mail.edit.user.header": "Ihr Profil wurde aktualisiert!",
+    "mail.edit.user.description": "Wenn Sie diese Aktion nicht durchgeführt haben, können Sie unter http://vocapedia.space/settings feststellen, wer sich angemeldet hat.",
+
+    "auth.otp.success": "Einmaliger Code gesendet!",
+    
+    "error.something_went_wrong": "Etwas ist schiefgelaufen!",
+    "error.id_convert":"ID konnte nicht konvertiert werden! Sind Sie am richtigen Ort?",
+    "errors.favorites_fetch":"Beim Abrufen der Lieblingskapitel ist ein Fehler aufgetreten.",
+    "error.unauthorized":"Sie müssen sich anmelden.",
+    "error.invalid_request_body":"Ungültige Anfragedaten.",
+    "error.invalid_user_id":"Ungültige Benutzer-ID.",
+    "error.invalid_chapter_id":"Ungültige Kapitel-ID.",
+    "error.tokens_fetch_failed":"Beim Abrufen der Token ist ein Fehler aufgetreten.",
+    "error.user_id_required":"Benutzer-ID erforderlich.",
+    "error.user_not_found":"Benutzer nicht gefunden.",
+    "error.failed_to_update_user":"Benutzer konnte nicht aktualisiert werden.",
+    "error.token_not_found":"Token nicht gefunden.",
+    "error.chapter_not_found":"Liste nicht gefunden.",
+
+
+    "ok.allright":"Alles in Ordnung!",
+    "ok.success":"Erfolgreich",
+
+    "success.token_deleted":"Token erfolgreich gelöscht.",
+    "success.chapter_archived":"Archiviert!"
+    
+}

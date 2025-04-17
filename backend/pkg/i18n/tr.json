@@ -11,8 +11,23 @@
     
     "error.something_went_wrong": "Bir şeyler ters gitti!",
     "error.id_convert":"ID çevirilemedi! doğru yerde misin?",
+    "errors.favorites_fetch":"Favori bölümler alınırken bir hata oluştu.",
+    "error.unauthorized":"Giriş yapmanız gerekiyor.",
+    "error.invalid_request_body":"Geçersiz istek verisi.",
+    "error.invalid_user_id":"Kullanıcı kimliği geçersiz.",
+    "error.invalid_chapter_id":"Geçersiz bölüm kimliği.",
+    "error.tokens_fetch_failed":"Tokenlar alınırken bir hata oluştu.",
+    "error.user_id_required":"Kullanıcı kimliği gerekli.",
+    "error.user_not_found":"Kullanıcı bulunamadı.",
+    "error.failed_to_update_user":"Kullanıcı güncellenemedi.",
+    "error.token_not_found":"Token bulunamadı.",
+    "error.chapter_not_found":"Liste bulunamadı.",
+
 
     "ok.allright":"Her şey yolunda!",
-    "ok.success":"Başarılı"
+    "ok.success":"Başarılı",
+
+    "success.token_deleted":"Token başarıyla silindi.",
+    "success.chapter_archived":"Arşivlendi!"
     
 }

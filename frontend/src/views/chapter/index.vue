@@ -51,6 +51,10 @@
                                     @click="generatePDF">
                                     <mdicon name="download-outline" />
                                 </button>
+                                <button class="smooth-click bg-red-100 dark:bg-red-700 rounded-full p-1"
+                                    @click="archiveChapter">
+                                    <mdicon name="archive-arrow-down-outline" />
+                                </button>
                                 <router-link
                                     v-if="BigInt(response.chapter.creator.id) == BigInt(getUser().user_id ?? 0)"
                                     :to="'/update/' + route.params.id"
@@ -85,9 +89,16 @@ import WordListView from "./WordListView.vue"
 import { ref, watch, shallowRef, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
+import { useFetch } from '@/composable/useFetch';
+import { useToast } from "@/composable/useToast"
+import { i18n } from "@/i18n/i18n";
+import { getLangByCode } from "@/utils/language/languages";
+import { getUser } from "@/utils/token";
+import { useRouter } from "vue-router";
 import "@/assets/Roboto-bold"
 import "@/assets/Roboto-normal"
+const router = useRouter()
+
 let savedStyles = {
     links: [],
     styles: [],
@@ -114,6 +125,16 @@ const restoreStyles = () => {
         }
     });
 };
+async function archiveChapter() {
+    await useFetch("/chapters/archive/" + route.params.id, {
+        method: "DELETE",
+    }).then(r => {
+        router.replace("/")
+        toast.show(r.message)
+    }).catch(e => {
+        toast.show(e.error)
+    })
+}
 const isPDFGenerating = ref(false)
 const generatePDF = async () => {
     isPDFGenerating.value = true
@@ -175,8 +196,8 @@ const generatePDF = async () => {
   </thead>
   <tbody>
     ${wb.map((base) =>
-      base.words.map((word, i) => `
-      ${i%2==0?'<tr style="background-color: #ecf0f1">':'<tr>'}
+        base.words.map((word, i) => `
+      ${i % 2 == 0 ? '<tr style="background-color: #ecf0f1">' : '<tr>'}
       
         ${i === 0 ? `
           <td rowspan="${base.words.length}" style="border-top: 0.5px solid #ccc;border-bottom: 0.5px solid #ccc;border-left: 0.5px solid #ccc; padding: 6px 8px; text-align:center; font-weight: 500; background-color: #ecf0f1;">
@@ -215,11 +236,6 @@ const generatePDF = async () => {
 };
 
 const route = useRoute()
-import { useFetch } from '@/composable/useFetch';
-import { useToast } from "@/composable/useToast"
-import { i18n } from "@/i18n/i18n";
-import { getLangByCode } from "@/utils/language/languages";
-import { getUser } from "@/utils/token";
 
 const response = ref({})
 const toast = useToast()
@@ -240,10 +256,9 @@ async function favoriteChapter() {
         response.value.chapter.is_favorited = 1
         response.value.chapter.fav_count += 1
         toast.show(r.message)
+    }).catch(e => {
+        toast.show(e.error)
     })
-        .catch(e => {
-            toast.show(e.error)
-        })
 }
 async function deleteFavChapter() {
     await useFetch("/chapters/favorite?chapter_id=" + route.params.id, {

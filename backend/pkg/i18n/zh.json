@@ -1,0 +1,33 @@
+{
+    "mail.auth.header": "您的登录验证码",
+    "mail.auth.description": "您需要输入以下验证码才能登录。",
+    "mail.auth.warning": "该验证码将在 5 分钟后过期。如果您没有进行此操作，请忽略这封电子邮件。",
+    "mail.auth.login.subject": "登录验证码",
+    
+    "mail.edit.user.header": "您的个人资料已更新！",
+    "mail.edit.user.description": "如果您没有进行此操作，您可以在 http://vocapedia.space/settings 上查看是谁登录的。",
+
+    "auth.otp.success": "一次性验证码已发送！",
+    
+    "error.something_went_wrong": "出了点问题！",
+    "error.id_convert":"ID 转换失败！您确定在正确的位置吗？",
+    "errors.favorites_fetch":"获取收藏章节时发生错误。",
+    "error.unauthorized":"您需要登录。",
+    "error.invalid_request_body":"无效的请求数据。",
+    "error.invalid_user_id":"无效的用户 ID。",
+    "error.invalid_chapter_id":"无效的章节 ID。",
+    "error.tokens_fetch_failed":"获取令牌时发生错误。",
+    "error.user_id_required":"需要用户 ID。",
+    "error.user_not_found":"找不到用户。",
+    "error.failed_to_update_user":"更新用户失败。",
+    "error.token_not_found":"找不到令牌。",
+    "error.chapter_not_found":"找不到列表。",
+
+
+    "ok.allright":"好的！",
+    "ok.success":"成功",
+
+    "success.token_deleted":"令牌已成功删除。",
+    "success.chapter_archived":"已存档！"
+    
+}

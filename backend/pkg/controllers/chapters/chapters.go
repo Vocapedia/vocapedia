@@ -57,7 +57,7 @@ func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.id_convert"),
 		})
 		return
 	}
@@ -102,7 +102,8 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 		Find(&favorites)
 
 	if tx.Error != nil {
-		http.Error(w, "", http.StatusInternalServerError)
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, i18n.Localizer(r, "errors.favorites_fetch"))
 		return
 	}
 
@@ -114,7 +115,10 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 func Favorite(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	if token.User(r).UserID == "" {
-		http.Error(w, "", http.StatusBadRequest)
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.unauthorized"),
+		})
 		return
 	}
 	snowflakeID, err := strconv.ParseInt(r.URL.Query().Get("chapter_id"), 10, 64)
@@ -391,7 +395,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.invalid_request_body"),
 		})
 		return
 	}
@@ -400,7 +404,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": "invalid chapter_id",
+			"error": i18n.Localizer(r, "error.invalid_chapter_id"),
 		})
 		return
 	}
@@ -409,7 +413,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.invalid_user_id"),
 		})
 		return
 	}
@@ -491,7 +495,7 @@ func Compose(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.invalid_request_body"),
 		})
 		return
 	}
@@ -499,7 +503,7 @@ func Compose(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": i18n.Localizer(r, "error.something_went_wrong"),
+			"error": i18n.Localizer(r, "error.invalid_user_id"),
 		})
 		return
 	}
@@ -618,4 +622,21 @@ func Extension(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	render.JSON(w, r, response)
+}
+
+func Archive(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	chapterID := chi.URLParam(r, "id")
+
+	if err := db.Where("id = ?", chapterID).Delete(&entities.Chapter{}).Error; err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "success.chapter_archived"),
+	})
 }

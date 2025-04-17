@@ -1,0 +1,33 @@
+{
+    "mail.auth.header": "Tu código de acceso",
+    "mail.auth.description": "Debes introducir el siguiente código para iniciar sesión.",
+    "mail.auth.warning": "El código expirará en 5 minutos. Si no realizaste esta solicitud, ignora este correo electrónico.",
+    "mail.auth.login.subject": "Código de acceso",
+    
+    "mail.edit.user.header": "¡Tu perfil ha sido actualizado!",
+    "mail.edit.user.description": "Si no realizaste esta acción, puedes identificar quién inició sesión en http://vocapedia.space/settings.",
+
+    "auth.otp.success": "¡Código de un solo uso enviado!",
+    
+    "error.something_went_wrong": "¡Algo salió mal!",
+    "error.id_convert":"¡No se pudo convertir el ID! ¿Estás en el lugar correcto?",
+    "errors.favorites_fetch":"Ocurrió un error al obtener las secciones favoritas.",
+    "error.unauthorized":"Necesitas iniciar sesión.",
+    "error.invalid_request_body":"Datos de solicitud no válidos.",
+    "error.invalid_user_id":"ID de usuario no válido.",
+    "error.invalid_chapter_id":"ID de sección no válido.",
+    "error.tokens_fetch_failed":"Ocurrió un error al obtener los tokens.",
+    "error.user_id_required":"Se requiere ID de usuario.",
+    "error.user_not_found":"Usuario no encontrado.",
+    "error.failed_to_update_user":"No se pudo actualizar el usuario.",
+    "error.token_not_found":"Token no encontrado.",
+    "error.chapter_not_found":"Lista no encontrada.",
+
+
+    "ok.allright":"¡Todo bien!",
+    "ok.success":"Exitoso",
+
+    "success.token_deleted":"Token eliminado exitosamente.",
+    "success.chapter_archived":"¡Archivado!"
+    
+}

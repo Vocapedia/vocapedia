@@ -1,0 +1,33 @@
+{
+    "mail.auth.header": "Votre code de connexion",
+    "mail.auth.description": "Vous devez saisir le code suivant pour vous connecter.",
+    "mail.auth.warning": "Le code expirera dans 5 minutes. Si vous n'avez pas fait cette demande, veuillez ignorer cet e-mail.",
+    "mail.auth.login.subject": "Code de connexion",
+    
+    "mail.edit.user.header": "Votre profil a été mis à jour !",
+    "mail.edit.user.description": "Si vous n'avez pas effectué cette action, vous pouvez identifier qui s'est connecté sur http://vocapedia.space/settings.",
+
+    "auth.otp.success": "Code unique envoyé !",
+    
+    "error.something_went_wrong": "Quelque chose s'est mal passé !",
+    "error.id_convert":"L'ID n'a pas pu être converti ! Êtes-vous au bon endroit ?",
+    "errors.favorites_fetch":"Une erreur s'est produite lors de la récupération des chapitres favoris.",
+    "error.unauthorized":"Vous devez vous connecter.",
+    "error.invalid_request_body":"Données de requête invalides.",
+    "error.invalid_user_id":"ID utilisateur invalide.",
+    "error.invalid_chapter_id":"ID de chapitre invalide.",
+    "error.tokens_fetch_failed":"Une erreur s'est produite lors de la récupération des tokens.",
+    "error.user_id_required":"L'ID utilisateur est requis.",
+    "error.user_not_found":"Utilisateur introuvable.",
+    "error.failed_to_update_user":"Impossible de mettre à jour l'utilisateur.",
+    "error.token_not_found":"Token introuvable.",
+    "error.chapter_not_found":"Liste introuvable.",
+
+
+    "ok.allright":"D'accord !",
+    "ok.success":"Réussi",
+
+    "success.token_deleted":"Token supprimé avec succès.",
+    "success.chapter_archived":"Archivé !"
+    
+}

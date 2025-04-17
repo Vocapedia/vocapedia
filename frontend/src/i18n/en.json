@@ -4,28 +4,30 @@
     "trends": "Trends",
     "personal_info": "Personal",
     "compose_post": "Compose Post",
-    "search_from_list": "Search from List",
+    "search_from_list": "Search from list",
     "tr": "Turkish",
     "en": "English",
-    "list_helper": "The listed language is {lang}, the translated language(s) is/are {target_lang}",
+    "list_helper": "The listed language is {lang}, the translated language{s} is {target_lang}",
     "page_not_found": {
         "title": "Oops! Page Not Found",
-        "message": "The page you're looking for might not exist or may have been moved.",
+        "message": "The page you are looking for does not exist or has been moved.",
         "button_text": "Go to Homepage"
     },
+    "no_results_found": "No results found!",
     "test": "Test",
     "word-rush": "Word Rush",
     "flip-word": "Flip Word",
+    "hangman": "Hangman",
     "word-match": "Word Match",
     "quick-pick": "Quick Pick",
-    "search_a_list": "Search a List",
-    "search_results": "{count} results found for \"{query}\"",
+    "search_a_list": "Search a list",
+    "search_results": "Results for \"{query}\"",
     "close": "Close",
     "save": "Save",
-    "show_result": "Show Results",
+    "show_result": "Show results",
     "word": "Word",
     "answer": "Answer",
-    "list_name": "List Name",
+    "list_name": "List name",
     "header": "Header",
     "language": "Language",
     "examples": "Examples",
@@ -35,21 +37,21 @@
     "word-list": "Word List",
     "tutorial": "Tutorial",
     "intro": "Intro",
-    "empty": "This is empty",
-    "followed_results": "{count} results found for Followed",
+    "empty": "This place is empty",
+    "followed_results": "Followed",
     "add_new_note": "Add a new note...",
-    "note_description": "Added notes are stored only in your browser.",
-    "share_not_supported": "Sharing not supported!.",
+    "note_description": "Added notes are only stored in your browser.",
+    "share_not_supported": "Not shareable!.",
     "scoreboard": "Scoreboard",
     "home": {
-        "title": "Home",
+        "title": "Homepage",
         "experience": {
-            "title": "Experience Points"
+            "title": "Experience points"
         },
         "welcome": "Welcome"
     },
     "login": {
-        "header": "Login",
+        "header": "Log In",
         "input": {
             "label": "Email",
             "placeholder": "Enter your email address",
@@ -57,17 +59,17 @@
         },
         "otp": {
             "send_button": "Request one-time code",
-            "verify_button": "Login",
-            "send_success": "The login code has been sent to your email address.",
+            "verify_button": "Log In",
+            "send_success": "A login code has been sent to your email address.",
             "verify_success": "Login successful!"
         },
-        "success": "Login successful! The login code has been sent to your email address.",
+        "success": "Login successful! A login code has been sent to your email address.",
         "error": "Login failed!",
-        "greeting": "Have a nice day"
+        "greeting": "have a good day"
     },
     "account": {
-        "edit_profile": "Edit Profile",
-        "create_new_post": "Create New List",
+        "edit_profile": "Edit profile",
+        "create_new_post": "Create new list",
         "edit": {
             "name": "Enter your new name",
             "username": "Enter your new username",
@@ -104,10 +106,11 @@
             "example": "Example"
         },
         "list": {
-            "title": "List Name",
-            "description": "List Description"
+            "title": "List name",
+            "description": "List description"
         },
-        "compose_button": "Compose"
+        "compose_button": "Compose",
+        "warn": "The more words you add, the more careful you need to be. Creating a regular and careful list will be more efficient."
     },
     "editor": {
         "placeholder": "You can edit this here!",
@@ -118,7 +121,7 @@
         "header": "Games",
         "test": {
             "error": {
-                "not_enough_wrong": "Not enough words!"
+                "not_enough_wrong": "Not enough wrong words!"
             }
         }
     },
@@ -126,9 +129,9 @@
         "change_lang": "Change language",
         "updated_at": "Updated at",
         "created_at": "Created at",
-        "device_info": "Device information",
+        "device_info": "Device info",
         "vocatoken_copied": "Vocatoken copied!",
-        "logout": "Logout",
+        "logout": "Log out",
         "delete_account": "Delete account"
     },
     "landing": {
@@ -136,16 +139,16 @@
         "heroSubtitle": "Learn and share words faster with Vocapedia!",
         "feature1Title": "Create and Share Lists",
         "feature1Description": "We offer a platform where everyone can create and share their own word lists.",
-        "feature2Title": "Learn with Games",
+        "feature2Title": "Learning with Games",
         "feature2Description": "You can learn words from the lists you create in a fun way through games.",
         "feature3Title": "Download as PDF",
-        "feature3Description": "You can easily download and save your created word lists in PDF format.",
+        "feature3Description": "You can easily download and save the word lists you create in PDF format.",
         "securityTitle": "Security",
-        "securityDescription": "Our application prioritizes user security by using OTP, reducing the risk of account takeover to almost zero.",
+        "securityDescription": "Our application prioritizes user security by using OTP, minimizing the risk of account theft to almost zero.",
         "chromeExtensionTitle": "Chrome Extension",
-        "chromeExtensionDescription": "With the Vocapedia Chrome extension, you are occasionally reminded of the words in the list, so you don't forget them.",
+        "chromeExtensionDescription": "With the Vocapedia Chrome extension, the words in the list are occasionally reminded to you, so you don't forget them.",
         "whyLearnTitle": "Why is Learning Languages Important?",
-        "whyLearnDescription": "Learning languages helps you see the world from a broader perspective. Vocapedia speeds up and streamlines your language learning process.",
+        "whyLearnDescription": "Learning languages helps you look at the world from a broader perspective. Vocapedia accelerates and makes your language learning process efficient.",
         "chartTitle": "Learning speed (completely objective)",
         "speed": "Speed",
         "vocapedia_users": "Vocapedia users",
@@ -153,33 +156,33 @@
     },
     "privacy": {
         "title": "Privacy Policy",
-        "introduction": "This Privacy Policy describes how we collect, use, protect, and share the personal data we collect when you use our application. Please review this policy carefully.",
+        "introduction": "This Privacy Policy explains how the personal data we collect when you use our application is collected, used, protected, and shared. Please review this policy carefully.",
         "dataCollection": {
             "title": "Data We Collect",
-            "text": "We collect the following personal data in our application: Name and Email: We use the OTP (One-Time Password) system for users to log in. Therefore, we collect your email address. Device Information: User device information is collected for analysis and to provide secure access. This information is also used when creating JWT tokens."
+            "text": "We collect the following personal data in our application: Name and Email: We use the OTP (One-Time Password) system for user login. Therefore, we collect your email address. Device Information: Users' device information is collected for analysis and to ensure secure access. This information is also used when creating JWT tokens."
         },
         "dataUsage": {
             "title": "Data Usage",
-            "text": "We use the data we collect for the following purposes: User Login and Security: We use your email address to perform verification with OTP and provide secure login. Data Analysis: We use device information to perform analysis to improve the user experience. JWT Token Management: We create JWT tokens for user authentication."
+            "text": "We use the collected data for the following purposes: User Login and Security: We use your email address to perform verification with OTP and ensure secure login. Data Analysis: We use device information for analysis to improve the user experience. JWT Token Management: We create JWT tokens for user authentication."
         },
         "thirdPartySharing": {
             "title": "Third-Party Sharing",
-            "text": "We use Google Analytics, but we do not share user data directly with third parties. Google Analytics is only anonymous data used to analyze application usage."
+            "text": "We use Google Analytics, but we do not directly share user data with third parties. Google Analytics only uses anonymous data to analyze the application's usage."
         },
         "dataSecurity": {
             "title": "Data Security",
-            "text": "We take measures to store data securely: API Security: Our APIs are protected by security measures such as rate limiting. Data Storage: Data is stored directly in the database, but there is no additional encryption in the database."
+            "text": "We take certain measures to store data securely: API Security: Our APIs are protected with security measures such as rate limiting. Data Storage: Data is directly saved in the database, but there is no additional encryption applied in the database."
         },
         "userRights": {
             "title": "User Rights",
-            "text": "We grant users the following rights: Data Access: Users have the right to access the personal data we collect. Data Correction: Users can update their personal data. Data Deletion: Users have the right to delete their accounts and remove their personal data."
+            "text": "We grant users the following rights: Data Access: Users have the right to access their personal data we collect. Data Correction: Users can update their personal data. Data Deletion: Users have the right to delete their accounts and have their personal data removed."
         },
         "cookies": {
             "title": "Cookies and Tracking Technologies",
-            "text": "We do not use cookies in our application. Data is only stored in localStorage."
+            "text": "We do not use cookies in our application. Data is only stored on localStorage."
         },
         "dataStorage": {
-            "title": "Data Storage Duration",
+            "title": "Data Storage Period",
             "text": "The collected data is stored indefinitely in localStorage."
         },
         "childrenPrivacy": {
@@ -189,14 +192,25 @@
         "lastUpdated": "Last Updated"
     },
     "game-flipword": {
-        "question": "\"{from}\" language's word \"{word}\" in \"{to}\"?",
+        "question": "What is the \"{to}\" of \"{word}\" in \"{from}\"?",
         "submit": "Submit",
         "correct": "Correct!",
         "wrong": "Wrong!",
-        "time_up": "Time's up! The correct answer is:",
-        "placeholder": "Type your answer...",
-        "no_more_words": "No more words!",
+        "time_up": "Time's up! The correct answer was:",
+        "placeholder": "Write your answer...",
+        "no_more_words": "No more words left!",
         "time_left": "Time left",
-        "wait_for_next": "Waiting 5 seconds before the next word."
+        "wait_for_next": "We are waiting 5 seconds before moving to the next word"
+    },
+    "game-hangman": {
+        "title": "Hangman",
+        "enterGuess": "Enter your guess",
+        "guess": "Guess",
+        "attemptsLeft": "Attempts Left",
+        "alreadyGuessed": "You already guessed that letter!",
+        "youWon": "You Won!",
+        "youLost": "You Lost!",
+        "theWordWas": "The word was",
+        "restart": "Restart"
     }
 }
