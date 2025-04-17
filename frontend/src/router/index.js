@@ -21,6 +21,19 @@ const router = createRouter({
       beforeEnter: [authGuard],
       component: () => import('@/views/compose/index.vue'),
     },
+
+    {
+      path: "/stream/:id",
+      name: "stream",
+      beforeEnter: [authGuard],
+      component: () => import('@/views/StreamView.vue'),
+    },
+    {
+      path: "/streamers",
+      name: "streamers",
+      beforeEnter: [authGuard],
+      component: () => import('@/views/StreamersView.vue'),
+    },
     {
       path: "/update/:id",
       name: "update",
