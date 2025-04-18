@@ -15,8 +15,8 @@
         <div>{{ displayDescription }}</div>
         <div v-auto-animate class="flex space-x-2">
             <input v-model="currentGuess" @keyup.enter="guessLetter" type="text" maxlength="1"
-                class="p-2 w-full text-xl border border-gray-300 rounded-md"
-                :disabled="gameOver" :placeholder="gameOver ? wordToGuess : $t('game-hangman.enterGuess')" />
+                class="p-2 w-full text-xl border border-gray-300 rounded-md" :disabled="gameOver"
+                :placeholder="gameOver ? wordToGuess : $t('game-hangman.enterGuess')" />
             <div v-if="!gameOver" class="flex">
                 <button @click="guessLetter"
                     class="smooth-click bg-green-100 hover:bg-green-300 dark:bg-green-950 dark:hover:bg-green-700 p-2.5 rounded-full">
@@ -55,22 +55,28 @@
     </div>
 </template>
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useDark } from "@vueuse/core";
 import { useI18n } from 'vue-i18n';
-
+import { useFetch } from '@/composable/useFetch';
+import { useRoute } from 'vue-router';
+const route = useRoute()
 const { t } = useI18n();
 
 const isDark = useDark();
-const wordToGuess = ref("Word");
+const wordToGuess = ref("");
 const displayWord = ref(Array(wordToGuess.value.length).fill("_"));
-const displayDescription = ref("Description");
+const displayDescription = ref("");
 const currentGuess = ref("");
 const attemptsLeft = ref(6);
 const guessedLetters = ref([]);
 const message = ref("");
 const gameOver = ref(false);
 const gameResult = ref("");
+
+onMounted(async () => {
+    await restartGame()
+})
 
 const guessLetter = () => {
     if (gameOver.value) return;
@@ -110,9 +116,12 @@ const updateDisplayWord = (letter) => {
     }
 };
 
-const restartGame = () => {
-    wordToGuess.value = "word";
-    displayWord.value = Array(wordToGuess.value.length).fill("_");
+const restartGame = async () => {
+    await useFetch("/public/chapters/hangman/" + route.params.id).then((r) => {
+        wordToGuess.value = r.word
+        displayWord.value = Array(wordToGuess.value?.length).fill("_")
+        displayDescription.value = r.description
+    })
     currentGuess.value = "";
     attemptsLeft.value = 6;
     guessedLetters.value = [];

@@ -33,3 +33,10 @@ type _extension struct {
 	Main      string `json:"main"`
 	Second    string `json:"second"`
 }
+
+type _game_hangman struct {
+	ChapterID   int64  `json:"chapter_id"`
+	WordID      int64  `json:"word_id"`
+	Word        string `json:"word"`
+	Description string `json:"description"`
+}

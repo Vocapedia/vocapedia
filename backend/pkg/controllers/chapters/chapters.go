@@ -624,6 +624,27 @@ func Extension(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, response)
 }
 
+func GameHangman(w http.ResponseWriter, r *http.Request) {
+	chapterID := chi.URLParam(r, "id")
+	var response _game_hangman
+	db := database.Manager()
+	var wordBase entities.WordBase
+	db.Where("chapter_id = ?", chapterID).
+		Preload("Word").
+		Preload("Chapter").
+		Order("RANDOM()").
+		First(&wordBase)
+	response.ChapterID = wordBase.ChapterID
+	for _, v := range wordBase.Word {
+		if v.Lang == wordBase.Chapter.Lang {
+			response.Word = v.Word
+			response.WordID = v.ID
+			response.Description = v.Description
+		}
+	}
+	render.JSON(w, r, response)
+}
+
 func Archive(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	chapterID := chi.URLParam(r, "id")

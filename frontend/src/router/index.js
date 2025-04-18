@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { authGuard } from "./middleware/authGuard";
 import { loadLayout } from "./middleware/loadLayout";
+import { block } from "./middleware/block";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,13 +26,13 @@ const router = createRouter({
     {
       path: "/stream/:id",
       name: "stream",
-      beforeEnter: [authGuard],
+      beforeEnter: [block, authGuard],
       component: () => import('@/views/StreamView.vue'),
     },
     {
       path: "/streamers",
       name: "streamers",
-      beforeEnter: [authGuard],
+      beforeEnter: [block, authGuard],
       component: () => import('@/views/StreamersView.vue'),
     },
     {

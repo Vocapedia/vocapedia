@@ -51,7 +51,8 @@
                                     @click="generatePDF">
                                     <mdicon name="download-outline" />
                                 </button>
-                                <button class="smooth-click bg-red-100 dark:bg-red-700 rounded-full p-1"
+                                <button v-if="BigInt(response.chapter.creator.id) == BigInt(getUser().user_id ?? 0)"
+                                    class="smooth-click bg-red-100 dark:bg-red-700 rounded-full p-1"
                                     @click="archiveChapter">
                                     <mdicon name="archive-arrow-down-outline" />
                                 </button>

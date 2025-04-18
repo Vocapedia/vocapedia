@@ -5,7 +5,6 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
@@ -31,7 +30,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 	}))
 	r.Use(customMiddleware.Language)
 	r.Use(customMiddleware.SecurityHeaders)
-	r.Use(customMiddleware.RateLimiter(6, time.Second))
+	//r.Use(customMiddleware.RateLimiter(6, time.Second))
 	r.Use(jwtauth.Verifier(token.TokenAuth()))
 
 	r.Route("/api/v1", func(api chi.Router) {
@@ -72,6 +71,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Get("/search-short", chapters.SearchShort)
 				api.Get("/trends", chapters.GetTrendingChapters)
 				api.Get("/game-format/{id}", chapters.GameFormat)
+				api.Get("/hangman/{id}", chapters.GameHangman)
 			})
 			api.Route("/user", func(api chi.Router) {
 				api.Get("/", user.GetByUsername)

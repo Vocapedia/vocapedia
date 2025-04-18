@@ -7,6 +7,7 @@
     "search_from_list": "Listeden ara",
     "tr": "Türkçe",
     "en": "İngilizce",
+    "not_ready_yet": "Henüz hazır değil!",
     "list_helper": "Listelenen dil {lang}'dir çevrilen dil{s} ise {target_lang}'dir",
     "page_not_found": {
         "title": "Haydaa! Sayfa Bulunamadı",

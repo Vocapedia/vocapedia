@@ -33,7 +33,7 @@ const games = ref([
     {
         location: "/flip-word",
         name: "flip-word",
-        wordCount: 1
+        wordCount: 9999
     },
     {
         location: "/hangman",
@@ -43,17 +43,17 @@ const games = ref([
     {
         location: "/quick-pick",
         name: "quick-pick",
-        wordCount: 99
+        wordCount: 9999
     },
     {
         location: "/word-match",
         name: "word-match",
-        wordCount: 99
+        wordCount: 9999
     },
     {
         location: "/word-rush",
         name: "word-rush",
-        wordCount: 99
+        wordCount: 9999
     },
 ])
 </script>
