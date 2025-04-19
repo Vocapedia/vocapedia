@@ -208,7 +208,16 @@ onMounted(async () => {
             listName.value = chapter.title
             listDescription.value = chapter.description
             editorContent.value = chapter.tutorial
-            wordBases.value.push(...chapter.word_bases)
+            wordBases.value.push(
+                ...chapter.word_bases.map(wb => ({
+                    ...wb,
+                    words: wb.words.map(word => ({
+                        ...word,
+                        examples: word.examples && word.examples.length > 0 ? word.examples[0] : ""
+                    }))
+                }))
+            )
+
             languageCode.value = chapter.lang
             languageQuery.value = getLangByCode(chapter.lang).name
             targetLanguageCode.value = chapter.target_lang
@@ -235,6 +244,8 @@ async function compose() {
         }
     }).then(r => {
         router.replace('/l/' + r.chapter_id)
+        isSaving.value = false
+    }).catch(e => {
         isSaving.value = false
     })
     isSaving.value = false
