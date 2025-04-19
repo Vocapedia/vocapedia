@@ -3,53 +3,81 @@ import { authGuard } from "./middleware/authGuard";
 import { loadLayout } from "./middleware/loadLayout";
 import { block } from "./middleware/block";
 
+import HomeView from '@/views/HomeView.vue';
+import LandingView from '@/views/LandingView.vue';
+import ComposeView from '@/views/compose/index.vue';
+import StreamView from '@/views/StreamView.vue';
+import StreamersView from '@/views/StreamersView.vue';
+import ChapterView from '@/views/chapter/index.vue';
+import GameView from '@/views/GameView.vue';
+import TestView from '@/views/game/TestView.vue';
+import HangmanView from '@/views/game/HangmanView.vue';
+import FlipWordView from '@/views/game/FlipWordView.vue';
+import QuickPickView from '@/views/game/QuickPickView.vue';
+import WordMatchView from '@/views/game/WordMatchView.vue';
+import WordRushView from '@/views/game/WordRushView.vue';
+import SearchView from '@/views/SearchView.vue';
+import FollowedView from '@/views/FollowedView.vue';
+import NotesView from '@/views/NotesView.vue';
+import LoginView from '@/views/LoginView.vue';
+import SettingView from '@/views/SettingView.vue';
+import EditorView from '@/views/EditorView.vue';
+import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
+import AccountView from '@/views/AccountView.vue';
+import NotFoundView from '@/views/NotFoundView.vue';
+import TrendsView from "@/views/TrendsView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
       name: "home",
-      component: () => import('@/views/HomeView.vue'),
+      component: HomeView,
     },
     {
       path: "/landing",
       name: "landing",
-      component: () => import('@/views/LandingView.vue'),
+      component: LandingView,
     },
     {
       path: "/compose",
       name: "compose",
       beforeEnter: [authGuard],
-      component: () => import('@/views/compose/index.vue'),
+      component: ComposeView,
     },
-
+    {
+      path: "/trends",
+      name: "trends",
+      component: TrendsView,
+    },
     {
       path: "/stream/:id",
       name: "stream",
       beforeEnter: [block, authGuard],
-      component: () => import('@/views/StreamView.vue'),
+      component: StreamView,
     },
     {
       path: "/streamers",
       name: "streamers",
       beforeEnter: [block, authGuard],
-      component: () => import('@/views/StreamersView.vue'),
+      component: StreamersView,
     },
     {
       path: "/update/:id",
       name: "update",
       beforeEnter: [authGuard],
-      component: () => import('@/views/compose/index.vue'),
+      component: ComposeView,
     },
     {
       path: "/l/:id",
       name: "word-list",
-      component: () => import('@/views/chapter/index.vue'),
+      component: ChapterView,
     },
     {
       path: "/l/:id/games",
       name: "games",
-      component: () => import('@/views/GameView.vue'),
+      component: GameView,
     },
     {
       path: "/l/:id/game/test",
@@ -57,16 +85,15 @@ const router = createRouter({
       meta: {
         layout: "game",
       },
-      component: () => import('@/views/game/TestView.vue'),
+      component: TestView,
     },
-
     {
       path: "/l/:id/game/hangman",
       name: "hangman",
       meta: {
         layout: "game",
       },
-      component: () => import('@/views/game/HangmanView.vue'),
+      component: HangmanView,
     },
     {
       path: "/l/:id/game/flip-word",
@@ -74,68 +101,68 @@ const router = createRouter({
       meta: {
         layout: "game",
       },
-      component: () => import('@/views/game/FlipWordView.vue'),
+      component: FlipWordView,
     },
     {
       path: "/l/:id/game/quick-pick",
       name: "quick-pick",
-      component: () => import('@/views/game/QuickPickView.vue'),
+      component: QuickPickView,
     },
     {
       path: "/l/:id/game/word-match",
       name: "word-match",
-      component: () => import('@/views/game/WordMatchView.vue'),
+      component: WordMatchView,
     },
     {
       path: "/l/:id/game/word-rush",
       name: "word-rush",
-      component: () => import('@/views/game/WordRushView.vue'),
+      component: WordRushView,
     },
     {
       path: "/search",
       name: "search",
-      component: () => import('@/views/SearchView.vue'),
+      component: SearchView,
     },
     {
       path: "/followed",
       name: "followed",
       beforeEnter: [authGuard],
-      component: () => import('@/views/FollowedView.vue'),
+      component: FollowedView,
     },
     {
       path: "/notes",
       name: "notes",
-      component: () => import('@/views/NotesView.vue'),
+      component: NotesView,
     },
     {
       path: "/login",
       name: "login",
-      component: () => import('@/views/LoginView.vue'),
+      component: LoginView,
     },
     {
       path: "/settings",
       name: "settings",
-      component: () => import('@/views/SettingView.vue'),
+      component: SettingView,
     },
     {
       path: "/editor",
       name: "editor",
-      component: () => import('@/views/EditorView.vue'),
+      component: EditorView,
     },
     {
       path: "/privacy-policy",
       name: "privacy-policy",
-      component: () => import('@/views/PrivacyPolicy.vue'),
+      component: PrivacyPolicy,
     },
     {
       path: "/:username",
       name: "account",
-      component: () => import('@/views/AccountView.vue'),
+      component: AccountView,
     },
     {
       path: "/:pathMatch(.*)*",
       name: "not-found",
-      component: () => import('@/views/NotFoundView.vue'),
+      component: NotFoundView,
     },
   ],
 });

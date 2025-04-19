@@ -49,7 +49,12 @@
         "experience": {
             "title": "Deneyim puanı"
         },
-        "welcome": "Hoş geldiniz"
+        "welcome": "Hoş geldin{username}!",
+        "description": "Bilmediğin kelimeler öğrenmek için favorilerine göz at, notlar ekle ve trendleri takip et.",
+        "trends_description": "Trendler, diğer kullanıcıların en çok hangi kelimeleri öğrendiğini gösterir.",
+        "followed_results_description": "Takip ettiğin kelime listelerini görebilirsin.",
+        "notes_description": "Notlar, tekrar bakmak istediğin kelimeleri kaydedebileceğin bir alan oluşturur.",
+        "quick_access": "Hızlı Erişim"
     },
     "login": {
         "header": "Giriş Yap",

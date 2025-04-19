@@ -47,9 +47,14 @@
     "home": {
         "title": "Startseite",
         "experience": {
-            "title": "Erfahrungspunkte"
+            "title": "Erfahrungspunkt"
         },
-        "welcome": "Willkommen"
+        "welcome": "Willkommen {username}!",
+        "description": "Schau dir deine Favoriten an, füge Notizen hinzu und verfolge die Trends, um unbekannte Wörter zu lernen.",
+        "trends_description": "Trends zeigen die Wörter, die von anderen Nutzern am häufigsten gelernt werden.",
+        "followed_results_description": "Du kannst die Wortlisten sehen, denen du folgst.",
+        "notes_description": "Notizen schaffen einen Bereich, in dem du Wörter speichern kannst, die du später noch einmal ansehen möchtest.",
+        "quick_access": "Schneller Zugriff"
     },
     "login": {
         "header": "Anmelden",

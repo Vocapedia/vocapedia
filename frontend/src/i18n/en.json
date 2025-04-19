@@ -45,11 +45,16 @@
     "share_not_supported": "Not shareable!.",
     "scoreboard": "Scoreboard",
     "home": {
-        "title": "Homepage",
+        "title": "Home",
         "experience": {
-            "title": "Experience points"
+            "title": "Experience Points"
         },
-        "welcome": "Welcome"
+        "welcome": "Welcome {username}!",
+        "description": "Check out your favorites, add notes, and follow trends to learn words you don't know.",
+        "trends_description": "Trends show the words that other users have learned the most.",
+        "followed_results_description": "You can see the word lists you are following.",
+        "notes_description": "Notes create a space where you can save words you want to review later.",
+        "quick_access": "Quick Access"
     },
     "login": {
         "header": "Log In",

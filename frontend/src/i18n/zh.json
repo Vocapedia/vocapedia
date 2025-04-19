@@ -45,11 +45,16 @@
   "share_not_supported": "不支持分享！",
   "scoreboard": "排行榜",
   "home": {
-    "title": "首页",
+    "title": "主页",
     "experience": {
-      "title": "经验值"
+      "title": "经验积分"
     },
-    "welcome": "欢迎"
+    "welcome": "欢迎 {username}!",
+    "description": "查看你的收藏，添加笔记，并跟随趋势学习你不知道的单词。",
+    "trends_description": "趋势展示了其他用户最常学习的单词。",
+    "followed_results_description": "你可以看到你关注的单词列表。",
+    "notes_description": "笔记为你创建了一个空间，可以保存你想稍后复习的单词。",
+    "quick_access": "快速访问"
   },
   "login": {
     "header": "登录",

@@ -45,11 +45,16 @@
     "share_not_supported": "¡No se puede compartir!.",
     "scoreboard": "Marcador",
     "home": {
-        "title": "Página de inicio",
+        "title": "Inicio",
         "experience": {
             "title": "Puntos de experiencia"
         },
-        "welcome": "Bienvenido"
+        "welcome": "¡Bienvenido {username}!",
+        "description": "Mira tus favoritos, agrega notas y sigue las tendencias para aprender palabras que no conoces.",
+        "trends_description": "Las tendencias muestran las palabras que más han aprendido otros usuarios.",
+        "followed_results_description": "Puedes ver las listas de palabras que sigues.",
+        "notes_description": "Las notas crean un espacio donde puedes guardar palabras que quieras revisar más tarde.",
+        "quick_access": "Acceso rápido"
     },
     "login": {
         "header": "Iniciar sesión",

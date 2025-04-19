@@ -45,11 +45,16 @@
     "share_not_supported": "Partage non pris en charge !.",
     "scoreboard": "Tableau des scores",
     "home": {
-        "title": "Page d'accueil",
+        "title": "Accueil",
         "experience": {
             "title": "Points d'expérience"
         },
-        "welcome": "Bienvenue"
+        "welcome": "Bienvenue {username}!",
+        "description": "Consulte tes favoris, ajoute des notes et suis les tendances pour apprendre des mots que tu ne connais pas.",
+        "trends_description": "Les tendances montrent les mots que les autres utilisateurs ont le plus appris.",
+        "followed_results_description": "Tu peux voir les listes de mots que tu suis.",
+        "notes_description": "Les notes créent un espace où tu peux enregistrer les mots que tu souhaites revoir plus tard.",
+        "quick_access": "Accès rapide"
     },
     "login": {
         "header": "Se connecter",

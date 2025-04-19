@@ -1,5 +1,8 @@
 <template>
     <div class="max-w-160 mx-auto">
+        <p class="py-5 text-center text-xl font-semibold">
+            {{ $t('notes') }}
+        </p>
 
         <div class="p-6 transition-all">
             <div class="text-center">

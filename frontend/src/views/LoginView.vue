@@ -1,6 +1,5 @@
 <template>
     <div class="pt-36 flex items-center justify-center ">
-        <Shine />
         <div class="z-1 w-full max-w-120">
             <div class="bg-white/90 dark:bg-zinc-800/90 p-8 pb-4 rounded-lg shadow-lg space-y-4">
                 <div class="text-2xl text-center pb-4">
@@ -75,7 +74,6 @@
 </template>
 
 <script setup>
-import Shine from '@/components/Shine.vue';
 import { useFetch } from '@/composable/useFetch';
 import { useToast } from '@/composable/useToast';
 import { i18n } from '@/i18n/i18n';

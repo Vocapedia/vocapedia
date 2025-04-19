@@ -94,6 +94,7 @@ func Favorites(w http.ResponseWriter, r *http.Request) {
 		Where("user_favorites.user_id = ?", userID).
 		Unscoped().
 		Select("chapters.*, (SELECT COUNT(*) FROM user_favorites WHERE deleted_at is null AND chapter_id = chapters.id) as fav_count, (SELECT COUNT(*) FROM word_bases WHERE deleted_at is null AND chapter_id = chapters.id) as word_count, EXISTS(SELECT 1 FROM user_favorites WHERE user_favorites.chapter_id = chapters.id AND user_favorites.user_id = ? LIMIT 1) AS is_favorited", userID).
+		Where("chapters.deleted_at is null").
 		Preload("Creator").
 		Group("chapters.id, user_favorites.chapter_id").
 		Order("id desc").
@@ -152,20 +153,44 @@ func Favorite(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
-	var chapters []entities.Chapter
+	var chapters []ChapterDTO
 	db := database.Manager()
 	sevenDaysAgo := time.Now().AddDate(0, 0, -7)
+	page := 1
+	limit := 10
+	pageStr := r.URL.Query().Get("page")
+	if pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+	offset := (page - 1) * limit
+
+	userID := token.User(r).UserID
 
 	err := db.
+		Model(&entities.Chapter{}).
+		Select(`
+	chapters.*,
+	(SELECT COUNT(*) FROM user_favorites WHERE user_favorites.chapter_id = chapters.id) AS fav_count,
+	(SELECT COUNT(*) FROM word_bases WHERE word_bases.deleted_at IS NULL AND word_bases.chapter_id = chapters.id) AS word_count,
+	EXISTS(
+		SELECT 1 FROM user_favorites 
+		WHERE user_favorites.chapter_id = chapters.id 
+		AND user_favorites.user_id = ? 
+		LIMIT 1
+	) AS is_favorited,
+	SUM(
+		GREATEST(10080 - FLOOR(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at) / 60), 1)
+	) AS trend_score
+`, userID).
 		Joins("JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
 		Where("user_favorites.created_at >= ?", sevenDaysAgo).
 		Group("chapters.id").
-		Order(`
-			COUNT(user_favorites.chapter_id) DESC, 
-			SUM(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at)) DESC, 
-			MAX(user_favorites.created_at) DESC
-		`).
-		Limit(10).
+		Order("trend_score DESC").
+		Preload("Creator").
+		Offset(offset).
+		Limit(limit).
 		Find(&chapters).Error
 
 	if err != nil {
@@ -177,7 +202,7 @@ func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 	}
 
 	render.JSON(w, r, map[string]any{
-		"trends": chapters,
+		"list": chapters,
 	})
 }
 

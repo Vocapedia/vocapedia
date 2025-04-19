@@ -1,6 +1,6 @@
 <template>
     <div v-auto-animate class="mb-10 space-y-5 max-w-3xl mx-auto">
-        <div class="text-center bg-zinc-800 p-5 rounded-lg border border-zinc-700">
+        <div class="text-center bg-white dark:bg-zinc-800 p-5 rounded-lg border dark:border-zinc-700 border-zinc-200">
             {{ $t('compose.warn') }}
         </div>
         <div v-if="!isLanguagesSelected" class="flex gap-4 max-w-160 mx-auto p-4">
@@ -57,8 +57,14 @@
                         {{ $t('tutorial') }}
                     </router-link>
                 </div>
-                <button @click="compose" class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 px-2 py-1">{{
-                    $t('save') }}
+                <button @click="compose" v-auto-animate :disabled="isSaving"
+                    class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 px-2 py-1">
+                    <span v-if="isSaving">
+                        <mdicon spin name="loading" />
+                    </span>
+                    <span v-else>
+                        {{ $t('save') }}
+                    </span>
                 </button>
             </div>
             <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
@@ -175,7 +181,7 @@
 
 </template>
 <script setup>
-import { ref, reactive, computed, watch, onMounted } from "vue"
+import { ref, computed, watch, onMounted } from "vue"
 import languages from "@/utils/language/languages.json"
 import TextEditor from "@/components/TextEditor.vue"
 import { useFetch } from "@/composable/useFetch"
@@ -185,7 +191,7 @@ const route = useRoute()
 const router = useRouter()
 const listName = ref("")
 const listDescription = ref("")
-const wordBases = reactive([])
+const wordBases = ref([])
 const editorContent = ref("<p></p>");
 const languageQuery = ref('');
 const targetLanguageQuery = ref('');
@@ -193,6 +199,7 @@ const languageCode = ref('');
 const targetLanguageCode = ref('');
 const showLanguageDropdown = ref(false);
 const showTargetDropdown = ref(false);
+const isSaving = ref(false)
 onMounted(async () => {
     await useFetch("/user/check")
     if (route.params.id) {
@@ -201,7 +208,7 @@ onMounted(async () => {
             listName.value = chapter.title
             listDescription.value = chapter.description
             editorContent.value = chapter.tutorial
-            wordBases.push(...chapter.word_bases)
+            wordBases.value.push(...chapter.word_bases)
             languageCode.value = chapter.lang
             languageQuery.value = getLangByCode(chapter.lang).name
             targetLanguageCode.value = chapter.target_lang
@@ -210,6 +217,7 @@ onMounted(async () => {
     }
 })
 async function compose() {
+    isSaving.value = true
     var method = "POST"
     if (route.params.id) {
         method = "PUT"
@@ -223,14 +231,16 @@ async function compose() {
             lang: languageCode.value,
             target_lang: targetLanguageCode.value,
             tutorial: editorContent.value,
-            word_bases: wordBases
+            word_bases: wordBases.value
         }
     }).then(r => {
         router.replace('/l/' + r.chapter_id)
+        isSaving.value = false
     })
+    isSaving.value = false
 }
 function addWordBase() {
-    wordBases.push({
+    wordBases.value.push({
         type: "noun",
         words: [{
             lang: languageCode.value,
@@ -241,20 +251,20 @@ function addWordBase() {
 }
 
 function addWordToWordBase(i) {
-    wordBases[i].words.push({ lang: targetLanguageCode.value })
+    wordBases.value[i].words.push({ lang: targetLanguageCode.value })
 }
 
 function removeWordBase(i) {
-    if (wordBases.length <= 1) {
+    if (wordBases.value.length <= 1) {
         return
     }
-    wordBases.splice(i, 1)
+    wordBases.value.splice(i, 1)
 }
 function removeWord(i, wi) {
-    if (wordBases[wi].words.length <= 2) {
+    if (wordBases.value[wi].words.length <= 2) {
         return
     }
-    wordBases[wi].words.splice(i, 1)
+    wordBases.value[wi].words.splice(i, 1)
 }
 
 const isLanguagesSelected = ref(false)
@@ -268,7 +278,7 @@ watch(
 );
 
 watch(isLanguagesSelected, (n, o) => {
-    if (isLanguagesSelected.value && wordBases.length == 0) {
+    if (isLanguagesSelected.value && wordBases.value.length == 0) {
         addWordBase()
     }
 })

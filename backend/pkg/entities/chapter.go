@@ -55,7 +55,7 @@ func (chapter *Chapter) AfterCreate(tx *gorm.DB) (err error) {
 	return nil
 }
 
-func (chapter *Chapter) AfterDelete(tx *gorm.DB) (err error) {
+func (chapter *Chapter) BeforeDelete(tx *gorm.DB) (err error) {
 	client := search.Meili()
 	index := client.Index("chapters")
 	_, err = index.DeleteDocument(fmt.Sprintf("%v", chapter.ID))
@@ -84,3 +84,4 @@ func (chapter *Chapter) AfterUpdate(tx *gorm.DB) (err error) {
 	fmt.Println("Chapter updated in Meilisearch:", chapter.Title)
 	return nil
 }
+
