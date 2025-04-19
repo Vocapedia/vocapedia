@@ -101,6 +101,7 @@ async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry
             const response = await fetch(url, config);
             clearTimeout(timeoutId);
             if (response.status == 401) {
+                localStorage.removeItem("token");
                 window.location.href = "/login"
             }
             if (!response.ok) {

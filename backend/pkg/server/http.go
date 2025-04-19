@@ -85,11 +85,17 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 
 	r.HandleFunc("/auth", auth.Token)
 
-	distFS, _ := fs.Sub(embed.StaticsFS(), "dist")
+	staticsFS, _ := fs.Sub(embed.StaticsFS(), "statics")
+	fileServerStatics := http.FileServer(http.FS(staticsFS))
+
+	r.Handle("/og-image.png", http.StripPrefix("/", fileServerStatics))
+	r.Handle("/favicon.ico", http.StripPrefix("/", fileServerStatics))
+
+	distFS, _ := fs.Sub(embed.DistFS(), "dist")
 	fileServer := http.FileServer(http.FS(distFS))
 	r.Handle("/assets/*", fileServer)
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		index, err := embed.StaticsFS().ReadFile("dist/index.html")
+		index, err := embed.DistFS().ReadFile("dist/index.html")
 		if err != nil {
 			http.Error(w, "index.html bulunamadı", http.StatusInternalServerError)
 			return

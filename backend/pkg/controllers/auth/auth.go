@@ -3,6 +3,7 @@ package auth
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -79,6 +80,7 @@ func SendOTP(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("pkg/mail/templates/auth.login.html")
 	if err != nil {
+		log.Println("Error parsing template:", err)
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
 			"error": i18n.Localizer(r, "error.something_went_wrong"),
