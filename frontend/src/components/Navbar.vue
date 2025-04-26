@@ -5,7 +5,7 @@
         <header v-if="!searchable" class="container mx-auto flex justify-between items-center p-4">
             <RouterLink to="/" class="flex flex-shrink-0 py-2 space-x-1">
                 <span class="text-2xl font-logo">Vocapedia</span>
-                <small class="text-[10px]">{{ GetLang().slice(0, 2).toUpperCase() }}</small>
+                <small class="text-[10px] font-semibold text-zinc-500">{{ GetLang().slice(0, 2).toUpperCase() }}</small>
             </RouterLink>
 
             <nav :class="searchable ? 'max-w-160 w-full mx-auto' : ''" class="flex items-center space-x-4">
@@ -48,7 +48,7 @@
                     <RouterLink @click="searchable = false" :to="'/l/' + BigInt(item.id)" class="flex items-center">
                         <div class="flex-grow">
                             <div class="font-semibold">{{ item.title }}</div>
-                            <div class="text-sm text-zinc-500 dark:text-zinc-400">{{ item.description }}</div>
+                            <div class="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{{ item.description }}</div>
                         </div>
                     </RouterLink>
                 </li>

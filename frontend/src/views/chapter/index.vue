@@ -143,23 +143,31 @@ const generatePDF = async () => {
     const marginX = 14;
     let startY = 20;
 
-    doc.setFont('Roboto', "bold");
-    doc.setFontSize(20);
-    doc.text(response.value.chapter.title, marginX, startY);
-    startY += 8;
-
-    doc.setFont('Roboto', "normal");
-    doc.setFontSize(12);
-    doc.text(response.value.chapter.description, marginX, startY);
-    startY += 8;
-
-    doc.setFontSize(12);
-    doc.setTextColor(100);
-    doc.text(`@${response.value.chapter.creator.username}`, marginX, startY);
-    startY += 10;
-
     saveAndRemoveStyles();
+
     const tutorialDiv = document.createElement('div');
+
+    const titleEl = document.createElement('h1');
+    titleEl.textContent = response.value.chapter.title;
+    titleEl.style.fontSize = '20px';
+    titleEl.style.fontWeight = 'bold';
+    titleEl.style.marginBottom = '8px';
+    titleEl.style.fontFamily = "'Roboto', sans-serif";
+    tutorialDiv.appendChild(titleEl);
+
+    const descEl = document.createElement('p');
+    descEl.textContent = response.value.chapter.description;
+    descEl.style.marginBottom = '6px';
+    descEl.style.fontFamily = "'Roboto', sans-serif";
+    tutorialDiv.appendChild(descEl);
+
+    const userEl = document.createElement('p');
+    userEl.textContent = `@${response.value.chapter.creator.username}`;
+    userEl.style.color = '#666';
+    userEl.style.marginBottom = '14px';
+    userEl.style.fontFamily = "'Roboto', sans-serif";
+    tutorialDiv.appendChild(userEl);
+
     tutorialDiv.style.width = '160mm';
 
     const innerDiv = document.createElement('div');
@@ -251,6 +259,10 @@ onMounted(async () => {
 })
 
 async function favoriteChapter() {
+    if (!getUser()) {
+        router.push("/login")
+        return
+    }
     await useFetch("/chapters/favorite?chapter_id=" + route.params.id, {
         method: "POST",
     }).then(r => {

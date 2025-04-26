@@ -6,7 +6,7 @@
                     <h1 class="text-xl font-semibold p-5">
                         {{ l.title }}
                     </h1>
-                    <h4 class="px-5">
+                    <h4 class="px-5 line-clamp-3 text-sm text-zinc-500 dark:text-zinc-400">
                         {{ l.description }}
                     </h4>
                     <div class="flex justify-evenly pt-5">

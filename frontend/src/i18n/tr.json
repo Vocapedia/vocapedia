@@ -50,11 +50,15 @@
             "title": "Deneyim puanı"
         },
         "welcome": "Hoş geldin{username}!",
-        "description": "Bilmediğin kelimeler öğrenmek için favorilerine göz at, notlar ekle ve trendleri takip et.",
+        "description": "Bilmediğin kelimeleri öğrenmek için favorilerine göz at, notlar ekle ve trendleri takip et.",
         "trends_description": "Trendler, diğer kullanıcıların en çok hangi kelimeleri öğrendiğini gösterir.",
         "followed_results_description": "Takip ettiğin kelime listelerini görebilirsin.",
         "notes_description": "Notlar, tekrar bakmak istediğin kelimeleri kaydedebileceğin bir alan oluşturur.",
-        "quick_access": "Hızlı Erişim"
+        "quick_access": "Hızlı Erişim",
+        "daily_streak": "Günlük devamlılık",
+        "daily_streak_description": "Her gün öğrenmeye devam et",
+        "streamers": "Akış",
+        "streamers_description": "Pratik yapmak istediğiniz dil için öğretmenlerle randevulaşabilirsiniz."
     },
     "login": {
         "header": "Giriş Yap",

@@ -77,6 +77,9 @@ importers:
       animate.css:
         specifier: ^4.1.1
         version: 4.1.1
+      canvas-confetti:
+        specifier: ^1.9.3
+        version: 1.9.3
       chart.js:
         specifier: ^4.4.8
         version: 4.4.8
@@ -1110,6 +1113,9 @@ packages:
 
   caniuse-lite@1.0.30001699:
     resolution: {integrity: sha512-b+uH5BakXZ9Do9iK+CkDmctUSEqZl+SP056vc5usa0PL+ev5OHw003rZXcnjNDv3L8P5j6rwT6C0BPKSikW08w==}
+
+  canvas-confetti@1.9.3:
+    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
 
   canvg@3.0.11:
     resolution: {integrity: sha512-5ON+q7jCTgMp9cjpu4Jo6XbvfYwSB2Ow3kzHKfIyJfaCAOHLbdKPQqGKgfED/R5B+3TFFfe8pegYA+b423SRyA==}
@@ -3052,6 +3058,8 @@ snapshots:
     optional: true
 
   caniuse-lite@1.0.30001699: {}
+
+  canvas-confetti@1.9.3: {}
 
   canvg@3.0.11:
     dependencies:

@@ -15,3 +15,9 @@ type _updateUser struct {
 	Biography   string          `json:"biography"`
 	Device      entities.Device `json:"device"`
 }
+
+type _streak struct {
+	Count    int    `json:"count"`
+	LastDate string `json:"lastDate"`
+	Rewarded bool   `json:"rewarded"`
+}

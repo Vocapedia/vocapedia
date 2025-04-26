@@ -54,6 +54,7 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 				api.Get("/check", user.Check)
 				api.Put("/vocatoken", user.UpdateVocaToken)
 				api.Get("/vocatoken", user.GetVocaToken)
+				api.Get("/streak", user.DailyStreak)
 			})
 			api.Route("/auth", func(api chi.Router) {
 				api.Delete("/logout", auth.Logout)

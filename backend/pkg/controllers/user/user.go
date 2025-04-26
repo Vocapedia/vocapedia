@@ -2,12 +2,15 @@ package user
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
 	"strings"
+	"time"
 
+	"github.com/akifkadioglu/vocapedia/pkg/cache"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
@@ -16,6 +19,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/utils"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -258,5 +262,61 @@ func GetVocaToken(w http.ResponseWriter, r *http.Request) {
 	}
 	render.JSON(w, r, map[string]any{
 		"vocatoken": user.Vocatoken,
+	})
+}
+
+func DailyStreak(w http.ResponseWriter, r *http.Request) {
+	rdb := cache.Redis()
+	userID := token.User(r).UserID
+	db := database.Manager()
+
+	data, err := rdb.Get(r.Context(), fmt.Sprintf("streak:%s", userID)).Result()
+	var streak _streak
+	if err == redis.Nil {
+		streak = _streak{Count: 0, LastDate: "", Rewarded: false}
+	} else if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	} else {
+		json.Unmarshal([]byte(data), &streak)
+	}
+
+	today := time.Now().Format("2006-01-02")
+	yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
+
+	if streak.LastDate == today {
+	} else if streak.LastDate == yesterday {
+		streak.Count++
+		if streak.Count > 7 {
+			streak.Count = 1
+			streak.Rewarded = false
+		}
+
+		streak.LastDate = today
+	} else {
+		streak.Count = 1
+		streak.LastDate = today
+		streak.Rewarded = false
+	}
+
+	if streak.Count == 7 && !streak.Rewarded {
+		streak.Rewarded = true
+		if err := db.Model(&entities.User{}).Where("id = ?", userID).Update("vocatoken_val", gorm.Expr("vocatoken_val + ?", 20)).Error; err != nil {
+			render.Status(r, http.StatusInternalServerError)
+			render.JSON(w, r, map[string]string{
+				"error": i18n.Localizer(r, "error.something_went_wrong"),
+			})
+			return
+		}
+	}
+
+	streakJSON, _ := json.Marshal(streak)
+	rdb.Set(r.Context(), fmt.Sprintf("streak:%s", userID), streakJSON, 0)
+
+	render.JSON(w, r, map[string]any{
+		"streak": streak,
 	})
 }
