@@ -54,7 +54,11 @@
         "trends_description": "Trends show the words that other users have learned the most.",
         "followed_results_description": "You can see the word lists you are following.",
         "notes_description": "Notes create a space where you can save words you want to review later.",
-        "quick_access": "Quick Access"
+        "quick_access": "Quick Access",
+        "daily_streak": "Daily Streak",
+        "daily_streak_description": "Keep learning every day",
+        "streamers": "Streamers",
+        "streamers_description": "You can schedule a lesson with teachers for the language you want to practice."      
     },
     "login": {
         "header": "Log In",

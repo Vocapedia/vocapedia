@@ -54,7 +54,11 @@
     "trends_description": "趋势展示了其他用户最常学习的单词。",
     "followed_results_description": "你可以看到你关注的单词列表。",
     "notes_description": "笔记为你创建了一个空间，可以保存你想稍后复习的单词。",
-    "quick_access": "快速访问"
+    "quick_access": "快速访问",
+    "daily_streak": "每日连续学习",
+    "daily_streak_description": "每天继续学习",
+    "streamers": "主播",
+    "streamers_description": "你可以预约与教师进行练习你想学习的语言。"  
   },
   "login": {
     "header": "登录",

@@ -54,7 +54,11 @@
         "trends_description": "Las tendencias muestran las palabras que más han aprendido otros usuarios.",
         "followed_results_description": "Puedes ver las listas de palabras que sigues.",
         "notes_description": "Las notas crean un espacio donde puedes guardar palabras que quieras revisar más tarde.",
-        "quick_access": "Acceso rápido"
+        "quick_access": "Acceso rápido",
+        "daily_streak": "Racha diaria",
+        "daily_streak_description": "Sigue aprendiendo todos los días",
+        "streamers": "Streamers",
+        "streamers_description": "Puedes agendar una lección con profesores para el idioma que deseas practicar."      
     },
     "login": {
         "header": "Iniciar sesión",
