@@ -52,7 +52,7 @@
         <div class="p-6">
           <div class="flex justify-between pt-2">
             <div v-for="(day, i) in weekdays" :key="i" class="flex flex-col items-center gap-2">
-              <span class="text-xs text-gray-500">{{ day }}</span>
+              <span class="text-xs text-gray-500">{{ dayjs(day).format("ddd") }}</span>
               <div class="flex h-8 w-8 items-center justify-center rounded-full"
                 :class="completedDays[i] ? 'bg-orange-500 text-white' : 'border border-dashed border-gray-300'">
                 <mdicon name="fire" v-if="completedDays[i]" />
@@ -74,11 +74,17 @@ import { GetLang } from '@/i18n/i18n';
 import { getUser } from '@/utils/token';
 import { onMounted, ref } from 'vue';
 import confetti from 'canvas-confetti'
+import dayjs from 'dayjs';
+import 'dayjs/locale/de';
+import 'dayjs/locale/en';
+import 'dayjs/locale/es';
+import 'dayjs/locale/fr';
+import 'dayjs/locale/tr';
+import 'dayjs/locale/zh';
+const lang = GetLang()
+dayjs.locale(lang);
 
-
-const weekdays = Array.from({ length: 7 }, (_, i) =>
-  new Intl.DateTimeFormat(GetLang(), { weekday: 'short' }).format(new Date(1970, 0, 5 + i))
-);
+const weekdays = ref([])
 const completedDays = ref([])
 const rewarded = ref(false)
 const streakCount = ref(0)
@@ -88,6 +94,23 @@ onMounted(async () => {
   }
   const response = await useFetch('/user/streak')
   streakCount.value = response.streak?.count || 0;
+  const mainDate = new Date(response.streak.lastDate);
+
+  for (let i = streakCount.value-1; i >= 0; i--) {
+    const date = new Date(mainDate);
+    date.setDate(date.getDate() - i); 
+    weekdays.value.push(date)
+  }
+
+  for (let i = 1; i < (8 - streakCount.value); i++) {
+    const date = new Date(mainDate);
+    date.setDate(date.getDate() + i); 
+    weekdays.value.push(date)
+  }
+
+  for (let i = streakCount.value; i > 0; i--) {
+    completedDays.value[i-1] = true
+  }
   if (response.streak?.rewarded) {
     confetti({
       particleCount: 200,
@@ -96,7 +119,6 @@ onMounted(async () => {
       origin: { x: 0.5, y: 0.5 }
     })
   }
-  completedDays.value = Array.from({ length: 7 }, (_, i) => i < streakCount.value);
   rewarded.value = response.streak?.rewarded || false
 
 })
