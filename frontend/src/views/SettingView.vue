@@ -49,7 +49,7 @@
                     <tr v-for="(tkn, index) in tokenInfo" :key="index"
                         class="transition border-t dark:border-zinc-800 border-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800">
                         <td class="w-45 px-4 py-2">{{ dayjs(tkn.created_at).format("YYYY MM DD HH:mm:ss") }}</td>
-                        <td class="w-45 px-4 py-2">{{ dayjs(tkn.updated_at).format("YYYY-MM-DD HH:mm:ss") }}</td>
+                        <td class="w-45 px-4 py-2">{{ dayjs(tkn.updated_at).format("YYYY MM DD HH:mm:ss") }}</td>
                         <td class="w-36 px-4 py-2">
                             <p v-for="d in tkn.device">{{ d }}</p>
                         </td>

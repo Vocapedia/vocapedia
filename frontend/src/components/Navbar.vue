@@ -48,7 +48,8 @@
                     <RouterLink @click="searchable = false" :to="'/l/' + BigInt(item.id)" class="flex items-center">
                         <div class="flex-grow">
                             <div class="font-semibold">{{ item.title }}</div>
-                            <div class="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{{ item.description }}</div>
+                            <div class="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{{ item.description }}
+                            </div>
                         </div>
                     </RouterLink>
                 </li>
@@ -67,7 +68,7 @@
 
 <script setup>
 import { getUser } from "@/utils/token";
-import { ref, nextTick, watch } from "vue";
+import { ref, nextTick, watch, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import { GetLang } from "../i18n/i18n";
 import { useFetch } from "@/composable/useFetch";
@@ -117,4 +118,20 @@ function searchSomething() {
     router.push({ name: 'search', query: { q: encodeURIComponent(trimmedSearch) } })
     searchable.value = false
 }
+
+function handleKeyDown(event) {
+    if (event.ctrlKey && event.key.toLowerCase() === 'q') {
+        event.preventDefault();
+        searchable.value = !searchable.value
+    }
+}
+
+onMounted(() => {
+    window.addEventListener('keydown', handleKeyDown);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('keydown', handleKeyDown);
+});
+
 </script>
