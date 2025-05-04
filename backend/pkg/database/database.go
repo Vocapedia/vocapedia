@@ -16,8 +16,8 @@ var (
 	err error
 )
 
-func InitDB(host string, port int, user, password, dbname, adminusername, adminemail, adminname, adminbiography string) {
-	db, err = pg(host, port, user, password, dbname)
+func InitDB(host string, port int, user, password, sslMode, dbname, adminusername, adminemail, adminname, adminbiography string) {
+	db, err = pg(host, port, user, password, dbname, sslMode)
 	if err != nil {
 		panic(err)
 	}

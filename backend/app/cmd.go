@@ -30,7 +30,7 @@ func Execute() {
 	database.InitDB(
 		config.ReadValue().Database.Host, config.ReadValue().Database.Port,
 		config.ReadValue().Database.User, config.ReadValue().Database.Password,
-		config.ReadValue().Database.Name,
+		config.ReadValue().Database.Name, config.ReadValue().Database.SSLMode,
 		config.ReadValue().AdminUsername,
 		config.ReadValue().AdminEmail,
 		config.ReadValue().AdminName,

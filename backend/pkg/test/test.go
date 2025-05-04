@@ -34,7 +34,7 @@ func TestInit() *server.Server {
 	database.InitDB(
 		config.ReadTestValue().Database.Host, config.ReadTestValue().Database.Port,
 		config.ReadTestValue().Database.User, config.ReadTestValue().Database.Password,
-		config.ReadTestValue().Database.Name,
+		config.ReadTestValue().Database.Name, config.ReadValue().Database.SSLMode,
 		config.ReadTestValue().AdminUsername,
 		config.ReadTestValue().AdminEmail,
 		config.ReadTestValue().AdminName,
