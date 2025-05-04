@@ -32,6 +32,7 @@ func InitMeili(host string, apiKey string, indexName string) {
 	if err != nil {
 		_, err := ms.CreateIndex(&meilisearch.IndexConfig{
 			Uid: indexName,
+			PrimaryKey: apiKey,
 		})
 		if err != nil {
 			log.Println("Meilisearch is not healthy")

@@ -28,9 +28,9 @@ database:
   sslmode: disable
 
 meilisearch:
-  host: http://meilisearch:7701
-  api_key: vocapedia_test
-  index: test_chapters
+  host: http://localhost:7701
+  api_key: vocapedia
+  index: chapters
   timeout: 5
 
 redis:

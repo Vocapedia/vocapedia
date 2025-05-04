@@ -11,6 +11,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/test"
+	"github.com/stretchr/testify/require"
 )
 
 func TestSendOTP(t *testing.T) {
@@ -60,6 +61,7 @@ func TestVerifyOTP(t *testing.T) {
 	response := test.ExecuteRequest(req, s)
 
 	test.CheckResponseCode(t, http.StatusOK, response.Code)
+	require.Equal(t, http.StatusOK, response.Code)
 
 	verifyBody = response.Body
 }
