@@ -68,8 +68,10 @@ func TestVerifyOTP(t *testing.T) {
 
 func TestLogout(t *testing.T) {
 	s := test.TestInit()
-	TestSendOTP(t)
-	TestVerifyOTP(t)
+	t.Run("SendOTP", TestSendOTP)
+
+	t.Run("VerifyOTP", TestVerifyOTP)
+
 	type VerifyOtpResponse struct {
 		Token string `json:"token"`
 	}
