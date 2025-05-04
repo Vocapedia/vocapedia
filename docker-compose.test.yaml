@@ -1,0 +1,63 @@
+services:
+
+  vocapedia-psql:
+    container_name: vocapedia-test-psql
+    image: groonga/pgroonga:latest
+    volumes:
+      - pg-data-test:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: vocapedia_test
+      POSTGRES_PASSWORD: vocapedia_test
+      POSTGRES_DB: vocapedia_test
+    networks:
+      - vocapedia_test
+    restart: unless-stopped
+
+  vocapedia-redis:
+    container_name: vocapedia-test-redis
+    image: redis:latest
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data-test:/data
+    networks:
+      - vocapedia_test
+    restart: unless-stopped
+
+  mailhog:
+    container_name: vocapedia-test-mailhog
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"   
+      - "8025:8025"   
+    networks:
+      - vocapedia_test
+    restart: always
+
+  meilisearch:
+    container_name: vocapedia-test-meilisearch
+    image: getmeili/meilisearch:v1.8.1
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_MASTER_KEY: vocapedia
+    ports:
+      - "7701:7700"
+    volumes:
+      - meili-data-test:/meili_data
+    networks:
+      - vocapedia_test
+    restart: always
+
+networks:
+  vocapedia_test:
+    driver: bridge
+
+volumes:
+  pg-data-test:
+    external: false
+  redis-data-test:
+    external: false
+  meili-data-test:
+    external: false

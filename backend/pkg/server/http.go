@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -19,21 +18,30 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 )
 
-func HttpServer(host string, port int, allowMethods []string, allowOrigins []string, allowHeaders []string) {
-	r := chi.NewRouter()
-	r.Use(customMiddleware.Logger)
-	r.Use(cors.Handler(cors.Options{
+type Server struct {
+	Router *chi.Mux
+}
+
+func CreateNewServer() *Server {
+	s := &Server{}
+	s.Router = chi.NewRouter()
+	return s
+}
+
+func (s *Server) MountHandlers(host string, port int, allowMethods []string, allowOrigins []string, allowHeaders []string) {
+	s.Router.Use(customMiddleware.Logger)
+	s.Router.Use(cors.Handler(cors.Options{
 		AllowedOrigins: allowOrigins,
 		AllowedMethods: allowMethods,
 		AllowedHeaders: allowHeaders,
 		MaxAge:         300,
 	}))
-	r.Use(customMiddleware.Language)
-	r.Use(customMiddleware.SecurityHeaders)
-	//r.Use(customMiddleware.RateLimiter(6, time.Second))
-	r.Use(jwtauth.Verifier(token.TokenAuth()))
+	s.Router.Use(customMiddleware.Language)
+	s.Router.Use(customMiddleware.SecurityHeaders)
+	//s.Router.Use(customMiddleware.RateLimiter(6, time.Second))
+	s.Router.Use(jwtauth.Verifier(token.TokenAuth()))
 
-	r.Route("/api/v1", func(api chi.Router) {
+	s.Router.Route("/api/v1", func(api chi.Router) {
 		api.Group(func(api chi.Router) {
 			api.Use(customMiddleware.HandleToken)
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
@@ -84,18 +92,18 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 		})
 	})
 
-	r.HandleFunc("/auth", auth.Token)
+	s.Router.HandleFunc("/auth", auth.Token)
 
 	staticsFS, _ := fs.Sub(embed.StaticsFS(), "statics")
 	fileServerStatics := http.FileServer(http.FS(staticsFS))
 
-	r.Handle("/og-image.png", http.StripPrefix("/", fileServerStatics))
-	r.Handle("/favicon.ico", http.StripPrefix("/", fileServerStatics))
+	s.Router.Handle("/og-image.png", http.StripPrefix("/", fileServerStatics))
+	s.Router.Handle("/favicon.ico", http.StripPrefix("/", fileServerStatics))
 
 	distFS, _ := fs.Sub(embed.DistFS(), "dist")
 	fileServer := http.FileServer(http.FS(distFS))
-	r.Handle("/assets/*", fileServer)
-	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
+	s.Router.Handle("/assets/*", fileServer)
+	s.Router.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		index, err := embed.DistFS().ReadFile("dist/index.html")
 		if err != nil {
 			http.Error(w, "index.html bulunamadı", http.StatusInternalServerError)
@@ -107,6 +115,5 @@ func HttpServer(host string, port int, allowMethods []string, allowOrigins []str
 	})
 
 	log.Default().Printf("HTTP Server is running on http://%s:%d", host, port)
-	http.ListenAndServe(fmt.Sprintf(":%v", port), r)
 
 }

@@ -7,7 +7,6 @@ import (
 
 	"github.com/go-chi/jwtauth/v5"
 
-	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/utils"
@@ -15,8 +14,8 @@ import (
 
 var tokenAuth *jwtauth.JWTAuth
 
-func InitTokenAuth() {
-	tokenAuth = jwtauth.New("HS256", []byte(config.ReadValue().JwtSecret), nil)
+func InitTokenAuth(secret string) {
+	tokenAuth = jwtauth.New("HS256", []byte(secret), nil)
 	if tokenAuth == nil {
 		log.Println("Failed to initialize TokenAuth")
 	} else {

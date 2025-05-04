@@ -1,5 +1,9 @@
 hot:
 	docker compose -f docker-compose.hot.yaml up
+
+test:
+	docker compose -f docker-compose.test.yaml up
+
 app:
 	docker compose -f docker-compose.yaml up
 

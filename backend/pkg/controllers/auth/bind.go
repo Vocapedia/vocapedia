@@ -2,10 +2,10 @@ package auth
 
 import "github.com/akifkadioglu/vocapedia/pkg/entities"
 
-type _login struct {
+type LoginBody struct {
 	Email string `json:"email"`
 }
-type _otp struct {
+type OtpBody struct {
 	Email  string          `json:"email"`
 	OTP    string          `json:"otp"`
 	Device entities.Device `json:"device"`

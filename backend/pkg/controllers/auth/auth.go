@@ -37,7 +37,8 @@ func Token(w http.ResponseWriter, r *http.Request) {
 func SendOTP(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 	var user entities.User
-	params := _login{}
+	rdb := cache.Redis()
+	params := LoginBody{}
 	err := render.DecodeJSON(r.Body, &params)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
@@ -69,7 +70,7 @@ func SendOTP(w http.ResponseWriter, r *http.Request) {
 	}
 	otp := generateOTP()
 
-	err = cache.Redis().Set(r.Context(), user.Email, otp, 5*time.Minute).Err()
+	err = rdb.Set(r.Context(), "otp:"+user.Email, otp, 5*time.Minute).Err()
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, map[string]string{
@@ -124,7 +125,7 @@ func SendOTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func VerifyOTP(w http.ResponseWriter, r *http.Request) {
-	params := _otp{}
+	params := OtpBody{}
 	var tokenClaim entities.JwtModel
 	var user entities.User
 	db := database.Manager()
@@ -136,7 +137,7 @@ func VerifyOTP(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	storedOTP, err := cache.Redis().Get(r.Context(), params.Email).Result()
+	storedOTP, err := cache.Redis().Get(r.Context(), "otp:"+params.Email).Result()
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{

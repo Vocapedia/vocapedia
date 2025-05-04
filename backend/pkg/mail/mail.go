@@ -3,17 +3,16 @@ package mail
 import (
 	"log"
 	"net/http"
-
-	"github.com/akifkadioglu/vocapedia/pkg/config"
 )
 
 var srv EmailIntf
 
-func InitMail() {
-	srv = NewEmailService(587, config.ReadValue().SMTP.Host, config.ReadValue().SMTP.From, config.ReadValue().SMTP.Password)
+func InitMail(host, from, password string, port int) {
+	srv = NewEmailService(port, host, from, password)
 
 	log.Println("Mail is ready")
 }
+
 func Send(r *http.Request, to, subject string, template string) (bool, error) {
 	isEmailSent, err := srv.SendEmail(to, subject, template, r.Header.Get("Accept-Language"))
 

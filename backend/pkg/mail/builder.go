@@ -52,7 +52,7 @@ func (s *service) SendEmail(receiverEmail string, subject string, messageBody st
 		ServerName: s.emailHost,
 	}
 	if err := conn.StartTLS(tlsConfig); err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// Authenticate with the SMTP server

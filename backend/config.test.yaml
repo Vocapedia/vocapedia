@@ -1,0 +1,57 @@
+host: localhost
+port: 3001
+grpc_port: 50052
+env: test
+base_url: http://localhost:3001
+front_base_url: http://localhost:3001
+jwt_secret: vocapedia_test_secret
+jwt_expire: 1
+jwt_issuer: vocapedia_test
+totp_issuer: vocapedia_test
+admin_email: test@vocapedia.space
+admin_username: vocapedia_test
+admin_name: Test Admin
+admin_biography: Test environment biography!
+
+smtp:
+  from: test@vocapedia.space
+  host: localhost
+  password: ""
+  port: 1025
+
+database:
+  host: localhost
+  port: 5433
+  name: vocapedia_test
+  user: vocapedia_test
+  password: vocapedia_test
+  sslmode: disable
+
+meilisearch:
+  host: http://meilisearch:7701
+  api_key: vocapedia_test
+  index: test_chapters
+  timeout: 5
+
+redis:
+  host: localhost
+  port: 6380
+  password: test_password
+  db: 1
+
+allow_methods:
+  - GET
+  - POST
+  - PUT
+  - PATCH
+  - DELETE
+  - OPTIONS
+
+allow_headers:
+  - Content-Type
+  - Authorization
+  - X-HASH
+  - sentry-trace
+
+allow_origins:
+  - "*"

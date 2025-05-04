@@ -6,7 +6,6 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/utils"
 	"github.com/brianvoe/gofakeit"
@@ -17,7 +16,7 @@ var (
 	err error
 )
 
-func InitDB(host string, port int, user, password, dbname string) {
+func InitDB(host string, port int, user, password, dbname, adminusername, adminemail, adminname, adminbiography string) {
 	db, err = pg(host, port, user, password, dbname)
 	if err != nil {
 		panic(err)
@@ -50,7 +49,7 @@ func InitDB(host string, port int, user, password, dbname string) {
 
 	//seed()
 
-	createAdmin()
+	createAdmin(adminusername, adminemail, adminname, adminbiography)
 
 	log.Println("Database is ready with PGroonga")
 }
@@ -58,28 +57,28 @@ func Manager() *gorm.DB {
 	return db
 }
 
-func createAdmin() {
+func createAdmin(username, email, name, biography string) {
 	vocatoken, err := utils.GenerateVocaToken(10)
 	if err != nil {
 		fmt.Println("veri eklerken hata:", err)
 	}
 	user := entities.User{
 		Vocatoken: vocatoken,
-		Username:  config.ReadValue().AdminUsername,
-		Email:     config.ReadValue().AdminEmail,
-		Name:      config.ReadValue().AdminName,
-		Biography: config.ReadValue().AdminBiography,
+		Username:  username,
+		Email:     email,
+		Name:      name,
+		Biography: biography,
 		Approved:  true,
 	}
 	if err := db.Save(&user).Error; err != nil {
 		fmt.Println("veri eklerken hata:", err)
 	}
 }
-func seed() {
+func seed(username, email, name string) {
 	user := entities.User{
-		Username: config.ReadValue().AdminUsername,
-		Email:    config.ReadValue().AdminEmail,
-		Name:     config.ReadValue().AdminName,
+		Username: username,
+		Email:    email,
+		Name:     name,
 	}
 
 	db.FirstOrCreate(&user, entities.User{Username: user.Username})

@@ -28,7 +28,7 @@ type Config struct {
 	SMTP struct {
 		From     string `yaml:"from"`
 		Host     string `yaml:"host"`
-		Port     string `yaml:"port"`
+		Port     int    `yaml:"port"`
 		Password string `yaml:"password"`
 	} `yaml:"smtp"`
 
@@ -77,6 +77,25 @@ func ReadValue() *Config {
 	err = yaml.Unmarshal(yamlFile, &configs)
 	if err != nil {
 		log.Fatal("error loading config.yaml ", err)
+	}
+	return configs
+}
+
+func ReadTestValue() *Config {
+	if configs != nil {
+		return configs
+	}
+	filename, err := filepath.Abs("./config.test.yaml")
+	if err != nil {
+		log.Fatal("error loading config.test.yaml ", err)
+	}
+	yamlFile, err := os.ReadFile(filename)
+	if err != nil {
+		log.Fatal("error loading config.test.yaml ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, &configs)
+	if err != nil {
+		log.Fatal("error loading config.test.yaml ", err)
 	}
 	return configs
 }

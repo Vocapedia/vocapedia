@@ -3,16 +3,12 @@ package search
 import (
 	"log"
 
-	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/meilisearch/meilisearch-go"
 )
 
-func Meili() meilisearch.ServiceManager {
-	ms := meilisearch.New(
-		config.ReadValue().Meili.Host,
-		meilisearch.WithAPIKey(config.ReadValue().Meili.APIKey),
-	)
+var ms meilisearch.ServiceManager
 
+func Meili() meilisearch.ServiceManager {
 	if ms.IsHealthy() {
 		log.Println("Meilisearch is healthy")
 
@@ -22,12 +18,9 @@ func Meili() meilisearch.ServiceManager {
 	return ms
 
 }
-func InitMeili() {
-	host := config.ReadValue().Meili.Host
-	apiKey := config.ReadValue().Meili.APIKey
-	indexName := config.ReadValue().Meili.Index
+func InitMeili(host string, apiKey string, indexName string) {
 
-	ms := meilisearch.New(host, meilisearch.WithAPIKey(apiKey))
+	ms = meilisearch.New(host, meilisearch.WithAPIKey(apiKey))
 
 	if !ms.IsHealthy() {
 		log.Println("Meilisearch is not healthy")

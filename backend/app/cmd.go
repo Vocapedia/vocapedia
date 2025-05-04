@@ -1,6 +1,9 @@
 package app
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/akifkadioglu/vocapedia/pkg/cache"
 	"github.com/akifkadioglu/vocapedia/pkg/config"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
@@ -13,24 +16,48 @@ import (
 )
 
 func Execute() {
-	token.InitTokenAuth()
+	token.InitTokenAuth(
+		config.ReadValue().JwtSecret,
+	)
 	i18n.InitI18n()
-	mail.InitMail()
+	mail.InitMail(
+		config.ReadValue().SMTP.Host,
+		config.ReadValue().SMTP.From,
+		config.ReadValue().SMTP.Password,
+		config.ReadValue().SMTP.Port,
+	)
 	snowflake.InitSnowflake()
 	database.InitDB(
 		config.ReadValue().Database.Host, config.ReadValue().Database.Port,
 		config.ReadValue().Database.User, config.ReadValue().Database.Password,
 		config.ReadValue().Database.Name,
+		config.ReadValue().AdminUsername,
+		config.ReadValue().AdminEmail,
+		config.ReadValue().AdminName,
+		config.ReadValue().AdminBiography,
 	)
-	search.InitMeili()
-	cache.InitRedis()
+	search.InitMeili(
+		config.ReadValue().Meili.Host,
+		config.ReadValue().Meili.APIKey,
+		config.ReadValue().Meili.Index,
+	)
+	cache.InitRedis(
+		config.ReadValue().Redis.Host,
+		config.ReadValue().Redis.Port,
+		config.ReadValue().Redis.Password,
+		config.ReadValue().Redis.DB,
+	)
 
-	server.HttpServer(
+	s := server.CreateNewServer()
+
+	s.MountHandlers(
 		config.ReadValue().Host,
 		config.ReadValue().Port,
 		config.ReadValue().AllowMethods,
 		config.ReadValue().AllowOrigins,
 		config.ReadValue().AllowHeaders,
 	)
+
+	http.ListenAndServe(fmt.Sprintf(":%v", config.ReadValue().Port), s.Router)
 
 }

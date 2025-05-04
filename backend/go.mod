@@ -54,11 +54,11 @@ require (
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
 	github.com/meilisearch/meilisearch-go v0.31.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/xuri/excelize/v2 v2.9.0
 	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/sync v0.12.0 // indirect
-	golang.org/x/time v0.11.0
 )
