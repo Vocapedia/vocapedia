@@ -27,6 +27,13 @@ func Execute() {
 		config.ReadValue().SMTP.Port,
 	)
 	snowflake.InitSnowflake()
+	
+	search.InitMeili(
+		config.ReadValue().Meili.Host,
+		config.ReadValue().Meili.APIKey,
+		config.ReadValue().Meili.Index,
+	)
+
 	database.InitDB(
 		config.ReadValue().Database.Host, config.ReadValue().Database.Port,
 		config.ReadValue().Database.User, config.ReadValue().Database.Password,
@@ -36,11 +43,7 @@ func Execute() {
 		config.ReadValue().AdminName,
 		config.ReadValue().AdminBiography,
 	)
-	search.InitMeili(
-		config.ReadValue().Meili.Host,
-		config.ReadValue().Meili.APIKey,
-		config.ReadValue().Meili.Index,
-	)
+	
 	cache.InitRedis(
 		config.ReadValue().Redis.Host,
 		config.ReadValue().Redis.Port,
