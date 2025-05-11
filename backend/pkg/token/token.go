@@ -1,9 +1,15 @@
 package token
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+	"hash"
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
+	"time"
 
 	"github.com/go-chi/jwtauth/v5"
 
@@ -13,6 +19,7 @@ import (
 )
 
 var tokenAuth *jwtauth.JWTAuth
+var hmacProvider hash.Hash
 
 func InitTokenAuth(secret string) {
 	tokenAuth = jwtauth.New("HS256", []byte(secret), nil)
@@ -21,10 +28,44 @@ func InitTokenAuth(secret string) {
 	} else {
 		log.Println("Token auth is ready")
 	}
-
+	hmacProvider = hmac.New(sha256.New, []byte(secret))
 }
 func TokenAuth() *jwtauth.JWTAuth {
 	return tokenAuth
+}
+
+func GenerateDeterministicToken(input string, length int) string {
+	hmacProvider.Write([]byte(input))
+	hash := hmacProvider.Sum(nil)
+	encoded := base64.URLEncoding.EncodeToString(hash)
+	encoded = strings.ToLower(strings.TrimRight(encoded, "="))
+	if len(encoded) > length {
+		return encoded[:length]
+	}
+	return encoded
+}
+
+func GenerateJitsiToken(user entities.JwtModel, room, domain, appID string) (string, error) {
+	claims := map[string]any{
+		"aud":  "jitsi",
+		"iss":  appID,
+		"sub":  domain,
+		"room": room,
+		"exp":  time.Now().Add(1 * time.Hour).Unix(),
+		"context": map[string]interface{}{
+			"user": map[string]string{
+				"name":    user.Username,
+				"user_id": user.UserID,
+			},
+		},
+	}
+
+	_, token, err := tokenAuth.Encode(claims)
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
 }
 
 func GenerateToken(model entities.JwtModel) (string, error) {

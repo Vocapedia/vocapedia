@@ -21,7 +21,7 @@ func Meili() meilisearch.ServiceManager {
 func InitMeili(host string, apiKey string, indexName string) {
 
 	ms = meilisearch.New(host, meilisearch.WithAPIKey(apiKey))
-
+	
 	if !ms.IsHealthy() {
 		log.Println("Meilisearch is not healthy")
 	}
@@ -31,15 +31,15 @@ func InitMeili(host string, apiKey string, indexName string) {
 	_, err := index.FetchInfo()
 	if err != nil {
 		_, err := ms.CreateIndex(&meilisearch.IndexConfig{
-			Uid: indexName,
-			PrimaryKey: apiKey,
+			Uid:        indexName,
+			PrimaryKey: "id",
 		})
 		if err != nil {
 			log.Println("Meilisearch is not healthy")
 		}
 	}
 
-	_, err = index.UpdateSearchableAttributes(&[]string{"title", "description"})
+	_, err = index.UpdateSearchableAttributes(&[]string{"name", "username"})
 	if err != nil {
 		log.Println("❌ Failed to set searchable attributes:", err)
 	}

@@ -16,7 +16,7 @@ var (
 	err error
 )
 
-func InitDB(host string, port int, user, password, sslMode, dbname, adminusername, adminemail, adminname, adminbiography string) {
+func InitDB(host string, port int, user, password, dbname, sslMode, adminusername, adminemail, adminname, adminbiography string) {
 	db, err = pg(host, port, user, password, dbname, sslMode)
 	if err != nil {
 		panic(err)
@@ -48,11 +48,11 @@ func InitDB(host string, port int, user, password, sslMode, dbname, adminusernam
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_pgroonga_description ON chapters USING pgroonga (description)`)
 
 	//seed()
-
 	createAdmin(adminusername, adminemail, adminname, adminbiography)
 
 	log.Println("Database is ready with PGroonga")
 }
+
 func Manager() *gorm.DB {
 	return db
 }

@@ -30,7 +30,7 @@ database:
 meilisearch:
   host: http://meilisearch:7700
   api_key: vocapedia
-  index: chapters
+  index: users
   timeout: 10
 
 redis:

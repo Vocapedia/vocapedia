@@ -45,10 +45,10 @@
             <ul>
                 <li v-for="item in searchList" :key="item.id"
                     class="p-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">
-                    <RouterLink @click="searchable = false" :to="'/l/' + BigInt(item.id)" class="flex items-center">
+                    <RouterLink @click="searchable = false" :to="item.username" class="flex items-center">
                         <div class="flex-grow">
-                            <div class="font-semibold">{{ item.title }}</div>
-                            <div class="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{{ item.description }}
+                            <div class="font-semibold">{{ item.name }}</div>
+                            <div class="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">@{{ item.username }}
                             </div>
                         </div>
                     </RouterLink>
@@ -103,7 +103,7 @@ async function searchShort() {
         searchList.value = []
         return
     }
-    await useFetch("/public/chapters/search-short?q=" + search.value).then(r => {
+    await useFetch("/public/user/search?q=" + search.value).then(r => {
         searchList.value = r.list
     })
 }

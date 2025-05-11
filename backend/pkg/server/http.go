@@ -12,6 +12,7 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/chapters"
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/stream"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/user"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
 	customMiddleware "github.com/akifkadioglu/vocapedia/pkg/middleware"
@@ -67,6 +68,9 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 			api.Route("/auth", func(api chi.Router) {
 				api.Delete("/logout", auth.Logout)
 			})
+			api.Route("/stream", func(api chi.Router) {
+				api.Get("/{room}", stream.StartStream)
+			})
 		})
 		api.Route("/public", func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
@@ -77,13 +81,13 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/user", chapters.UserChapters)
 				api.Get("/{id}", chapters.GetByID)
 				api.Get("/search", chapters.Search)
-				api.Get("/search-short", chapters.SearchShort)
 				api.Get("/trends", chapters.GetTrendingChapters)
 				api.Get("/game-format/{id}", chapters.GameFormat)
 				api.Get("/hangman/{id}", chapters.GameHangman)
 			})
 			api.Route("/user", func(api chi.Router) {
 				api.Get("/", user.GetByUsername)
+				api.Get("/search", user.SearchUsers)
 			})
 		})
 		api.Route("/usage", func(api chi.Router) {

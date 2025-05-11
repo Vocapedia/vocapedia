@@ -12,11 +12,9 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
-	"github.com/akifkadioglu/vocapedia/pkg/search"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
-	"github.com/meilisearch/meilisearch-go"
 	"github.com/xuri/excelize/v2"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -317,29 +315,6 @@ func GameFormat(w http.ResponseWriter, r *http.Request) {
 	}
 
 	render.JSON(w, r, response)
-}
-func SearchShort(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query().Get("q")
-	client := search.Meili()
-	index := client.Index("chapters")
-
-	searchRequest := &meilisearch.SearchRequest{
-		Query: query,
-		Limit: 10,
-	}
-
-	searchRes, err := index.Search(query, searchRequest)
-	if err != nil {
-		render.Status(r, http.StatusInternalServerError)
-		render.JSON(w, r, map[string]string{
-			"error": "Search error: " + err.Error(),
-		})
-		return
-	}
-
-	render.JSON(w, r, map[string]any{
-		"list": searchRes.Hits,
-	})
 }
 
 func Search(w http.ResponseWriter, r *http.Request) {

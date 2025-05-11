@@ -15,10 +15,12 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
+	"github.com/akifkadioglu/vocapedia/pkg/search"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/akifkadioglu/vocapedia/pkg/utils"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
+	"github.com/meilisearch/meilisearch-go"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
@@ -55,6 +57,30 @@ func GetByUsername(w http.ResponseWriter, r *http.Request) {
 	}
 
 	render.JSON(w, r, user)
+}
+
+func SearchUsers(w http.ResponseWriter, r *http.Request) {
+	query := r.URL.Query().Get("q")
+	client := search.Meili()
+	index := client.Index("users")
+
+	searchRequest := &meilisearch.SearchRequest{
+		Query: query,
+		Limit: 10,
+	}
+
+	searchRes, err := index.Search(query, searchRequest)
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": "Search error: " + err.Error(),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]any{
+		"list": searchRes.Hits,
+	})
 }
 
 func EditUser(w http.ResponseWriter, r *http.Request) {
@@ -283,7 +309,6 @@ func DailyStreak(w http.ResponseWriter, r *http.Request) {
 	} else {
 		json.Unmarshal([]byte(data), &streak)
 	}
-
 	today := time.Now().Format("2006-01-02")
 	yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
 
@@ -314,7 +339,7 @@ func DailyStreak(w http.ResponseWriter, r *http.Request) {
 	}
 
 	streakJSON, _ := json.Marshal(streak)
-	rdb.Set(r.Context(), fmt.Sprintf("streak:%s", userID), streakJSON, 0)
+	rdb.Set(r.Context(), fmt.Sprintf("streak:%s", userID), string(streakJSON), 0)
 
 	render.JSON(w, r, map[string]any{
 		"streak": streak,
