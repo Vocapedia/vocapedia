@@ -10,3 +10,10 @@ tmp_dir = "tmp"
 
 [log]
   level = "debug"
+
+
+[watch]
+  include = ["./pkg/whisper/**/*.cpp", "./pkg/whisper/**/*.h"]
+
+[cmd]
+  pre_cmd = "make whisper-build"

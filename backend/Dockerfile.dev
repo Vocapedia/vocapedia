@@ -22,4 +22,6 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 COPY ./config.yaml ./config.yaml
 COPY ./.air.toml ./.air.toml
 
+ENV CGO_ENABLED=1
+
 CMD ["air", "-c", ".air.toml"]

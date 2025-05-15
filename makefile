@@ -4,8 +4,8 @@ hot:
 test:
 	docker compose -f docker-compose.test.yaml up
 
-app:
-	docker compose -f docker-compose.yaml up
+app-prepare:
+	git submodule update --init --recursive
 
 docker-up:
 	docker-compose build && docker-compose up -d
@@ -22,3 +22,7 @@ mobile:
 
 sync:
 	rsync -av --delete --progress --exclude 'frontend' --exclude '.git' --exclude '.vscode' --exclude 'backend/tmp' ~/Desktop/projects/vocapedia/ root@93.115.20.7:/opt/vocapedia/
+
+whisper-build:
+	cd backend/pkg/whisper && make
+

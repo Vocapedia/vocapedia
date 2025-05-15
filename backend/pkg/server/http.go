@@ -12,6 +12,7 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/chapters"
+	speechtotext "github.com/akifkadioglu/vocapedia/pkg/controllers/speech_to_text"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/stream"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/user"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
@@ -89,6 +90,7 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/", user.GetByUsername)
 				api.Get("/search", user.SearchUsers)
 			})
+			api.Post("/speech-to-text", speechtotext.SpeechToText)
 		})
 		api.Route("/usage", func(api chi.Router) {
 			api.Use(customMiddleware.HandleVocatoken)
