@@ -18,13 +18,7 @@ export async function useFetch(
         retryDelay = 1000
     } = {}
 ) {
-    if (mode !== "development") {
         return await Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay });
-    }
-    if (built == 1) {
-        return await Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay });
-    }
-    return await Mock(endpoint, method);
 }
 
 const snowflakeRegex = /^\d{10,19}$/;
@@ -55,7 +49,6 @@ async function Mock(endpoint, method = "GET") {
 }
 
 async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay } = {}) {
-    console.log("Fetched")
     const baseURL = window.location.hostname === "localhost"
         ? "http://localhost:3000/api/v1"
         : "https://api.vocapedia.space/api/v1"
