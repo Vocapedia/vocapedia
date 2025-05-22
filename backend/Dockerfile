@@ -1,15 +1,3 @@
-FROM debian:bullseye as whisper-builder
-
-RUN apt-get update && apt-get install -y build-essential cmake git
-
-WORKDIR /whisper
-
-COPY pkg/whisper ./pkg/whisper
-
-WORKDIR /whisper/pkg/whisper
-
-RUN make
-
 FROM golang:1.23 as builder
 
 WORKDIR /app
@@ -19,16 +7,11 @@ RUN go mod download
 
 COPY . .
 
-COPY --from=whisper-builder /whisper/pkg/whisper/libwhisper.a ./pkg/whisper/libwhisper.a
-COPY --from=whisper-builder /whisper/pkg/whisper/include ./pkg/whisper/include
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /app/vocapedia main.go
 
-ENV CGO_ENABLED=1
+FROM alpine:latest
 
-RUN go build -ldflags="-s -w" -o /app/vocapedia main.go
-
-FROM debian:bullseye-slim
-
-RUN apt-get update && apt-get install -y ca-certificates libfftw3-dev bash && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache bash ca-certificates
 
 WORKDIR /app
 

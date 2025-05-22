@@ -21,7 +21,7 @@ mobile:
 	pnpm --dir ./frontend exec cap run android && pnpm exec cap run android
 
 sync:
-	rsync -av --delete --progress --exclude 'frontend' --exclude '.git' --exclude '.vscode' --exclude 'backend/tmp' ~/Desktop/projects/vocapedia/ root@93.115.20.7:/opt/vocapedia/
+	rsync -av --delete --progress --exclude 'frontend' --exclude '.git' --exclude '.vscode' --exclude 'backend/pkg/whisper' --exclude 'backend/tmp' ~/Desktop/projects/vocapedia/ root@93.115.20.7:/opt/vocapedia/
 
 whisper-build:
 	cd backend/pkg/whisper && make
