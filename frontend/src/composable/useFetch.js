@@ -57,7 +57,7 @@ async function Mock(endpoint, method = "GET") {
 async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay } = {}) {
     const baseURL = window.location.hostname === "localhost"
         ? "http://localhost:3000/api/v1"
-        : "https://vocapedia.space/api/v1"
+        : "https://api.vocapedia.space/api/v1"
 
     const token = localStorage.getItem("token");
 
