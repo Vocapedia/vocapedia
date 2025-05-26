@@ -71,10 +71,28 @@
             "send_button": "Einmaligen Code anfordern",
             "verify_button": "Anmelden",
             "send_success": "Ein Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
-            "verify_success": "Anmeldung erfolgreich!"
+            "verify_success": "Anmeldung erfolgreich!",
+            "captcha_missing": "Please complete the CAPTCHA.",
+            "send_error_invalid_email": "Invalid email format. Please check your email.",
+            "send_error_limit_exceeded": "OTP limit reached for this email. Please try again later.",
+            "send_error_generic": "Failed to send OTP. Please try again.",
+            "send_error_network": "Network error sending OTP. Please check your connection and try again.",
+            "verify_error_invalid_otp": "Invalid OTP. Please check the code and try again.",
+            "verify_error_expired": "OTP has expired. Please request a new one.",
+            "verify_error_too_many_attempts": "Too many incorrect OTP attempts. Please request a new one.",
+            "verify_error_generic": "Failed to verify OTP. Please try again.",
+            "verify_error_network": "Network error verifying OTP. Please check your connection and try again."
+        },
+        "captcha": {
+            "load_error_retry": "CAPTCHA failed to load. Please try again.",
+            "load_error_refresh": "CAPTCHA failed to load. Please refresh the page.",
+            "retry_button": "Retry CAPTCHA"
         },
         "success": "Anmeldung erfolgreich! Ein Anmeldecode wurde an Ihre E-Mail-Adresse gesendet.",
-        "error": "Anmeldung fehlgeschlagen!",
+        "error": {
+            "timeout": "Request timed out. Please try again.",
+            "generic": "Anmeldung fehlgeschlagen!"
+        },
         "greeting": "Ich wünsche Ihnen einen schönen Tag"
     },
     "account": {
