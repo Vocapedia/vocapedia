@@ -45,21 +45,30 @@
              bg-zinc-100 text-zinc-900 py-2 mt-3 border-none rounded-full
              dark:bg-zinc-900 dark:text-white" :placeholder="$t('login.input.placeholder')" />
                     </div>
-                    <div class="mb-4" id="recaptcha-container"></div>
+                    <div class="mb-4">
+                        <div id="recaptcha-container"></div>
+                        <div v-if="captchaLoadError" class="mt-2 text-sm text-red-600 dark:text-red-400">
+                            {{ captchaLoadError }}
+                            <button @click="renderRecaptcha" type="button"
+                                class="ml-2 text-sky-700 dark:text-sky-500 hover:underline">
+                                {{ $t('login.captcha.retry_button') }}
+                            </button>
+                        </div>
+                    </div>
 
                     <div class="text-center">
-                        <button type="submit" :disabled="isLoading"
+                        <button type="submit" :disabled="isLoading || !!captchaLoadError"
                             :class="isCaptchaVerified ? 'smooth-click2 bg-sky-700 focus:ring-sky-700 ' : 'bg-zinc-200 dark:bg-zinc-900'"
                             class="flex justify-between items-center py-2 px-4 rounded-lg w-full focus:outline-none">
                             <span>
                                 <mdicon :class="isCaptchaVerified ? 'text-white dark:text-zinc-900' : ''"
                                     v-if="isLoading" name="loading" spin />
                             </span>
-                            <span :class="isCaptchaVerified ? 'text-white dark:text-zinc-900' : ''"
+                            <span :class="isCaptchaVerified && !captchaLoadError ? 'text-white dark:text-zinc-900' : ''"
                                 class="font-semibold text-lg">{{ $t('login.otp.send_button') }}</span>
                             <span>
                                 <mdicon v-if="isLoading" name="loading" spin
-                                    :class="isCaptchaVerified ? 'text-sky-700' : 'text-zinc-200 dark:text-zinc-900'" />
+                                    :class="isCaptchaVerified && !captchaLoadError ? 'text-sky-700' : 'text-zinc-200 dark:text-zinc-900'" />
                             </span>
                         </button>
                     </div>
@@ -79,16 +88,19 @@ import { useToast } from '@/composable/useToast';
 import { i18n } from '@/i18n/i18n';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+
 const otp = ref(new Array(6).fill(""));
-const isCodeSent = ref(false)
+const isCodeSent = ref(false);
 const isLoading = ref(false);
 const email = ref('');
-const emailOTP = ref('')
+const emailOTP = ref('');
 const isCaptchaVerified = ref(false);
-const router = useRouter()
+const captchaLoadError = ref(null); // Added for CAPTCHA load error
+const recaptchaWidgetId = ref(null); // Added to store widget ID
+const router = useRouter();
 const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-const toast = useToast()
-import { useCountdown } from '@vueuse/core'
+const toast = useToast();
+import { useCountdown } from '@vueuse/core';
 import { getDevice } from '@/utils/token';
 
 const duration = 5 * 60;
@@ -129,18 +141,34 @@ const handleOTPSend = async () => {
     if (recaptchaResponse) {
         await useFetch('/public/auth/send-otp', { method: "POST", body: { "email": email.value }, recaptchaResponse }).then((response) => {
             if (response.is_mail_sent) {
-                isCodeSent.value = true
-                emailOTP.value = email.value
+                isCodeSent.value = true;
+                emailOTP.value = email.value;
                 toast.show(i18n.global.t('login.otp.send_success'));
-                start()
+                start();
             } else {
-                toast.show(response.error);
+                // Specific error handling for send OTP
+                if (response.error === 'INVALID_EMAIL_FORMAT') { // Example error code
+                    toast.show(i18n.global.t('login.otp.send_error_invalid_email'));
+                } else if (response.error === 'OTP_LIMIT_EXCEEDED') { // Example error code
+                    toast.show(i18n.global.t('login.otp.send_error_limit_exceeded'));
+                } else {
+                    toast.show(i18n.global.t('login.otp.send_error_generic'));
+                }
             }
+        }).catch(error => {
+            console.error("Send OTP Error:", error);
+            if (error.name === 'AbortError') {
+                toast.show(i18n.global.t('login.error.timeout'));
+            } else {
+                toast.show(i18n.global.t('login.otp.send_error_network'));
+            }
+        }).finally(() => {
+            isLoading.value = false;
         });
     } else {
-        toast.show('Please complete the CAPTCHA');
+        toast.show(i18n.global.t('login.otp.captcha_missing'));
+        isLoading.value = false;
     }
-    isLoading.value = false;
 };
 
 
@@ -149,26 +177,42 @@ const handleVerifyOTP = async () => {
         return;
     }
     isLoading.value = true;
-    await useFetch('/public/auth/verify-otp', {
-        method: "POST",
-        body: {
-            "email": emailOTP.value,
-            "otp": otp.value.join(""),
-            "device": getDevice()
-        }
-    }
-    ).then((response) => {
+    try {
+        const response = await useFetch('/public/auth/verify-otp', {
+            method: "POST",
+            body: {
+                "email": emailOTP.value,
+                "otp": otp.value.join(""),
+                "device": getDevice()
+            }
+        });
+
         if (response.token) {
             toast.show(i18n.global.t('login.otp.verify_success'));
-            localStorage.setItem("token", response.token)
+            localStorage.setItem("token", response.token);
             router.replace("/").then(() => router.go());
         } else {
-            toast.show(response.error);
+            // Specific error handling for verify OTP
+            if (response.error === 'INVALID_OTP') { // Example error code
+                toast.show(i18n.global.t('login.otp.verify_error_invalid_otp'));
+            } else if (response.error === 'OTP_EXPIRED') { // Example error code
+                toast.show(i18n.global.t('login.otp.verify_error_expired'));
+            } else if (response.error === 'TOO_MANY_ATTEMPTS') { // Example error code
+                toast.show(i18n.global.t('login.otp.verify_error_too_many_attempts'));
+            } else {
+                toast.show(i18n.global.t('login.otp.verify_error_generic'));
+            }
         }
-    }).catch(e => {
-        toast.show(e.error);
-    });
-    isLoading.value = false;
+    } catch (e) {
+        console.error("Verify OTP Error:", e);
+        if (e.name === 'AbortError') {
+            toast.show(i18n.global.t('login.error.timeout'));
+        } else {
+            toast.show(i18n.global.t('login.otp.verify_error_network'));
+        }
+    } finally {
+        isLoading.value = false;
+    }
 };
 
 
@@ -179,13 +223,42 @@ const recaptchaCallback = () => {
 
 onMounted(() => {
     getDevice()
-    if (window.grecaptcha) {
-        grecaptcha.render('recaptcha-container', {
-            sitekey: recaptchaSiteKey,
-            callback: recaptchaCallback,
-        });
-    } else {
-        console.error("reCAPTCHA script is not loaded.");
-    }
+    getDevice();
+    renderRecaptcha(); // Call the new render method
 });
+
+const renderRecaptcha = () => {
+    captchaLoadError.value = null; // Clear previous errors
+    // Ensure the reCAPTCHA container is empty before attempting to render
+    const recaptchaContainer = document.getElementById('recaptcha-container');
+    if (recaptchaContainer) {
+        recaptchaContainer.innerHTML = ''; 
+    }
+
+    if (window.grecaptcha && window.grecaptcha.render) {
+        try {
+            // Explicitly reset CAPTCHA state if widget ID exists
+            if (recaptchaWidgetId.value !== null && typeof window.grecaptcha.reset === 'function') {
+                window.grecaptcha.reset(recaptchaWidgetId.value);
+            }
+            isCaptchaVerified.value = false; // Reset verification status
+
+            recaptchaWidgetId.value = grecaptcha.render('recaptcha-container', {
+                sitekey: recaptchaSiteKey,
+                callback: recaptchaCallback,
+                'error-callback': () => {
+                    captchaLoadError.value = i18n.global.t('login.captcha.load_error_retry');
+                    isCaptchaVerified.value = false;
+                }
+            });
+        } catch (error) {
+            console.error("Error rendering reCAPTCHA:", error);
+            captchaLoadError.value = i18n.global.t('login.captcha.load_error_retry');
+            isCaptchaVerified.value = false;
+        }
+    } else {
+        console.error("reCAPTCHA script is not loaded or render function is unavailable.");
+        captchaLoadError.value = i18n.global.t('login.captcha.load_error_refresh');
+    }
+};
 </script>
