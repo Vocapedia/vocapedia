@@ -2,7 +2,7 @@ package embed
 
 import "embed"
 
-//go:embed all:dist/*
+////go:embed all:dist/*
 var distfs embed.FS
 
 //go:embed all:statics/*

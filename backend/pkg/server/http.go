@@ -41,7 +41,7 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 	//s.Router.Use(customMiddleware.RateLimiter(6, time.Second))
 	s.Router.Use(jwtauth.Verifier(token.TokenAuth()))
 
-	s.Router.Route("/api/v1", func(api chi.Router) {
+	s.Router.Route("/v1", func(api chi.Router) {
 		api.Group(func(api chi.Router) {
 			api.Use(customMiddleware.HandleToken)
 			api.Use(jwtauth.Authenticator(token.TokenAuth()))
@@ -91,8 +91,8 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 			//api.Post("/speech-to-text", speechtotext.SpeechToText)
 		})
 		api.Route("/usage", func(api chi.Router) {
-			api.Use(customMiddleware.HandleVocatoken)
-			api.Get("/extension/chapter/{id}", chapters.Extension)
+			//api.Use(customMiddleware.HandleVocatoken)
+			api.Get("/extension/notifier/{id}", chapters.Extension)
 		})
 	})
 

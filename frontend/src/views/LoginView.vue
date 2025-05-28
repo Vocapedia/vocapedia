@@ -13,11 +13,10 @@
                     <div class="mb-4 space-y-2">
                         <label for="otp" class="block text-sm font-medium">{{ $t('login.input.otp') }}</label>
                         <div class="flex justify-center space-x-2">
-                            <input v-for="(digit, index) in otp" :key="index" type="text" inputmode="numeric"
-                                maxlength="1"
-                                class="w-10 h-10 text-center text-xl border rounded-md outline-none border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-700"
-                                v-model="otp[index]" @input="handleInput(index, $event)"
-                                @keydown.delete="handleBackspace(index, $event)" />
+                            <input type="text" inputmode="numeric"
+                                maxlength="6"
+                                class="w-full h-10 text-center text-xl border rounded-md outline-none border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-700"
+                                v-model="otp" />
                         </div>
                     </div>
                     <div class="text-center">
@@ -89,7 +88,7 @@ import { i18n } from '@/i18n/i18n';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-const otp = ref(new Array(6).fill(""));
+const otp = ref('');
 const isCodeSent = ref(false);
 const isLoading = ref(false);
 const email = ref('');
@@ -113,25 +112,6 @@ const { remaining, start } = useCountdown(duration, {
     }
 })
 
-const handleInput = (index, event) => {
-    const value = event.target.value;
-    if (/^\d$/.test(value)) {
-        otp.value[index] = value;
-        if (index < otp.value.length - 1) {
-            event.target.nextElementSibling?.focus();
-        }
-    } else {
-        otp.value[index] = "";
-    }
-};
-
-const handleBackspace = (index, event) => {
-    if (event.key === "Backspace" && !otp.value[index] && index > 0) {
-        otp.value[index - 1] = "";
-        event.target.previousElementSibling?.focus();
-    }
-};
-
 const handleOTPSend = async () => {
     if (isLoading.value) {
         return;
@@ -146,7 +126,6 @@ const handleOTPSend = async () => {
                 toast.show(i18n.global.t('login.otp.send_success'));
                 start();
             } else {
-                // Specific error handling for send OTP
                 if (response.error === 'INVALID_EMAIL_FORMAT') { // Example error code
                     toast.show(i18n.global.t('login.otp.send_error_invalid_email'));
                 } else if (response.error === 'OTP_LIMIT_EXCEEDED') { // Example error code
@@ -182,7 +161,7 @@ const handleVerifyOTP = async () => {
             method: "POST",
             body: {
                 "email": emailOTP.value,
-                "otp": otp.value.join(""),
+                "otp": otp.value,
                 "device": getDevice()
             }
         });
