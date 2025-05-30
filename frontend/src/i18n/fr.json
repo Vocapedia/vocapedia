@@ -241,16 +241,16 @@
         "theWordWas": "Le mot était",
         "restart": "Recommencer"
     },
-    "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
-    "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
-    "compose.tour.list_name": "Enter a name for your list. This will help you identify it later.",
-    "compose.tour.list_description": "Enter a description for your list. This can include details about the content or purpose of the list.",
-    "compose.tour.word_list": "Switch to the word list view to add and manage words in your list.",
-    "compose.tour.tutorial": "Switch to the tutorial view to add a tutorial or explanation for your list.",
-    "compose.tour.word_type": "Select the type of word (e.g., noun, verb, adjective).",
+    "compose.tour.main_lang": "Sélectionnez la langue principale de votre liste. C'est la langue à partir de laquelle vous allez traduire.",
+    "compose.tour.target_lang": "Sélectionnez la langue cible de votre liste. C'est la langue vers laquelle vous allez traduire.",
+    "compose.tour.list_name": "Entrez un nom pour votre liste. Cela vous aidera à l'identifier plus tard.",
+    "compose.tour.list_description": "Entrez une description pour votre liste. Cela peut inclure des détails sur le contenu ou le but de la liste.",
+    "compose.tour.word_list": "Passez à la vue liste de mots pour ajouter et gérer les mots de votre liste.",
+    "compose.tour.tutorial": "Passez à la vue tutoriel pour ajouter un tutoriel ou une explication à votre liste.",
+    "compose.tour.word_type": "Sélectionnez le type de mot (par exemple, nom, verbe, adjectif).",
     "compose.tour.word_lang1": "Sélectionnez la langue du mot.",
     "compose.tour.word_lang2": "Sélectionnez la langue du mot.",
-    "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
-    "compose.tour.new_word_base": "Click here to add a new word base. A word base is a group of related words (e.g., words with the same root or theme).",
-    "compose.tour.save_button": "Click here to save your list."
+    "compose.tour.new_word_button": "Cliquez ici pour ajouter un nouveau mot à la base de mots actuelle. Vous pouvez ajouter plusieurs traductions pour un seul mot.",
+    "compose.tour.new_word_base": "Cliquez ici pour ajouter une nouvelle base de mots. Une base de mots est un groupe de mots apparentés (par exemple, des mots ayant la même racine ou le même thème).",
+    "compose.tour.save_button": "Cliquez ici pour enregistrer votre liste."
 }

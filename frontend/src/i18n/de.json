@@ -241,16 +241,16 @@
         "theWordWas": "Das Wort war",
         "restart": "Neustarten"
     },
-    "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
-    "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
-    "compose.tour.list_name": "Enter a name for your list. This will help you identify it later.",
-    "compose.tour.list_description": "Enter a description for your list. This can include details about the content or purpose of the list.",
-    "compose.tour.word_list": "Switch to the word list view to add and manage words in your list.",
-    "compose.tour.tutorial": "Switch to the tutorial view to add a tutorial or explanation for your list.",
-    "compose.tour.word_type": "Select the type of word (e.g., noun, verb, adjective).",
+    "compose.tour.main_lang": "Wählen Sie die Hauptsprache für Ihre Liste aus. Dies ist die Sprache, aus der Sie übersetzen werden.",
+    "compose.tour.target_lang": "Wählen Sie die Zielsprache für Ihre Liste aus. Dies ist die Sprache, in die Sie übersetzen werden.",
+    "compose.tour.list_name": "Geben Sie einen Namen für Ihre Liste ein. Dies hilft Ihnen, sie später zu identifizieren.",
+    "compose.tour.list_description": "Geben Sie eine Beschreibung für Ihre Liste ein. Diese kann Details zum Inhalt oder Zweck der Liste enthalten.",
+    "compose.tour.word_list": "Wechseln Sie zur Wortlistenansicht, um Wörter in Ihrer Liste hinzuzufügen und zu verwalten.",
+    "compose.tour.tutorial": "Wechseln Sie zur Tutorial-Ansicht, um ein Tutorial oder eine Erklärung für Ihre Liste hinzuzufügen.",
+    "compose.tour.word_type": "Wählen Sie den Worttyp aus (z. B. Substantiv, Verb, Adjektiv).",
     "compose.tour.word_lang1": "Wähle die Sprache des Wortes aus.",
     "compose.tour.word_lang2": "Wähle die Sprache des Wortes aus.",
-    "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
-    "compose.tour.new_word_base": "Click here to add a new word base. A word base is a group of related words (e.g., words with the same root or theme).",
-    "compose.tour.save_button": "Click here to save your list."
+    "compose.tour.new_word_button": "Klicken Sie hier, um ein neues Wort zur aktuellen Wortbasis hinzuzufügen. Sie können mehrere Übersetzungen für ein einzelnes Wort hinzufügen.",
+    "compose.tour.new_word_base": "Klicken Sie hier, um eine neue Wortbasis hinzuzufügen. Eine Wortbasis ist eine Gruppe verwandter Wörter (z. B. Wörter mit derselben Wurzel oder demselben Thema).",
+    "compose.tour.save_button": "Klicken Sie hier, um Ihre Liste zu speichern."
 }

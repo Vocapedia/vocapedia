@@ -241,16 +241,16 @@
     "theWordWas": "这个词是",
     "restart": "重新开始"
   },
-  "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
-  "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
-  "compose.tour.list_name": "Enter a name for your list. This will help you identify it later.",
-  "compose.tour.list_description": "Enter a description for your list. This can include details about the content or purpose of the list.",
-  "compose.tour.word_list": "Switch to the word list view to add and manage words in your list.",
-  "compose.tour.tutorial": "Switch to the tutorial view to add a tutorial or explanation for your list.",
-  "compose.tour.word_type": "Select the type of word (e.g., noun, verb, adjective).",
+  "compose.tour.main_lang": "为您的列表选择主要语言。这是您将从中进行翻译的语言。",
+  "compose.tour.target_lang": "为您的列表选择目标语言。这是您将翻译成的语言。",
+  "compose.tour.list_name": "为您的列表输入一个名称。这将帮助您以后识别它。",
+  "compose.tour.list_description": "为您的列表输入描述。这可以包括有关列表内容或用途的详细信息。",
+  "compose.tour.word_list": "切换到单词列表视图以在列表中添加和管理单词。",
+  "compose.tour.tutorial": "切换到教程视图以添加列表的教程或说明。",
+  "compose.tour.word_type": "选择单词的类型（例如，名词、动词、形容词）。",
     "compose.tour.word_lang1": "选择单词的语言。",
     "compose.tour.word_lang2": "选择单词的语言。",
-  "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
-  "compose.tour.new_word_base": "Click here to add a new word base. A word base is a group of related words (e.g., words with the same root or theme).",
-  "compose.tour.save_button": "Click here to save your list."
+  "compose.tour.new_word_button": "单击此处将新单词添加到当前词库。您可以为一个单词添加多个翻译。",
+  "compose.tour.new_word_base": "单击此处添加新的词库。词库是一组相关的单词（例如，具有相同词根或主题的单词）。",
+  "compose.tour.save_button": "单击此处保存您的列表。"
 }
