@@ -1,11 +1,11 @@
 <template>
-    <div v-auto-animate class="mb-10 space-y-5 max-w-3xl mx-auto">
+    <div class="mb-10 space-y-5 max-w-3xl mx-auto">
         <div class="text-center bg-white dark:bg-zinc-800 p-5 rounded-lg border dark:border-zinc-700 border-zinc-200">
             {{ $t('compose.warn') }}
         </div>
         <div v-if="!isLanguagesSelected" class="flex gap-4 max-w-160 mx-auto p-4">
             <div class="z-1 relative w-full">
-                <input v-model="languageQuery"
+                <input data-v-step="main_lang" v-model="languageQuery"
                     class="bg-zinc-100 dark:bg-zinc-800 w-full p-3 rounded-xl outline-none border border-zinc-200 dark:border-zinc-700 focus:border-zinc-300 dark:focus:border-zinc-600 transition"
                     :placeholder="$t('compose.select.language')" @focus="showLanguageDropdown = true"
                     @blur="hideLanguageDropdown" />
@@ -19,7 +19,7 @@
             </div>
 
             <div class="z-1 relative w-full">
-                <input v-model="targetLanguageQuery"
+                <input data-v-step="target_lang" v-model="targetLanguageQuery"
                     class="bg-zinc-100 dark:bg-zinc-800 w-full p-3 rounded-xl outline-none border border-zinc-200 dark:border-zinc-700 focus:border-zinc-300 dark:focus:border-zinc-600 transition"
                     :placeholder="$t('compose.select.target_language')" @focus="showTargetDropdown = true"
                     @blur="hideTargetDropdown" />
@@ -34,11 +34,12 @@
             </div>
         </div>
         <div v-if="targetLanguageCode && languageCode" class="text-center py-5 space-y-5">
-            <input v-model="listName" type="text" :placeholder="$t('compose.list.title')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+            <input data-v-step="list_name" v-model="listName" type="text" :placeholder="$t('compose.list.title')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-white text-zinc-900  border-none
              max-w-160 
              dark:bg-zinc-800 dark:text-white " />
-            <textarea v-model="listDescription" type="text" :placeholder="$t('compose.list.description')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+            <textarea data-v-step="list_description" v-model="listDescription" type="text"
+                :placeholder="$t('compose.list.description')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-white text-zinc-900  border-none
              max-w-160 
              dark:bg-zinc-800 dark:text-white " />
@@ -46,18 +47,18 @@
         <div v-if="targetLanguageCode && languageCode" class="max-w-160 w-full mx-auto">
             <div class="flex items-center justify-between space-x-5">
                 <div class="flex items-center space-x-2">
-                    <router-link :to="$route.path + '?variant=word-list'"
+                    <router-link data-v-step="word_list" :to="$route.path + '?variant=word-list'"
                         :class="$route.query.variant == 'tutorial' ? 'text-zinc-400 dark:text-zinc-600' : ''"
                         class="truncate cursor-pointer text-lg font-semibold">
                         {{ $t('word-list') }}
                     </router-link>
-                    <router-link :to="$route.path + '?variant=tutorial'"
+                    <router-link data-v-step="tutorial" :to="$route.path + '?variant=tutorial'"
                         :class="$route.query.variant == 'tutorial' ? '' : 'text-zinc-400 dark:text-zinc-600'"
                         class="truncate cursor-pointer text-lg font-semibold">
                         {{ $t('tutorial') }}
                     </router-link>
                 </div>
-                <button @click="compose" v-auto-animate :disabled="isSaving"
+                <button data-v-step="save_button" @click="compose" v-auto-animate :disabled="isSaving"
                     class="smooth-click rounded-full bg-sky-100 dark:bg-sky-700 px-2 py-1">
                     <span v-if="isSaving">
                         <mdicon spin name="loading" />
@@ -83,7 +84,7 @@
 
                             <div class="w-96 p-2">
                                 <h6>{{ $t('type') }}</h6>
-                                <div class="pl-5 w-96 ">
+                                <div data-v-step="word_type" class="pl-5 w-96 ">
                                     <select v-model="w.type"
                                         class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600">
                                         <option value="noun">{{ $t('word_types.noun') }}</option>
@@ -117,7 +118,9 @@
                                     <div>
                                         <h6>{{ $t('language') }}</h6>
                                         <div class="pl-5">
-                                            <select v-model="word.lang"
+                                            <select
+                                                :data-v-step="i === 0 ? 'word_lang1' : (i === 1 ? 'word_lang2' : '')"
+                                                v-model="word.lang"
                                                 class="w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:border-zinc-300 dark:focus:border-zinc-600">
                                                 <option v-for="lang in [{
                                                     code: languageCode,
@@ -165,23 +168,30 @@
 
                             </div>
                             <div>
-                                <button @click="addWordToWordBase(wi)" class="smooth-click p-5">
+                                <button data-v-step="new_word_button" @click="addWordToWordBase(wi)"
+                                    class="smooth-click p-5">
                                     <mdicon name="translate" />
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <button @click="addWordBase" class="smooth-click2 py-3 bg-sky-100 dark:bg-sky-700 w-full">
+                    <button data-v-step="new_word_base" @click="addWordBase"
+                        class="smooth-click2 py-3 bg-sky-100 dark:bg-sky-700 w-full">
                         {{ $t('compose.add_new_wordbase') }}
                     </button>
                 </div>
             </div>
         </div>
+        <v-tour name="language_tour" :steps="stepsLangs" :isOpen="isTourOpen" @close="isTourOpen = false">
+        </v-tour>
+        <v-tour name="word_base_tour" :steps="stepsWordBase" :isOpen="isTourOpen" @close="isTourOpen = false">
+        </v-tour>
     </div>
 
 </template>
 <script setup>
-import { ref, computed, watch, onMounted } from "vue"
+import { ref, computed, watch, onMounted, getCurrentInstance } from "vue"
+const app = getCurrentInstance();
 import languages from "@/utils/language/languages.json"
 import TextEditor from "@/components/TextEditor.vue"
 import { useFetch } from "@/composable/useFetch"
@@ -200,6 +210,105 @@ const targetLanguageCode = ref('');
 const showLanguageDropdown = ref(false);
 const showTargetDropdown = ref(false);
 const isSaving = ref(false)
+
+const stepsLangs = [
+    {
+        target: '[data-v-step="main_lang"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    },
+    {
+        target: '[data-v-step="target_lang"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    },
+]
+const stepsWordBase = [
+    {
+        target: '[data-v-step="list_name"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'top'
+        }
+    },
+    {
+        target: '[data-v-step="list_description"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    },
+    {
+        target: '[data-v-step="word_list"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    },
+    {
+        target: '[data-v-step="tutorial"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    },
+    {
+        target: '[data-v-step="word_type"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    },
+
+    {
+        target: '[data-v-step="word_lang1"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'top'
+        }
+    },
+    {
+        target: '[data-v-step="word_lang2"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'top'
+        }
+    },
+    {
+        target: '[data-v-step="new_word_button"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'left'
+        }
+    },
+    {
+        target: '[data-v-step="new_word_base"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'top'
+        }
+    },
+    {
+        target: '[data-v-step="save_button"]',
+        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        params: {
+            placement: 'bottom'
+        }
+    }
+]
+const isTourOpen = ref(false)
+const startTour = (tourname) => {
+    if (app && app.proxy && app.proxy.$tours && app.proxy.$tours[tourname]) {
+        app.proxy.$tours[tourname].start();
+    } else {
+        console.warn(`Tour instance '${tourname}' not found.`);
+    }
+};
+
 onMounted(async () => {
     await useFetch("/user/check")
     if (route.params.id) {
@@ -224,6 +333,7 @@ onMounted(async () => {
             targetLanguageQuery.value = getLangByCode(chapter.target_lang).name
         })
     }
+    startTour("language_tour")
 })
 async function compose() {
     isSaving.value = true
@@ -291,6 +401,7 @@ watch(
 watch(isLanguagesSelected, (n, o) => {
     if (isLanguagesSelected.value && wordBases.value.length == 0) {
         addWordBase()
+        startTour("word_base_tour")
     }
 })
 

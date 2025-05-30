@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
@@ -153,7 +152,6 @@ func Favorite(w http.ResponseWriter, r *http.Request) {
 func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 	var chapters []ChapterDTO
 	db := database.Manager()
-	sevenDaysAgo := time.Now().AddDate(0, 0, -7)
 	page := 1
 	limit := 10
 	pageStr := r.URL.Query().Get("page")
@@ -179,11 +177,10 @@ func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 		LIMIT 1
 	) AS is_favorited,
 	SUM(
-		GREATEST(10080 - FLOOR(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at) / 60), 1)
+		GREATEST(5259600 - FLOOR(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at) / 60), 1)
 	) AS trend_score
 `, userID).
 		Joins("JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
-		Where("user_favorites.created_at >= ?", sevenDaysAgo).
 		Group("chapters.id").
 		Order("trend_score DESC").
 		Preload("Creator").

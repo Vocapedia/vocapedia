@@ -10,6 +10,8 @@ import { MotionPlugin } from '@vueuse/motion'
 import App from "./App.vue";
 import router from "./router";
 import { i18n } from "./i18n/i18n";
+import Vue3Tour from 'vue3-tour'
+import 'vue3-tour/dist/vue3-tour.css'
 
 import "animate.css";
 
@@ -30,6 +32,7 @@ import Toasted from "@hoppscotch/vue-toasted"
 const app = createApp(App)
   .use(createPinia())
   .use(i18n)
+  .use(Vue3Tour)
   .use(mdiVue, {
     icons: mdijs,
   })

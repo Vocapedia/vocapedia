@@ -5,7 +5,7 @@ env: production
 base_url: http://localhost:8080
 front_base_url: http://localhost:8080
 jwt_secret: vocapedia
-jwt_expire: 720 # time in hourss
+jwt_expire: 720 # time in hours
 jwt_issuer: vocapedia
 totp_issuer: vocapedia
 admin_email: vocapedia.space@gmail.com
