@@ -197,6 +197,7 @@ import TextEditor from "@/components/TextEditor.vue"
 import { useFetch } from "@/composable/useFetch"
 import { useRouter, useRoute } from "vue-router"
 import { getLangByCode } from "@/utils/language/languages"
+import { useI18n } from "vue-i18n";
 const route = useRoute()
 const router = useRouter()
 const listName = ref("")
@@ -210,18 +211,19 @@ const targetLanguageCode = ref('');
 const showLanguageDropdown = ref(false);
 const showTargetDropdown = ref(false);
 const isSaving = ref(false)
+const i18n = useI18n();
 
 const stepsLangs = [
     {
         target: '[data-v-step="main_lang"]',
-        content: app.proxy.$t('compose.tour.main_lang'),
+        content: i18n.t('compose.tour.main_lang'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="target_lang"]',
-        content: app.proxy.$t('compose.tour.target_lang'),
+        content: i18n.t('compose.tour.target_lang'),
         params: {
             placement: 'bottom'
         }
@@ -230,35 +232,35 @@ const stepsLangs = [
 const stepsWordBase = [
     {
         target: '[data-v-step="list_name"]',
-        content: app.proxy.$t('compose.tour.list_name'),
+        content: i18n.t('compose.tour.list_name'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="list_description"]',
-        content: app.proxy.$t('compose.tour.list_description'),
+        content: i18n.t('compose.tour.list_description'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="word_list"]',
-        content: app.proxy.$t('compose.tour.word_list'),
+        content: i18n.t('compose.tour.word_list'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="tutorial"]',
-        content: app.proxy.$t('compose.tour.tutorial'),
+        content: i18n.t('compose.tour.tutorial'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="word_type"]',
-        content: app.proxy.$t('compose.tour.word_type'),
+        content: i18n.t('compose.tour.word_type'),
         params: {
             placement: 'bottom'
         }
@@ -266,35 +268,35 @@ const stepsWordBase = [
 
     {
         target: '[data-v-step="word_lang1"]',
-        content: app.proxy.$t('compose.tour.word_lang1'),
+        content: i18n.t('compose.tour.word_lang1'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="word_lang2"]',
-        content: app.proxy.$t('compose.tour.word_lang2'),
+        content: i18n.t('compose.tour.word_lang2'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="new_word_button"]',
-        content: app.proxy.$t('compose.tour.new_word_button'),
+        content: i18n.t('compose.tour.new_word_button'),
         params: {
             placement: 'left'
         }
     },
     {
         target: '[data-v-step="new_word_base"]',
-        content: app.proxy.$t('compose.tour.new_word_base'),
+        content: i18n.t('compose.tour.new_word_base'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="save_button"]',
-        content: app.proxy.$t('compose.tour.save_button'),
+        content: i18n.t('compose.tour.save_button'),
         params: {
             placement: 'bottom'
         }
