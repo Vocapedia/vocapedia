@@ -72,25 +72,25 @@
             "verify_button": "Iniciar sesión",
             "send_success": "Se ha enviado un código de inicio de sesión a tu dirección de correo electrónico.",
             "verify_success": "¡Inicio de sesión exitoso!",
-            "captcha_missing": "Please complete the CAPTCHA.",
-            "send_error_invalid_email": "Invalid email format. Please check your email.",
-            "send_error_limit_exceeded": "OTP limit reached for this email. Please try again later.",
-            "send_error_generic": "Failed to send OTP. Please try again.",
-            "send_error_network": "Network error sending OTP. Please check your connection and try again.",
-            "verify_error_invalid_otp": "Invalid OTP. Please check the code and try again.",
-            "verify_error_expired": "OTP has expired. Please request a new one.",
-            "verify_error_too_many_attempts": "Too many incorrect OTP attempts. Please request a new one.",
-            "verify_error_generic": "Failed to verify OTP. Please try again.",
-            "verify_error_network": "Network error verifying OTP. Please check your connection and try again."
+            "captcha_missing": "Por favor completa el CAPTCHA.",
+            "send_error_invalid_email": "Formato de correo electrónico no válido. Por favor revisa tu correo electrónico.",
+            "send_error_limit_exceeded": "Se alcanzó el límite de OTP para este correo electrónico. Por favor inténtalo de nuevo más tarde.",
+            "send_error_generic": "Error al enviar OTP. Por favor inténtalo de nuevo.",
+            "send_error_network": "Error de red al enviar OTP. Por favor revisa tu conexión e inténtalo de nuevo.",
+            "verify_error_invalid_otp": "OTP no válido. Por favor revisa el código e inténtalo de nuevo.",
+            "verify_error_expired": "El OTP ha expirado. Por favor solicita uno nuevo.",
+            "verify_error_too_many_attempts": "Demasiados intentos incorrectos de OTP. Por favor solicita uno nuevo.",
+            "verify_error_generic": "Error al verificar OTP. Por favor inténtalo de nuevo.",
+            "verify_error_network": "Error de red al verificar OTP. Por favor revisa tu conexión e inténtalo de nuevo."
         },
         "captcha": {
-            "load_error_retry": "CAPTCHA failed to load. Please try again.",
-            "load_error_refresh": "CAPTCHA failed to load. Please refresh the page.",
-            "retry_button": "Retry CAPTCHA"
+            "load_error_retry": "Error al cargar CAPTCHA. Por favor inténtalo de nuevo.",
+            "load_error_refresh": "Error al cargar CAPTCHA. Por favor actualiza la página.",
+            "retry_button": "Reintentar CAPTCHA"
         },
         "success": "¡Inicio de sesión exitoso! Se ha enviado un código de inicio de sesión a tu dirección de correo electrónico.",
         "error": {
-            "timeout": "Request timed out. Please try again.",
+            "timeout": "Tiempo de espera agotado. Por favor inténtalo de nuevo.",
             "generic": "¡Inicio de sesión fallido!"
         },
         "greeting": "que tengas un buen día"
@@ -240,5 +240,17 @@
         "youLost": "¡Has perdido!",
         "theWordWas": "La palabra era",
         "restart": "Reiniciar"
-    }
+    },
+    "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
+    "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
+    "compose.tour.list_name": "Enter a name for your list. This will help you identify it later.",
+    "compose.tour.list_description": "Enter a description for your list. This can include details about the content or purpose of the list.",
+    "compose.tour.word_list": "Switch to the word list view to add and manage words in your list.",
+    "compose.tour.tutorial": "Switch to the tutorial view to add a tutorial or explanation for your list.",
+    "compose.tour.word_type": "Select the type of word (e.g., noun, verb, adjective).",
+    "compose.tour.word_lang1": "Selecciona el idioma de la palabra.",
+    "compose.tour.word_lang2": "Selecciona el idioma de la palabra.",
+    "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
+    "compose.tour.new_word_base": "Click here to add a new word base. A word base is a group of related words (e.g., words with the same root or theme).",
+    "compose.tour.save_button": "Click here to save your list."
 }

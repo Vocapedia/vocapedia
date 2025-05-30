@@ -214,14 +214,14 @@ const isSaving = ref(false)
 const stepsLangs = [
     {
         target: '[data-v-step="main_lang"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.main_lang'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="target_lang"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.target_lang'),
         params: {
             placement: 'bottom'
         }
@@ -230,35 +230,35 @@ const stepsLangs = [
 const stepsWordBase = [
     {
         target: '[data-v-step="list_name"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.list_name'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="list_description"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.list_description'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="word_list"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.word_list'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="tutorial"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.tutorial'),
         params: {
             placement: 'bottom'
         }
     },
     {
         target: '[data-v-step="word_type"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.word_type'),
         params: {
             placement: 'bottom'
         }
@@ -266,35 +266,35 @@ const stepsWordBase = [
 
     {
         target: '[data-v-step="word_lang1"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.word_lang1'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="word_lang2"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.word_lang2'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="new_word_button"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.new_word_button'),
         params: {
             placement: 'left'
         }
     },
     {
         target: '[data-v-step="new_word_base"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.new_word_base'),
         params: {
             placement: 'top'
         }
     },
     {
         target: '[data-v-step="save_button"]',
-        content: 'Try it, you\'ll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
+        content: app.proxy.$t('compose.tour.save_button'),
         params: {
             placement: 'bottom'
         }
