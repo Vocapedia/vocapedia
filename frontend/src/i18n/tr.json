@@ -251,6 +251,6 @@
     "compose.tour.word_lang1": "Kelimenin dilini seçin.",
     "compose.tour.word_lang2": "Kelimenin dilini seçin.",
     "compose.tour.new_word_button": "Mevcut kelime tabanına yeni bir kelime eklemek için buraya tıklayın. Tek bir kelime için birden fazla çeviri ekleyebilirsiniz.",
-    "compose.tour.new_word_base": "Yeni bir kelime tabanı eklemek için buraya tıklayın. Bir kelime tabanı, birbiriyle ilişkili bir grup kelimedir (örneğin, aynı köke veya temaya sahip kelimeler).",
+    "compose.tour.new_word_base": "Yeni bir kelime tabanı eklemek için buraya tıklayın. Bir kelime tabanı, birbirinin çevirisi olan kelimelerden oluşmalıdır.",
     "compose.tour.save_button": "Listenizi kaydetmek için buraya tıklayın."
 }
