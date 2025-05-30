@@ -251,6 +251,6 @@
     "compose.tour.word_lang1": "Selecciona el idioma de la palabra.",
     "compose.tour.word_lang2": "Selecciona el idioma de la palabra.",
     "compose.tour.new_word_button": "Haz clic aquí para agregar una nueva palabra a la base de palabras actual. Puedes agregar varias traducciones para una sola palabra.",
-    "compose.tour.new_word_base": "Haz clic aquí para agregar una nueva base de palabras. Una base de palabras es un grupo de palabras relacionadas (por ejemplo, palabras con la misma raíz o tema).",
+    "compose.tour.new_word_base": "Haz clic aquí para agregar una nueva base de palabras. Una base de palabras debe estar compuesta por palabras que sean traducciones entre sí.",
     "compose.tour.save_button": "Haz clic aquí para guardar tu lista."
 }

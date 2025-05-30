@@ -251,6 +251,6 @@
     "compose.tour.word_lang1": "Wähle die Sprache des Wortes aus.",
     "compose.tour.word_lang2": "Wähle die Sprache des Wortes aus.",
     "compose.tour.new_word_button": "Klicken Sie hier, um ein neues Wort zur aktuellen Wortbasis hinzuzufügen. Sie können mehrere Übersetzungen für ein einzelnes Wort hinzufügen.",
-    "compose.tour.new_word_base": "Klicken Sie hier, um eine neue Wortbasis hinzuzufügen. Eine Wortbasis ist eine Gruppe verwandter Wörter (z. B. Wörter mit derselben Wurzel oder demselben Thema).",
+    "compose.tour.new_word_base": "Klicken Sie hier, um eine neue Wortbasis hinzuzufügen. Eine Wortbasis sollte aus Wörtern bestehen, die Übersetzungen voneinander sind.",
     "compose.tour.save_button": "Klicken Sie hier, um Ihre Liste zu speichern."
 }

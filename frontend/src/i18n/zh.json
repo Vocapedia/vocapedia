@@ -58,7 +58,7 @@
     "daily_streak": "每日连续学习",
     "daily_streak_description": "每天继续学习",
     "streamers": "主播",
-    "streamers_description": "你可以预约与教师进行练习你想学习的语言。"  
+    "streamers_description": "你可以预约与教师进行练习你想学习的语言。"
   },
   "login": {
     "header": "登录",
@@ -89,10 +89,10 @@
       "retry_button": "重试 CAPTCHA"
     },
     "success": "登录成功！登录验证码已发送至您的邮箱。",
-        "error": {
-            "timeout": "请求超时。请再试一次。",
-            "generic": "登录失败！"
-        },
+    "error": {
+      "timeout": "请求超时。请再试一次。",
+      "generic": "登录失败！"
+    },
     "greeting": "祝您愉快"
   },
   "account": {
@@ -248,9 +248,9 @@
   "compose.tour.word_list": "切换到单词列表视图以在列表中添加和管理单词。",
   "compose.tour.tutorial": "切换到教程视图以添加列表的教程或说明。",
   "compose.tour.word_type": "选择单词的类型（例如，名词、动词、形容词）。",
-    "compose.tour.word_lang1": "选择单词的语言。",
-    "compose.tour.word_lang2": "选择单词的语言。",
+  "compose.tour.word_lang1": "选择单词的语言。",
+  "compose.tour.word_lang2": "选择单词的语言。",
   "compose.tour.new_word_button": "单击此处将新单词添加到当前词库。您可以为一个单词添加多个翻译。",
-  "compose.tour.new_word_base": "单击此处添加新的词库。词库是一组相关的单词（例如，具有相同词根或主题的单词）。",
+  "compose.tour.new_word_base": "点击此处添加一个新的词汇基础。一个词汇基础应由彼此翻译的词组成",
   "compose.tour.save_button": "单击此处保存您的列表。"
 }

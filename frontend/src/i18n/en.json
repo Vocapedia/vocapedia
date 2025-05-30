@@ -251,6 +251,6 @@
     "compose.tour.word_lang1": "Select the language of the word.",
     "compose.tour.word_lang2": "Select the language of the word.",
     "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
-    "compose.tour.new_word_base": "Click here to add a new word base. A word base is a group of related words (e.g., words with the same root or theme).",
+    "compose.tour.new_word_base": "Click here to add a new word base. A word base should consist of words that are translations of each other.",
     "compose.tour.save_button": "Click here to save your list."
 }
