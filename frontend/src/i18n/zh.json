@@ -72,25 +72,25 @@
       "verify_button": "登录",
       "send_success": "登录验证码已发送至您的邮箱。",
       "verify_success": "登录成功！",
-      "captcha_missing": "Please complete the CAPTCHA.",
-      "send_error_invalid_email": "Invalid email format. Please check your email.",
-      "send_error_limit_exceeded": "OTP limit reached for this email. Please try again later.",
-      "send_error_generic": "Failed to send OTP. Please try again.",
-      "send_error_network": "Network error sending OTP. Please check your connection and try again.",
-      "verify_error_invalid_otp": "Invalid OTP. Please check the code and try again.",
-      "verify_error_expired": "OTP has expired. Please request a new one.",
-      "verify_error_too_many_attempts": "Too many incorrect OTP attempts. Please request a new one.",
-      "verify_error_generic": "Failed to verify OTP. Please try again.",
-      "verify_error_network": "Network error verifying OTP. Please check your connection and try again."
+      "captcha_missing": "请完成 CAPTCHA。",
+      "send_error_invalid_email": "电子邮件格式无效。请检查您的电子邮件。",
+      "send_error_limit_exceeded": "此电子邮件已达到 OTP 限制。请稍后再试。",
+      "send_error_generic": "发送 OTP 失败。请再试一次。",
+      "send_error_network": "发送 OTP 时出现网络错误。请检查您的连接并重试。",
+      "verify_error_invalid_otp": "OTP 无效。请检查代码并重试。",
+      "verify_error_expired": "OTP 已过期。请请求新的 OTP。",
+      "verify_error_too_many_attempts": "OTP 尝试次数过多。请请求新的 OTP。",
+      "verify_error_generic": "验证 OTP 失败。请再试一次。",
+      "verify_error_network": "验证 OTP 时出现网络错误。请检查您的连接并重试。"
     },
     "captcha": {
-      "load_error_retry": "CAPTCHA failed to load. Please try again.",
-      "load_error_refresh": "CAPTCHA failed to load. Please refresh the page.",
-      "retry_button": "Retry CAPTCHA"
+      "load_error_retry": "CAPTCHA 加载失败。请再试一次。",
+      "load_error_refresh": "CAPTCHA 加载失败。请刷新页面。",
+      "retry_button": "重试 CAPTCHA"
     },
     "success": "登录成功！登录验证码已发送至您的邮箱。",
         "error": {
-            "timeout": "Request timed out. Please try again.",
+            "timeout": "请求超时。请再试一次。",
             "generic": "登录失败！"
         },
     "greeting": "祝您愉快"
@@ -240,5 +240,17 @@
     "youLost": "你输了！",
     "theWordWas": "这个词是",
     "restart": "重新开始"
-  }
+  },
+  "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
+  "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
+  "compose.tour.list_name": "Enter a name for your list. This will help you identify it later.",
+  "compose.tour.list_description": "Enter a description for your list. This can include details about the content or purpose of the list.",
+  "compose.tour.word_list": "Switch to the word list view to add and manage words in your list.",
+  "compose.tour.tutorial": "Switch to the tutorial view to add a tutorial or explanation for your list.",
+  "compose.tour.word_type": "Select the type of word (e.g., noun, verb, adjective).",
+    "compose.tour.word_lang1": "选择单词的语言。",
+    "compose.tour.word_lang2": "选择单词的语言。",
+  "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
+  "compose.tour.new_word_base": "Click here to add a new word base. A word base is a group of related words (e.g., words with the same root or theme).",
+  "compose.tour.save_button": "Click here to save your list."
 }
