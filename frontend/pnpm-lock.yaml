@@ -144,6 +144,9 @@ importers:
       vite:
         specifier: ^6.0.11
         version: 6.3.5(jiti@2.4.2)(lightningcss@1.29.2)
+      vite-plugin-sitemap:
+        specifier: ^0.7.0
+        version: 0.7.1
       vite-plugin-vue-devtools:
         specifier: ^7.7.0
         version: 7.7.6(rollup@4.40.2)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2))(vue@3.5.13)
@@ -1860,6 +1863,9 @@ packages:
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
+
+  vite-plugin-sitemap@0.7.1:
+    resolution: {integrity: sha512-4NRTkiWytLuAmcikckrLcLl9iYA20+5v6l8XshcOrzxH1WR8H0O3S6sTQYfjMrE8su/LG6Y0cTodvOdcOIxaLw==}
 
   vite-plugin-vue-devtools@7.7.6:
     resolution: {integrity: sha512-L7nPVM5a7lgit/Z+36iwoqHOaP3wxqVi1UvaDJwGCfblS9Y6vNqf32ILlzJVH9c47aHu90BhDXeZc+rgzHRHcw==}
@@ -3758,6 +3764,8 @@ snapshots:
     transitivePeerDependencies:
       - rollup
       - supports-color
+
+  vite-plugin-sitemap@0.7.1: {}
 
   vite-plugin-vue-devtools@7.7.6(rollup@4.40.2)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2))(vue@3.5.13):
     dependencies:

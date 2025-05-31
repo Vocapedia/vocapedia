@@ -1,4 +1,83 @@
 {
+    "seo": {
+        "default": {
+            "title": "Vocapedia",
+            "description": "Explore the world of words and enhance your vocabulary with Vocapedia."
+        },
+        "home": {
+            "title": "Vocapedia - Learn Vocabulary Faster",
+            "description": "Discover and learn common words with Vocapedia to speed up your language learning journey."
+        },
+        "landing": {
+            "title": "Welcome to Vocapedia!",
+            "description": "Join Vocapedia and start your vocabulary learning adventure today. Create, share, and learn word lists effectively."
+        },
+        "compose": {
+            "title": "Create Word List | Vocapedia",
+            "description": "Create and share your own vocabulary lists on Vocapedia."
+        },
+        "trends": {
+            "title": "Trending Word Lists | Vocapedia",
+            "description": "Discover trending and popular vocabulary lists on Vocapedia."
+        },
+        "search": {
+            "title": "Search Word Lists | Vocapedia",
+            "description": "Search for vocabulary lists on Vocapedia."
+        },
+        "notes": {
+            "title": "My Notes | Vocapedia",
+            "description": "Access your personal notes and vocabulary on Vocapedia."
+        },
+        "login": {
+            "title": "Login | Vocapedia",
+            "description": "Login to your Vocapedia account."
+        },
+        "settings": {
+            "title": "Settings | Vocapedia",
+            "description": "Manage your account settings on Vocapedia."
+        },
+        "editor": {
+            "title": "Editor | Vocapedia",
+            "description": "Use the Vocapedia editor."
+        },
+        "privacyPolicy": {
+            "title": "Privacy Policy | Vocapedia",
+            "description": "Read the Privacy Policy of Vocapedia."
+        },
+        "notFound": {
+            "title": "Page Not Found | Vocapedia",
+            "description": "The page you are looking for was not found on Vocapedia."
+        },
+        "wordList": {
+            "title": "View Word List | Vocapedia",
+            "description": "Explore this word list on Vocapedia. Enhance your vocabulary with user-created lists."
+        },
+        "userProfile": {
+            "title": "User Profile | Vocapedia",
+            "description": "View user profiles on Vocapedia."
+        },
+        "breadcrumbs": {
+            "home": "Home",
+            "landing": "Welcome",
+            "compose": "Create List",
+            "trends": "Trending",
+            "search": "Search",
+            "notes": "My Notes",
+            "login": "Login",
+            "settings": "Settings",
+            "editor": "Editor",
+            "privacyPolicy": "Privacy Policy",
+            "wordList": "Word List",
+            "userProfile": "Profile",
+            "games": "Games",
+            "testGame": "Test",
+            "hangmanGame": "Hangman",
+            "flipWordGame": "Flip Word",
+            "quickPickGame": "Quick Pick",
+            "wordMatchGame": "Word Match",
+            "wordRushGame": "Word Rush"
+        }
+    },
     "followed": "Followed",
     "notes": "Notes",
     "trends": "Trends",
