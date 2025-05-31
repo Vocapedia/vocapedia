@@ -33,6 +33,7 @@ export default defineConfig({
       hostname: 'https://vocapedia.space',
       outDir: 'dist', // Explicitly set output directory for sitemap.xml
       dynamicRoutes: staticRoutes, // Provide the list of static routes
+      generateRobotsTxt: false // Prevent sitemap plugin from modifying robots.txt
     }),
   ],
   resolve: {
