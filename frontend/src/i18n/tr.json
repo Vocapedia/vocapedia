@@ -1,4 +1,83 @@
 {
+    "seo": {
+        "default": {
+            "title": "Vocapedia",
+            "description": "Vocapedia ile kelime dünyasını keşfedin ve kelime dağarcığınızı geliştirin."
+        },
+        "home": {
+            "title": "Vocapedia - Kelime Dağarcığınızı Hızla Geliştirin",
+            "description": "Vocapedia ile yaygın kelimeleri keşfedin ve öğrenin, dil öğrenme yolculuğunuzu hızlandırın."
+        },
+        "landing": {
+            "title": "Vocapedia'ya Hoş Geldiniz!",
+            "description": "Vocapedia'ya katılın ve kelime öğrenme maceranıza bugün başlayın. Kelime listelerini etkili bir şekilde oluşturun, paylaşın ve öğrenin."
+        },
+        "compose": {
+            "title": "Kelime Listesi Oluştur | Vocapedia",
+            "description": "Vocapedia'da kendi kelime listelerinizi oluşturun ve paylaşın."
+        },
+        "trends": {
+            "title": "Trend Kelime Listeleri | Vocapedia",
+            "description": "Vocapedia'daki trend ve popüler kelime listelerini keşfedin."
+        },
+        "search": {
+            "title": "Kelime Listelerini Ara | Vocapedia",
+            "description": "Vocapedia'da kelime listelerini arayın."
+        },
+        "notes": {
+            "title": "Notlarım | Vocapedia",
+            "description": "Vocapedia'daki kişisel notlarınıza ve kelime dağarcığınıza erişin."
+        },
+        "login": {
+            "title": "Giriş Yap | Vocapedia",
+            "description": "Vocapedia hesabınıza giriş yapın."
+        },
+        "settings": {
+            "title": "Ayarlar | Vocapedia",
+            "description": "Vocapedia'daki hesap ayarlarınızı yönetin."
+        },
+        "editor": {
+            "title": "Düzenleyici | Vocapedia",
+            "description": "Vocapedia düzenleyiciyi kullanın."
+        },
+        "privacyPolicy": {
+            "title": "Gizlilik Politikası | Vocapedia",
+            "description": "Vocapedia Gizlilik Politikasını okuyun."
+        },
+        "notFound": {
+            "title": "Sayfa Bulunamadı | Vocapedia",
+            "description": "Aradığınız sayfa Vocapedia'da bulunamadı."
+        },
+        "wordList": {
+            "title": "Kelime Listesini Görüntüle | Vocapedia",
+            "description": "Vocapedia'da bu kelime listesini keşfedin. Kullanıcı tarafından oluşturulan listelerle kelime dağarcığınızı geliştirin."
+        },
+        "userProfile": {
+            "title": "Kullanıcı Profili | Vocapedia",
+            "description": "Vocapedia'daki kullanıcı profillerini görüntüleyin."
+        },
+        "breadcrumbs": {
+            "home": "Anasayfa",
+            "landing": "Hoş Geldiniz",
+            "compose": "Liste Oluştur",
+            "trends": "Trendler",
+            "search": "Arama",
+            "notes": "Notlarım",
+            "login": "Giriş Yap",
+            "settings": "Ayarlar",
+            "editor": "Düzenleyici",
+            "privacyPolicy": "Gizlilik Politikası",
+            "wordList": "Kelime Listesi",
+            "userProfile": "Profil",
+            "games": "Oyunlar",
+            "testGame": "Test Oyunu",
+            "hangmanGame": "Adam Asmaca",
+            "flipWordGame": "Kelime Çevirme",
+            "quickPickGame": "Hızlı Seçim",
+            "wordMatchGame": "Kelime Eşleştirme",
+            "wordRushGame": "Kelime Akını"
+        }
+    },
     "followed": "Takip Edilenler",
     "notes": "Notlar",
     "trends": "Trendler",

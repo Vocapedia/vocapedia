@@ -1,4 +1,83 @@
 {
+    "seo": {
+        "default": {
+            "title": "Vocapedia",
+            "description": "Explora el mundo de las palabras y mejora tu vocabulario con Vocapedia."
+        },
+        "home": {
+            "title": "Vocapedia - Aprende Vocabulario Más Rápido",
+            "description": "Descubre y aprende palabras comunes con Vocapedia para acelerar tu viaje de aprendizaje de idiomas."
+        },
+        "landing": {
+            "title": "¡Bienvenido a Vocapedia!",
+            "description": "Únete a Vocapedia y comienza hoy tu aventura de aprendizaje de vocabulario. Crea, comparte y aprende listas de palabras de manera efectiva."
+        },
+        "compose": {
+            "title": "Crear Lista de Palabras | Vocapedia",
+            "description": "Crea y comparte tus propias listas de vocabulario en Vocapedia."
+        },
+        "trends": {
+            "title": "Listas de Palabras en Tendencia | Vocapedia",
+            "description": "Descubre listas de vocabulario populares y en tendencia en Vocapedia."
+        },
+        "search": {
+            "title": "Buscar Listas de Palabras | Vocapedia",
+            "description": "Busca listas de vocabulario en Vocapedia."
+        },
+        "notes": {
+            "title": "Mis Notas | Vocapedia",
+            "description": "Accede a tus notas personales y vocabulario en Vocapedia."
+        },
+        "login": {
+            "title": "Iniciar Sesión | Vocapedia",
+            "description": "Inicia sesión en tu cuenta de Vocapedia."
+        },
+        "settings": {
+            "title": "Configuración | Vocapedia",
+            "description": "Gestiona la configuración de tu cuenta en Vocapedia."
+        },
+        "editor": {
+            "title": "Editor | Vocapedia",
+            "description": "Usa el editor de Vocapedia."
+        },
+        "privacyPolicy": {
+            "title": "Política de Privacidad | Vocapedia",
+            "description": "Lee la Política de Privacidad de Vocapedia."
+        },
+        "notFound": {
+            "title": "Página No Encontrada | Vocapedia",
+            "description": "La página que buscas no se encontró en Vocapedia."
+        },
+        "wordList": {
+            "title": "Ver Lista de Palabras | Vocapedia",
+            "description": "Explora esta lista de palabras en Vocapedia. Mejora tu vocabulario con listas creadas por usuarios."
+        },
+        "userProfile": {
+            "title": "Perfil de Usuario | Vocapedia",
+            "description": "Ver perfiles de usuario en Vocapedia."
+        },
+        "breadcrumbs": {
+            "home": "Inicio",
+            "landing": "Bienvenido",
+            "compose": "Crear Lista",
+            "trends": "Tendencias",
+            "search": "Buscar",
+            "notes": "Mis Notas",
+            "login": "Iniciar Sesión",
+            "settings": "Configuración",
+            "editor": "Editor",
+            "privacyPolicy": "Política de Privacidad",
+            "wordList": "Lista de Palabras",
+            "userProfile": "Perfil",
+            "games": "Juegos",
+            "testGame": "Prueba",
+            "hangmanGame": "Ahorcado",
+            "flipWordGame": "Voltear Palabra",
+            "quickPickGame": "Selección Rápida",
+            "wordMatchGame": "Coincidir Palabras",
+            "wordRushGame": "Fiebre de Palabras"
+        }
+    },
     "followed": "Seguidos",
     "notes": "Notas",
     "trends": "Tendencias",
@@ -58,7 +137,7 @@
         "daily_streak": "Racha diaria",
         "daily_streak_description": "Sigue aprendiendo todos los días",
         "streamers": "Streamers",
-        "streamers_description": "Puedes agendar una lección con profesores para el idioma que deseas practicar."      
+        "streamers_description": "Puedes agendar una lección con profesores para el idioma que deseas practicar."
     },
     "login": {
         "header": "Iniciar sesión",

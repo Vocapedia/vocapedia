@@ -1,4 +1,83 @@
 {
+    "seo": {
+        "default": {
+            "title": "Vocapedia",
+            "description": "通过 Vocapedia 探索文字世界，提升您的词汇量。"
+        },
+        "home": {
+            "title": "Vocapedia - 更快学习词汇",
+            "description": "通过 Vocapedia 发现和学习常用词，加速您的语言学习之旅。"
+        },
+        "landing": {
+            "title": "欢迎来到 Vocapedia！",
+            "description": "加入 Vocapedia，立即开始您的词汇学习冒险。高效地创建、分享和学习单词列表。"
+        },
+        "compose": {
+            "title": "创建单词列表 | Vocapedia",
+            "description": "在 Vocapedia 上创建和分享您自己的词汇列表。"
+        },
+        "trends": {
+            "title": "热门单词列表 | Vocapedia",
+            "description": "在 Vocapedia 上发现热门和流行的词汇列表。"
+        },
+        "search": {
+            "title": "搜索单词列表 | Vocapedia",
+            "description": "在 Vocapedia 上搜索词汇列表。"
+        },
+        "notes": {
+            "title": "我的笔记 | Vocapedia",
+            "description": "在 Vocapedia 上访问您的个人笔记和词汇。"
+        },
+        "login": {
+            "title": "登录 | Vocapedia",
+            "description": "登录您的 Vocapedia 帐户。"
+        },
+        "settings": {
+            "title": "设置 | Vocapedia",
+            "description": "在 Vocapedia 上管理您的帐户设置。"
+        },
+        "editor": {
+            "title": "编辑器 | Vocapedia",
+            "description": "使用 Vocapedia 编辑器。"
+        },
+        "privacyPolicy": {
+            "title": "隐私政策 | Vocapedia",
+            "description": "阅读 Vocapedia 的隐私政策。"
+        },
+        "notFound": {
+            "title": "页面未找到 | Vocapedia",
+            "description": "您查找的页面在 Vocapedia 上未找到。"
+        },
+        "wordList": {
+            "title": "查看单词列表 | Vocapedia",
+            "description": "在 Vocapedia 上探索此单词列表。通过用户创建的列表增强您的词汇量。"
+        },
+        "userProfile": {
+            "title": "用户资料 | Vocapedia",
+            "description": "在 Vocapedia 上查看用户资料。"
+        },
+        "breadcrumbs": {
+            "home": "首页",
+            "landing": "欢迎",
+            "compose": "创建列表",
+            "trends": "热门",
+            "search": "搜索",
+            "notes": "我的笔记",
+            "login": "登录",
+            "settings": "设置",
+            "editor": "编辑器",
+            "privacyPolicy": "隐私政策",
+            "wordList": "单词列表",
+            "userProfile": "个人资料",
+            "games": "游戏",
+            "testGame": "测试游戏",
+            "hangmanGame": "猜单词游戏",
+            "flipWordGame": "翻转单词",
+            "quickPickGame": "快速选择",
+            "wordMatchGame": "单词匹配",
+            "wordRushGame": "单词冲刺"
+        }
+    },
   "followed": "已关注",
   "notes": "笔记",
   "trends": "趋势",
