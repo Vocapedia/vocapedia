@@ -6,9 +6,9 @@ import vueDevTools from "vite-plugin-vue-devtools";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from 'vite-plugin-sitemap'; // Import the plugin
 
-// Define static routes for the sitemap
+const now = new Date().toISOString();
 const staticRoutes = [
-  { url: '/', changefreq: 'daily', priority: 1.0, lastmod: new Date().toISOString() },
+  { url: '/', changefreq: 'daily', priority: 1.0 },
   { url: '/landing', changefreq: 'weekly', priority: 0.9 },
   { url: '/compose', changefreq: 'weekly', priority: 0.8 },
   { url: '/trends', changefreq: 'daily', priority: 0.9 },
@@ -18,7 +18,11 @@ const staticRoutes = [
   { url: '/settings', changefreq: 'monthly', priority: 0.3 },
   { url: '/editor', changefreq: 'monthly', priority: 0.5 },
   { url: '/privacy-policy', changefreq: 'yearly', priority: 0.2 },
-];
+].map(route => ({
+  ...route,
+  lastmod: now
+}));
+
 
 // https://vite.dev/config/
 export default defineConfig({
