@@ -38,8 +38,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // "@": fileURLToPath(new URL("./src", import.meta.url)), // Original alias
-      '@': '/src', // Simplified alias as per task example, assuming it works
+      "@": fileURLToPath(new URL("./src", import.meta.url)), // Original alias
+      //'@': '/src', // Simplified alias as per task example, assuming it works
     },
   },
   // server: { // server config from example, uncomment if needed

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import i18n from '@/i18n/i18n.js'; // Import the i18n instance
 import { authGuard } from "./middleware/authGuard";
 import { loadLayout } from "./middleware/loadLayout";
 import { block } from "./middleware/block";
@@ -27,6 +26,7 @@ import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import AccountView from '@/views/AccountView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import TrendsView from "@/views/TrendsView.vue";
+import { i18n } from "@/i18n/i18n";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
