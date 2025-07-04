@@ -72,8 +72,38 @@
             </div>
         </div>
 
+        <!-- Payment Provider Selection -->
+        <div  id="calculator-summary" v-if="availableProviders.length > 1" class="bg-white dark:bg-gray-800 rounded-lg p-6 mb-8">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+                {{ $t('pricing.payment.choose_provider') }}
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4 max-w-md mx-auto">
+                <div v-for="provider in availableProviders" :key="provider.provider"
+                    class="border-2 rounded-lg p-4 cursor-pointer transition-all"
+                    :class="selectedProvider === provider.provider 
+                        ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' 
+                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'"
+                    @click="selectProvider(provider.provider, provider.currency)">
+                    <div class="text-center">
+                        <div class="font-semibold text-gray-900 dark:text-white mb-1">
+                            {{ provider.provider === 'iyzico' ? 'İyzico' : 'PayPal' }}
+                        </div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                            {{ provider.currency }}
+                        </div>
+                        <div v-if="provider.recommended" class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                            {{ $t('pricing.payment.recommended') }}
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            {{ provider.reason }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Custom Token Calculator -->
-        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-8 mb-12" id="calculator-summary">
+        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-8 mb-12">
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 {{ $t('pricing.calculator.title') }}
             </h3>
@@ -224,10 +254,16 @@ const toast = useToast()
 // Reactive data
 const customTokens = ref(50)
 const selectedPackage = ref({})
+const availableProviders = ref([])
+const selectedProvider = ref('')
+const selectedCurrency = ref('')
+const detectedCountry = ref('')
+const isLoadingProviders = ref(false)
 
-// Initialize with custom token value
-onMounted(() => {
+// Initialize with custom token value and load providers
+onMounted(async () => {
     handleCustomTokenChange()
+    await loadAvailableProviders()
 })
 
 // Quick buy options
@@ -261,6 +297,49 @@ const faqs = ref([
         open: false
     }
 ])
+
+// Load available payment providers
+async function loadAvailableProviders() {
+    try {
+        isLoadingProviders.value = true
+        const response = await useFetch('/user/payment-providers')
+        
+        if (response && response.success) {
+            availableProviders.value = response.providers || []
+            selectedProvider.value = response.default_provider || 'iyzico'
+            selectedCurrency.value = response.default_currency || 'TRY'
+            detectedCountry.value = response.detected_country || 'TR'
+            
+            console.log('Available providers:', availableProviders.value)
+            console.log('Selected provider:', selectedProvider.value, selectedCurrency.value)
+        } else {
+            // Fallback defaults
+            selectedProvider.value = 'iyzico'
+            selectedCurrency.value = 'TRY'
+            console.warn('Failed to load payment providers, using defaults')
+        }
+    } catch (error) {
+        console.error('Error loading payment providers:', error)
+        // Fallback defaults
+        selectedProvider.value = 'iyzico'
+        selectedCurrency.value = 'TRY'
+    } finally {
+        isLoadingProviders.value = false
+    }
+}
+
+// Select payment provider
+function selectProvider(provider, currency) {
+    selectedProvider.value = provider
+    selectedCurrency.value = currency
+    
+    // Recalculate prices when currency changes
+    if (selectedPackage.value.tokens) {
+        handleCustomTokenChange()
+    }
+    
+    console.log('Selected provider:', provider, currency)
+}
 
 // Token price calculation function (matching the Go logic)
 function calculateTokenPrice(tokenCount) {
@@ -383,7 +462,7 @@ async function proceedToPurchase() {
         console.log('API Response:', response) // Debug log
 
         if (response && response.success) {
-            // Open Gumroad payment URL with backend-calculated price
+            // Open payment URL with backend-calculated price
             window.open(response.payment_url, '_blank')
 
             // Start polling for purchase status

@@ -384,6 +384,10 @@
         },
         "buy_now": "Hemen Satın Al",
         "discount": "İndirim",
+        "payment": {
+            "choose_provider": "Ödeme Yöntemi Seçin",
+            "recommended": "Önerilen"
+        },
         "tiers": {
             "title": "Fiyat Seviyeleri",
             "per_token": "Token başına"

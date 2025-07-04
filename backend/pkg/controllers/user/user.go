@@ -13,8 +13,11 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/cache"
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/entities"
+	"github.com/akifkadioglu/vocapedia/pkg/geolocation"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
+	"github.com/akifkadioglu/vocapedia/pkg/payment"
+	"github.com/akifkadioglu/vocapedia/pkg/payment/common"
 	"github.com/akifkadioglu/vocapedia/pkg/search"
 	"github.com/akifkadioglu/vocapedia/pkg/snowflake"
 	"github.com/akifkadioglu/vocapedia/pkg/token"
@@ -358,6 +361,17 @@ func InitiateTokenPurchase(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Get user info for payment
+	db := database.Manager()
+	var user entities.User
+	if err := db.Where("id = ?", userID).First(&user).Error; err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": "User not found",
+		})
+		return
+	}
+
 	var req _tokenPurchaseRequest
 	if err := render.DecodeJSON(r.Body, &req); err != nil {
 		fmt.Println("Error decoding JSON:", err)
@@ -377,25 +391,77 @@ func InitiateTokenPurchase(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Calculate price and discount
-	price := calculateTokenPrice(req.Tokens)
-	discount := getDiscountPercentage(req.Tokens)
-
 	// Create a transaction record
 	transactionID := fmt.Sprintf("%d", snowflake.GenerateID())
 
-	// Create Gumroad payment URL with custom pricing and transaction ID
-	gumroadURL := fmt.Sprintf("https://vocabloom.gumroad.com/l/vocatoken?wanted=true&price=%d&transaction_id=%s",
-		int(price), // Price in cents
-		transactionID,
-	)
+	// Smart payment provider detection with multiple factors
+	userIP := geolocation.GetRealIP(r)
+	geoService := geolocation.NewGeoLocationService()
+
+	// Get multiple detection factors
+	acceptLanguage := r.Header.Get("Accept-Language")
+	timezone := r.Header.Get("X-Timezone") // If frontend sends this
+
+	// Get country code from IP with fallback
+	countryCode, err := geoService.GetCountryFromIP(r.Context(), userIP)
+	if err != nil {
+		// Log error but continue with fallback
+		fmt.Printf("Geolocation error for IP %s: %v - using fallback\n", userIP, err)
+	}
+
+	// Get smart payment provider configuration
+	providerConfig := geolocation.GetPaymentProviderForCountry(countryCode, acceptLanguage, timezone)
+
+	// Log detection details for debugging
+	fmt.Printf("🔍 Payment Detection - IP: %s, Country: %s, Lang: %s, Provider: %s (%s), Confidence: %d%%\n",
+		userIP, countryCode, acceptLanguage, providerConfig.Provider, providerConfig.Reason, providerConfig.Confidence)
+
+	// Use detected provider
+	providerName := providerConfig.Provider
+	currency := providerConfig.Currency
+
+	// Calculate price and discount
+	price := calculateTokenPrice(req.Tokens, currency)
+	discount := getDiscountPercentage(req.Tokens)
+
+	// Get payment manager and create payment
+	paymentManager := payment.GetManager()
+
+	// Prepare payment request
+	paymentRequest := common.PaymentRequest{
+		Amount:        price,
+		Currency:      currency,
+		Description:   fmt.Sprintf("%d VocaPedia Tokens", req.Tokens),
+		UserID:        userID,
+		UserEmail:     user.Email,
+		UserName:      user.Name,
+		TransactionID: transactionID,
+		CallbackURL:   "https://vocapedia.space/payment/callback",
+		WebhookURL:    "https://api.vocapedia.space/v1/public/webhooks/payment",
+		Metadata: map[string]string{
+			"tokens":   fmt.Sprintf("%d", req.Tokens),
+			"discount": fmt.Sprintf("%d", discount),
+		},
+	}
+
+	paymentResponse, err := paymentManager.CreatePayment(r.Context(), providerName, paymentRequest)
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": "Failed to create payment: " + err.Error(),
+		})
+		return
+	}
 
 	// Store transaction details in cache for later confirmation
 	transactionData := map[string]interface{}{
 		"user_id":        userID,
 		"tokens":         req.Tokens,
 		"price":          price,
+		"currency":       currency,
 		"discount":       discount,
+		"provider":       providerName,
+		"provider_id":    paymentResponse.ProviderID,
 		"status":         "pending",
 		"created_at":     time.Now(),
 		"transaction_id": transactionID,
@@ -408,9 +474,12 @@ func InitiateTokenPurchase(w http.ResponseWriter, r *http.Request) {
 		Success:       true,
 		Tokens:        req.Tokens,
 		Price:         price,
+		Currency:      currency,
 		Discount:      discount,
-		PaymentURL:    gumroadURL,
+		PaymentURL:    paymentResponse.PaymentURL,
 		TransactionID: transactionID,
+		Provider:      providerName,
+		Country:       countryCode,
 	}
 
 	render.JSON(w, r, response)
@@ -506,9 +575,22 @@ func GetTokenPurchaseStatus(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, transactionData)
 }
 
-// GumroadWebhook handles webhook from Gumroad when payment is completed
-func GumroadWebhook(w http.ResponseWriter, r *http.Request) {
-	// Parse webhook data from Gumroad
+// PaymentWebhook handles webhook from payment providers
+func PaymentWebhook(w http.ResponseWriter, r *http.Request) {
+	// Get provider from URL parameter or header
+	providerName := r.URL.Query().Get("provider")
+	if providerName == "" {
+		providerName = r.Header.Get("X-Payment-Provider")
+	}
+	if providerName == "" {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": "Payment provider not specified",
+		})
+		return
+	}
+
+	// Parse webhook data
 	var webhookData map[string]interface{}
 	if err := render.DecodeJSON(r.Body, &webhookData); err != nil {
 		render.Status(r, http.StatusBadRequest)
@@ -518,24 +600,21 @@ func GumroadWebhook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Extract transaction details from webhook
-	// Gumroad webhook structure might vary, adjust according to their documentation
-	transactionID := ""
-	if customFields, ok := webhookData["custom_fields"].(map[string]interface{}); ok {
-		if tid, exists := customFields["transaction_id"].(string); exists {
-			transactionID = tid
-		}
-	}
-
-	// If no transaction ID in custom fields, try to extract from URL parameters
-	if transactionID == "" {
-		transactionID = r.URL.Query().Get("transaction_id")
-	}
-
-	if transactionID == "" {
+	// Get payment manager and verify payment
+	paymentManager := payment.GetManager()
+	verification, err := paymentManager.VerifyPayment(r.Context(), providerName, webhookData)
+	if err != nil {
 		render.Status(r, http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
-			"error": "Transaction ID not found in webhook",
+			"error": "Payment verification failed: " + err.Error(),
+		})
+		return
+	}
+
+	if !verification.IsValid {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": "Invalid payment",
 		})
 		return
 	}
@@ -544,7 +623,7 @@ func GumroadWebhook(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 
 	// Get transaction details from cache
-	data, err := cache.Redis().Get(r.Context(), fmt.Sprintf("token_purchase:%s", transactionID)).Result()
+	data, err := cache.Redis().Get(r.Context(), fmt.Sprintf("token_purchase:%s", verification.TransactionID)).Result()
 	if err != nil {
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, map[string]string{
@@ -585,13 +664,59 @@ func GumroadWebhook(w http.ResponseWriter, r *http.Request) {
 	// Update transaction status
 	transactionData["status"] = "completed"
 	transactionData["completed_at"] = time.Now()
-	transactionData["webhook_data"] = webhookData
+	transactionData["verification_data"] = verification
 	transactionJSON, _ := json.Marshal(transactionData)
-	cache.Redis().Set(r.Context(), fmt.Sprintf("token_purchase:%s", transactionID), string(transactionJSON), 30*24*time.Hour) // Keep for 30 days
+	cache.Redis().Set(r.Context(), fmt.Sprintf("token_purchase:%s", verification.TransactionID), string(transactionJSON), 30*24*time.Hour) // Keep for 30 days
 
 	render.JSON(w, r, map[string]interface{}{
 		"status":  "success",
 		"tokens":  tokens,
 		"message": "Payment processed successfully",
 	})
+}
+
+// GetAvailablePaymentProviders returns available payment providers for user's location
+func GetAvailablePaymentProviders(w http.ResponseWriter, r *http.Request) {
+	// Get detection factors
+	userIP := geolocation.GetRealIP(r)
+	acceptLanguage := r.Header.Get("Accept-Language")
+	timezone := r.Header.Get("X-Timezone")
+
+	geoService := geolocation.NewGeoLocationService()
+	countryCode, err := geoService.GetCountryFromIP(r.Context(), userIP)
+	if err != nil {
+		fmt.Printf("Geolocation error for IP %s: %v\n", userIP, err)
+	}
+
+	// Get smart provider config
+	primaryConfig := geolocation.GetPaymentProviderForCountry(countryCode, acceptLanguage, timezone)
+
+	// Prepare response with both primary and alternative options
+	providers := []map[string]interface{}{
+		{
+			"provider":    primaryConfig.Provider,
+			"currency":    primaryConfig.Currency,
+			"recommended": true,
+			"reason":      primaryConfig.Reason,
+			"confidence":  primaryConfig.Confidence,
+		},
+		{
+			"provider":    primaryConfig.AlternativeProvider,
+			"currency":    primaryConfig.AlternativeCurrency,
+			"recommended": false,
+			"reason":      "Alternative option",
+			"confidence":  30,
+		},
+	}
+
+	response := map[string]interface{}{
+		"success":           true,
+		"detected_country":  countryCode,
+		"detected_language": acceptLanguage,
+		"providers":         providers,
+		"default_provider":  primaryConfig.Provider,
+		"default_currency":  primaryConfig.Currency,
+	}
+
+	render.JSON(w, r, response)
 }

@@ -32,9 +32,12 @@ type _tokenPurchaseResponse struct {
 	Success       bool    `json:"success"`
 	Tokens        int     `json:"tokens"`
 	Price         float64 `json:"price"`
+	Currency      string  `json:"currency"`
 	Discount      int     `json:"discount"`
 	PaymentURL    string  `json:"payment_url"`
 	TransactionID string  `json:"transaction_id"`
+	Provider      string  `json:"provider"`
+	Country       string  `json:"country"`
 }
 
 type _tokenPurchaseConfirmation struct {

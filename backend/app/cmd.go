@@ -9,6 +9,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/database"
 	"github.com/akifkadioglu/vocapedia/pkg/i18n"
 	"github.com/akifkadioglu/vocapedia/pkg/mail"
+	"github.com/akifkadioglu/vocapedia/pkg/payment"
 	"github.com/akifkadioglu/vocapedia/pkg/search"
 	"github.com/akifkadioglu/vocapedia/pkg/server"
 	"github.com/akifkadioglu/vocapedia/pkg/snowflake"
@@ -27,7 +28,7 @@ func Execute() {
 		config.ReadValue().SMTP.Port,
 	)
 	snowflake.InitSnowflake()
-	
+
 	search.InitMeili(
 		config.ReadValue().Meili.Host,
 		config.ReadValue().Meili.APIKey,
@@ -43,13 +44,15 @@ func Execute() {
 		config.ReadValue().AdminName,
 		config.ReadValue().AdminBiography,
 	)
-	
+
 	cache.InitRedis(
 		config.ReadValue().Redis.Host,
 		config.ReadValue().Redis.Port,
 		config.ReadValue().Redis.Password,
 		config.ReadValue().Redis.DB,
 	)
+
+	payment.InitializeProviders()
 
 	s := server.CreateNewServer()
 

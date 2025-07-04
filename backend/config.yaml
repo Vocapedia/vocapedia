@@ -58,3 +58,14 @@ allow_origins:
   - "http://localhost:5173"
   - "http://localhost:3000"
   - "chrome-extension://cpmfckfiegiknkheiliagelbpikngdnc"
+
+payment:
+  providers:
+    iyzico:
+      api_key: sandbox-your-api-key
+      secret_key: sandbox-your-secret-key
+      production: false
+    paypal:  
+      client_id: sandbox-your-client-id
+      secret_key: sandbox-your-secret
+      production: false

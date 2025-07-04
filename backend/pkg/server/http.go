@@ -64,6 +64,7 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/vocatoken", user.GetVocaToken)
 				api.Get("/streak", user.DailyStreak)
 				// Token purchase endpoints
+				api.Get("/payment-providers", user.GetAvailablePaymentProviders)
 				api.Post("/purchase-tokens", user.InitiateTokenPurchase)
 				api.Get("/purchase-status/{transaction_id}", user.GetTokenPurchaseStatus)
 				api.Post("/confirm-purchase/{transaction_id}", user.ConfirmTokenPurchase)
@@ -98,9 +99,9 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/", user.GetByUsername)
 				api.Get("/search", user.SearchUsers)
 			})
-			// Webhook endpoint for Gumroad payment confirmations
+			// Webhook endpoint for payment confirmations
 			api.Route("/webhooks", func(api chi.Router) {
-				api.Post("/gumroad/token-purchase", user.GumroadWebhook)
+				api.Post("/payment", user.PaymentWebhook)
 			})
 			//api.Post("/speech-to-text", speechtotext.SpeechToText)
 		})

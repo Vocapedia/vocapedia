@@ -372,6 +372,10 @@
         },
         "buy_now": "Buy Now",
         "discount": "Discount",
+        "payment": {
+            "choose_provider": "Choose Payment Method",
+            "recommended": "Recommended"
+        },
         "tiers": {
             "title": "Pricing Tiers",
             "per_token": "per token"

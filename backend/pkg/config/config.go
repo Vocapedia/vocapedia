@@ -58,6 +58,20 @@ type Config struct {
 	AllowMethods []string `yaml:"allow_methods"`
 	AllowHeaders []string `yaml:"allow_headers"`
 	AllowOrigins []string `yaml:"allow_origins"`
+	Payments     struct {
+		Providers struct {
+			Iyzico struct {
+				APIKey     string `yaml:"api_key"`
+				SecretKey  string `yaml:"secret_key"`
+				Production bool   `yaml:"production"`
+			} `yaml:"iyzico"`
+			Paypal struct {
+				ClientID   string `yaml:"client_id"`
+				SecretKey  string `yaml:"secret_key"`
+				Production bool   `yaml:"production"`
+			} `yaml:"paypal"`
+		}
+	}
 }
 
 var configs *Config
