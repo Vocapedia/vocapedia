@@ -386,7 +386,10 @@
         "discount": "İndirim",
         "payment": {
             "choose_provider": "Ödeme Yöntemi Seçin",
-            "recommended": "Önerilen"
+            "recommended": "Önerilen",
+            "loading": "Ödeme yöntemleri yükleniyor...",
+            "detected_location": "Tespit edilen konum",
+            "selected_provider": "Seçilen ödeme yöntemi"
         },
         "tiers": {
             "title": "Fiyat Seviyeleri",

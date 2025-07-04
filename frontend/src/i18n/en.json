@@ -374,7 +374,10 @@
         "discount": "Discount",
         "payment": {
             "choose_provider": "Choose Payment Method",
-            "recommended": "Recommended"
+            "recommended": "Recommended",
+            "loading": "Loading payment methods...",
+            "detected_location": "Detected location",
+            "selected_provider": "Selected payment method"
         },
         "tiers": {
             "title": "Pricing Tiers",
