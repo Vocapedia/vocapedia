@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
+	"fmt"
 	"hash"
 	"log"
 	"net/http"
@@ -69,6 +70,11 @@ func GenerateJitsiToken(user entities.JwtModel, room, domain, appID string) (str
 }
 
 func GenerateToken(model entities.JwtModel) (string, error) {
+
+	if model.UserID == "" {
+		return "", fmt.Errorf("UserID is required")
+	}
+	
 	db := database.Manager()
 	var tokenEntity entities.Token
 

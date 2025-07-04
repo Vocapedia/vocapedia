@@ -1,12 +1,13 @@
 <template>
     <div class="max-w-160 mx-auto prose dark:prose-invert">
-        <div v-html="response.chapter.tutorial" />
+        <div v-html="tutorialContent" />
     </div>
 </template>
+
 <script setup>
 const props = defineProps({
-    response: {
-        type: Object,
+    tutorialContent: {
+        type: String,
         required: true,
     }
 })

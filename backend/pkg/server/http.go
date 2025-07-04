@@ -63,12 +63,22 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Put("/vocatoken", user.UpdateVocaToken)
 				api.Get("/vocatoken", user.GetVocaToken)
 				api.Get("/streak", user.DailyStreak)
+				// Token purchase endpoints
+				api.Post("/purchase-tokens", user.InitiateTokenPurchase)
+				api.Get("/purchase-status/{transaction_id}", user.GetTokenPurchaseStatus)
+				api.Post("/confirm-purchase/{transaction_id}", user.ConfirmTokenPurchase)
 			})
 			api.Route("/auth", func(api chi.Router) {
 				api.Delete("/logout", auth.Logout)
 			})
 			api.Route("/stream", func(api chi.Router) {
-				api.Get("/{room}", stream.StartStream)
+				api.Post("/", stream.CreateStream)        // Create new stream (authenticated)
+				api.Get("/{room}", stream.StartStream)    // Get or start stream
+				api.Post("/{room}/end", stream.EndStream) // End stream
+				// List streams
+				api.Get("/active", stream.GetActiveStreams)     // Past 12h
+				api.Get("/recent", stream.GetRecentStreams)     // Ended last 12h
+				api.Get("/upcoming", stream.GetUpcomingStreams) // Next 12h
 			})
 		})
 		api.Route("/public", func(api chi.Router) {
@@ -87,6 +97,10 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 			api.Route("/user", func(api chi.Router) {
 				api.Get("/", user.GetByUsername)
 				api.Get("/search", user.SearchUsers)
+			})
+			// Webhook endpoint for Gumroad payment confirmations
+			api.Route("/webhooks", func(api chi.Router) {
+				api.Post("/gumroad/token-purchase", user.GumroadWebhook)
 			})
 			//api.Post("/speech-to-text", speechtotext.SpeechToText)
 		})

@@ -10,8 +10,26 @@ export const useToast = () => {
             duration: 3000,
         });
     };
+    
     const show = (message, options = {}) => {
         showToast(message, options);
     }
-    return { show }
+    
+    const success = (message, options = {}) => {
+        showToast(message, {
+            ...options,
+            type: 'success',
+            className: 'bg-green-500 text-white',
+        });
+    }
+    
+    const error = (message, options = {}) => {
+        showToast(message, {
+            ...options,
+            type: 'error',
+            className: 'bg-red-500 text-white',
+        });
+    }
+    
+    return { show, success, error }
 }

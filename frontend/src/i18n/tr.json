@@ -6,7 +6,19 @@
         },
         "home": {
             "title": "Vocapedia - İnteraktif Dersler ve Kelime Dağarcığı ile Dil Öğrenin",
-            "description": "Vocapedia'nın interaktif dersleri, kelime dağarcığı araçları ve eğitimleriyle kapsamlı dil öğrenmeyi keşfedin. Yenilikçi dil eğitimi deneyimi yaşayın ve öğrenme yolculuğunuzu hızlandırın."
+        "calculator": {
+            "title": "Özel Token Hesaplayıcı",
+            "token_count": "Token Sayısı",
+            "placeholder": "Token sayısını girin",
+            "base_price": "Temel fiyat",
+            "discount": "İndirim",
+            "total": "Toplam",
+            "buy_tokens": "Token Satın Al",
+            "no_discount": "İndirim yok",
+            "discount_10": "%10 İndirim",
+            "discount_20": "%20 İndirim",
+            "purchase_instruction": "Token miktarını girin ve aşağıdaki butondan güvenli satın alma işlemini başlatın"
+        },"description": "Vocapedia'nın interaktif dersleri, kelime dağarcığı araçları ve eğitimleriyle kapsamlı dil öğrenmeyi keşfedin. Yenilikçi dil eğitimi deneyimi yaşayın ve öğrenme yolculuğunuzu hızlandırın."
         },
         "landing": {
             "title": "Vocapedia'ya Hoş Geldiniz - Dil Öğrenme Yolculuğunuza Başlayın!",
@@ -47,6 +59,10 @@
         "notFound": {
             "title": "Sayfa Bulunamadı | Vocapedia",
             "description": "Aradığınız sayfa Vocapedia'da bulunamadı."
+        },
+        "pricing": {
+            "title": "Token Satın Al | Vocapedia",
+            "description": "Vocapedia'da dil öğrenme deneyiminizi geliştirmek için token satın alın. Güvenli ödeme ile hemen token alabilirsiniz."
         },
         "wordList": {
             "title": "Kelime Listesini Görüntüle | Vocapedia",
@@ -320,6 +336,29 @@
         "theWordWas": "Kelime",
         "restart": "Yeniden Başlat"
     },
+    "stream": {
+        "title": "Video Yayını",
+        "roomId": "Oda ID",
+        "status": "Durum",
+        "active": "Aktif",
+        "inactive": "Pasif",
+        "waitingToStart": "Başlamaya Hazır",
+        "waitingDescription": "Video yayını oturumunuzu başlatmak için başlat düğmesine tıklayın",
+        "start": "Yayını Başlat",
+        "stop": "Yayını Durdur",
+        "createNew": "Yeni Oda Oluştur",
+        "loading": "Yükleniyor...",
+        "copySuccess": "Oda ID panoya kopyalandı!",
+        "copyError": "Oda ID kopyalanamadı",
+        "startError": "Video toplantısı başlatılamadı",
+        "loadError": "Yayın verileri yüklenemedi",
+        "activeStreams": "Aktif Yayınlar",
+        "upcomingStreams": "Gelecek Yayınlar",
+        "recentStreams": "Son Yayınlar",
+        "noActiveStreams": "Şu anda aktif yayın yok",
+        "noUpcomingStreams": "Planlanan gelecek yayın yok",
+        "noRecentStreams": "Son yayın yok"
+    },
     "compose.tour.main_lang": "Listeniz için ana dili seçin. Bu, çeviri yapacağınız dildir.",
     "compose.tour.target_lang": "Listeniz için hedef dili seçin. Bu, çeviri yapacağınız dildir.",
     "compose.tour.list_name": "Listeniz için bir ad girin. Bu, daha sonra onu tanımlamanıza yardımcı olacaktır.",
@@ -331,5 +370,80 @@
     "compose.tour.word_lang2": "Kelimenin dilini seçin.",
     "compose.tour.new_word_button": "Mevcut kelime tabanına yeni bir kelime eklemek için buraya tıklayın. Tek bir kelime için birden fazla çeviri ekleyebilirsiniz.",
     "compose.tour.new_word_base": "Yeni bir kelime tabanı eklemek için buraya tıklayın. Bir kelime tabanı, birbirinin çevirisi olan kelimelerden oluşmalıdır.",
-    "compose.tour.save_button": "Listenizi kaydetmek için buraya tıklayın."
+    "compose.tour.save_button": "Listenizi kaydetmek için buraya tıklayın.",
+    "pricing": {
+        "title": "Token Satın Al",
+        "description": "Vocapedia'da dil öğrenme deneyiminizi geliştirmek için tokenlar satın alın. Tokenlar ile premium özelliklere erişin ve öğrenme sürecinizi hızlandırın.",
+        "tokens": {
+            "title": "Tokenlar Nedir?",
+            "description": "Tokenlar, Vocapedia'da dijital para birimi olarak kullanılır. Her etkileşim ve özellik için token harcarısınız.",
+            "label": "Token",
+            "use1": "Ders İçerikleri",
+            "use2": "Oyun Özellikleri", 
+            "use3": "Canlı Ders"
+        },
+        "buy_now": "Hemen Satın Al",
+        "discount": "İndirim",
+        "tiers": {
+            "title": "Fiyat Seviyeleri",
+            "per_token": "Token başına"
+        },
+        "calculator": {
+            "title": "Özel Token Hesaplayıcı",
+            "token_count": "Token Sayısı",
+            "placeholder": "Token sayısını girin",
+            "base_price": "Temel fiyat",
+            "discount": "İndirim",
+            "total": "Toplam",
+            "buy_tokens": "Token Satın Al",
+            "no_discount": "İndirim yok",
+            "discount_10": "% 10 İndirim",
+            "discount_20": "% 20 İndirim"
+        },
+        "faq": {
+            "title": "Sık Sorulan Sorular",
+            "q1": "Tokenlar nasıl kullanılır?",
+            "a1": "Tokenlar, ders içeriklerine erişmek, oyun oynamak ve ses tanıma özelliklerini kullanmak için harcanır.",
+            "q2": "Tokenlar ne zaman sona erer?",
+            "a2": "Tokenlar sona ermez, istediğiniz zaman kullanabilirsiniz.",
+            "q3": "İndirim nasıl hesaplanır?",
+            "a3": "50+ token alırken %10, 100+ token alırken %20 indirim uygulanır.",
+            "q4": "Ödeme yöntemleri nelerdir?",
+            "a4": "Kredi kartı, PayPal ve banka havalesi ile ödeme yapabilirsiniz. Tüm ödemeler güvenli SSL ile korunmaktadır."
+        },
+        "purchase": {
+            "title": "Satın Alma Onayı",
+            "package": "Paket",
+            "tokens": "Token",
+            "total": "Toplam",
+            "confirm": "Satın Al",
+            "cancel": "İptal",
+            "success": "{tokens} token başarıyla hesabınıza eklendi!",
+            "secure_payment": "Güvenli ödeme sistemi",
+            "secure_description": "Tüm ödemeler SSL koruması ile güvenli bir şekilde işlenir"
+        }
+    },
+    "checkout": {
+        "title": "Ödeme",
+        "subtitle": "Güvenli ödeme ile token satın alın",
+        "package_details": "Paket Detayları",
+        "tokens": "Token",
+        "price": "Fiyat",
+        "discount": "İndirim",
+        "continue": "Devam Et",
+        "card_number": "Kart Numarası",
+        "expiry_date": "Son Kullanma Tarihi",
+        "cvv": "CVV",
+        "cardholder_name": "Kart Sahibi Adı",
+        "email": "E-posta",
+        "back": "Geri",
+        "process_payment": "Ödemeyi İşle",
+        "processing": "İşleniyor...",
+        "processing_message": "Ödemeniz işleniyor, lütfen bekleyin.",
+        "success": "Başarılı!",
+        "success_message": "Ödemeniz başarıyla tamamlandı.",
+        "tokens_added": "token hesabınıza eklendi",
+        "close": "Kapat",
+        "payment_successful": "Ödeme başarıyla tamamlandı!"
+    }
 }

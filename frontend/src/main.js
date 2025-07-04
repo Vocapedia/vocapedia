@@ -3,8 +3,8 @@ import "./assets/main.css";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import mdiVue from "mdi-vue/v3";
-import { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline, mdiVolumeHigh, mdiArchiveArrowDownOutline, mdiTrendingUp, mdiFormatListText, mdiNoteTextOutline, mdiFire } from "@mdi/js";
-const mdijs = { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline, mdiVolumeHigh, mdiArchiveArrowDownOutline, mdiTrendingUp, mdiFormatListText, mdiNoteTextOutline, mdiFire }
+import { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline, mdiVolumeHigh, mdiArchiveArrowDownOutline, mdiTrendingUp, mdiFormatListText, mdiNoteTextOutline, mdiFire, mdiCurrencyUsd, mdiBookOpen, mdiAccountVoice, mdiShieldCheck, mdiChevronUp, mdiChevronDown } from "@mdi/js";
+const mdijs = { mdiMagnify, mdiCogOutline, mdiAccountCircleOutline, mdiClose, mdiArrowUp, mdiWhiteBalanceSunny, mdiStar, mdiStarOutline, mdiFormatLetterCase, mdiArrowRight, mdiCheckDecagram, mdiLoading, mdiCircle, mdiPlus, mdiContentSave, mdiReload, mdiContentCopy, mdiCheck, mdiAccountRemoveOutline, mdiLogout, mdiGamepadVariantOutline, mdiDownloadOutline, mdiPuzzleEditOutline, mdiTranslate, mdiArrowLeft, mdiEyeOutline, mdiEyeOffOutline, mdiVolumeHigh, mdiArchiveArrowDownOutline, mdiTrendingUp, mdiFormatListText, mdiNoteTextOutline, mdiFire, mdiCurrencyUsd, mdiBookOpen, mdiAccountVoice, mdiShieldCheck, mdiChevronUp, mdiChevronDown }
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
 import { MotionPlugin } from '@vueuse/motion'
 import App from "./App.vue";
@@ -25,9 +25,9 @@ import "swiper/swiper-bundle.css";
 import "splitting/dist/splitting.css";
 import "splitting/dist/splitting-cells.css";
 import Splitting from "splitting";
+import Toasted from "@hoppscotch/vue-toasted"
 
 import "@hoppscotch/vue-toasted/style.css"
-import Toasted from "@hoppscotch/vue-toasted"
 
 const app = createApp(App)
   .use(createPinia())

@@ -90,7 +90,7 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-.languages {
+.more-than-word {
     opacity: 0;
     visibility: hidden;
     height: 0;

@@ -8,7 +8,7 @@ import LandingView from '@/views/LandingView.vue';
 import ComposeView from '@/views/ComposeView.vue';
 import StreamView from '@/views/StreamView.vue';
 import StreamersView from '@/views/StreamersView.vue';
-import ChapterView from '@/views/chapter/index.vue';
+import ChapterView from '@/views/ChapterView.vue';
 import GameView from '@/views/GameView.vue';
 import TestView from '@/views/game/TestView.vue';
 import HangmanView from '@/views/game/HangmanView.vue';
@@ -25,6 +25,7 @@ import EditorView from '@/views/EditorView.vue';
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import AccountView from '@/views/AccountView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
+import PricingView from '@/views/PricingView.vue';
 import TrendsView from "@/views/TrendsView.vue";
 import { i18n } from "@/i18n/i18n";
 
@@ -256,6 +257,19 @@ const router = createRouter({
       meta: {
         titleKey: 'seo.userProfile.title',
         descriptionKey: 'seo.userProfile.description'
+      }
+    },
+    {
+      path: "/pricing",
+      name: "pricing",
+      component: PricingView,
+      meta: {
+        titleKey: 'seo.pricing.title',
+        descriptionKey: 'seo.pricing.description',
+        ogTitleKey: 'seo.pricing.title',
+        ogDescriptionKey: 'seo.pricing.description',
+        twitterTitleKey: 'seo.pricing.title',
+        twitterDescriptionKey: 'seo.pricing.description'
       }
     },
     {

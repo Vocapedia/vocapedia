@@ -48,6 +48,10 @@
             "title": "Page Not Found | Vocapedia",
             "description": "The page you are looking for was not found on Vocapedia."
         },
+        "pricing": {
+            "title": "Buy Tokens | Vocapedia",
+            "description": "Purchase tokens to enhance your language learning experience on Vocapedia. Secure payment with instant token delivery."
+        },
         "wordList": {
             "title": "View Word List | Vocapedia",
             "description": "Explore this word list on Vocapedia. Enhance your vocabulary with user-created lists."
@@ -320,6 +324,29 @@
         "theWordWas": "The word was",
         "restart": "Restart"
     },
+    "stream": {
+        "title": "Video Stream",
+        "roomId": "Room ID",
+        "status": "Status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "waitingToStart": "Ready to Start",
+        "waitingDescription": "Click the start button to begin your video stream session",
+        "start": "Start Stream",
+        "stop": "Stop Stream",
+        "createNew": "Create New Room",
+        "loading": "Loading...",
+        "copySuccess": "Room ID copied to clipboard!",
+        "copyError": "Failed to copy room ID",
+        "startError": "Failed to start video meeting",
+        "loadError": "Failed to load stream data",
+        "activeStreams": "Active Streams",
+        "upcomingStreams": "Upcoming Streams",
+        "recentStreams": "Recent Streams",
+        "noActiveStreams": "No active streams at the moment",
+        "noUpcomingStreams": "No upcoming streams scheduled",
+        "noRecentStreams": "No recent streams"
+    },
     "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
     "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
     "compose.tour.list_name": "Enter a name for your list. This will help you identify it later.",
@@ -331,5 +358,81 @@
     "compose.tour.word_lang2": "Select the language of the word.",
     "compose.tour.new_word_button": "Click here to add a new word to the current word base. You can add multiple translations for a single word.",
     "compose.tour.new_word_base": "Click here to add a new word base. A word base should consist of words that are translations of each other.",
-    "compose.tour.save_button": "Click here to save your list."
+    "compose.tour.save_button": "Click here to save your list.",
+    "pricing": {
+        "title": "Buy Tokens",
+        "description": "Purchase tokens to enhance your language learning experience on Vocapedia. Access premium features and accelerate your learning process with tokens.",
+        "tokens": {
+            "title": "What are Tokens?",
+            "description": "Tokens are used as digital currency in Vocapedia. You spend tokens for every interaction and feature.",
+            "label": "Tokens",
+            "use1": "Lesson Content",
+            "use2": "Game Features",
+            "use3": "Live Lessons"
+        },
+        "buy_now": "Buy Now",
+        "discount": "Discount",
+        "tiers": {
+            "title": "Pricing Tiers",
+            "per_token": "per token"
+        },
+        "calculator": {
+            "title": "Custom Token Calculator",
+            "token_count": "Token Count",
+            "placeholder": "Enter token count",
+            "base_price": "Base price",
+            "discount": "Discount",
+            "total": "Total",
+            "buy_tokens": "Buy Tokens",
+            "no_discount": "No discount",
+            "discount_10": "10% Discount",
+            "discount_20": "20% Discount",
+            "purchase_instruction": "Enter token amount and start secure purchase process with the button below"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "q1": "How are tokens used?",
+            "a1": "Tokens are spent to access lesson content, play games, and use speech recognition features.",
+            "q2": "When do tokens expire?",
+            "a2": "Tokens never expire, you can use them whenever you want.",
+            "q3": "How is the discount calculated?",
+            "a3": "10% discount is applied when buying 50+ tokens, 20% discount when buying 100+ tokens.",
+            "q4": "What are the payment methods?",
+            "a4": "You can pay with credit card, PayPal, and bank transfer. All payments are protected with secure SSL."
+        },
+        "purchase": {
+            "title": "Purchase Confirmation",
+            "package": "Package",
+            "tokens": "Tokens",
+            "total": "Total",
+            "confirm": "Buy",
+            "cancel": "Cancel",
+            "success": "{tokens} tokens successfully added to your account!",
+            "secure_payment": "Secure payment system",
+            "secure_description": "All payments are processed securely with SSL protection"
+        }
+    },
+    "checkout": {
+        "title": "Checkout",
+        "subtitle": "Purchase tokens with secure payment",
+        "package_details": "Package Details",
+        "tokens": "Tokens",
+        "price": "Price",
+        "discount": "Discount",
+        "continue": "Continue",
+        "card_number": "Card Number",
+        "expiry_date": "Expiry Date",
+        "cvv": "CVV",
+        "cardholder_name": "Cardholder Name",
+        "email": "Email",
+        "back": "Back",
+        "process_payment": "Process Payment",
+        "processing": "Processing...",
+        "processing_message": "Your payment is being processed, please wait.",
+        "success": "Success!",
+        "success_message": "Your payment has been completed successfully.",
+        "tokens_added": "tokens added to your account",
+        "close": "Close",
+        "payment_successful": "Payment completed successfully!"
+    }
 }

@@ -31,6 +31,7 @@ func InitDB(host string, port int, user, password, dbname, sslMode, adminusernam
 		panic(err)
 	}
 
+	// Migrate new Stream entity along with existing models
 	db.AutoMigrate(
 		&entities.User{},
 		&entities.Chapter{},
@@ -38,6 +39,7 @@ func InitDB(host string, port int, user, password, dbname, sslMode, adminusernam
 		&entities.WordBase{},
 		&entities.Word{},
 		&entities.Token{},
+		&entities.Stream{},
 	)
 
 	db.Exec(`CREATE INDEX IF NOT EXISTS idx_trgm_title ON chapters USING gin (title gin_trgm_ops)`)

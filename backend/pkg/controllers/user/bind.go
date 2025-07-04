@@ -8,6 +8,7 @@ type _emailData struct {
 	Warning     string
 	Device      string
 }
+
 type _updateUser struct {
 	Name        string          `json:"name"`
 	Username    string          `json:"username"`
@@ -20,4 +21,23 @@ type _streak struct {
 	Count    int    `json:"count"`
 	LastDate string `json:"lastDate"`
 	Rewarded bool   `json:"rewarded"`
+}
+
+// Token purchase structures
+type _tokenPurchaseRequest struct {
+	Tokens int `json:"tokens" binding:"required,min=1"`
+}
+
+type _tokenPurchaseResponse struct {
+	Success       bool    `json:"success"`
+	Tokens        int     `json:"tokens"`
+	Price         float64 `json:"price"`
+	Discount      int     `json:"discount"`
+	PaymentURL    string  `json:"payment_url"`
+	TransactionID string  `json:"transaction_id"`
+}
+
+type _tokenPurchaseConfirmation struct {
+	TransactionID string `json:"transaction_id"`
+	PaymentStatus string `json:"payment_status"`
 }

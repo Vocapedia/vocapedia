@@ -96,20 +96,20 @@ onMounted(async () => {
   streakCount.value = response.streak?.count || 0;
   const mainDate = new Date(response.streak.lastDate);
 
-  for (let i = streakCount.value-1; i >= 0; i--) {
+  for (let i = streakCount.value - 1; i >= 0; i--) {
     const date = new Date(mainDate);
-    date.setDate(date.getDate() - i); 
+    date.setDate(date.getDate() - i);
     weekdays.value.push(date)
   }
 
   for (let i = 1; i < (8 - streakCount.value); i++) {
     const date = new Date(mainDate);
-    date.setDate(date.getDate() + i); 
+    date.setDate(date.getDate() + i);
     weekdays.value.push(date)
   }
 
   for (let i = streakCount.value; i > 0; i--) {
-    completedDays.value[i-1] = true
+    completedDays.value[i - 1] = true
   }
   if (response.streak?.rewarded) {
     confetti({
@@ -150,6 +150,13 @@ const cards = [
     description: 'home.streamers_description',
     icon: 'volume-high',
     icon_class: 'text-orange-600 dark:text-orange-500'
+  },
+  {
+    uri: '/pricing',
+    name: 'pricing.title',
+    description: 'pricing.tokens.description',
+    icon: 'currency-usd',
+    icon_class: 'text-purple-600 dark:text-purple-500'
   }
 ]
 </script>
