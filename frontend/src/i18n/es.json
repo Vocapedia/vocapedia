@@ -1,32 +1,32 @@
 {
     "seo": {
         "default": {
-            "title": "Vocapedia",
-            "description": "Explora el mundo de las palabras y mejora tu vocabulario con Vocapedia."
+            "title": "Vocapedia - Plataforma Interactiva de Aprendizaje de Idiomas",
+            "description": "Domina idiomas con lecciones interactivas, listas de vocabulario y tutoriales. Tu alternativa integral a las plataformas tradicionales de aprendizaje de idiomas."
         },
         "home": {
-            "title": "Vocapedia - Aprende Vocabulario Más Rápido",
-            "description": "Descubre y aprende palabras comunes con Vocapedia para acelerar tu viaje de aprendizaje de idiomas."
+            "title": "Vocapedia - Aprende Idiomas con Lecciones Interactivas y Vocabulario",
+            "description": "Descubre el aprendizaje integral de idiomas con las lecciones interactivas, herramientas de vocabulario y tutoriales de Vocapedia. Experimenta la educación innovadora de idiomas y acelera tu viaje de aprendizaje."
         },
         "landing": {
-            "title": "¡Bienvenido a Vocapedia!",
-            "description": "Únete a Vocapedia y comienza hoy tu aventura de aprendizaje de vocabulario. Crea, comparte y aprende listas de palabras de manera efectiva."
+            "title": "¡Bienvenido a Vocapedia - Comienza tu Viaje de Aprendizaje de Idiomas!",
+            "description": "Únete a la plataforma interactiva de aprendizaje de idiomas de Vocapedia. Crea listas de vocabulario, sigue tutoriales, practica con juegos y domina idiomas efectivamente con nuestras herramientas educativas integrales."
         },
         "compose": {
-            "title": "Crear Lista de Palabras | Vocapedia",
-            "description": "Crea y comparte tus propias listas de vocabulario en Vocapedia."
+            "title": "Crear Listas de Vocabulario y Lecciones | Vocapedia",
+            "description": "Crea y comparte listas de vocabulario personalizadas y lecciones interactivas en Vocapedia. Desarrolla materiales de aprendizaje integrales para la educación efectiva de idiomas."
         },
         "trends": {
-            "title": "Listas de Palabras en Tendencia | Vocapedia",
-            "description": "Descubre listas de vocabulario populares y en tendencia en Vocapedia."
+            "title": "Lecciones de Idiomas y Listas de Vocabulario en Tendencia | Vocapedia",
+            "description": "Descubre las lecciones de idiomas, listas de vocabulario y tutoriales más populares en Vocapedia. Sigue el contenido educativo en tendencia de nuestra comunidad."
         },
         "search": {
-            "title": "Buscar Listas de Palabras | Vocapedia",
-            "description": "Busca listas de vocabulario en Vocapedia."
+            "title": "Buscar Lecciones de Idiomas y Vocabulario | Vocapedia",
+            "description": "Busca entre miles de listas de vocabulario, lecciones interactivas y tutoriales de idiomas en Vocapedia. Encuentra el contenido de aprendizaje perfecto para tus necesidades."
         },
         "notes": {
-            "title": "Mis Notas | Vocapedia",
-            "description": "Accede a tus notas personales y vocabulario en Vocapedia."
+            "title": "Mi Progreso de Aprendizaje y Notas | Vocapedia",
+            "description": "Rastrea tu progreso de aprendizaje de idiomas, accede a notas personales y gestiona tus colecciones de vocabulario en Vocapedia."
         },
         "login": {
             "title": "Iniciar Sesión | Vocapedia",

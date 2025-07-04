@@ -1,6 +1,4 @@
 const cache = new Map();
-const mode = import.meta.env.VITE_MODE;
-const built = import.meta.env.VITE_BUILT;
 import _search_list from "@/fake/search_list.json";
 import _trends_list from '@/fake/trends_list.json'
 import _chapter from "@/fake/chapter.json";

@@ -14,13 +14,13 @@
                         <div class="flex justify-between items-center space-x-5">
                             <div class="font-bold text-xl capitalize ">{{ item.words[0].word }}</div>
                             <span
-                                class="languages bg-blue-200 dark:bg-blue-800 px-2 rounded-full text-blue-800 dark:text-blue-200">
+                                class="more-than-word bg-blue-200 dark:bg-blue-800 px-2 rounded-full text-blue-800 dark:text-blue-200">
                                 {{ $t('word_types.' + item.type) }}
                             </span>
                         </div>
                         <div class="font-light pt-5">{{ item.words[0].description }}</div>
 
-                        <div class="languages">
+                        <div class="more-than-word">
                             <div v-if="(item.words[0].examples ?? []).length > 0">
                                 <div v-for="example in item.words[0].examples"
                                     class="p-5 space-x-2 flex items-end font-light text-sm">
@@ -34,7 +34,7 @@
                             <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
                         </div>
 
-                        <div :id="sub.word.replace(/\s+/g, '-')" class="languages" v-for="(sub, i) in item.words.slice(1)" :key="i">
+                        <div :id="sub.word.replace(/\s+/g, '-')" class="more-than-word" v-for="(sub, i) in item.words.slice(1)" :key="i">
                             <div class="font-bold text-xl capitalize py-5">{{ sub.word }}</div>
                             <div class="font-light">{{ sub.description }}</div>
                             <div v-if="(sub.examples ?? []).length > 0">
@@ -98,7 +98,7 @@ onMounted(() => {
     transition: opacity 0.3s ease, visibility 0s linear 0.3s, height 0.3s ease;
 }
 
-.card:hover .languages {
+.card:hover .more-than-word {
     opacity: 1;
     visibility: visible;
     height: auto;

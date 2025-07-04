@@ -1,32 +1,32 @@
 {
     "seo": {
         "default": {
-            "title": "Vocapedia",
-            "description": "Explore the world of words and enhance your vocabulary with Vocapedia."
+            "title": "Vocapedia - Interactive Language Learning Platform",
+            "description": "Master languages with interactive lessons, vocabulary lists, and tutorials. Your comprehensive alternative to traditional language learning platforms."
         },
         "home": {
-            "title": "Vocapedia - Learn Vocabulary Faster",
-            "description": "Discover and learn common words with Vocapedia to speed up your language learning journey."
+            "title": "Vocapedia - Learn Languages with Interactive Lessons & Vocabulary",
+            "description": "Discover comprehensive language learning with Vocapedia's interactive lessons, vocabulary builders, and tutorials. Experience innovative language education and accelerate your learning journey."
         },
         "landing": {
-            "title": "Welcome to Vocapedia!",
-            "description": "Join Vocapedia and start your vocabulary learning adventure today. Create, share, and learn word lists effectively."
+            "title": "Welcome to Vocapedia - Start Your Language Learning Journey!",
+            "description": "Join Vocapedia's interactive language learning platform. Create vocabulary lists, follow tutorials, practice with games, and master languages effectively with our comprehensive educational tools."
         },
         "compose": {
-            "title": "Create Word List | Vocapedia",
-            "description": "Create and share your own vocabulary lists on Vocapedia."
+            "title": "Create Vocabulary Lists & Lessons | Vocapedia",
+            "description": "Create and share custom vocabulary lists and interactive lessons on Vocapedia. Build comprehensive learning materials for effective language education."
         },
         "trends": {
-            "title": "Trending Word Lists | Vocapedia",
-            "description": "Discover trending and popular vocabulary lists on Vocapedia."
+            "title": "Trending Language Lessons & Vocabulary Lists | Vocapedia",
+            "description": "Discover the most popular language lessons, vocabulary lists, and tutorials on Vocapedia. Follow trending educational content from our community."
         },
         "search": {
-            "title": "Search Word Lists | Vocapedia",
-            "description": "Search for vocabulary lists on Vocapedia."
+            "title": "Search Language Lessons & Vocabulary | Vocapedia",
+            "description": "Search through thousands of vocabulary lists, interactive lessons, and language tutorials on Vocapedia. Find the perfect learning content for your needs."
         },
         "notes": {
-            "title": "My Notes | Vocapedia",
-            "description": "Access your personal notes and vocabulary on Vocapedia."
+            "title": "My Learning Progress & Notes | Vocapedia",
+            "description": "Track your language learning progress, access personal notes, and manage your vocabulary collections on Vocapedia."
         },
         "login": {
             "title": "Login | Vocapedia",

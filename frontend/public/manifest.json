@@ -1,0 +1,94 @@
+{
+  "name": "Vocapedia - Interactive Language Learning Platform",
+  "short_name": "Vocapedia",
+  "description": "Master languages with interactive lessons, vocabulary lists, and tutorials. Your comprehensive alternative to traditional language learning platforms.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#072f4a",
+  "background_color": "#ffffff",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "productivity",
+    "social",
+    "utilities"
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "Vocapedia home screen"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Create Word List",
+      "short_name": "Create",
+      "description": "Create a new vocabulary list",
+      "url": "/compose",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "Trending Lists",
+      "short_name": "Trends",
+      "description": "View trending vocabulary lists",
+      "url": "/trends",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "short_name": "Search",
+      "description": "Search vocabulary lists and lessons",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "My Progress",
+      "short_name": "Progress",
+      "description": "View learning progress and notes",
+      "url": "/notes",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    }
+  ],
+  "iarc_rating_id": "e58c174a-81d2-5c3c-32cc-34b8de4a52e9",
+  "prefer_related_applications": false,
+  "related_applications": []
+}

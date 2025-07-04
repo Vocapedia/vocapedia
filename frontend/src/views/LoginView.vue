@@ -13,8 +13,7 @@
                     <div class="mb-4 space-y-2">
                         <label for="otp" class="block text-sm font-medium">{{ $t('login.input.otp') }}</label>
                         <div class="flex justify-center space-x-2">
-                            <input type="text" inputmode="numeric"
-                                maxlength="6"
+                            <input type="text" inputmode="numeric" maxlength="6"
                                 class="w-full h-10 text-center text-xl border rounded-md outline-none border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-700"
                                 v-model="otp" />
                         </div>
@@ -44,11 +43,13 @@
              bg-zinc-100 text-zinc-900 py-2 mt-3 border-none rounded-full
              dark:bg-zinc-900 dark:text-white" :placeholder="$t('login.input.placeholder')" />
                     </div>
+
+                    <div ref="turnstileRef"></div>
+
                     <div class="mb-4">
-                        <div id="recaptcha-container"></div>
                         <div v-if="captchaLoadError" class="mt-2 text-sm text-red-600 dark:text-red-400">
                             {{ captchaLoadError }}
-                            <button @click="renderRecaptcha" type="button"
+                            <button @click="renderTurnstile" type="button"
                                 class="ml-2 text-sky-700 dark:text-sky-500 hover:underline">
                                 {{ $t('login.captcha.retry_button') }}
                             </button>
@@ -94,10 +95,11 @@ const isLoading = ref(false);
 const email = ref('');
 const emailOTP = ref('');
 const isCaptchaVerified = ref(false);
-const captchaLoadError = ref(null); // Added for CAPTCHA load error
-const recaptchaWidgetId = ref(null); // Added to store widget ID
+const captchaLoadError = ref(null); // For Turnstile load error
+const turnstileToken = ref(null); // Store Turnstile token
+const turnstileWidgetId = ref(null); // Store Turnstile widget ID
 const router = useRouter();
-const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 const toast = useToast();
 import { useCountdown } from '@vueuse/core';
 import { getDevice } from '@/utils/token';
@@ -117,18 +119,21 @@ const handleOTPSend = async () => {
         return;
     }
     isLoading.value = true;
-    const recaptchaResponse = grecaptcha.getResponse();
-    if (recaptchaResponse) {
-        await useFetch('/public/auth/send-otp', { method: "POST", body: { "email": email.value }, recaptchaResponse }).then((response) => {
+    if (turnstileToken.value) {
+        await useFetch('/public/auth/send-otp', {
+            method: "POST",
+            body: { "email": email.value },
+            turnstileToken: turnstileToken.value
+        }).then((response) => {
             if (response.is_mail_sent) {
                 isCodeSent.value = true;
                 emailOTP.value = email.value;
                 toast.show(i18n.global.t('login.otp.send_success'));
                 start();
             } else {
-                if (response.error === 'INVALID_EMAIL_FORMAT') { // Example error code
+                if (response.error === 'INVALID_EMAIL_FORMAT') {
                     toast.show(i18n.global.t('login.otp.send_error_invalid_email'));
-                } else if (response.error === 'OTP_LIMIT_EXCEEDED') { // Example error code
+                } else if (response.error === 'OTP_LIMIT_EXCEEDED') {
                     toast.show(i18n.global.t('login.otp.send_error_limit_exceeded'));
                 } else {
                     toast.show(i18n.global.t('login.otp.send_error_generic'));
@@ -195,49 +200,72 @@ const handleVerifyOTP = async () => {
 };
 
 
-const recaptchaCallback = () => {
-    const recaptchaResponse = grecaptcha.getResponse();
-    isCaptchaVerified.value = !!recaptchaResponse;
+
+const turnstileCallback = (token) => {
+    turnstileToken.value = token;
+    isCaptchaVerified.value = !!token;
 };
 
+
 onMounted(() => {
-    getDevice()
     getDevice();
-    renderRecaptcha(); // Call the new render method
+    renderTurnstile();
 });
 
-const renderRecaptcha = () => {
-    captchaLoadError.value = null; // Clear previous errors
-    // Ensure the reCAPTCHA container is empty before attempting to render
-    const recaptchaContainer = document.getElementById('recaptcha-container');
-    if (recaptchaContainer) {
-        recaptchaContainer.innerHTML = ''; 
+
+const renderTurnstile = () => {
+    captchaLoadError.value = null;
+    isCaptchaVerified.value = false;
+    turnstileToken.value = null;
+    // Remove previous widget if exists
+    if (turnstileWidgetId.value && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetId.value);
+        turnstileWidgetId.value = null;
     }
+    // Load Turnstile script if not loaded
+    if (!window.turnstile) {
+        const script = document.createElement('script');
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+            mountTurnstile();
+        };
+        script.onerror = () => {
+            captchaLoadError.value = i18n.global.t('login.captcha.load_error_retry');
+        };
+        document.head.appendChild(script);
+    } else {
+        mountTurnstile();
+    }
+};
 
-    if (window.grecaptcha && window.grecaptcha.render) {
-        try {
-            // Explicitly reset CAPTCHA state if widget ID exists
-            if (recaptchaWidgetId.value !== null && typeof window.grecaptcha.reset === 'function') {
-                window.grecaptcha.reset(recaptchaWidgetId.value);
-            }
-            isCaptchaVerified.value = false; // Reset verification status
-
-            recaptchaWidgetId.value = grecaptcha.render('recaptcha-container', {
-                sitekey: recaptchaSiteKey,
-                callback: recaptchaCallback,
+const mountTurnstile = () => {
+    try {
+        const el = (turnstileRef.value instanceof HTMLElement) ? turnstileRef.value : turnstileRef.value?.$el;
+        if (el) {
+            el.innerHTML = '';
+            turnstileWidgetId.value = window.turnstile.render(el, {
+                sitekey: turnstileSiteKey,
+                callback: turnstileCallback,
                 'error-callback': () => {
                     captchaLoadError.value = i18n.global.t('login.captcha.load_error_retry');
                     isCaptchaVerified.value = false;
-                }
+                },
+                theme: 'auto',
             });
-        } catch (error) {
-            console.error("Error rendering reCAPTCHA:", error);
-            captchaLoadError.value = i18n.global.t('login.captcha.load_error_retry');
-            isCaptchaVerified.value = false;
         }
-    } else {
-        console.error("reCAPTCHA script is not loaded or render function is unavailable.");
-        captchaLoadError.value = i18n.global.t('login.captcha.load_error_refresh');
+    } catch (error) {
+        captchaLoadError.value = i18n.global.t('login.captcha.load_error_retry');
+        isCaptchaVerified.value = false;
     }
 };
+
+import { onUnmounted } from 'vue';
+const turnstileRef = ref(null);
+onUnmounted(() => {
+    if (turnstileWidgetId.value && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetId.value);
+    }
+});
 </script>

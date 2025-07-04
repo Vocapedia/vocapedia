@@ -1,32 +1,32 @@
 {
     "seo": {
         "default": {
-            "title": "Vocapedia",
-            "description": "Vocapedia ile kelime dünyasını keşfedin ve kelime dağarcığınızı geliştirin."
+            "title": "Vocapedia - İnteraktif Dil Öğrenme Platformu",
+            "description": "İnteraktif dersler, kelime listeleri ve eğitimlerle dil öğrenin. Geleneksel dil öğrenme platformlarına kapsamlı alternatif."
         },
         "home": {
-            "title": "Vocapedia - Kelime Dağarcığınızı Hızla Geliştirin",
-            "description": "Vocapedia ile yaygın kelimeleri keşfedin ve öğrenin, dil öğrenme yolculuğunuzu hızlandırın."
+            "title": "Vocapedia - İnteraktif Dersler ve Kelime Dağarcığı ile Dil Öğrenin",
+            "description": "Vocapedia'nın interaktif dersleri, kelime dağarcığı araçları ve eğitimleriyle kapsamlı dil öğrenmeyi keşfedin. Yenilikçi dil eğitimi deneyimi yaşayın ve öğrenme yolculuğunuzu hızlandırın."
         },
         "landing": {
-            "title": "Vocapedia'ya Hoş Geldiniz!",
-            "description": "Vocapedia'ya katılın ve kelime öğrenme maceranıza bugün başlayın. Kelime listelerini etkili bir şekilde oluşturun, paylaşın ve öğrenin."
+            "title": "Vocapedia'ya Hoş Geldiniz - Dil Öğrenme Yolculuğunuza Başlayın!",
+            "description": "Vocapedia'nın interaktif dil öğrenme platformuna katılın. Kelime listeleri oluşturun, eğitimleri takip edin, oyunlarla pratik yapın ve kapsamlı eğitim araçlarımızla dillerde ustalaşın."
         },
         "compose": {
-            "title": "Kelime Listesi Oluştur | Vocapedia",
-            "description": "Vocapedia'da kendi kelime listelerinizi oluşturun ve paylaşın."
+            "title": "Kelime Listeleri ve Dersler Oluştur | Vocapedia",
+            "description": "Vocapedia'da özel kelime listeleri ve interaktif dersler oluşturun ve paylaşın. Etkili dil eğitimi için kapsamlı öğrenme materyalleri hazırlayın."
         },
         "trends": {
-            "title": "Trend Kelime Listeleri | Vocapedia",
-            "description": "Vocapedia'daki trend ve popüler kelime listelerini keşfedin."
+            "title": "Trend Dil Dersleri ve Kelime Listeleri | Vocapedia",
+            "description": "Vocapedia'daki en popüler dil derslerini, kelime listelerini ve eğitimleri keşfedin. Topluluğumuzdan trend eğitim içeriklerini takip edin."
         },
         "search": {
-            "title": "Kelime Listelerini Ara | Vocapedia",
-            "description": "Vocapedia'da kelime listelerini arayın."
+            "title": "Dil Dersleri ve Kelime Dağarcığı Ara | Vocapedia",
+            "description": "Vocapedia'da binlerce kelime listesi, interaktif ders ve dil eğitimini arayın. İhtiyaçlarınız için mükemmel öğrenme içeriğini bulun."
         },
         "notes": {
-            "title": "Notlarım | Vocapedia",
-            "description": "Vocapedia'daki kişisel notlarınıza ve kelime dağarcığınıza erişin."
+            "title": "Öğrenme İlerlemem ve Notlarım | Vocapedia",
+            "description": "Dil öğrenme ilerlemenizi takip edin, kişisel notlarınıza erişin ve Vocapedia'da kelime koleksiyonlarınızı yönetin."
         },
         "login": {
             "title": "Giriş Yap | Vocapedia",

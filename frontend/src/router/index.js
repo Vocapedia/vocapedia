@@ -5,7 +5,7 @@ import { block } from "./middleware/block";
 
 import HomeView from '@/views/HomeView.vue';
 import LandingView from '@/views/LandingView.vue';
-import ComposeView from '@/views/compose/index.vue';
+import ComposeView from '@/views/ComposeView.vue';
 import StreamView from '@/views/StreamView.vue';
 import StreamersView from '@/views/StreamersView.vue';
 import ChapterView from '@/views/chapter/index.vue';

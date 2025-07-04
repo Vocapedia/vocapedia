@@ -104,20 +104,6 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 	s.Router.Handle("/og-image.png", http.StripPrefix("/", fileServerStatics))
 	s.Router.Handle("/favicon.ico", http.StripPrefix("/", fileServerStatics))
 
-	/* distFS, _ := fs.Sub(embed.DistFS(), "dist")
-	fileServer := http.FileServer(http.FS(distFS))
-	s.Router.Handle("/assets/*", fileServer)
-	s.Router.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		index, err := embed.DistFS().ReadFile("dist/index.html")
-		if err != nil {
-			http.Error(w, "index.html bulunamadı", http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Type", "text/html")
-		w.WriteHeader(http.StatusOK)
-		render.HTML(w, r, string(index))
-	}) */
-
 	log.Default().Printf("HTTP Server is running on http://%s:%d", host, port)
 
 }

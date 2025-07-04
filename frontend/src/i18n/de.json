@@ -1,32 +1,32 @@
 {
     "seo": {
         "default": {
-            "title": "Vocapedia",
-            "description": "Entdecken Sie die Welt der Wörter und erweitern Sie Ihren Wortschatz mit Vocapedia."
+            "title": "Vocapedia - Interaktive Sprachlernplattform",
+            "description": "Beherrschen Sie Sprachen mit interaktiven Lektionen, Vokabellisten und Tutorials. Ihre umfassende Alternative zu traditionellen Sprachlernplattformen."
         },
         "home": {
-            "title": "Vocapedia - Schneller Vokabeln lernen",
-            "description": "Entdecken und lernen Sie häufige Wörter mit Vocapedia, um Ihre Sprachlernreise zu beschleunigen."
+            "title": "Vocapedia - Sprachen lernen mit interaktiven Lektionen & Vokabular",
+            "description": "Entdecken Sie umfassendes Sprachenlernen mit Vocapedias interaktiven Lektionen, Vokabel-Tools und Tutorials. Erleben Sie innovative Sprachbildung und beschleunigen Sie Ihre Lernreise."
         },
         "landing": {
-            "title": "Willkommen bei Vocapedia!",
-            "description": "Treten Sie Vocapedia bei und starten Sie noch heute Ihr Vokabellernabenteuer. Erstellen, teilen und lernen Sie Wortlisten effektiv."
+            "title": "Willkommen bei Vocapedia - Starten Sie Ihre Sprachlernreise!",
+            "description": "Treten Sie Vocapedias interaktiver Sprachlernplattform bei. Erstellen Sie Vokabellisten, folgen Sie Tutorials, üben Sie mit Spielen und beherrschen Sie Sprachen effektiv mit unseren umfassenden Bildungstools."
         },
         "compose": {
-            "title": "Wortliste erstellen | Vocapedia",
-            "description": "Erstellen und teilen Sie Ihre eigenen Vokabellisten auf Vocapedia."
+            "title": "Vokabellisten & Lektionen erstellen | Vocapedia",
+            "description": "Erstellen und teilen Sie benutzerdefinierte Vokabellisten und interaktive Lektionen auf Vocapedia. Entwickeln Sie umfassende Lernmaterialien für effektive Sprachbildung."
         },
         "trends": {
-            "title": "Trend-Wortlisten | Vocapedia",
-            "description": "Entdecken Sie trendige und beliebte Vokabellisten auf Vocapedia."
+            "title": "Trending Sprachlektionen & Vokabellisten | Vocapedia",
+            "description": "Entdecken Sie die beliebtesten Sprachlektionen, Vokabellisten und Tutorials auf Vocapedia. Folgen Sie trending Bildungsinhalten aus unserer Community."
         },
         "search": {
-            "title": "Wortlisten suchen | Vocapedia",
-            "description": "Suchen Sie nach Vokabellisten auf Vocapedia."
+            "title": "Sprachlektionen & Vokabular suchen | Vocapedia",
+            "description": "Durchsuchen Sie Tausende von Vokabellisten, interaktiven Lektionen und Sprach-Tutorials auf Vocapedia. Finden Sie den perfekten Lerninhalt für Ihre Bedürfnisse."
         },
         "notes": {
-            "title": "Meine Notizen | Vocapedia",
-            "description": "Greifen Sie auf Ihre persönlichen Notizen und Ihren Wortschatz auf Vocapedia zu."
+            "title": "Mein Lernfortschritt & Notizen | Vocapedia",
+            "description": "Verfolgen Sie Ihren Sprachlernfortschritt, greifen Sie auf persönliche Notizen zu und verwalten Sie Ihre Vokabelsammlungen auf Vocapedia."
         },
         "login": {
             "title": "Anmelden | Vocapedia",

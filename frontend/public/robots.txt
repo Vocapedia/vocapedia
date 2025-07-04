@@ -1,9 +1,30 @@
+# Vocapedia.space robots.txt
+# Interactive language learning platform with vocabulary lists and tutorials
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*?*utm_source=*
+Disallow: /*?*utm_medium=*
+Disallow: /*?*utm_campaign=*
+
+# Major search engines
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Social media crawlers
 User-agent: facebookexternalhit
 Allow: /
 
@@ -28,7 +49,18 @@ Allow: /
 User-agent: Pinterestbot
 Allow: /
 
-User-agent: *
+# SEO tools
+User-agent: AhrefsBot
 Allow: /
 
+User-agent: SemrushBot
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+# Sitemap
 Sitemap: https://vocapedia.space/sitemap.xml
+
+# Host directive
+Host: https://vocapedia.space
