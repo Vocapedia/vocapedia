@@ -170,7 +170,7 @@ func VerifyOTP(w http.ResponseWriter, r *http.Request) {
 
 	tokenClaim.UserID = fmt.Sprintf("%v", user.ID)
 	tokenClaim.Username = user.Username
-	tokenClaim.Role = user.Role
+	tokenClaim.IsTeacher = user.IsTeacher
 	tokenClaim.Device = device
 	tokenString, err := token.GenerateToken(tokenClaim)
 	if err != nil {

@@ -70,9 +70,6 @@ const loadLanguagePreferences = async () => {
     try {
         const response = await useFetch('/user/language-preferences', {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
         });
         
         if (response.data) {

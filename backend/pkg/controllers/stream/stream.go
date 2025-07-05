@@ -1,7 +1,6 @@
 package stream
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 	"time"
@@ -25,7 +24,7 @@ func StartStream(w http.ResponseWriter, r *http.Request) {
 
 	// Check if stream exists
 	var stream entities.Stream
-	result := db.Where("room_id = ?", room).First(&stream)
+	result := db.Preload("Creator").Where("room_id = ?", room).First(&stream)
 
 	if result.Error != nil {
 		// Stream doesn't exist, return error
@@ -62,7 +61,7 @@ func GetStreamByID(w http.ResponseWriter, r *http.Request) {
 
 	db := database.Manager()
 	var stream entities.Stream
-	result := db.Where("room_id = ?", room).First(&stream)
+	result := db.Preload("Creator").Where("room_id = ?", room).First(&stream)
 
 	if result.Error != nil {
 		http.Error(w, "Stream not found", http.StatusNotFound)
@@ -86,22 +85,15 @@ func GetStreamByID(w http.ResponseWriter, r *http.Request) {
 // CreateStream creates a new stream with schedule and languages
 func CreateStream(w http.ResponseWriter, r *http.Request) {
 	// Parse request body for schedule and languages
-	var req struct {
-		Title           string    `json:"title"`
-		Description     string    `json:"description"`
-		Lang            string    `json:"lang"`
-		TargetLang      string    `json:"target_lang"`
-		ScheduledAt     time.Time `json:"scheduled_at"`
-		Duration        int       `json:"duration"` // in minutes
-		MaxParticipants int       `json:"max_participants"`
-	}
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	var params _createStream
+	err := render.DecodeJSON(r.Body, &params)
+	if err != nil {
 		http.Error(w, "Invalid request payload", http.StatusBadRequest)
 		return
 	}
 
 	// Validate required fields
-	if req.Title == "" || req.Description == "" || req.Lang == "" || req.TargetLang == "" {
+	if params.Title == "" || params.Description == "" || params.Lang == "" || params.TargetLang == "" {
 		http.Error(w, "Missing required fields", http.StatusBadRequest)
 		return
 	}
@@ -114,22 +106,25 @@ func CreateStream(w http.ResponseWriter, r *http.Request) {
 	user := token.User(r)
 	userID, _ := strconv.ParseInt(user.UserID, 10, 64)
 
-	// Check if user has teacher role
-	if user.Role != "teacher" {
+	if !user.IsTeacher {
 		http.Error(w, "Only teachers can create streams", http.StatusForbidden)
 		return
 	}
-
+	t, err := time.Parse(time.RFC3339, params.ScheduledAt)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	// Build stream entity
 	stream := entities.Stream{
 		RoomID:          roomID,
-		Title:           req.Title,
-		Description:     req.Description,
-		Lang:            req.Lang,
-		TargetLang:      req.TargetLang,
-		ScheduledAt:     req.ScheduledAt,
-		Duration:        req.Duration,
-		MaxParticipants: req.MaxParticipants,
+		Title:           params.Title,
+		Description:     params.Description,
+		Lang:            params.Lang,
+		TargetLang:      params.TargetLang,
+		ScheduledAt:     t,
+		Duration:        params.Duration,
+		MaxParticipants: params.MaxParticipants,
 		Password:        token.GenerateDeterministicToken(roomID, 8),
 		CreatedBy:       userID,
 		IsActive:        false, // will set active on start
@@ -148,7 +143,7 @@ func GetActiveStreams(w http.ResponseWriter, r *http.Request) {
 	var streams []entities.Stream
 	now := time.Now()
 	past := now.Add(-20 * time.Minute)
-	err := db.Where("scheduled_at <= ? AND scheduled_at >= ?", now, past).
+	err := db.Preload("Creator").Where("scheduled_at <= ? AND scheduled_at >= ?", now, past).
 		Order("scheduled_at DESC").
 		Find(&streams).Error
 	if err != nil {
@@ -167,7 +162,7 @@ func GetRecentStreams(w http.ResponseWriter, r *http.Request) {
 	var streams []entities.Stream
 	now := time.Now()
 	past := now.Add(-20 * time.Minute)
-	err := db.Where("scheduled_at < ?", past).
+	err := db.Preload("Creator").Where("scheduled_at < ?", past).
 		Order("scheduled_at DESC").
 		Find(&streams).Error
 	if err != nil {
@@ -186,7 +181,7 @@ func GetUpcomingStreams(w http.ResponseWriter, r *http.Request) {
 	var streams []entities.Stream
 	now := time.Now()
 	future := now.Add(12 * time.Hour)
-	err := db.Where("scheduled_at > ? AND scheduled_at <= ?", now, future).
+	err := db.Preload("Creator").Where("scheduled_at > ? AND scheduled_at <= ?", now, future).
 		Order("scheduled_at ASC").
 		Find(&streams).Error
 	if err != nil {
@@ -210,7 +205,7 @@ func EndStream(w http.ResponseWriter, r *http.Request) {
 	db := database.Manager()
 
 	var stream entities.Stream
-	result := db.Where("room_id = ?", room).First(&stream)
+	result := db.Preload("Creator").Where("room_id = ?", room).First(&stream)
 
 	if result.Error != nil {
 		http.Error(w, "Stream not found", http.StatusNotFound)

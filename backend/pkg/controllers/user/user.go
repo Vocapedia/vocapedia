@@ -723,7 +723,6 @@ func GetAvailablePaymentProviders(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, response)
 }
 
-// RequestTeacher handles teacher role requests
 func RequestTeacher(w http.ResponseWriter, r *http.Request) {
 	userID := token.User(r).UserID
 

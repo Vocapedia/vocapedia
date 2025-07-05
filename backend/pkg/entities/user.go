@@ -19,7 +19,6 @@ type User struct {
 	Biography       string         `json:"biography"`
 	Username        string         `json:"username" gorm:"type:citext;not null;unique"`
 	Email           string         `json:"-" gorm:"not null;unique"`
-	Role            string         `json:"role" gorm:"default:student"`
 	IsTeacher       bool           `json:"is_teacher" gorm:"default:false"`
 	KnownLanguages  datatypes.JSON `json:"known_languages" gorm:"type:jsonb"`
 	TargetLanguages datatypes.JSON `json:"target_languages" gorm:"type:jsonb"`

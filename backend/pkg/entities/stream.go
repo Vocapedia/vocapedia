@@ -25,6 +25,9 @@ type Stream struct {
 	StartTime *time.Time `json:"start_time,omitempty"`
 	EndTime   *time.Time `json:"end_time,omitempty"`
 
+	// Relationships
+	Creator User `json:"creator,omitempty" gorm:"foreignKey:CreatedBy"`
+
 	// Virtual fields for API response
 	Participants int `json:"participants" gorm:"-"`
 }

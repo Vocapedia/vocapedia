@@ -62,7 +62,6 @@ const emit = defineEmits(['update:loading']);
 
 const knownLanguages = ref(['']);
 const targetLanguages = ref(['']);
-const isLoading = ref(false);
 const toast = useToast();
 
 // Load current language preferences
@@ -70,9 +69,6 @@ const loadLanguagePreferences = async () => {
     try {
         const response = await useFetch('/user/language-preferences', {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
         });
         
         if (response) {
