@@ -54,6 +54,10 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Post("/compose", chapters.Compose)
 				api.Put("/compose", chapters.Update)
 				api.Delete("/archive/{id}", chapters.Archive)
+				// Discarded chapters endpoints
+				api.Get("/discarded", chapters.GetDiscardedChapters)
+				api.Post("/restore/{id}", chapters.RestoreChapter)
+				api.Delete("/delete/{id}", chapters.PermanentlyDeleteChapter)
 			})
 			api.Route("/user", func(api chi.Router) {
 				api.Get("/token", user.Tokens)
@@ -63,6 +67,11 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Put("/vocatoken", user.UpdateVocaToken)
 				api.Get("/vocatoken", user.GetVocaToken)
 				api.Get("/streak", user.DailyStreak)
+				// Teacher request endpoints
+				api.Post("/request-teacher", user.RequestTeacher)
+				// Language preferences endpoints
+				api.Put("/language-preferences", user.UpdateLanguagePreferences)
+				api.Get("/language-preferences", user.GetLanguagePreferences)
 				// Token purchase endpoints
 				api.Get("/payment-providers", user.GetAvailablePaymentProviders)
 				api.Post("/purchase-tokens", user.InitiateTokenPurchase)
@@ -73,9 +82,10 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Delete("/logout", auth.Logout)
 			})
 			api.Route("/stream", func(api chi.Router) {
-				api.Post("/", stream.CreateStream)        // Create new stream (authenticated)
-				api.Get("/{room}", stream.StartStream)    // Get or start stream
-				api.Post("/{room}/end", stream.EndStream) // End stream
+				api.Post("/create", stream.CreateStream)      // Create new stream (authenticated)
+				api.Get("/{room}", stream.GetStreamByID)      // Get stream by ID
+				api.Post("/{room}/start", stream.StartStream) // Start stream
+				api.Post("/{room}/end", stream.EndStream)     // End stream
 				// List streams
 				api.Get("/active", stream.GetActiveStreams)     // Past 12h
 				api.Get("/recent", stream.GetRecentStreams)     // Ended last 12h

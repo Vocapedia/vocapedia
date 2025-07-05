@@ -67,7 +67,6 @@
                 </tbody>
             </table>
         </div>
-
         <div v-motion-slide-visible-once-right v-if="(tokenInfo ?? []).length > 0" class="flex justify-between">
             <div class="flex items-center justify-end space-x-5">
                 <span>{{ $t('settings.delete_account') }}</span>
@@ -100,6 +99,11 @@ const modules = import.meta.glob("../i18n/*.json", { eager: true });
 
 const isVocatokenShowing = ref(false)
 const toast = useToast();
+
+// Modal visibility states
+const showLanguagePreferences = ref(false)
+const showTeacherRequest = ref(false)
+const showDiscardedChapters = ref(false)
 const languages = Object.entries(modules).map(([path, module]) => {
     const code = path.replace("../i18n/", "").replace(".json", "");
     const language = getLangByCode(code);

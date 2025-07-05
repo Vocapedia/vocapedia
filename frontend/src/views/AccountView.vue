@@ -9,6 +9,7 @@
           <div class="flex space-x-1 items-center">
             <h2 v-if="user.name" class="text-xl font-extrabold ">{{ user.name }}</h2>
             <mdicon v-if="user.approved" name="check-decagram" class="text-xl text-sky-500" />
+            <mdicon v-if="user.is_teacher" name="school" class="text-xl text-red-500"/>
           </div>
           <div class="flex space-x-2">
 
@@ -16,9 +17,17 @@
               class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
               {{ $t('account.edit_profile') }}
             </button>
-            <button v-if="isUsersAccount"
+            <button @click="triggerDiscardedChaptersPopup = true" v-if="isUsersAccount"
               class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
               <mdicon name="archive-arrow-down-outline" />
+            </button>
+            <button @click="triggerLanguagePreferencesPopup = true" v-if="isUsersAccount"
+              class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
+              <mdicon name="translate" />
+            </button>
+            <button @click="triggerTeacherRequestPopup = true" v-if="isUsersAccount && !user.is_teacher"
+              class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
+              <mdicon name="school" />
             </button>
           </div>
 
@@ -92,11 +101,101 @@
         </template>
       </SettingsPopup>
 
+      <!-- Language Preferences Popup -->
+      <SettingsPopup v-model="triggerLanguagePreferencesPopup">
+        <template #header>
+          <h2 class="text-xl font-semibold">
+            {{ $t('language_preferences.title') }}
+          </h2>
+        </template>
+        <template #description>
+          <div class="space-y-5">
+            <hr class="border-t-2 border-zinc-200 dark:border-zinc-700 opacity-50">
+            <LanguagePreferencesForm ref="languagePreferencesForm" @update:loading="setLanguagePreferencesLoading" />
+          </div>
+        </template>
+        <template #buttons>
+          <div class="flex justify-around space-x-5">
+            <button @click="triggerLanguagePreferencesPopup = false"
+              class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-red-100 text-red-900 dark:bg-red-700/20 dark:text-red-100">
+              {{ $t('common.cancel') }}
+            </button>
+            <div v-auto-animate class="w-full">
+              <div v-if="isLanguagePreferencesLoading">
+                <div class="loading-spinner mx-auto"></div>
+              </div>
+              <button v-else @click="saveLanguagePreferences"
+                class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-sky-100 text-sky-900 dark:bg-sky-700/20 dark:text-sky-100">
+                {{ $t('common.save') }}
+              </button>
+            </div>
+          </div>
+        </template>
+      </SettingsPopup>
+
+      <!-- Teacher Request Popup -->
+      <SettingsPopup v-model="triggerTeacherRequestPopup">
+        <template #header>
+          <h2 class="text-xl font-semibold">
+            {{ $t('teacher_request.title') }}
+          </h2>
+        </template>
+        <template #description>
+          <div class="space-y-5">
+            <hr class="border-t-2 border-zinc-200 dark:border-zinc-700 opacity-50">
+            <TeacherRequestForm ref="teacherRequestForm" @update:loading="setTeacherRequestLoading" />
+          </div>
+        </template>
+        <template #buttons>
+          <div class="flex justify-around space-x-5">
+            <button @click="triggerTeacherRequestPopup = false"
+              class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-red-100 text-red-900 dark:bg-red-700/20 dark:text-red-100">
+              {{ $t('common.cancel') }}
+            </button>
+            <div v-auto-animate class="w-full">
+              <div v-if="isTeacherRequestLoading">
+                <div class="loading-spinner mx-auto"></div>
+              </div>
+              <button v-else @click="submitTeacherRequest"
+                class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-green-100 text-green-900 dark:bg-green-700/20 dark:text-green-100">
+                {{ $t('teacher_request.request') }}
+              </button>
+            </div>
+          </div>
+        </template>
+      </SettingsPopup>
+
+      <!-- Discarded Chapters Popup -->
+      <SettingsPopup v-model="triggerDiscardedChaptersPopup">
+        <template #header>
+          <h2 class="text-xl font-semibold">
+            {{ $t('discarded_chapters.title') }}
+          </h2>
+        </template>
+        <template #description>
+          <div class="space-y-5">
+            <hr class="border-t-2 border-zinc-200 dark:border-zinc-700 opacity-50">
+            <DiscardedChaptersForm />
+          </div>
+        </template>
+        <template #buttons>
+          <div class="flex justify-center">
+            <button @click="triggerDiscardedChaptersPopup = false"
+              class="smooth-click2 cursor-pointer px-6 py-2 font-semibold text-xl rounded bg-zinc-100 text-zinc-900 dark:bg-zinc-700/20 dark:text-zinc-100">
+              {{ $t('common.close') }}
+            </button>
+          </div>
+        </template>
+      </SettingsPopup>
+
     </div>
   </div>
 </template>
 <script setup>
 import SettingsPopup from "@/components/Popup.vue"
+import LanguagePreferencesForm from "@/components/LanguagePreferencesForm.vue"
+import TeacherRequestForm from "@/components/TeacherRequestForm.vue"
+import DiscardedChaptersForm from "@/components/DiscardedChaptersForm.vue"
 
 import WordLists from "@/components/WordLists.vue";
 import { useFetch } from "@/composable/useFetch";
@@ -106,12 +205,20 @@ import { getDevice, getUser } from "@/utils/token";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
-const response = ref("{}")
 const route = useRoute()
 const router = useRouter()
 const triggerSettingsPopup = ref(false)
+const triggerLanguagePreferencesPopup = ref(false)
+const triggerTeacherRequestPopup = ref(false)
+const triggerDiscardedChaptersPopup = ref(false)
 const isUsersAccount = ref(false)
 const isLoading = ref(false)
+const isLanguagePreferencesLoading = ref(false)
+const isTeacherRequestLoading = ref(false)
+
+// Component refs
+const languagePreferencesForm = ref(null)
+const teacherRequestForm = ref(null)
 const user = ref({
   name: "",
   username: "",
@@ -134,8 +241,7 @@ const isUserLoading = ref(false)
 onMounted(async () => {
   isUserLoading.value = true
   isUsersAccount.value = route.params.username.toLowerCase() == (getUser().username ?? "").toLowerCase()
-  /* response.value = await useFetch("/public/chapters/user?username=" + route.params.username)
-   */user.value = await useFetch("/public/user?username=" + route.params.username).catch(e => {
+  user.value = await useFetch("/public/user?username=" + route.params.username).catch(e => {
     router.replace("/search?q=" + route.params.username)
   })
   EditUser.value.biography = user.value.biography
@@ -163,6 +269,29 @@ async function Edit() {
     isLoading.value = false
   })
   isLoading.value = false
+}
 
+// Language Preferences Functions
+const setLanguagePreferencesLoading = (loading) => {
+  isLanguagePreferencesLoading.value = loading
+}
+
+const saveLanguagePreferences = async () => {
+  const success = await languagePreferencesForm.value?.saveLanguagePreferences()
+  if (success) {
+    triggerLanguagePreferencesPopup.value = false
+  }
+}
+
+// Teacher Request Functions
+const setTeacherRequestLoading = (loading) => {
+  isTeacherRequestLoading.value = loading
+}
+
+const submitTeacherRequest = async () => {
+  const success = await teacherRequestForm.value?.requestTeacherStatus()
+  if (success) {
+    triggerTeacherRequestPopup.value = false
+  }
 }
 </script>

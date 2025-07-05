@@ -22,12 +22,17 @@
     "error.failed_to_update_user":"Failed to update user.",
     "error.token_not_found":"Token not found.",
     "error.chapter_not_found":"List not found.",
+    "error.teacher_description_too_short":"Teacher description must be at least 50 characters.",
 
 
     "ok.allright":"All right!",
     "ok.success":"Successful",
 
     "success.token_deleted":"Token deleted successfully.",
-    "success.chapter_archived":"Archived!"
+    "success.chapter_archived":"Archived!",
+    "success.chapter_restored":"Chapter restored successfully.",
+    "success.chapter_permanently_deleted":"Chapter permanently deleted.",
+    "success.language_preferences_updated":"Language preferences updated successfully.",
+    "success.teacher_request_submitted":"Teacher request submitted successfully."
     
 }

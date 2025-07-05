@@ -65,7 +65,7 @@ import { useRoute } from "vue-router"
 const search = ref('');
 const route = useRoute()
 const filteredList = computed(() => {
-    return props.response.chapter.word_bases.filter(x => x.words[0].word.toLowerCase().includes(search.value.toLowerCase()))
+    return props.response.chapter?.word_bases?.filter(x => x.words[0].word.toLowerCase().includes(search.value.toLowerCase()))
 });
 
 const props = defineProps({

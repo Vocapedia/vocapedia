@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto p-4 space-y-6">
+    <div v-auto-animate class="container mx-auto p-4 space-y-6">
         <!-- Header -->
         <div class="text-center space-y-4">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
@@ -10,140 +10,162 @@
             </p>
         </div>
 
-        <!-- Active Streams (Live Now) -->
-        <div class="space-y-4">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                {{ $t('stream.activeStreams') }}
-            </h2>
-            
-            <div v-if="activeStreams.length === 0" class="text-center py-12">
-                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <mdicon name="video-off" size="24" class="text-gray-400" />
+        <!-- Action Buttons -->
+        <div v-auto-animate class="flex justify-center space-x-4">
+            <router-link 
+                v-if="canCreateStream"
+                to="/create-stream"
+                class="smooth-click card bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-105">
+                <div class="flex items-center space-x-2">
+                    <mdicon name="plus" size="20" />
+                    <span>{{ $t('stream.createStream') }}</span>
                 </div>
-                <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noActiveStreams') }}</p>
-            </div>
-
-            <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <router-link 
-                    v-for="stream in activeStreams" 
-                    :key="stream.room_id" 
-                    :to="'/stream/' + stream.room_id" 
-                    class="group">
-                    <div class="card smooth-click2 bg-white dark:bg-zinc-800 rounded-xl transition-all duration-300 ease-in-out transform group-hover:scale-105">
-                        <div class="space-y-2 w-full">
-                            <div class="flex items-center justify-between px-3 pt-3">
-                                <div class="text-xl font-semibold text-gray-900 dark:text-white">
-                                    {{ stream.title }}
-                                </div>
-                                <div class="flex items-center space-x-1">
-                                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                    <span class="text-xs text-green-600 dark:text-green-400">Live</span>
-                                </div>
-                            </div>
-                            <div class="text-sm px-3 text-gray-600 dark:text-gray-400">
-                                {{ stream.description }}
-                            </div>
-                            <div class="flex items-center justify-between px-3 pb-3">
-                                <div class="flex items-center space-x-2">
-                                    <mdicon name="account" size="16" class="text-gray-500" />
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ stream.participants }} participants</span>
-                                </div>
-                                <div class="flex flex-col items-end text-xs text-gray-500 dark:text-gray-400">
-                                    <span>{{ stream.lang }} → {{ stream.target_lang }}</span>
-                                    <span>{{ formatTime(stream.scheduled_at) }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </router-link>
-            </div>
+            </router-link>
         </div>
 
-        <!-- Upcoming Streams (Next 12h) -->
-        <div class="space-y-4">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                {{ $t('stream.upcomingStreams') }}
-            </h2>
-            
-            <div v-if="upcomingStreams.length === 0" class="text-center py-12">
-                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <mdicon name="video-off" size="24" class="text-gray-400" />
-                </div>
-                <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noUpcomingStreams') }}</p>
-            </div>
-
-            <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <router-link 
-                    v-for="stream in upcomingStreams" 
-                    :key="stream.room_id" 
-                    :to="'/stream/' + stream.room_id" 
-                    class="group">
-                    <div class="card smooth-click2 bg-white dark:bg-zinc-800 rounded-xl transition-all duration-300 ease-in-out transform group-hover:scale-105">
-                        <div class="space-y-2 w-full">
-                            <div class="flex items-center justify-between px-3 pt-3">
-                                <div class="text-xl font-semibold text-gray-900 dark:text-white">
-                                    {{ stream.title }}
-                                </div>
-                                <div class="flex items-center space-x-1">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                    <span class="text-xs text-blue-600 dark:text-blue-400">Scheduled</span>
-                                </div>
-                            </div>
-                            <div class="text-sm px-3 text-gray-600 dark:text-gray-400">
-                                {{ stream.description }}
-                            </div>
-                            <div class="flex items-center justify-between px-3 pb-3">
-                                <div class="flex items-center space-x-2">
-                                    <mdicon name="account" size="16" class="text-gray-500" />
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ stream.participants }} participants</span>
-                                </div>
-                                <div class="flex flex-col items-end text-xs text-gray-500 dark:text-gray-400">
-                                    <span>{{ stream.lang }} → {{ stream.target_lang }}</span>
-                                    <span>{{ formatScheduledTime(stream.scheduled_at) }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </router-link>
-            </div>
+        <!-- Tabs -->
+        <div v-auto-animate class="border-b border-gray-200 dark:border-gray-700">
+            <nav class="flex space-x-8 justify-center">
+                <button 
+                    v-for="tab in tabs"
+                    :key="tab.key"
+                    @click="activeTab = tab.key"
+                    :class="[
+                        'py-2 px-4 text-sm font-medium border-b-2 transition-colors duration-200',
+                        activeTab === tab.key
+                            ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                    ]">
+                    {{ tab.label }}
+                </button>
+            </nav>
         </div>
 
-        <!-- Recent Streams (Ended >20m ago) -->
-        <div class="space-y-4">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                {{ $t('stream.recentStreams') }}
-            </h2>
-            
-            <div v-if="recentStreams.length === 0" class="text-center py-12">
-                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <mdicon name="video-off" size="24" class="text-gray-400" />
+        <!-- Tab Content -->
+        <div v-auto-animate>
+            <!-- Active Streams Tab -->
+            <div v-if="activeTab === 'active'" class="space-y-4">
+                <div v-if="activeStreams.length === 0" class="text-center py-12">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <mdicon name="video-off" size="24" class="text-gray-400" />
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noActiveStreams') }}</p>
                 </div>
-                <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noRecentStreams') }}</p>
+
+                <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <router-link 
+                        v-for="stream in activeStreams" 
+                        :key="stream.room_id" 
+                        :to="'/stream/' + stream.room_id" 
+                        class="group">
+                        <div class="card smooth-click2 bg-white dark:bg-zinc-800 rounded-xl transition-all duration-300 ease-in-out transform group-hover:scale-105">
+                            <div class="space-y-2 w-full">
+                                <div class="flex items-center justify-between px-3 pt-3">
+                                    <div class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        {{ stream.title }}
+                                    </div>
+                                    <div class="flex items-center space-x-1">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-green-600 dark:text-green-400">Live</span>
+                                    </div>
+                                </div>
+                                <div class="text-sm px-3 text-gray-600 dark:text-gray-400">
+                                    {{ stream.description }}
+                                </div>
+                                <div class="flex items-center justify-between px-3 pb-3">
+                                    <div class="flex items-center space-x-2">
+                                        <mdicon name="account" size="16" class="text-gray-500" />
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">{{ stream.participants }} participants</span>
+                                    </div>
+                                    <div class="flex flex-col items-end text-xs text-gray-500 dark:text-gray-400">
+                                        <span>{{ stream.lang }} → {{ stream.target_lang }}</span>
+                                        <span>{{ formatTime(stream.scheduled_at) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </router-link>
+                </div>
             </div>
 
-            <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div 
-                    v-for="stream in recentStreams" 
-                    :key="stream.room_id"
-                    class="card bg-white dark:bg-zinc-800 rounded-xl p-4 space-y-3 opacity-60">
-                    <div class="flex items-center justify-between">
-                        <div class="text-lg font-medium text-gray-900 dark:text-white">
-                            {{ stream.title }}
-                        </div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">
-                            Ended
-                        </div>
+            <!-- Upcoming Streams Tab -->
+            <div v-if="activeTab === 'upcoming'" class="space-y-4">
+                <div v-if="upcomingStreams.length === 0" class="text-center py-12">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <mdicon name="video-off" size="24" class="text-gray-400" />
                     </div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400">
-                        {{ stream.description }}
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                        <div class="flex items-center space-x-2">
-                            <span>{{ stream.participants }} participants</span>
-                            <span>•</span>
-                            <span>{{ stream.lang }} → {{ stream.target_lang }}</span>
+                    <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noUpcomingStreams') }}</p>
+                </div>
+
+                <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <router-link 
+                        v-for="stream in upcomingStreams" 
+                        :key="stream.room_id" 
+                        :to="'/stream/' + stream.room_id" 
+                        class="group">
+                        <div class="card smooth-click2 bg-white dark:bg-zinc-800 rounded-xl transition-all duration-300 ease-in-out transform group-hover:scale-105">
+                            <div class="space-y-2 w-full">
+                                <div class="flex items-center justify-between px-3 pt-3">
+                                    <div class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        {{ stream.title }}
+                                    </div>
+                                    <div class="flex items-center space-x-1">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400">Scheduled</span>
+                                    </div>
+                                </div>
+                                <div class="text-sm px-3 text-gray-600 dark:text-gray-400">
+                                    {{ stream.description }}
+                                </div>
+                                <div class="flex items-center justify-between px-3 pb-3">
+                                    <div class="flex items-center space-x-2">
+                                        <mdicon name="account" size="16" class="text-gray-500" />
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">{{ stream.participants }} participants</span>
+                                    </div>
+                                    <div class="flex flex-col items-end text-xs text-gray-500 dark:text-gray-400">
+                                        <span>{{ stream.lang }} → {{ stream.target_lang }}</span>
+                                        <span>{{ formatScheduledTime(stream.scheduled_at) }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <span>{{ formatTime(stream.scheduled_at) }}</span>
+                    </router-link>
+                </div>
+            </div>
+
+            <!-- Recent Streams Tab -->
+            <div v-if="activeTab === 'recent'" class="space-y-4">
+                <div v-if="recentStreams.length === 0" class="text-center py-12">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <mdicon name="video-off" size="24" class="text-gray-400" />
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noRecentStreams') }}</p>
+                </div>
+
+                <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div 
+                        v-for="stream in recentStreams" 
+                        :key="stream.room_id"
+                        class="card bg-white dark:bg-zinc-800 rounded-xl p-4 space-y-3 opacity-60">
+                        <div class="flex items-center justify-between">
+                            <div class="text-lg font-medium text-gray-900 dark:text-white">
+                                {{ stream.title }}
+                            </div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">
+                                Ended
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            {{ stream.description }}
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                            <div class="flex items-center space-x-2">
+                                <span>{{ stream.participants }} participants</span>
+                                <span>•</span>
+                                <span>{{ stream.lang }} → {{ stream.target_lang }}</span>
+                            </div>
+                            <span>{{ formatTime(stream.scheduled_at) }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,13 +174,43 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref, onMounted, computed, watch } from "vue"
+import { useRoute, useRouter } from 'vue-router'
 import { useFetch } from '@/composable/useFetch'
+import { getUser } from '@/utils/token'
 
+const route = useRoute()
+const router = useRouter()
 const activeStreams = ref([])
 const upcomingStreams = ref([])
 const recentStreams = ref([])
 const loading = ref(false)
+
+// Tab management
+const activeTab = ref(route.query.tab || 'active')
+const tabs = [
+    { key: 'active', label: 'Aktif Yayınlar' },
+    { key: 'upcoming', label: 'Gelecek Yayınlar' },
+    { key: 'recent', label: 'Son Yayınlar' }
+]
+
+// Watch for tab changes and update URL
+watch(activeTab, (newTab) => {
+    router.push({ query: { ...route.query, tab: newTab } })
+})
+
+// Watch for route changes and update active tab
+watch(() => route.query.tab, (newTab) => {
+    if (newTab && tabs.find(t => t.key === newTab)) {
+        activeTab.value = newTab
+    }
+})
+
+// Check if user can create streams (teacher role)
+const canCreateStream = computed(() => {
+    const user = getUser()
+    return user && user.role === 'teacher'
+})
 
 const formatTime = (timestamp) => {
     const date = new Date(timestamp)

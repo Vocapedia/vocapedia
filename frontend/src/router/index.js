@@ -8,6 +8,7 @@ import LandingView from '@/views/LandingView.vue';
 import ComposeView from '@/views/ComposeView.vue';
 import StreamView from '@/views/StreamView.vue';
 import StreamersView from '@/views/StreamersView.vue';
+import CreateStreamView from '@/views/CreateStreamView.vue';
 import ChapterView from '@/views/ChapterView.vue';
 import GameView from '@/views/GameView.vue';
 import TestView from '@/views/game/TestView.vue';
@@ -95,6 +96,16 @@ const router = createRouter({
       meta: { // Assuming a generic title/desc
         titleKey: 'seo.default.title', // Placeholder
         descriptionKey: 'seo.default.description' // Placeholder
+      }
+    },
+    {
+      path: "/create-stream",
+      name: "create-stream",
+      beforeEnter: [block, authGuard],
+      component: CreateStreamView,
+      meta: {
+        titleKey: 'seo.default.title',
+        descriptionKey: 'seo.default.description'
       }
     },
     {

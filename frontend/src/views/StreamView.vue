@@ -72,12 +72,13 @@ import { useToast } from '@/composable/useToast';
 import { GetLang } from '@/i18n/i18n';
 import { getUser } from '@/utils/token';
 import { onMounted, onUnmounted, watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 const isMeeting = ref(false)
 const loading = ref(false)
 const route = useRoute()
+const router = useRouter()
 const toast = useToast()
 const { t } = useI18n()
 const api = ref(null)
@@ -105,21 +106,33 @@ const toggleMeeting = () => {
 
 // Initialize room data
 onMounted(async () => {
-    // Ensure a room ID is present, otherwise do nothing
+    // Ensure a room ID is present, otherwise redirect to streamers
     if (!route.params.id) {
+        router.push('/streamers')
         return
     }
 
     loading.value = true
     try {
+        // Check if the stream exists in the database
         const response = await useFetch('/stream/' + route.params.id)
-        password.value = response.password
-        roomExists.value = true
+        
+        // If we get a response, the room exists
+        if (response && response.room_id) {
+            password.value = response.password || "vocapedia"
+            roomExists.value = true
+        } else {
+            // Room doesn't exist, redirect to streamers
+            toast.error(t('stream.roomNotFound'))
+            router.push('/streamers')
+            return
+        }
     } catch (error) {
         console.error('Error fetching stream data:', error)
-        toast.error(t('stream.loadError'))
-        // Still allow the stream to work with a default password
-        password.value = "vocapedia"
+        // If there's an error (404, 403, etc.), redirect to streamers
+        toast.error(t('stream.roomNotFound'))
+        router.push('/streamers')
+        return
     } finally {
         loading.value = false
     }

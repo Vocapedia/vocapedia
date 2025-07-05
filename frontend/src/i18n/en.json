@@ -243,7 +243,10 @@
         "device_info": "Device info",
         "vocatoken_copied": "Vocatoken copied!",
         "logout": "Log out",
-        "delete_account": "Delete account"
+        "delete_account": "Delete account",
+        "language_preferences": "Language Preferences",
+        "become_teacher": "Become a Teacher",
+        "discarded_chapters": "Discarded Chapters"
     },
     "landing": {
         "heroTitle": "The New Way to Learn Languages",
@@ -340,12 +343,34 @@
         "copyError": "Failed to copy room ID",
         "startError": "Failed to start video meeting",
         "loadError": "Failed to load stream data",
+        "roomNotFound": "Room not found",
         "activeStreams": "Active Streams",
         "upcomingStreams": "Upcoming Streams",
         "recentStreams": "Recent Streams",
         "noActiveStreams": "No active streams at the moment",
         "noUpcomingStreams": "No upcoming streams scheduled",
-        "noRecentStreams": "No recent streams"
+        "noRecentStreams": "No recent streams",
+        "createStream": "Create Stream",
+        "createStreamDescription": "Schedule a new language lesson stream for your students",
+        "titlePlaceholder": "Enter stream title (e.g., English Conversation Practice)",
+        "descriptionPlaceholder": "Describe what will be covered in this stream...",
+        "fromLanguage": "From Language",
+        "toLanguage": "To Language",
+        "selectLanguage": "Select Language",
+        "scheduledAt": "Scheduled Date & Time",
+        "duration": "Duration",
+        "selectDuration": "Select Duration",
+        "minutes": "minutes",
+        "hour": "hour",
+        "hours": "hours",
+        "maxParticipants": "Maximum Participants",
+        "selectMaxParticipants": "Select Max Participants",
+        "participants": "participants",
+        "preview": "Preview",
+        "teacherRoleRequired": "Only teachers can create streams",
+        "createSuccess": "Stream created successfully!",
+        "createError": "Failed to create stream",
+        "description": "Description"
     },
     "compose.tour.main_lang": "Select the main language for your list. This is the language you'll be translating from.",
     "compose.tour.target_lang": "Select the target language for your list. This is the language you'll be translating to.",
@@ -419,6 +444,18 @@
             "secure_description": "All payments are processed securely with SSL protection"
         }
     },
+    "common": {
+        "cancel": "Cancel",
+        "creating": "Creating...",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "back": "Back",
+        "close": "Close",
+        "loading": "Loading...",
+        "saving": "Saving...",
+        "processing": "Processing..."
+    },
     "checkout": {
         "title": "Checkout",
         "subtitle": "Purchase tokens with secure payment",
@@ -441,5 +478,60 @@
         "tokens_added": "tokens added to your account",
         "close": "Close",
         "payment_successful": "Payment completed successfully!"
+    },
+    "language_preferences": {
+        "title": "Language Preferences",
+        "known_languages": "Known Languages",
+        "target_languages": "Target Languages",
+        "add_known_language": "Add Known Language",
+        "add_target_language": "Add Target Language",
+        "select_language": "Select a language",
+        "validation": {
+            "select_at_least_one": "Please select at least one known language and one target language",
+            "no_duplicates_known": "Cannot have duplicate known languages",
+            "no_duplicates_target": "Cannot have duplicate target languages",
+            "no_overlap": "Known and target languages cannot overlap"
+        },
+        "success": {
+            "updated": "Language preferences updated successfully"
+        },
+        "error": {
+            "update_failed": "Error updating language preferences"
+        }
+    },
+    "teacher_request": {
+        "title": "Become a Teacher",
+        "description": "Request to become a teacher on Vocapedia and start creating educational content.",
+        "info": "Your request will be reviewed by our team. Once approved, you'll be able to create and share lessons.",
+        "request": "Request Teacher Status",
+        "description_label": "Why do you want to become a teacher?",
+        "description_placeholder": "Tell us about your teaching experience, qualifications, and how you plan to contribute to Vocapedia...",
+        "description_help": "Please provide details about your background and teaching goals (minimum 50 characters).",
+        "validation": {
+            "description_required": "Please provide a description of why you want to become a teacher"
+        },
+        "success": {
+            "submitted": "Teacher request submitted successfully! We'll review your application and get back to you."
+        },
+        "error": {
+            "submit_failed": "Failed to submit teacher request. Please try again."
+        }
+    },
+    "discarded_chapters": {
+        "title": "Discarded Chapters",
+        "no_chapters": "No discarded chapters found",
+        "no_chapters_description": "Chapters you delete will appear here, and you can restore them if needed.",
+        "deleted_at": "Deleted at",
+        "words_count": "Words",
+        "restore": "Restore",
+        "restore_success": "Chapter restored successfully",
+        "restore_error": "Error restoring chapter",
+        "delete_permanently": "Delete Permanently",
+        "delete_success": "Chapter permanently deleted",
+        "delete_error": "Error deleting chapter",
+        "error_loading": "Error loading discarded chapters",
+        "confirm_delete_title": "Confirm Permanent Deletion",
+        "confirm_delete_description": "Are you sure you want to permanently delete this chapter?",
+        "confirm_delete_warning": "This action cannot be undone. The chapter and all its content will be permanently removed."
     }
 }

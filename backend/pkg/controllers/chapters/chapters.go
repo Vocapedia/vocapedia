@@ -1,6 +1,7 @@
 package chapters
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"math/rand/v2"
@@ -164,7 +165,7 @@ func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 
 	userID := token.User(r).UserID
 
-	err := db.
+	query := db.
 		Model(&entities.Chapter{}).
 		Select(`
 	chapters.*,
@@ -180,7 +181,11 @@ func GetTrendingChapters(w http.ResponseWriter, r *http.Request) {
 		GREATEST(5259600 - FLOOR(EXTRACT(EPOCH FROM NOW() - user_favorites.created_at) / 60), 1)
 	) AS trend_score
 `, userID).
-		Joins("JOIN user_favorites ON user_favorites.chapter_id = chapters.id").
+		Joins("JOIN user_favorites ON user_favorites.chapter_id = chapters.id")
+
+	query = applyLanguageFilter(query, userID)
+
+	err := query.
 		Group("chapters.id").
 		Order("trend_score DESC").
 		Preload("Creator").
@@ -329,7 +334,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	}
 	offset := (page - 1) * limit
 
-	err := db.Table("chapters").
+	dbQuery := db.Table("chapters").
 		Select(`
 		chapters.*, 
 		(SELECT COUNT(*) FROM user_favorites WHERE chapter_id = chapters.id) AS fav_count,
@@ -340,7 +345,12 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		similarity(description, ?) AS sim_desc
 	`, userID, query, query).
 		Where("similarity(title, ?) > 0.2 OR similarity(description, ?) > 0.2", query, query).
-		Where("chapters.deleted_at IS NULL").
+		Where("chapters.deleted_at IS NULL")
+
+	// Add language filtering if user has language preferences
+	dbQuery = applyLanguageFilter(dbQuery, userID)
+
+	err := dbQuery.
 		Order(gorm.Expr(`GREATEST(pgroonga_score(tableoid, ctid), similarity(title, ?), similarity(description, ?)) DESC`, query, query)).
 		Preload("Creator").
 		Offset(offset).
@@ -510,6 +520,8 @@ func Compose(w http.ResponseWriter, r *http.Request) {
 		chapter.Description = params.Description
 		chapter.Lang = params.Lang
 		chapter.TargetLang = params.TargetLang
+		chapter.KnownLanguages = params.KnownLanguages
+		chapter.TargetLanguages = params.TargetLanguages
 		chapter.Title = params.Title
 		chapter.Tutorial = params.Tutorial
 		if err := tx.Create(&chapter).Error; err != nil {
@@ -581,8 +593,9 @@ func UserChapters(w http.ResponseWriter, r *http.Request) {
 		Preload("Creator").
 		Order("id desc").
 		Offset(offset).
-		Limit(limit).
-		Find(&chapters)
+		Limit(limit)
+
+	tx = tx.Find(&chapters)
 
 	if tx.Error != nil {
 		render.Status(r, http.StatusInternalServerError)
@@ -656,5 +669,105 @@ func Archive(w http.ResponseWriter, r *http.Request) {
 
 	render.JSON(w, r, map[string]string{
 		"message": i18n.Localizer(r, "success.chapter_archived"),
+	})
+}
+
+// GetDiscardedChapters returns chapters that have been soft deleted (deleted_at is not null)
+func GetDiscardedChapters(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	userID := token.User(r).UserID
+
+	var chapters []ChapterDTO
+	err := db.Model(&entities.Chapter{}).
+		Unscoped().
+		Select("chapters.id, chapters.title, chapters.description, chapters.lang, chapters.target_lang, chapters.deleted_at, COUNT(word_bases.id) as word_count").
+		Joins("LEFT JOIN word_bases ON word_bases.chapter_id = chapters.id").
+		Where("chapters.creator_id = ? AND chapters.deleted_at IS NOT NULL", userID).
+		Group("chapters.id").
+		Order("chapters.deleted_at DESC").
+		Scan(&chapters).Error
+
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]interface{}{
+		"chapters": chapters,
+	})
+}
+
+// RestoreChapter restores a soft-deleted chapter (sets deleted_at to null)
+func RestoreChapter(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	chapterID := chi.URLParam(r, "id")
+	userID := token.User(r).UserID
+
+	// First check if the chapter exists and belongs to the user
+	var chapter entities.Chapter
+	err := db.Unscoped().Where("id = ? AND creator_id = ? AND deleted_at IS NOT NULL", chapterID, userID).First(&chapter).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			render.Status(r, http.StatusNotFound)
+			render.JSON(w, r, map[string]string{
+				"error": i18n.Localizer(r, "error.chapter_not_found"),
+			})
+			return
+		}
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	// Restore the chapter by setting deleted_at to null
+	if err := db.Unscoped().Model(&chapter).Update("deleted_at", nil).Error; err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "success.chapter_restored"),
+	})
+}
+
+// PermanentlyDeleteChapter permanently deletes a chapter from the database
+func PermanentlyDeleteChapter(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	chapterID := chi.URLParam(r, "id")
+	userID := token.User(r).UserID
+
+	err := db.Transaction(func(tx *gorm.DB) error {
+		var err error
+		err = tx.Unscoped().Where("chapter_id = ?", chapterID).Delete(&entities.Word{}).Error
+		if err != nil {
+			return err
+		}
+		err = tx.Unscoped().Where("chapter_id = ?", chapterID).Delete(&entities.WordBase{}).Error
+		if err != nil {
+			return err
+		}
+		err = tx.Unscoped().Where("id = ? AND creator_id = ?", chapterID, userID).Delete(&entities.Chapter{}).Error
+		return err
+	})
+
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+
+	}
+
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "success.chapter_permanently_deleted"),
 	})
 }

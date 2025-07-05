@@ -26,6 +26,7 @@ import (
 	"github.com/go-chi/render"
 	"github.com/meilisearch/meilisearch-go"
 	"github.com/redis/go-redis/v9"
+	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
 
@@ -316,8 +317,9 @@ func DailyStreak(w http.ResponseWriter, r *http.Request) {
 	today := time.Now().Format("2006-01-02")
 	yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
 
-	if streak.LastDate == today {
-	} else if streak.LastDate == yesterday {
+	switch streak.LastDate {
+	case today:
+	case yesterday:
 		streak.Count++
 		if streak.Count > 7 {
 			streak.Count = 1
@@ -325,7 +327,7 @@ func DailyStreak(w http.ResponseWriter, r *http.Request) {
 		}
 
 		streak.LastDate = today
-	} else {
+	default:
 		streak.Count = 1
 		streak.LastDate = today
 		streak.Rewarded = false
@@ -719,4 +721,142 @@ func GetAvailablePaymentProviders(w http.ResponseWriter, r *http.Request) {
 	}
 
 	render.JSON(w, r, response)
+}
+
+// RequestTeacher handles teacher role requests
+func RequestTeacher(w http.ResponseWriter, r *http.Request) {
+	userID := token.User(r).UserID
+
+	if userID == "" {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.user_id_required"),
+		})
+		return
+	}
+
+	var reqBody struct {
+		Description string `json:"description"`
+	}
+
+	if err := render.DecodeJSON(r.Body, &reqBody); err != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.invalid_request_body"),
+		})
+		return
+	}
+
+	if len(reqBody.Description) < 50 {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.teacher_description_too_short"),
+		})
+		return
+	}
+
+	// Store teacher request in Redis
+	redisClient := cache.Redis()
+	requestKey := fmt.Sprintf("teacher_request:%s", userID)
+
+	// Prepare request data
+	requestData := map[string]interface{}{
+		"user_id":      userID,
+		"description":  reqBody.Description,
+		"requested_at": time.Now().Unix(),
+		"status":       "pending",
+	}
+
+	requestJSON, _ := json.Marshal(requestData)
+
+	// Set teacher request with expiration (e.g., 30 days)
+	err := redisClient.Set(r.Context(), requestKey, requestJSON, 30*24*time.Hour).Err()
+
+	if err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "success.teacher_request_submitted"),
+	})
+}
+
+// UpdateLanguagePreferences handles updating user language preferences
+func UpdateLanguagePreferences(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	userID := token.User(r).UserID
+
+	var reqBody struct {
+		KnownLanguages  []string `json:"known_languages"`
+		TargetLanguages []string `json:"target_languages"`
+	}
+
+	if err := render.DecodeJSON(r.Body, &reqBody); err != nil {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.invalid_request_body"),
+		})
+		return
+	}
+
+	var user entities.User
+	if err := db.Where("id = ?", userID).First(&user).Error; err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.user_not_found"),
+		})
+		return
+	}
+	kl, _ := json.Marshal(reqBody.KnownLanguages)
+	tl, _ := json.Marshal(reqBody.TargetLanguages)
+
+	// Update language preferences
+	updates := map[string]any{
+		"known_languages":  datatypes.JSON(kl),
+		"target_languages": datatypes.JSON(tl),
+	}
+
+	if err := db.Model(&user).Updates(updates).Error; err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.something_went_wrong"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]string{
+		"message": i18n.Localizer(r, "success.language_preferences_updated"),
+	})
+}
+
+// GetLanguagePreferences handles getting user language preferences
+func GetLanguagePreferences(w http.ResponseWriter, r *http.Request) {
+	db := database.Manager()
+	userID := token.User(r).UserID
+
+	if userID == "" {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.user_id_required"),
+		})
+		return
+	}
+
+	var user entities.User
+	if err := db.Where("id = ?", userID).First(&user).Error; err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": i18n.Localizer(r, "error.user_not_found"),
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]interface{}{
+		"known_languages":  user.KnownLanguages,
+		"target_languages": user.TargetLanguages,
+	})
 }

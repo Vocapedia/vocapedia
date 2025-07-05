@@ -6,20 +6,25 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/search"
 	"github.com/meilisearch/meilisearch-go"
+	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
 
 type User struct {
 	Base
-	PhotoURL     string    `json:"photo_url" gorm:"type:text;index"`
-	Name         string    `json:"name"`
-	Vocatoken    string    `json:"-" gorm:"not null;unique"`
-	VocatokenVal int       `json:"-" gorm:"default:0"`
-	Biography    string    `json:"biography"`
-	Username     string    `json:"username" gorm:"type:citext;not null;unique"`
-	Email        string    `json:"-" gorm:"not null;unique"`
-	Approved     bool      `json:"approved" gorm:""`
-	Chapter      []Chapter `json:"chapters,omitempty" gorm:"foreignkey:creator_id"`
+	PhotoURL        string         `json:"photo_url" gorm:"type:text;index"`
+	Name            string         `json:"name"`
+	Vocatoken       string         `json:"-" gorm:"not null;unique"`
+	VocatokenVal    int            `json:"-" gorm:"default:0"`
+	Biography       string         `json:"biography"`
+	Username        string         `json:"username" gorm:"type:citext;not null;unique"`
+	Email           string         `json:"-" gorm:"not null;unique"`
+	Role            string         `json:"role" gorm:"default:student"`
+	IsTeacher       bool           `json:"is_teacher" gorm:"default:false"`
+	KnownLanguages  datatypes.JSON `json:"known_languages" gorm:"type:jsonb"`
+	TargetLanguages datatypes.JSON `json:"target_languages" gorm:"type:jsonb"`
+	Approved        bool           `json:"approved" gorm:""`
+	Chapter         []Chapter      `json:"chapters,omitempty" gorm:"foreignkey:creator_id"`
 }
 
 func (user *User) AfterCreate(tx *gorm.DB) (err error) {

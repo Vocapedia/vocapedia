@@ -19,6 +19,20 @@ type Base struct {
 }
 
 type Attrs map[string]any
+type ArrayString []string
+
+func (a ArrayString) Value() (driver.Value, error) {
+	return json.Marshal(a)
+}
+
+func (a *ArrayString) Scan(value any) error {
+	b, ok := value.([]byte)
+	if !ok {
+		return errors.New("type assertion to []byte failed")
+	}
+
+	return json.Unmarshal(b, &a)
+}
 
 func (a Attrs) Value() (driver.Value, error) {
 	return json.Marshal(a)

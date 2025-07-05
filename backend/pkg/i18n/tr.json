@@ -22,12 +22,17 @@
     "error.failed_to_update_user":"Kullanıcı güncellenemedi.",
     "error.token_not_found":"Token bulunamadı.",
     "error.chapter_not_found":"Liste bulunamadı.",
+    "error.teacher_description_too_short":"Öğretmen açıklaması en az 50 karakter olmalıdır.",
 
 
     "ok.allright":"Her şey yolunda!",
     "ok.success":"Başarılı",
 
     "success.token_deleted":"Token başarıyla silindi.",
-    "success.chapter_archived":"Arşivlendi!"
+    "success.chapter_archived":"Arşivlendi!",
+    "success.chapter_restored":"Bölüm başarıyla geri yüklendi.",
+    "success.chapter_permanently_deleted":"Bölüm kalıcı olarak silindi.",
+    "success.language_preferences_updated":"Dil tercihleri başarıyla güncellendi.",
+    "success.teacher_request_submitted":"Öğretmen başvurusu başarıyla gönderildi."
     
 }

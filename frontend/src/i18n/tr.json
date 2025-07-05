@@ -255,7 +255,10 @@
         "device_info": "Cihaz bilgileri",
         "vocatoken_copied": "Vocatoken kopyalandı!",
         "logout": "Çıkış yap",
-        "delete_account": "Hesabımı sil"
+        "delete_account": "Hesabımı sil",
+        "language_preferences": "Dil Tercihleri",
+        "become_teacher": "Öğretmen Ol",
+        "discarded_chapters": "Silinmiş Bölümler"
     },
     "landing": {
         "heroTitle": "Dil Öğrenmenin Yeni Yolu",
@@ -352,12 +355,34 @@
         "copyError": "Oda ID kopyalanamadı",
         "startError": "Video toplantısı başlatılamadı",
         "loadError": "Yayın verileri yüklenemedi",
+        "roomNotFound": "Oda bulunamadı",
         "activeStreams": "Aktif Yayınlar",
         "upcomingStreams": "Gelecek Yayınlar",
         "recentStreams": "Son Yayınlar",
         "noActiveStreams": "Şu anda aktif yayın yok",
         "noUpcomingStreams": "Planlanan gelecek yayın yok",
-        "noRecentStreams": "Son yayın yok"
+        "noRecentStreams": "Son yayın yok",
+        "createStream": "Ders Planla",
+        "createStreamDescription": "Öğrencileriniz için yeni bir dil dersi yayını planlayın",
+        "titlePlaceholder": "Yayın başlığı girin (örn: İngilizce Konuşma Pratiği)",
+        "descriptionPlaceholder": "Bu yayında nelerin işleneceğini açıklayın...",
+        "fromLanguage": "Kaynak Dil",
+        "toLanguage": "Hedef Dil",
+        "selectLanguage": "Dil Seçin",
+        "scheduledAt": "Planlanan Tarih ve Saat",
+        "duration": "Süre",
+        "selectDuration": "Süre Seçin",
+        "minutes": "dakika",
+        "hour": "saat",
+        "hours": "saat",
+        "maxParticipants": "Maksimum Katılımcı",
+        "selectMaxParticipants": "Maksimum Katılımcı Seçin",
+        "participants": "katılımcı",
+        "preview": "Önizleme",
+        "teacherRoleRequired": "Sadece öğretmenler yayın oluşturabilir",
+        "createSuccess": "Yayın başarıyla oluşturuldu!",
+        "createError": "Yayın oluşturulamadı",
+        "description": "Açıklama"
     },
     "compose.tour.main_lang": "Listeniz için ana dili seçin. Bu, çeviri yapacağınız dildir.",
     "compose.tour.target_lang": "Listeniz için hedef dili seçin. Bu, çeviri yapacağınız dildir.",
@@ -430,6 +455,18 @@
             "secure_description": "Tüm ödemeler SSL koruması ile güvenli bir şekilde işlenir"
         }
     },
+    "common": {
+        "cancel": "İptal",
+        "creating": "Oluşturuluyor...",
+        "save": "Kaydet",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "back": "Geri",
+        "close": "Kapat",
+        "loading": "Yükleniyor...",
+        "saving": "Kaydediliyor...",
+        "processing": "İşleniyor..."
+    },
     "checkout": {
         "title": "Ödeme",
         "subtitle": "Güvenli ödeme ile token satın alın",
@@ -452,5 +489,60 @@
         "tokens_added": "token hesabınıza eklendi",
         "close": "Kapat",
         "payment_successful": "Ödeme başarıyla tamamlandı!"
+    },
+    "language_preferences": {
+        "title": "Dil Tercihleri",
+        "known_languages": "Bildiğim Diller",
+        "target_languages": "Öğrenmek İstediğim Diller",
+        "add_known_language": "Bildiğim Dil Ekle",
+        "add_target_language": "Öğrenmek İstediğim Dil Ekle",
+        "select_language": "Bir dil seçiniz",
+        "validation": {
+            "select_at_least_one": "Lütfen en az bir bildiğiniz dil ve bir öğrenmek istediğiniz dil seçiniz",
+            "no_duplicates_known": "Bildiğiniz dillerde tekrar olamaz",
+            "no_duplicates_target": "Öğrenmek istediğiniz dillerde tekrar olamaz",
+            "no_overlap": "Bildiğiniz diller ve öğrenmek istediğiniz diller aynı olamaz"
+        },
+        "success": {
+            "updated": "Dil tercihleri başarıyla güncellendi"
+        },
+        "error": {
+            "update_failed": "Dil tercihleri güncellenirken hata oluştu"
+        }
+    },
+    "teacher_request": {
+        "title": "Öğretmen Ol",
+        "description": "Vocapedia'da öğretmen olmak için başvurun ve eğitim içeriği oluşturmaya başlayın.",
+        "info": "Başvurunuz ekibimiz tarafından incelenecektir. Onaylandıktan sonra ders oluşturabilir ve paylaşabilirsiniz.",
+        "request": "Öğretmen Statüsü İste",
+        "description_label": "Neden öğretmen olmak istiyorsunuz?",
+        "description_placeholder": "Öğretmenlik deneyiminiz, nitelikleriniz ve Vocapedia'ya nasıl katkıda bulunmayı planladığınız hakkında bize bilgi verin...",
+        "description_help": "Lütfen geçmişiniz ve öğretmenlik hedefleriniz hakkında ayrıntı verin (minimum 50 karakter).",
+        "validation": {
+            "description_required": "Lütfen neden öğretmen olmak istediğinize dair bir açıklama yapın"
+        },
+        "success": {
+            "submitted": "Öğretmen başvurusu başarıyla gönderildi! Başvurunuzu inceleyip size dönüş yapacağız."
+        },
+        "error": {
+            "submit_failed": "Öğretmen başvurusu gönderilemedi. Lütfen tekrar deneyin."
+        }
+    },
+    "discarded_chapters": {
+        "title": "Silinmiş Bölümler",
+        "no_chapters": "Silinmiş bölüm bulunamadı",
+        "no_chapters_description": "Sildiğiniz bölümler burada görünecek ve gerektiğinde geri yükleyebilirsiniz.",
+        "deleted_at": "Silinme tarihi",
+        "words_count": "Kelime sayısı",
+        "restore": "Geri Yükle",
+        "restore_success": "Bölüm başarıyla geri yüklendi",
+        "restore_error": "Bölüm geri yüklenirken hata oluştu",
+        "delete_permanently": "Kalıcı Olarak Sil",
+        "delete_success": "Bölüm kalıcı olarak silindi",
+        "delete_error": "Bölüm silinirken hata oluştu",
+        "error_loading": "Silinmiş bölümler yüklenirken hata oluştu",
+        "confirm_delete_title": "Kalıcı Silme İşlemini Onayla",
+        "confirm_delete_description": "Bu bölümü kalıcı olarak silmek istediğinize emin misiniz?",
+        "confirm_delete_warning": "Bu işlem geri alınamaz. Bölüm ve tüm içeriği kalıcı olarak silinecektir."
     }
 }

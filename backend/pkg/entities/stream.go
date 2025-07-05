@@ -17,6 +17,13 @@ type Stream struct {
 	// Source and target languages
 	Lang       string `json:"lang"`
 	TargetLang string `json:"target_lang"`
+	// Duration in minutes
+	Duration int `json:"duration"`
+	// Maximum number of participants
+	MaxParticipants int `json:"max_participants"`
+	// Actual start and end times
+	StartTime *time.Time `json:"start_time,omitempty"`
+	EndTime   *time.Time `json:"end_time,omitempty"`
 
 	// Virtual fields for API response
 	Participants int `json:"participants" gorm:"-"`

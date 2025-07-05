@@ -5,12 +5,14 @@ import (
 )
 
 type _compose struct {
-	ChapterID   string `json:"chapter_id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Lang        string `json:"lang"`
-	TargetLang  string `json:"target_lang"`
-	WordBase    []struct {
+	ChapterID       string   `json:"chapter_id"`
+	Title           string   `json:"title"`
+	Description     string   `json:"description"`
+	Lang            string   `json:"lang"`
+	TargetLang      string   `json:"target_lang"`
+	KnownLanguages  []string `json:"known_languages"`
+	TargetLanguages []string `json:"target_languages"`
+	WordBase        []struct {
 		Type string `json:"type"`
 		Word []struct {
 			Lang        string `json:"lang"`
