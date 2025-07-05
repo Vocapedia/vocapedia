@@ -1,3 +1,5 @@
+### Firstly vibe coding then debugging
+
 ## Installation
 
 This project uses Docker Compose for backend services and pnpm for the frontend. The application consists of a Go backend with PostgreSQL, Redis, and Meilisearch services, and a Vue.js frontend.
