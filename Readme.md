@@ -1,4 +1,4 @@
-### Firstly vibe coding then debugging
+# Firstly vibe coding then debugging
 
 ## Installation
 
