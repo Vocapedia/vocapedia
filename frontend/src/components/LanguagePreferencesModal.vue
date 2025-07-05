@@ -98,10 +98,6 @@ const saveLanguagePreferences = async () => {
     try {
         const response = await useFetch('/user/language-preferences', {
             method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 lang: selectedNativeLanguage.value,
                 target_lang: selectedTargetLanguage.value

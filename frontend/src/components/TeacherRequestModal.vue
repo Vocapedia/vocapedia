@@ -57,10 +57,6 @@ const requestTeacherStatus = async () => {
     try {
         const response = await useFetch('/user/request-teacher', {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-            }
         });
 
         if (response.status === 200) {

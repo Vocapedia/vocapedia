@@ -55,7 +55,7 @@
                         <div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <router-link v-for="stream in activeStreams" :key="stream.room_id"
                                 :to="'/stream/' + stream.room_id" class="group">
-                                <PreviewCard :form="{
+                                <PreviewCard class="smooth-click2" :form="{
                                     title: stream.title,
                                     description: stream.description,
                                     lang: stream.lang,

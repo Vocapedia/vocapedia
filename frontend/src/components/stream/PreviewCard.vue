@@ -2,7 +2,7 @@
 
 
     <div class="space-y-5 card p-3 rounded-xl">
-        <div class="flex items-center justify-between">
+        <div>
             <div class="flex-1">
                 <div class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     {{ form.title }}
@@ -11,14 +11,8 @@
                     {{ form.description }}
                 </div>
             </div>
-            <div class="flex items-center space-x-2 ml-4">
-                <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">{{
-                    $t('stream.scheduled') }}
-                </span>
-            </div>
         </div>
-
+        
         <div class="space-y-3">
             <div class="flex items-center justify-between text-sm">
                 <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
