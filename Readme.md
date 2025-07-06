@@ -36,8 +36,8 @@ This project uses Docker Compose for backend services and pnpm for the frontend.
 4.  The application will be available at:
     - **Frontend**: [http://localhost:5173](http://localhost:5173)
     - **Backend API**: [http://localhost:3000](http://localhost:3000)
-    - PostgreSQL: `localhost:5432`
-    - Redis: `localhost:6379`
+    - PostgreSQL: [`localhost:5432`](http://localhost:5432)
+    - Redis: [`localhost:6379`](http://localhost:6379)
     - Meilisearch: [http://localhost:7700](http://localhost:7700)
 
 ### Development Setup
