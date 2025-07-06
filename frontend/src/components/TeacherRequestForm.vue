@@ -4,28 +4,24 @@
             <div class="flex items-center space-x-2">
                 <mdicon name="information-outline" class="text-yellow-600 dark:text-yellow-400" />
                 <span class="text-sm text-yellow-700 dark:text-yellow-300">
-                    {{ $t('teacher_request.info') }}
+                    {{ $t('account.popup.teacher_request.info') }}
                 </span>
             </div>
         </div>
 
         <p class="text-sm text-zinc-600 dark:text-zinc-400">
-            {{ $t('teacher_request.description') }}
+            {{ $t('account.popup.teacher_request.description') }}
         </p>
 
         <div class="space-y-2">
             <label for="teacher-description" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                {{ $t('teacher_request.description_label') }}
+                {{ $t('account.popup.teacher_request.label.description') }}
             </label>
-            <textarea 
-                id="teacher-description"
-                v-model="teacherDescription"
-                :placeholder="$t('teacher_request.description_placeholder')"
-                rows="4"
-                class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"
-            ></textarea>
+            <textarea id="teacher-description" v-model="teacherDescription"
+                :placeholder="$t('account.popup.teacher_request.placeholder.description')" rows="4"
+                class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent"></textarea>
             <p class="text-xs text-zinc-500 dark:text-zinc-400">
-                {{ $t('teacher_request.description_help') }}
+                {{ $t('account.popup.teacher_request.help.description') }}
             </p>
         </div>
     </div>
@@ -50,7 +46,7 @@ const requestTeacherStatus = async () => {
     }
 
     emit('update:loading', true);
-    
+
     try {
         const response = await useFetch('/user/request-teacher', {
             method: 'POST',
@@ -58,14 +54,13 @@ const requestTeacherStatus = async () => {
                 description: teacherDescription.value
             }
         });
-        
+
         if (response) {
-            toast.success(t('teacher_request.success.submitted'));
+            toast.success(response.message);
             teacherDescription.value = '';
         }
     } catch (error) {
-        console.error('Error requesting teacher status:', error);
-        toast.error(t('teacher_request.error.submit_failed'));
+        toast.error(error.error);
     } finally {
         emit('update:loading', false);
     }

@@ -859,3 +859,29 @@ func GetLanguagePreferences(w http.ResponseWriter, r *http.Request) {
 		"target_languages": user.TargetLanguages,
 	})
 }
+
+// GetUserTokens returns the current user's token balance
+func GetUserTokens(w http.ResponseWriter, r *http.Request) {
+	userID := token.User(r).UserID
+	if userID == "" {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{
+			"error": "User ID required",
+		})
+		return
+	}
+
+	db := database.Manager()
+	var user entities.User
+	if err := db.Select("tokens").Where("id = ?", userID).First(&user).Error; err != nil {
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, map[string]string{
+			"error": "User not found",
+		})
+		return
+	}
+
+	render.JSON(w, r, map[string]interface{}{
+		"tokens": user.Tokens,
+	})
+}

@@ -23,7 +23,7 @@
         <header v-else class="container mx-auto  max-w-160 w-full flex justify-between items-center p-4">
             <div class="relative flex w-full">
                 <input @input="searchShort" @keyup.enter="searchSomething" ref="searchRef" v-model="search" type="text"
-                    :placeholder="$t('search_a_list')" class="w-full px-4 border shadow-sm outline-none transition-all 
+                    :placeholder="$t('shared.navbar.search.title')" class="w-full px-4 border shadow-sm outline-none transition-all 
              bg-white text-zinc-900 border-none rounded-full
              dark:bg-zinc-800 dark:text-white" />
                 <button @click="searchSomething"
@@ -59,7 +59,7 @@
         <div v-else-if="searchable && search.length >= 3 && (searchList ?? []).length === 0"
             class="p-2 max-w-160 mx-auto top-full left-0 w-full rounded-md mt-1">
             <div class="p-5 w-full border border-zinc-200 dark:border-zinc-700">
-                {{ $t('no_results_found') }}
+                {{ $t('shared.navbar.search.not_found') }}
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
 import { getUser } from "@/utils/token";
 import { ref, nextTick, watch, onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import { GetLang } from "../i18n/i18n";
+import { GetLang } from "../../i18n/i18n";
 import { useFetch } from "@/composable/useFetch";
 const router = useRouter()
 const search = ref('')

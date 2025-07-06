@@ -11,5 +11,5 @@
 
 </template>
 <script setup>
-import NavbarVue from '@/components/Navbar.vue'
+import NavbarVue from '@/components/shared/Navbar.vue'
 </script>

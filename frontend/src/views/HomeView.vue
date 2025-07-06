@@ -11,7 +11,7 @@
     </div>
     <div v-motion-slide-visible-once-bottom class="space-y-4">
       <h2 class="text-2xl font-semibold">
-        {{ $t('home.quick_access') }}
+        {{ $t('home.quick_access.title') }}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <router-link :to="card.uri" v-for="card in cards" :key="card.name"
@@ -19,14 +19,14 @@
           <div>
             <h5 class="flex items-center justify-between space-x-2">
               <span class="text-lg font-semibold">
-                {{ $t(card.name) }}
+                {{ $t("home.quick_access.cards." + card.name) }}
               </span>
               <mdicon :name="card.icon" :class="card.icon_class" />
 
             </h5>
 
             <p class="text-sm text-gray-500 dark:text-gray-400">
-              {{ $t(card.description) }}
+              {{ $t("home.quick_access.cards." + card.description) }}
             </p>
           </div>
         </router-link>
@@ -39,8 +39,8 @@
         <div class="pb-2">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="text-2xl font-medium">{{ $t('home.daily_streak') }}</h3>
-              <p class="text-sm text-gray-500">{{ $t('home.daily_streak_description') }}</p>
+              <h3 class="text-2xl font-medium">{{ $t('home.daily_streak.title') }}</h3>
+              <p class="text-sm text-gray-500">{{ $t('home.daily_streak.description') }}</p>
             </div>
             <div
               class="flex items-center gap-1 rounded-full bg-orange-100 dark:bg-orange-500 px-2 py-1 text-orange-600 dark:text-white">
@@ -126,35 +126,35 @@ onMounted(async () => {
 const cards = [
   {
     uri: '/trends',
-    name: 'trends',
+    name: 'trends.title',
     icon: 'trending-up',
-    description: 'home.trends_description',
+    description: 'trends.description',
     icon_class: 'text-green-600 dark:text-green-500'
   }, {
     uri: '/notes',
-    name: 'notes',
+    name: 'notes.title',
     icon: 'note-text-outline',
-    description: 'home.notes_description',
+    description: 'notes.description',
     icon_class: 'text-yellow-600 dark:text-yellow-500'
 
   }, {
     uri: '/followed',
-    name: 'followed_results',
-    description: 'home.followed_results_description',
+    name: 'followed_results.title',
+    description: 'followed_results.description',
     icon: 'format-list-text',
     icon_class: 'text-sky-600 dark:text-sky-500'
   },
   {
     uri: '/streamers',
-    name: 'home.streamers',
-    description: 'home.streamers_description',
+    name: 'streamers.title',
+    description: 'streamers.description',
     icon: 'volume-high',
     icon_class: 'text-orange-600 dark:text-orange-500'
   },
   {
     uri: '/pricing',
     name: 'pricing.title',
-    description: 'pricing.tokens.description',
+    description: 'pricing.description',
     icon: 'currency-usd',
     icon_class: 'text-purple-600 dark:text-purple-500'
   }

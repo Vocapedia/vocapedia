@@ -1,7 +1,4 @@
 const cache = new Map();
-import _search_list from "@/fake/search_list.json";
-import _trends_list from '@/fake/trends_list.json'
-import _chapter from "@/fake/chapter.json";
 import { GetLang } from "@/i18n/i18n";
 
 export async function useFetch(
@@ -17,33 +14,6 @@ export async function useFetch(
     } = {}
 ) {
         return await Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay });
-}
-
-const snowflakeRegex = /^\d{10,19}$/;
-
-async function Mock(endpoint, method = "GET") {
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    var term = endpoint.split("?")[0];
-    term = term.split("/").map((item) => (snowflakeRegex.test(item) ? ":id" : item)).join("/");
-    if (method === "GET") {
-        switch (term) {
-            case "/public/chapters/search":
-                return _search_list;
-            case "/chapters/favorite":
-                return _search_list;
-            case "/public/chapters/trends":
-                return _trends_list;
-            case "/public/chapters/:id":
-                return _chapter;
-            case "/public/chapters/user":
-                return _search_list;
-            case "chapters/compose":
-                return { "chapter_id": "1905375336384696320" }
-            default:
-                return "{}";
-        }
-    }
 }
 
 async function Fetch(endpoint, { method, body, headers, timeout, cacheTTL, retry, retryDelay } = {}) {

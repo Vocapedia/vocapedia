@@ -1,5 +1,8 @@
 hot:
-	docker compose -f docker-compose.hot.yaml up
+	@trap 'kill 0' EXIT; \
+	docker compose -f docker-compose.hot.yaml up & \
+	cd frontend && pnpm dev & \
+	wait
 
 test:
 	docker compose -f docker-compose.test.yaml up

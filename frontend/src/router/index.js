@@ -23,7 +23,7 @@ import NotesView from '@/views/NotesView.vue';
 import LoginView from '@/views/LoginView.vue';
 import SettingView from '@/views/SettingView.vue';
 import EditorView from '@/views/EditorView.vue';
-import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
+import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue';
 import AccountView from '@/views/AccountView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import PricingView from '@/views/PricingView.vue';
@@ -255,7 +255,7 @@ const router = createRouter({
     {
       path: "/privacy-policy",
       name: "privacy-policy",
-      component: PrivacyPolicy,
+      component: PrivacyPolicyView,
       meta: {
         titleKey: 'seo.privacyPolicy.title',
         descriptionKey: 'seo.privacyPolicy.description'

@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import ShowGrade from "@/components/Popup.vue"
+import ShowGrade from "@/components/shared/Popup.vue"
 import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';

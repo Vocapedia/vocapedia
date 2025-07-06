@@ -56,15 +56,9 @@ This will start:
 - Redis cache  
 - Meilisearch search engine
 - Go backend with hot reload (using Air)
+- Vue frontend with pnpm
 
-2.  In a separate terminal, start the frontend development server:
-    ```bash
-    cd frontend
-    make dev
-    # or alternatively: pnpm run dev
-    ```
-
-3.  Access the application:
+2.  Access the application:
     - **Frontend**: [http://localhost:5173](http://localhost:5173)
     - **Backend API**: [http://localhost:3000](http://localhost:3000)
 

@@ -1,0 +1,83 @@
+{
+    "default": {
+        "title": "Vocapedia - Interactive Language Learning Platform",
+        "description": "Master languages with interactive lessons, vocabulary lists, and tutorials. Your comprehensive alternative to traditional language learning platforms."
+    },
+    "home": {
+        "title": "Vocapedia - Learn Languages with Interactive Lessons & Vocabulary",
+        "description": "Discover comprehensive language learning with Vocapedia's interactive lessons, vocabulary builders, and tutorials. Experience innovative language education and accelerate your learning journey."
+    },
+    "landing": {
+        "title": "Welcome to Vocapedia - Start Your Language Learning Journey!",
+        "description": "Join Vocapedia's interactive language learning platform. Create vocabulary lists, follow tutorials, practice with games, and master languages effectively with our comprehensive educational tools."
+    },
+    "compose": {
+        "title": "Create Vocabulary Lists & Lessons | Vocapedia",
+        "description": "Create and share custom vocabulary lists and interactive lessons on Vocapedia. Build comprehensive learning materials for effective language education."
+    },
+    "trends": {
+        "title": "Trending Language Lessons & Vocabulary Lists | Vocapedia",
+        "description": "Discover the most popular language lessons, vocabulary lists, and tutorials on Vocapedia. Follow trending educational content from our community."
+    },
+    "search": {
+        "title": "Search Language Lessons & Vocabulary | Vocapedia",
+        "description": "Search through thousands of vocabulary lists, interactive lessons, and language tutorials on Vocapedia. Find the perfect learning content for your needs."
+    },
+    "notes": {
+        "title": "My Learning Progress & Notes | Vocapedia",
+        "description": "Track your language learning progress, access personal notes, and manage your vocabulary collections on Vocapedia."
+    },
+    "login": {
+        "title": "Login | Vocapedia",
+        "description": "Login to your Vocapedia account."
+    },
+    "settings": {
+        "title": "Settings | Vocapedia",
+        "description": "Manage your account settings on Vocapedia."
+    },
+    "editor": {
+        "title": "Editor | Vocapedia",
+        "description": "Use the Vocapedia editor."
+    },
+    "privacyPolicy": {
+        "title": "Privacy Policy | Vocapedia",
+        "description": "Read the Privacy Policy of Vocapedia."
+    },
+    "notFound": {
+        "title": "Page Not Found | Vocapedia",
+        "description": "The page you are looking for was not found on Vocapedia."
+    },
+    "pricing": {
+        "title": "Buy Tokens | Vocapedia",
+        "description": "Purchase tokens to enhance your language learning experience on Vocapedia. Secure payment with instant token delivery."
+    },
+    "wordList": {
+        "title": "View Word List | Vocapedia",
+        "description": "Explore this word list on Vocapedia. Enhance your vocabulary with user-created lists."
+    },
+    "userProfile": {
+        "title": "User Profile | Vocapedia",
+        "description": "View user profiles on Vocapedia."
+    },
+    "breadcrumbs": {
+        "home": "Home",
+        "landing": "Welcome",
+        "compose": "Create List",
+        "trends": "Trending",
+        "search": "Search",
+        "notes": "My Notes",
+        "login": "Login",
+        "settings": "Settings",
+        "editor": "Editor",
+        "privacyPolicy": "Privacy Policy",
+        "wordList": "Word List",
+        "userProfile": "Profile",
+        "games": "Games",
+        "testGame": "Test",
+        "hangmanGame": "Hangman",
+        "flipWordGame": "Flip Word",
+        "quickPickGame": "Quick Pick",
+        "wordMatchGame": "Word Match",
+        "wordRushGame": "Word Rush"
+    }
+}

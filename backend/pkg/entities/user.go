@@ -20,6 +20,7 @@ type User struct {
 	Username        string         `json:"username" gorm:"type:citext;not null;unique"`
 	Email           string         `json:"-" gorm:"not null;unique"`
 	IsTeacher       bool           `json:"is_teacher" gorm:"default:false"`
+	Tokens          float64        `json:"tokens" gorm:"default:0"`
 	KnownLanguages  datatypes.JSON `json:"known_languages" gorm:"type:jsonb"`
 	TargetLanguages datatypes.JSON `json:"target_languages" gorm:"type:jsonb"`
 	Approved        bool           `json:"approved" gorm:""`

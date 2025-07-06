@@ -28,6 +28,10 @@ type Stream struct {
 	// Relationships
 	Creator User `json:"creator,omitempty" gorm:"foreignKey:CreatedBy"`
 
+	// Many-to-many relationship with users for stream participants
+	Students []User `json:"students,omitempty" gorm:"many2many:stream_students;"`
+
 	// Virtual fields for API response
-	Participants int `json:"participants" gorm:"-"`
+	Participants int  `json:"participants" gorm:"-"`
+	CanCancel    bool `json:"can_cancel" gorm:"-"`
 }

@@ -1,0 +1,15 @@
+{
+    "navbar": {
+        "search": {
+            "title": "Search",
+            "not_found": "No results found!"
+        }
+    },
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "loading": "Loading",
+    "error": {
+        "something_went_wrong": "Something went wrong!"
+    }
+}

@@ -71,6 +71,7 @@ func createAdmin(username, email, name, biography string) {
 		Name:      name,
 		Biography: biography,
 		Approved:  true,
+		Tokens:    50.0, // Admin'lere 50 token ver
 	}
 	if err := db.Save(&user).Error; err != nil {
 		fmt.Println("veri eklerken hata:", err)

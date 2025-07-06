@@ -66,6 +66,7 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/check", user.Check)
 				api.Put("/vocatoken", user.UpdateVocaToken)
 				api.Get("/vocatoken", user.GetVocaToken)
+				api.Get("/tokens", user.GetUserTokens)
 				api.Get("/streak", user.DailyStreak)
 				// Teacher request endpoints
 				api.Post("/request-teacher", user.RequestTeacher)
@@ -82,14 +83,17 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Delete("/logout", auth.Logout)
 			})
 			api.Route("/stream", func(api chi.Router) {
-				api.Post("/create", stream.CreateStream)      // Create new stream (authenticated)
-				api.Get("/{room}", stream.GetStreamByID)      // Get stream by ID
-				api.Post("/{room}/start", stream.StartStream) // Start stream
-				api.Post("/{room}/end", stream.EndStream)     // End stream
+				api.Post("/create", stream.CreateStream)                      // Create new stream (authenticated)
+				api.Get("/{room}", stream.GetStreamByID)                      // Get stream by ID
+				api.Post("/{room}/start", stream.StartStream)                 // Start stream
+				api.Post("/{room}/join", stream.JoinStream)                   // Join stream (upcoming only)
+				api.Delete("/{room}/cancel", stream.CancelStreamRegistration) // Cancel registration
+				api.Post("/{room}/end", stream.EndStream)                     // End stream
 				// List streams
 				api.Get("/active", stream.GetActiveStreams)     // Past 12h
 				api.Get("/recent", stream.GetRecentStreams)     // Ended last 12h
 				api.Get("/upcoming", stream.GetUpcomingStreams) // Next 12h
+				api.Get("/joined", stream.GetUserJoinedStreams) // User's joined streams
 			})
 		})
 		api.Route("/public", func(api chi.Router) {

@@ -1,0 +1,33 @@
+{
+    "welcome": "Welcome {username}!",
+    "description": "Check out your favorites, add notes, and follow trends to learn words you don't know.",
+    "quick_access": {
+        "title": "Quick Access",
+        "cards": {
+            "trends": {
+                "title": "Trends",
+                "description": "Trends show the words that other users have learned the most."
+            },
+            "notes": {
+                "title": "Notes",
+                "description": "Notes create a space where you can save words you want to review later."
+            },
+            "followed_results": {
+                "title": "Followed Results",
+                "description": "You can see the word lists you are following."
+            },
+            "streamers": {
+                "title": "Streamers",
+                "description": "You can schedule a lesson with teachers for the language you want to practice."
+            },
+            "pricing": {
+                "title": "Buy Tokens",
+                "description": "Purchase tokens to enhance your language learning experience on Vocapedia. Secure payment with instant token delivery."
+            }
+        }
+    },
+    "daily_streak": {
+        "title": "Daily Streak",
+        "description": "Keep learning every day"
+    }
+}

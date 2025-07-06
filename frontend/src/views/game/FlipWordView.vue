@@ -38,7 +38,6 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { useCountdown } from '@vueuse/core'
-import _chapter from "@/fake/chapter.json";
 import { i18n } from '@/i18n/i18n';
 import { getLangByCode } from '@/utils/language/languages';
 
@@ -79,7 +78,7 @@ watch(wordIndex, () => {
 })
 
 async function fetchWords() {
-    wordBases.value = _chapter.chapter.word_bases
+    wordBases.value = []
     startTimer()
 }
 

@@ -3,9 +3,8 @@
         <div class="container mx-auto p-6 space-y-8">
             <!-- Header -->
             <div class="text-center space-y-6">
-                <div
-                    class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-3xl mb-4 shadow-lg">
-                    <mdicon name="video-account" size="40" class="text-white" />
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl mb-4 card pr-2">
+                    <span class="font-logo text-6xl">V</span>
                 </div>
                 <h1
                     class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -14,6 +13,14 @@
                 <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
                     {{ $t('home.streamers_description') }}
                 </p>
+
+                <!-- Token Balance -->
+                <div
+                    class="inline-flex items-center bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-2">
+                    <span class="text-sm font-medium text-blue-800 dark:text-blue-200">
+                        Token: {{ userTokens }}
+                    </span>
+                </div>
             </div>
 
             <!-- Action Buttons -->
@@ -42,33 +49,7 @@
 
                 <!-- Tab Content -->
                 <div v-auto-animate class="p-6">
-                    <!-- Active Streams Tab -->
-                    <div v-if="activeTab === 'active'" class="space-y-4">
-                        <div v-if="activeStreams.length === 0" class="text-center py-12">
-                            <div
-                                class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <mdicon name="video-off" size="24" class="text-gray-400" />
-                            </div>
-                            <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noActiveStreams') }}</p>
-                        </div>
-
-                        <div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <router-link v-for="stream in activeStreams" :key="stream.room_id"
-                                :to="'/stream/' + stream.room_id" class="group">
-                                <PreviewCard class="smooth-click2" :form="{
-                                    title: stream.title,
-                                    description: stream.description,
-                                    lang: stream.lang,
-                                    target_lang: stream.target_lang,
-                                    scheduled_at: stream.scheduled_at,
-                                    duration: stream.duration,
-                                    max_participants: stream.max_participants,
-                                }" :username="stream.creator.username" />
-                            </router-link>
-                        </div>
-                    </div>
-
-                    <!-- Upcoming Streams Tab -->
+                    <!-- Upcoming Streams -->
                     <div v-if="activeTab === 'upcoming'" class="space-y-4">
                         <div v-if="upcomingStreams.length === 0" class="text-center py-12">
                             <div
@@ -79,7 +60,8 @@
                         </div>
 
                         <div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div v-for="stream in upcomingStreams" :key="stream.room_id" class="group">
+                            <div v-for="stream in upcomingStreams" :key="stream.room_id" class="group cursor-pointer"
+                                @click="handleStreamClick(stream)">
                                 <PreviewCard :form="{
                                     title: stream.title,
                                     description: stream.description,
@@ -93,32 +75,97 @@
                         </div>
                     </div>
 
-                    <!-- Recent Streams Tab -->
-                    <div v-if="activeTab === 'recent'" class="space-y-4">
-                        <div v-if="recentStreams.length === 0" class="text-center py-12">
+                    <!-- Joined Streams -->
+                    <div v-if="activeTab === 'joined'" class="space-y-4">
+                        <div v-if="joinedStreams.length === 0" class="text-center py-12">
                             <div
                                 class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <mdicon name="video-off" size="24" class="text-gray-400" />
+                                <mdicon name="account-check" size="24" class="text-gray-400" />
                             </div>
-                            <p class="text-gray-500 dark:text-gray-400">{{ $t('stream.noRecentStreams') }}</p>
+                            <p class="text-gray-500 dark:text-gray-400">Henüz hiçbir stream'e katılmadınız</p>
                         </div>
 
                         <div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div v-for="stream in joinedStreams" :key="stream.room_id" class="relative">
+                                <div class="cursor-pointer" @click="handleJoinedStreamClick(stream)">
+                                    <PreviewCard :form="{
+                                        title: stream.title,
+                                        description: stream.description,
+                                        lang: stream.lang,
+                                        target_lang: stream.target_lang,
+                                        scheduled_at: stream.scheduled_at,
+                                        duration: stream.duration,
+                                        max_participants: stream.max_participants,
+                                    }" :username="stream.creator.username" />
+                                </div>
 
-                            <PreviewCard v-for="stream in recentStreams" :form="{
-                                title: stream.title,
-                                description: stream.description,
-                                lang: stream.lang,
-                                target_lang: stream.target_lang,
-                                scheduled_at: stream.scheduled_at,
-                                duration: stream.duration,
-                                max_participants: stream.max_participants,
-                            }" :username="stream.creator.username" />
+                                <!-- Cancel button -->
+                                <div v-if="stream.can_cancel" class="absolute top-2 right-2">
+                                    <button @click.stop="handleCancelRegistration(stream)"
+                                        class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-colors">
+                                        <mdicon name="close" size="16" />
+                                    </button>
+                                </div>
+
+                                <!-- Status badge -->
+                                <div class="absolute top-2 left-2">
+                                    <span class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                                        Kayıtlı
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Join Stream Modal -->
+        <Popup v-model="showJoinModal">
+            <template #header>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    Stream'e Katıl
+                </h3>
+            </template>
+
+            <template #description>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 dark:text-gray-200">
+                            {{ selectedStream?.title }}
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            {{ selectedStream?.description }}
+                        </p>
+                    </div>
+
+                    <div
+                        class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <mdicon name="information" size="20" class="text-yellow-600 dark:text-yellow-400 mr-2" />
+                            <span class="text-sm text-yellow-800 dark:text-yellow-200">
+                                Bu stream'e katılmak için <strong>2 token</strong> gerekiyor.
+                            </span>
+                        </div>
+                        <div class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+                            Mevcut token: <strong>{{ userTokens }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template #buttons>
+                <div class="flex space-x-3">
+                    <button @click="showJoinModal = false"
+                        class="flex-1 px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors">
+                        İptal
+                    </button>
+                    <button @click="confirmJoin" :disabled="loading || userTokens < 2"
+                        class="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        {{ loading ? 'Katılıyor...' : (userTokens < 2 ? 'Yetersiz Token' : 'Katıl') }} </button>
+                </div>
+            </template>
+        </Popup>
     </div>
 </template>
 
@@ -128,102 +175,136 @@ import { useRoute, useRouter } from 'vue-router'
 import { useFetch } from '@/composable/useFetch'
 import { getUser } from '@/utils/token'
 import PreviewCard from "@/components/stream/PreviewCard.vue"
+import Popup from "@/components/shared/Popup.vue"
+import { useToast } from "@/composable/useToast"
 
 const route = useRoute()
 const router = useRouter()
-const activeStreams = ref([])
+const toast = useToast()
 const upcomingStreams = ref([])
-const recentStreams = ref([])
+const joinedStreams = ref([])
 const loading = ref(false)
+const showJoinModal = ref(false)
+const selectedStream = ref(null)
+const userTokens = ref(0)
 
 // Tab management
-const activeTab = ref(route.query.tab || 'active')
+const activeTab = ref(route.query.tab || 'upcoming')
 const tabs = [
-    { key: 'active', label: 'Aktif Yayınlar' },
     { key: 'upcoming', label: 'Gelecek Yayınlar' },
-    { key: 'recent', label: 'Son Yayınlar' }
+    { key: 'joined', label: 'Katıldığım Streamler' }
 ]
-
-// Watch for tab changes and update URL
-watch(activeTab, (newTab) => {
-    router.push({ query: { ...route.query, tab: newTab } })
-})
-
-// Watch for route changes and update active tab
-watch(() => route.query.tab, (newTab) => {
-    if (newTab && tabs.find(t => t.key === newTab)) {
-        activeTab.value = newTab
-    }
-})
 
 const canCreateStream = computed(() => {
     const user = getUser()
     return user && user.is_teacher
 })
 
-const formatTime = (timestamp) => {
-    const date = new Date(timestamp)
-    const now = new Date()
-    const diff = now - date
-    const minutes = Math.floor(diff / 60000)
-    const hours = Math.floor(diff / 3600000)
-    const days = Math.floor(diff / 86400000)
+watch(activeTab, (newTab) => {
+    router.push({ query: { ...route.query, tab: newTab } })
+})
 
-    if (days > 0) return `${days}d ago`
-    if (hours > 0) return `${hours}h ago`
-    if (minutes > 0) return `${minutes}m ago`
-    return 'Just now'
+watch(() => route.query.tab, (newTab) => {
+    if (newTab && tabs.find(t => t.key === newTab)) {
+        activeTab.value = newTab
+    }
+})
+
+const loadUserTokens = async () => {
+    const data = await useFetch('/user/tokens')
+    userTokens.value = data.tokens || 0
 }
 
-const formatScheduledTime = (timestamp) => {
-    const date = new Date(timestamp)
-    const now = new Date()
-    const diff = date - now
-    const minutes = Math.floor(diff / 60000)
-    const hours = Math.floor(diff / 3600000)
-    const days = Math.floor(diff / 86400000)
+const handleStreamClick = (stream) => {
+    selectedStream.value = stream
+    showJoinModal.value = true
+}
 
-    if (diff < 0) return 'Started'
-    if (days > 0) return `in ${days}d`
-    if (hours > 0) return `in ${hours}h`
-    if (minutes > 0) return `in ${minutes}m`
-    return 'Starting soon'
+const handleJoinedStreamClick = (stream) => {
+    const now = new Date()
+    const streamTime = new Date(stream.scheduled_at)
+    const endTime = new Date(streamTime.getTime() + 45 * 60 * 1000) // 45 minutes after start
+
+    if (now >= streamTime && now <= endTime) {
+        router.push(`/stream/${BigInt(stream.room_id)}`)
+    } else if (now > endTime) {
+        toast.error('Bu stream süresi dolmuş!')
+    } else {
+        toast.show('Stream henüz başlamadı!')
+    }
+}
+
+const handleCancelRegistration = async (stream) => {
+    if (!confirm('Bu stream kaydınızı iptal etmek istediğinizden emin misiniz? 2 token iade edilecek.')) {
+        return
+    }
+
+    try {
+        loading.value = true
+        await useFetch(`/stream/${stream.room_id}/cancel`, {
+            method: 'DELETE'
+        })
+
+        toast.success('Stream kaydınız iptal edildi! 2 token iade edildi.')
+
+        // Refresh streams and tokens
+        await loadJoinedStreams()
+        await loadUserTokens()
+    } catch (error) {
+        console.error('Error cancelling registration:', error)
+        if (error.message === 'Cancellation deadline has passed') {
+            toast.error('İptal etme süresi geçmiş! Stream\'den 2 saat öncesine kadar iptal edebilirsiniz.')
+        } else {
+            toast.error('Kayıt iptal edilirken bir hata oluştu.')
+        }
+    } finally {
+        loading.value = false
+    }
+}
+
+const confirmJoin = async () => {
+    if (!selectedStream.value) return
+
+    try {
+        loading.value = true
+        await useFetch(`/stream/${BigInt(selectedStream.value.room_id)}/join`, {
+            method: 'POST'
+        })
+
+        toast.success('Stream\'e başarıyla katıldınız!')
+        showJoinModal.value = false
+        selectedStream.value = null
+
+        // Refresh streams and tokens
+        await loadStreams()
+        await loadJoinedStreams()
+        await loadUserTokens()
+    } catch (error) {
+        console.error('Error joining stream:', error)
+        if (error.message === 'Insufficient tokens') {
+            toast.error('Yetersiz token! Bu stream\'e katılmak için 2 token gerekiyor.')
+        } else if (error.message === 'Already registered for this stream') {
+            toast.error('Bu stream\'e zaten kayıtlısınız!')
+        } else if (error.message === 'Stream has reached maximum participants') {
+            toast.error('Bu stream maksimum katılımcı sayısına ulaşmış!')
+        } else {
+            toast.error('Stream\'e katılırken bir hata oluştu.')
+        }
+    } finally {
+        loading.value = false
+    }
 }
 
 const loadStreams = async () => {
     loading.value = true
     try {
-        // Load active streams (within 20m of schedule)
-        const activeData = await useFetch('/stream/active')
-        activeStreams.value = activeData || []
-
         // Load upcoming streams (next 12h)
         const upcomingData = await useFetch('/stream/upcoming')
         upcomingStreams.value = upcomingData || []
 
-        // Load recent streams (ended >20m ago)
-        const recentData = await useFetch('/stream/recent')
-        recentStreams.value = recentData || []
-
     } catch (error) {
         console.error('Error loading streams:', error)
         // Mock data for testing
-        activeStreams.value = [
-            {
-                room_id: "test-active-1",
-                title: "English Conversation Practice",
-                description: "Practice speaking English with native speakers",
-                lang: "en",
-                target_lang: "tr",
-                scheduled_at: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
-                participants: 3,
-                creator: {
-                    username: "sarah_teacher",
-                    name: "Sarah Johnson"
-                }
-            }
-        ]
-
         upcomingStreams.value = [
             {
                 room_id: "test-upcoming-1",
@@ -252,42 +333,25 @@ const loadStreams = async () => {
                 }
             }
         ]
-
-        recentStreams.value = [
-            {
-                room_id: "test-recent-1",
-                title: "French Pronunciation Workshop",
-                description: "Master French pronunciation techniques",
-                lang: "fr",
-                target_lang: "en",
-                scheduled_at: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-                participants: 5,
-                creator: {
-                    username: "pierre_teach",
-                    name: "Pierre Dubois"
-                }
-            },
-            {
-                room_id: "test-recent-2",
-                title: "German Conversation Club",
-                description: "Practice German conversation in a friendly environment",
-                lang: "de",
-                target_lang: "en",
-                scheduled_at: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
-                participants: 4,
-                creator: {
-                    username: "hans_lehrer",
-                    name: "Hans Mueller"
-                }
-            }
-        ]
     } finally {
         loading.value = false
+    }
+}
+
+const loadJoinedStreams = async () => {
+    try {
+        const joinedData = await useFetch('/stream/joined')
+        joinedStreams.value = joinedData || []
+    } catch (error) {
+        console.error('Error loading joined streams:', error)
+        joinedStreams.value = []
     }
 }
 
 // Initialize
 onMounted(() => {
     loadStreams()
+    loadJoinedStreams()
+    loadUserTokens()
 })
 </script>

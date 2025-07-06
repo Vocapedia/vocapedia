@@ -1,0 +1,67 @@
+{
+    "dash": {
+        "edit_profile": "Edit profile",
+        "create_new_chapter": "Create new chapter"
+    },
+    "popup": {
+        "edit_user": {
+            "title": "Edit Profile",
+            "input": {
+                "placeholder": {
+                    "name": "Enter your name",
+                    "username": "Enter your username",
+                    "biography": "Write a short biography"
+                },
+                "label": {
+                    "name": "Name",
+                    "username": "Username",
+                    "biography": "Biography"
+                }
+            }
+        },
+        "discarded_chapters": {
+            "title": "Discarded Chapters",
+            "no_chapters": {
+                "title": "No discarded chapters found!",
+                "description": "Chapters you delete will appear here, and you can restore them if needed."
+            },
+            "words_count": "Words Count",
+            "deleted_at": "Deleted At"
+        },
+        "teacher_request": {
+            "title": "Teacher Request",
+            "info": "Your request will be reviewed by our team. Once approved, you'll be able to create and share lessons.",
+            "description": "Request to become a teacher on Vocapedia and start creating educational content.",
+            "label": {
+                "description": "Why do you want to become a teacher?"
+            },
+            "placeholder": {
+                "description": "Tell us about your teaching experience, qualifications, and how you plan to contribute to Vocapedia..."
+            },
+            "help":{
+                "description":  "Please provide details about your background and teaching goals (minimum 50 characters)."
+            },
+            "buttons": {
+                "apply": "Apply"
+            }
+        },
+        "language_preferences": {
+            "title": "Language Preferences",
+            "known_languages": "Select the languages you know.",
+            "target_languages": "Select the languages you want to learn.",
+            "add": {
+                "known_language": "Add Known Language",
+                "target_language": "Add Target Language"
+            },
+            "select": {
+                "language": "Select a language"
+            },
+            "validation": {
+                "no_overlap": "Known languages and target languages cannot overlap.",
+                "select_at_least_one": "Please select at least one known language and one target language.",
+                "no_duplicates_target": "Target languages cannot have duplicates.",
+                "no_duplicates_known": "Known languages cannot have duplicates."
+            }
+        }
+    }
+}

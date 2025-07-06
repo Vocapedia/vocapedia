@@ -9,13 +9,13 @@
           <div class="flex space-x-1 items-center">
             <h2 v-if="user.name" class="text-xl font-extrabold ">{{ user.name }}</h2>
             <mdicon v-if="user.approved" name="check-decagram" class="text-xl text-sky-500" />
-            <mdicon v-if="user.is_teacher" name="school" class="text-xl text-red-500"/>
+            <mdicon v-if="user.is_teacher" name="school" class="text-xl text-red-500" />
           </div>
           <div class="flex space-x-2">
 
             <button @click="triggerSettingsPopup = true" v-if="isUsersAccount"
               class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
-              {{ $t('account.edit_profile') }}
+              {{ $t('account.dash.edit_profile') }}
             </button>
             <button @click="triggerDiscardedChaptersPopup = true" v-if="isUsersAccount"
               class="smooth-click border-zinc-200 dark:border-zinc-700 border px-2 py-1 rounded-full">
@@ -39,7 +39,7 @@
       <div v-motion-slide-visible-once-bottom class="text-center flex" v-if="isUsersAccount">
         <router-link to="/compose"
           class="cursor-pointer w-full smooth-click2 w-full bg-sky-100 dark:bg-sky-700 py-3 font-semibold">
-          {{ $t('account.create_new_post') }}
+          {{ $t('account.dash.create_new_chapter') }}
         </router-link>
       </div>
       <hr class="border-t-2 border-zinc-200 dark:border-zinc-800 my-4 opacity-50">
@@ -47,10 +47,12 @@
       <div v-motion-slide-bottom>
         <WordLists :key="$route.params.username" :uri="'/public/chapters/user?username=' + $route.params.username" />
       </div>
+
+      <!-- Edit User Popup -->
       <SettingsPopup v-model="triggerSettingsPopup">
         <template #header>
           <h2 class="text-xl font-semibold">
-            {{ $t('account.edit_profile') }}
+            {{ $t('account.popup.edit_user.title') }}
           </h2>
         </template>
         <template #description>
@@ -58,23 +60,32 @@
             <hr class="border-t-2 border-zinc-200 dark:border-zinc-700 opacity-50">
             <div class="space-y-3">
               <div>
-                <label>name</label>
-                <input v-model="EditUser.name" type="text" :placeholder="$t('account.edit.name')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+                <label>{{ $t('account.popup.edit_user.input.label.name') }}</label>
+                <input v-model="EditUser.name" type="text"
+                  :placeholder="$t('account.popup.edit_user.input.placeholder.name')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-zinc-100 text-zinc-900  border-none
              max-w-160 
              dark:bg-zinc-900 dark:text-white " />
 
               </div>
+              <div>
+                <label>{{ $t('account.popup.edit_user.input.label.username') }}</label>
+                <input v-model="EditUser.username" type="text"
+                  :placeholder="$t('account.popup.edit_user.input.placeholder.username')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+             bg-zinc-100 text-zinc-900  border-none
+             max-w-160 
+             dark:bg-zinc-900 dark:text-white " />
+              </div>
 
-              <input v-model="EditUser.username" type="text" :placeholder="$t('account.edit.username')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+              <div>
+                <label>{{ $t('account.popup.edit_user.input.label.biography') }}</label>
+                <textarea v-model="EditUser.biography" type="text"
+                  :placeholder="$t('account.popup.edit_user.input.placeholder.biography')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-zinc-100 text-zinc-900  border-none
              max-w-160 
              dark:bg-zinc-900 dark:text-white " />
 
-              <textarea v-model="EditUser.biography" type="text" :placeholder="$t('account.edit.biography')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
-             bg-zinc-100 text-zinc-900  border-none
-             max-w-160 
-             dark:bg-zinc-900 dark:text-white " />
+              </div>
 
             </div>
 
@@ -84,18 +95,15 @@
         </template>
         <template #buttons>
           <div class="flex justify-around space-x-5">
-            <button @click="triggerSettingsPopup = false"
-              class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-red-100 text-red-900 dark:bg-red-700/20 dark:text-red-100">
-              {{ $t('close') }}
-            </button>
+            <div class="w-full">
+              <PopupButton @click="triggerSettingsPopup = false" theme="red" :text="$t('shared.cancel')" />
+            </div>
+
             <div v-auto-animate class="w-full">
               <div v-if="isLoading">
                 <div class="loading-spinner mx-auto"></div>
               </div>
-              <button v-else @click="Edit"
-                class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-sky-100 text-sky-900 dark:bg-sky-700/20 dark:text-sky-100">
-                {{ $t('save') }}
-              </button>
+              <PopupButton v-else @click="Edit" theme="blue" :text="$t('shared.save')" />
             </div>
           </div>
         </template>
@@ -105,7 +113,7 @@
       <SettingsPopup v-model="triggerLanguagePreferencesPopup">
         <template #header>
           <h2 class="text-xl font-semibold">
-            {{ $t('language_preferences.title') }}
+            {{ $t('account.popup.language_preferences.title') }}
           </h2>
         </template>
         <template #description>
@@ -118,7 +126,7 @@
           <div class="flex justify-around space-x-5">
             <button @click="triggerLanguagePreferencesPopup = false"
               class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-red-100 text-red-900 dark:bg-red-700/20 dark:text-red-100">
-              {{ $t('common.cancel') }}
+              {{ $t('shared.cancel') }}
             </button>
             <div v-auto-animate class="w-full">
               <div v-if="isLanguagePreferencesLoading">
@@ -126,7 +134,7 @@
               </div>
               <button v-else @click="saveLanguagePreferences"
                 class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-sky-100 text-sky-900 dark:bg-sky-700/20 dark:text-sky-100">
-                {{ $t('common.save') }}
+                {{ $t('shared.save') }}
               </button>
             </div>
           </div>
@@ -137,7 +145,7 @@
       <SettingsPopup v-model="triggerTeacherRequestPopup">
         <template #header>
           <h2 class="text-xl font-semibold">
-            {{ $t('teacher_request.title') }}
+            {{ $t('account.popup.teacher_request.title') }}
           </h2>
         </template>
         <template #description>
@@ -148,18 +156,18 @@
         </template>
         <template #buttons>
           <div class="flex justify-around space-x-5">
-            <button @click="triggerTeacherRequestPopup = false"
-              class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-red-100 text-red-900 dark:bg-red-700/20 dark:text-red-100">
-              {{ $t('common.cancel') }}
-            </button>
+            <div class="w-full">
+              <PopupButton :text="$t('shared.cancel')" theme="red" @click="triggerTeacherRequestPopup = false" />
+
+            </div>
             <div v-auto-animate class="w-full">
               <div v-if="isTeacherRequestLoading">
                 <div class="loading-spinner mx-auto"></div>
               </div>
-              <button v-else @click="submitTeacherRequest"
-                class="smooth-click2 cursor-pointer w-full px-4 py-2 font-semibold text-xl rounded bg-green-100 text-green-900 dark:bg-green-700/20 dark:text-green-100">
-                {{ $t('teacher_request.request') }}
-              </button>
+              <PopupButton v-else @click="submitTeacherRequest"
+                :text="$t('account.popup.teacher_request.buttons.apply')" theme="blue" />
+
+
             </div>
           </div>
         </template>
@@ -169,7 +177,7 @@
       <SettingsPopup v-model="triggerDiscardedChaptersPopup">
         <template #header>
           <h2 class="text-xl font-semibold">
-            {{ $t('discarded_chapters.title') }}
+            {{ $t('account.popup.discarded_chapters.title') }}
           </h2>
         </template>
         <template #description>
@@ -179,12 +187,7 @@
           </div>
         </template>
         <template #buttons>
-          <div class="flex justify-center">
-            <button @click="triggerDiscardedChaptersPopup = false"
-              class="smooth-click2 cursor-pointer px-6 py-2 font-semibold text-xl rounded bg-zinc-100 text-zinc-900 dark:bg-zinc-700/20 dark:text-zinc-100">
-              {{ $t('common.close') }}
-            </button>
-          </div>
+          <PopupButton @click="triggerDiscardedChaptersPopup = false" :text="$t('shared.close')" />
         </template>
       </SettingsPopup>
 
@@ -192,7 +195,7 @@
   </div>
 </template>
 <script setup>
-import SettingsPopup from "@/components/Popup.vue"
+import SettingsPopup from "@/components/shared/Popup.vue"
 import LanguagePreferencesForm from "@/components/LanguagePreferencesForm.vue"
 import TeacherRequestForm from "@/components/TeacherRequestForm.vue"
 import DiscardedChaptersForm from "@/components/DiscardedChaptersForm.vue"
@@ -205,6 +208,7 @@ import { getDevice, getUser } from "@/utils/token";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
+import PopupButton from "@/components/shared/PopupButton.vue";
 const route = useRoute()
 const router = useRouter()
 const triggerSettingsPopup = ref(false)

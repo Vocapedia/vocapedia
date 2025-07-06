@@ -1,8 +1,10 @@
 package stream
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/akifkadioglu/vocapedia/pkg/database"
@@ -11,6 +13,7 @@ import (
 	"github.com/akifkadioglu/vocapedia/pkg/token"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
+	"gorm.io/gorm"
 )
 
 func StartStream(w http.ResponseWriter, r *http.Request) {
@@ -181,16 +184,25 @@ func GetUpcomingStreams(w http.ResponseWriter, r *http.Request) {
 	var streams []entities.Stream
 	now := time.Now()
 	future := now.Add(12 * time.Hour)
-	err := db.Preload("Creator").Where("scheduled_at > ? AND scheduled_at <= ?", now, future).
+
+	// SQL query to filter streams that haven't reached max participants
+	err := db.Preload("Creator").
+		Preload("Students").
+		Where("scheduled_at > ? AND scheduled_at <= ?", now, future).
+		Where("(SELECT COUNT(*) FROM stream_students WHERE stream_students.stream_id = streams.id) < max_participants").
 		Order("scheduled_at ASC").
 		Find(&streams).Error
+
 	if err != nil {
 		http.Error(w, "Failed to fetch upcoming streams", http.StatusInternalServerError)
 		return
 	}
+
+	// Set actual participant count
 	for i := range streams {
-		streams[i].Participants = 1 + (int(streams[i].ID) % 5)
+		streams[i].Participants = len(streams[i].Students)
 	}
+
 	render.JSON(w, r, streams)
 }
 
@@ -228,5 +240,195 @@ func EndStream(w http.ResponseWriter, r *http.Request) {
 
 	render.JSON(w, r, map[string]any{
 		"message": "Stream ended successfully",
+	})
+}
+
+func JoinStream(w http.ResponseWriter, r *http.Request) {
+	room := chi.URLParam(r, "room")
+	if room == "" {
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{"error": "room is required"})
+		return
+	}
+
+	userID := token.User(r).UserID
+
+	db := database.Manager()
+	var currentUser entities.User
+	if err := db.Where("id = ?", userID).First(&currentUser).Error; err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, map[string]string{"error": "User not found"})
+		return
+	}
+
+	err := db.Transaction(func(tx *gorm.DB) error {
+		var stream entities.Stream
+		if err := tx.Preload("Creator").Preload("Students").Where("room_id = ?", room).First(&stream).Error; err != nil {
+			return fmt.Errorf("stream not found: %w", err)
+		}
+
+		// Check if stream is upcoming
+		if stream.ScheduledAt.Before(time.Now()) {
+			return fmt.Errorf("stream has already started or ended")
+		}
+
+		// Check if already registered
+		for _, student := range stream.Students {
+			if student.ID == currentUser.ID {
+				return fmt.Errorf("already registered for this stream")
+			}
+		}
+
+		// Check if max participants reached
+		if len(stream.Students) >= stream.MaxParticipants+1 {
+			return fmt.Errorf("stream has reached maximum participants")
+		}
+
+		// Check tokens
+		if currentUser.Tokens < 2 {
+			return fmt.Errorf("insufficient tokens")
+		}
+
+		// Deduct tokens
+		if err := tx.Model(&currentUser).Update("tokens", gorm.Expr("tokens - ?", 2)).Error; err != nil {
+			return fmt.Errorf("failed to update user tokens: %w", err)
+		}
+
+		if err := tx.Exec("INSERT INTO stream_students (stream_id, user_id) VALUES (?, ?) ON CONFLICT DO NOTHING", stream.ID, currentUser.ID).Error; err != nil {
+			return fmt.Errorf("failed to join stream: %w", err)
+		}
+
+		return nil
+	})
+
+	// Handle transaction result
+	if err != nil {
+		switch {
+		case strings.Contains(err.Error(), "stream not found"):
+			render.Status(r, http.StatusNotFound)
+			render.JSON(w, r, map[string]string{"error": err.Error()})
+		case strings.Contains(err.Error(), "already registered"):
+			render.Status(r, http.StatusConflict)
+			render.JSON(w, r, map[string]string{"error": err.Error()})
+		case strings.Contains(err.Error(), "maximum participants"):
+			render.Status(r, http.StatusConflict)
+			render.JSON(w, r, map[string]string{"error": err.Error()})
+		case strings.Contains(err.Error(), "insufficient tokens"):
+			render.Status(r, http.StatusPaymentRequired)
+			render.JSON(w, r, map[string]string{"error": err.Error()})
+		default:
+			render.Status(r, http.StatusInternalServerError)
+			render.JSON(w, r, map[string]string{"error": err.Error()})
+		}
+		return
+	}
+
+	render.JSON(w, r, map[string]any{
+		"message":          "Successfully joined stream",
+		"tokens_remaining": currentUser.Tokens - 2,
+	})
+}
+
+// GetUserJoinedStreams returns streams that the user has joined
+func GetUserJoinedStreams(w http.ResponseWriter, r *http.Request) {
+	user := token.User(r)
+	userID, _ := strconv.ParseInt(user.UserID, 10, 64)
+
+	db := database.Manager()
+	var streams []entities.Stream
+	now := time.Now()
+
+	// Get streams user has joined, exclude ones that ended more than 45 minutes ago
+	cutoffTime := now.Add(-45 * time.Minute)
+
+	err := db.Preload("Creator").
+		Preload("Students").
+		Joins("JOIN stream_students ON stream_students.stream_id = streams.id").
+		Where("stream_students.user_id = ?", userID).
+		Where("scheduled_at > ?", cutoffTime).
+		Order("scheduled_at ASC").
+		Find(&streams).Error
+
+	if err != nil {
+		http.Error(w, "Failed to fetch joined streams", http.StatusInternalServerError)
+		return
+	}
+
+	// Add additional info for each stream
+	for i := range streams {
+		streams[i].Participants = len(streams[i].Students)
+
+		// Add cancellation deadline info (2 hours before stream)
+		cancellationDeadline := streams[i].ScheduledAt.Add(-2 * time.Hour)
+		streams[i].CanCancel = now.Before(cancellationDeadline)
+	}
+
+	render.JSON(w, r, streams)
+}
+
+// CancelStreamRegistration allows user to cancel their registration
+func CancelStreamRegistration(w http.ResponseWriter, r *http.Request) {
+	room := chi.URLParam(r, "room")
+	if room == "" {
+		http.Error(w, "room is required", http.StatusBadRequest)
+		return
+	}
+
+	user := token.User(r)
+	userID, _ := strconv.ParseInt(user.UserID, 10, 64)
+
+	db := database.Manager()
+	var stream entities.Stream
+	result := db.Preload("Students").Where("room_id = ?", room).First(&stream)
+
+	if result.Error != nil {
+		http.Error(w, "Stream not found", http.StatusNotFound)
+		return
+	}
+
+	// Check if cancellation is still allowed (2 hours before stream)
+	now := time.Now()
+	cancellationDeadline := stream.ScheduledAt.Add(-2 * time.Hour)
+	if now.After(cancellationDeadline) {
+		http.Error(w, "Cancellation deadline has passed", http.StatusBadRequest)
+		return
+	}
+
+	// Check if user is actually registered
+	var currentUser entities.User
+	if err := db.Where("id = ?", userID).First(&currentUser).Error; err != nil {
+		http.Error(w, "User not found", http.StatusNotFound)
+		return
+	}
+
+	isRegistered := false
+	for _, student := range stream.Students {
+		if student.ID == userID {
+			isRegistered = true
+			break
+		}
+	}
+
+	if !isRegistered {
+		http.Error(w, "User is not registered for this stream", http.StatusBadRequest)
+		return
+	}
+
+	// Remove user from stream participants
+	if err := db.Model(&stream).Association("Students").Delete(&currentUser); err != nil {
+		http.Error(w, "Failed to cancel registration", http.StatusInternalServerError)
+		return
+	}
+
+	// Refund 2 tokens to user
+	if err := db.Model(&currentUser).Update("tokens", gorm.Expr("tokens + ?", 2)).Error; err != nil {
+		// Log error but don't fail the request since registration was already cancelled
+		http.Error(w, "Registration cancelled but token refund failed", http.StatusInternalServerError)
+		return
+	}
+
+	render.JSON(w, r, map[string]any{
+		"message":         "Registration cancelled successfully",
+		"tokens_refunded": 2,
 	})
 }
