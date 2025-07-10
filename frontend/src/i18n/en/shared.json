@@ -11,5 +11,15 @@
     "loading": "Loading",
     "error": {
         "something_went_wrong": "Something went wrong!"
+    },
+    "word_types":{
+        "noun": "Noun",
+        "verb": "Verb",
+        "adjective": "Adjective",
+        "adverb": "Adverb",
+        "pronoun": "Pronoun",
+        "preposition": "Preposition",
+        "conjunction": "Conjunction",
+        "interjection": "Interjection"
     }
 }

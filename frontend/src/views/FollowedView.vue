@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-160 mx-auto">
         <p class="py-5 text-center text-xl font-semibold">
-            {{ $t('followed_results') }}
+            {{ $t('followeds.header') }}
         </p>
 
         <div v-motion-slide-bottom>

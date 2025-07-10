@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-center">
-            <input v-model="search" type="text" :placeholder="$t('search_from_list')" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
+            <input v-model="search" type="text" :placeholder="$t('chapter.search_chapter',{name:props.response.chapter?.title})" class="w-full p-3 border rounded-lg shadow-sm outline-none transition-all 
              bg-white text-zinc-900  border-none
              max-w-160 
              dark:bg-zinc-800 dark:text-white " />
@@ -15,7 +15,7 @@
                             <div class="font-bold text-xl capitalize ">{{ item.words[0].word }}</div>
                             <span
                                 class="more-than-word bg-blue-200 dark:bg-blue-800 px-2 rounded-full text-blue-800 dark:text-blue-200">
-                                {{ $t('word_types.' + item.type) }}
+                                {{ $t('shared.word_types.' + item.type) }}
                             </span>
                         </div>
                         <div class="font-light pt-5">{{ item.words[0].description }}</div>

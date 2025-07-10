@@ -6,7 +6,7 @@
                 <div v-if="response.chapter">
                     <small v-motion-slide-visible-once-left class="pb-5 flex justify-center">
                         {{
-                            $t('list_helper', {
+                            $t('chapter.helper', {
                                 lang: getLangByCode(response.chapter.lang).name,
                                 target_lang: getLangByCode(response.chapter.target_lang).name
                             })
@@ -40,12 +40,12 @@
                                 <router-link :to="$route.path + '?variant=word-list'"
                                     :class="$route.query.variant == 'tutorial' ? 'text-zinc-400 dark:text-zinc-600' : ''"
                                     class="truncate cursor-pointer text-lg font-semibold">
-                                    {{ $t('word-list') }}
+                                    {{ $t('chapter.section.word-list') }}
                                 </router-link>
                                 <router-link :to="$route.path + '?variant=tutorial'"
                                     :class="$route.query.variant == 'tutorial' ? '' : 'text-zinc-400 dark:text-zinc-600'"
                                     class="truncate cursor-pointer text-lg font-semibold">
-                                    {{ $t('tutorial') }}
+                                    {{ $t('chapter.section.tutorial') }}
                                 </router-link>
                                 <button class="smooth-click bg-sky-100 dark:bg-sky-700 rounded-full p-1"
                                     @click="generatePDF">

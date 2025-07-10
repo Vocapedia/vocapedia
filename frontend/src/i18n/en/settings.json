@@ -1,0 +1,12 @@
+{
+    "tokens":{
+        "created_at":"Created at",
+        "updated_at":"Updated at",
+        "device_info":"Device Info"
+    },
+    "actions":{
+        "delete_account":"Delete Account",
+        "logout":"Logout",
+        "vocatoken_copied":"Vocatoken copied to clipboard"
+    }
+}

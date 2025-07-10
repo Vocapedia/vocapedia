@@ -60,18 +60,16 @@ type Config struct {
 	AllowOrigins []string `yaml:"allow_origins"`
 	Payments     struct {
 		Providers struct {
-			Iyzico struct {
-				APIKey     string `yaml:"api_key"`
-				SecretKey  string `yaml:"secret_key"`
-				Production bool   `yaml:"production"`
-			} `yaml:"iyzico"`
-			Paypal struct {
-				ClientID   string `yaml:"client_id"`
-				SecretKey  string `yaml:"secret_key"`
-				Production bool   `yaml:"production"`
-			} `yaml:"paypal"`
-		}
-	}
+			LemonSqueezy struct {
+				BaseURL	  string `yaml:"base_url"`
+				WebhookURL string `yaml:"webhook_url"`
+				WebhookSecret string `yaml:"webhook_secret"`
+				APIKey    string `yaml:"api_key"`
+				ProductID string `yaml:"product_id"`
+				VariantID string `yaml:"variant_id"`
+			} `yaml:"lemonsqueezy"`
+		} `yaml:"providers"`
+	} `yaml:"payments"`
 }
 
 var configs *Config

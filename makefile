@@ -3,6 +3,12 @@ hot:
 	docker compose -f docker-compose.hot.yaml up & \
 	cd frontend && pnpm dev & \
 	wait
+	
+kill-ports:
+	@docker ps --format '{{.ID}} {{.Ports}}' | \
+	grep -E '(:3000->|:5432->)' | \
+	awk '{print $$1}' | \
+	xargs -r docker rm -f
 
 test:
 	docker compose -f docker-compose.test.yaml up

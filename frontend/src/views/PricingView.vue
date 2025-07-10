@@ -3,7 +3,7 @@
         <!-- Hero Section -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                {{ $t('pricing.title') }}
+                {{ $t('pricing.header') }}
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                 {{ $t('pricing.description') }}
@@ -13,22 +13,22 @@
         <!-- Token Info Banner -->
         <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 mb-12 text-white text-center">
             <div class="flex items-center justify-center mb-4">
-                <h2 class="text-2xl font-bold">{{ $t('pricing.tokens.title') }}</h2>
+                <h2 class="text-2xl font-bold">{{ $t('pricing.banner.title') }}</h2>
             </div>
-            <p class="text-lg mb-4">{{ $t('pricing.tokens.description') }}</p>
+            <p class="text-lg mb-4">{{ $t('pricing.banner.description') }}</p>
             <div class="grid md:grid-cols-3 gap-4 text-sm">
-                <div class="bg-white/20 rounded-lg p-4 flex items-center justify-center">
+                <router-link to="/" class="bg-white/20 rounded-lg p-4 flex items-center justify-center">
                     <mdicon name="book-open" size="24" class="mr-3 flex-shrink-0" />
-                    <p class="text-center">{{ $t('pricing.tokens.use1') }}</p>
-                </div>
-                <div class="bg-white/20 rounded-lg p-4 flex items-center justify-center">
-                    <mdicon name="gamepad-variant-outline" size="24" class="mr-3 flex-shrink-0" />
-                    <p class="text-center">{{ $t('pricing.tokens.use2') }}</p>
-                </div>
-                <div class="bg-white/20 rounded-lg p-4 flex items-center justify-center">
+                    <p class="text-center">{{ $t('pricing.banner.use1') }}</p>
+                </router-link>
+                <router-link to="/" class="bg-white/20 rounded-lg p-4 flex items-center justify-center">
+                    <mdicon name="puzzle" size="24" class="mr-3 flex-shrink-0" />
+                    <p class="text-center">{{ $t('pricing.banner.use2') }}</p>
+                </router-link>
+                <router-link to="/" class="bg-white/20 rounded-lg p-4 flex items-center justify-center">
                     <mdicon name="account-voice" size="24" class="mr-3 flex-shrink-0" />
-                    <p class="text-center">{{ $t('pricing.tokens.use3') }}</p>
-                </div>
+                    <p class="text-center">{{ $t('pricing.banner.use3') }}</p>
+                </router-link>
             </div>
         </div>
 
@@ -38,11 +38,11 @@
             <div class="flex items-center justify-center mb-2">
                 <mdicon name="shield-check" size="24" class="text-green-600 dark:text-green-400 mr-2" />
                 <span class="text-green-800 dark:text-green-200 font-medium">
-                    {{ $t('pricing.purchase.secure_payment') }}
+                    {{ $t('pricing.purchase.title') }}
                 </span>
             </div>
             <p class="text-sm text-green-700 dark:text-green-300">
-                {{ $t('pricing.purchase.secure_description') }}
+                {{ $t('pricing.purchase.description') }}
             </p>
         </div>
 
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        {{ $t('pricing.tokens.label') }}
+                        {{ $t('pricing.label') }}
                     </div>
                     <div class="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">
                         ${{ calculatePrice(option.tokens) }}
@@ -72,99 +72,8 @@
             </div>
         </div>
 
-        <!-- Payment Provider Selection -->
-        <div id="calculator-summary" v-if="availableProviders.length > 0"
-            class="bg-white dark:bg-gray-800 rounded-lg p-6 mb-8">
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-                {{ $t('pricing.payment.choose_provider') }}
-            </h3>
-
-            <!-- Loading State -->
-            <div v-if="isLoadingProviders" class="text-center py-8">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
-                <p class="text-gray-500 mt-2">{{ $t('pricing.payment.loading') }}</p>
-            </div>
-
-            <!-- Provider Selection -->
-            <div v-else class="max-w-2xl mx-auto">
-                <!-- Country Detection Info -->
-                <div v-if="detectedCountry" class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mb-4 text-center">
-                    <div class="flex items-center justify-center text-sm text-blue-700 dark:text-blue-300">
-                        <mdicon name="map-marker" size="16" class="mr-2" />
-                        <span>{{ $t('pricing.payment.detected_location') }}: {{ detectedCountry }}</span>
-                    </div>
-                </div>
-
-                <!-- Provider Cards -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div v-for="provider in availableProviders" :key="provider.provider"
-                        class="border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg" :class="selectedProvider === provider.provider
-                            ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-md'
-                            : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'"
-                        @click="selectProvider(provider.provider, provider.currency)">
-
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center">
-                                <!-- Provider Icon -->
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3"
-                                    :class="provider.provider === 'iyzico' ? 'bg-orange-100 dark:bg-orange-900/20' : 'bg-blue-100 dark:bg-blue-900/20'">
-                                    <mdicon name="credit-card" size="20"
-                                        :class="provider.provider === 'iyzico' ? 'text-orange-600 dark:text-orange-400' : 'text-blue-600 dark:text-blue-400'" />
-                                </div>
-
-                                <div>
-                                    <div class="font-semibold text-gray-900 dark:text-white">
-                                        {{ provider.display_name || (provider.provider === 'iyzico' ? 'İyzico' :
-                                        'PayPal') }}
-                                    </div>
-                                    <div class="text-sm text-gray-600 dark:text-gray-300">
-                                        {{ provider.description || provider.currency }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Selection Indicator -->
-                            <div v-if="selectedProvider === provider.provider"
-                                class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center">
-                                <mdicon name="check" size="16" class="text-white" />
-                            </div>
-                        </div>
-
-                        <!-- Currency and Recommended Badge -->
-                        <div class="flex items-center justify-between">
-                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                {{ provider.currency }}
-                            </div>
-                            <div v-if="provider.recommended" class="flex items-center">
-                                <span
-                                    class="text-xs bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400 px-2 py-1 rounded-full font-medium flex items-center">
-                                    <mdicon name="star" size="12" class="mr-1" />
-                                    <span>{{ $t('pricing.payment.recommended') }}</span>
-                                </span>
-                            </div>
-                        </div>
-                        <!-- Reason -->
-                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            {{ provider.reason }}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Selected Provider Summary -->
-                <div v-if="selectedProvider" class="mt-4 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
-                    <div class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-                        <mdicon name="information" size="16" class="mr-2 text-blue-500" />
-                        <span>{{ $t('pricing.payment.selected_provider') }}: </span>
-                        <span class="font-semibold ml-1">
-                            {{ selectedProvider === 'iyzico' ? 'İyzico' : 'PayPal' }} ({{ selectedCurrency }})
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Custom Token Calculator -->
-        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-8 mb-12">
+        <div id="calculator-summary" class="bg-gray-50 dark:bg-gray-900 rounded-lg p-8 mb-12">
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 {{ $t('pricing.calculator.title') }}
             </h3>
@@ -226,7 +135,7 @@
                 <div class="text-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <div class="text-3xl font-bold text-gray-900 dark:text-white mb-2">$1.00</div>
                     <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">{{ $t('pricing.tiers.per_token') }}</div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400">1-49 {{ $t('pricing.tokens.label') }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">1-49 {{ $t('pricing.label') }}</div>
                 </div>
                 <div class="text-center p-4 border-2 border-green-500 rounded-lg relative">
                     <div class="absolute -top-2 left-1/2 transform -translate-x-1/2">
@@ -235,7 +144,7 @@
                     </div>
                     <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">$0.90</div>
                     <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">{{ $t('pricing.tiers.per_token') }}</div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400">50-99 {{ $t('pricing.tokens.label') }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">50-99 {{ $t('pricing.label') }}</div>
                 </div>
                 <div class="text-center p-4 border-2 border-purple-500 rounded-lg relative">
                     <div class="absolute -top-2 left-1/2 transform -translate-x-1/2">
@@ -244,7 +153,7 @@
                     </div>
                     <div class="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">$0.80</div>
                     <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">{{ $t('pricing.tiers.per_token') }}</div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400">100+ {{ $t('pricing.tokens.label') }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">100+ {{ $t('pricing.label') }}</div>
                 </div>
             </div>
         </div>
@@ -285,7 +194,7 @@
             <div class="container mx-auto max-w-md">
                 <div v-if="selectedPackage.tokens" class="text-center mb-3">
                     <div class="text-lg font-semibold text-gray-900 dark:text-white">
-                        {{ selectedPackage.tokens }} {{ $t('pricing.tokens.label') }} - ${{ selectedPackage.price }}
+                        {{ selectedPackage.tokens }} {{ $t('pricing.label') }} - ${{ selectedPackage.price }}
                     </div>
                     <div v-if="selectedPackage.discount > 0" class="text-sm text-green-600 dark:text-green-400">
                         {{ selectedPackage.discount }}% {{ $t('pricing.discount') }}
@@ -306,25 +215,18 @@ import { ref, computed, onMounted } from 'vue'
 import { useToast } from '@/composable/useToast'
 import { useI18n } from 'vue-i18n'
 import { useFetch } from '@/composable/useFetch'
-// CheckoutModal artık kullanılmıyor - Gumroad entegrasyonu
-// import CheckoutModal from '@/components/CheckoutModal.vue'
-
 const { t } = useI18n()
 const toast = useToast()
 
 // Reactive data
 const customTokens = ref(50)
 const selectedPackage = ref({})
-const availableProviders = ref([])
 const selectedProvider = ref('')
 const selectedCurrency = ref('')
-const detectedCountry = ref('')
-const isLoadingProviders = ref(false)
 
 // Initialize with custom token value and load providers
 onMounted(async () => {
     handleCustomTokenChange()
-    await loadAvailableProviders()
 })
 
 // Quick buy options
@@ -359,88 +261,9 @@ const faqs = ref([
     }
 ])
 
-// Load available payment providers
-async function loadAvailableProviders() {
-    try {
-        isLoadingProviders.value = true
 
-        // Mock payment providers for UI testing
-        const mockProviders = [
-            {
-                provider: 'iyzico',
-                currency: 'TRY',
-                recommended: true,
-                reason: 'Türkiye için en uygun ödeme yöntemi',
-                display_name: 'İyzico',
-                description: 'Türkiye\'nin güvenilir ödeme sistemi'
-            },
-            {
-                provider: 'paypal',
-                currency: 'USD',
-                recommended: false,
-                reason: 'Uluslararası ödemeler için ideal',
-                display_name: 'PayPal',
-                description: 'Dünya çapında güvenli ödeme'
-            }
-        ]
 
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 500))
-
-        // Try to load from real API first, fallback to mock
-        try {
-            const response = await useFetch('/user/payment-providers')
-
-            if (response && response.success) {
-                availableProviders.value = response.providers || mockProviders
-                selectedProvider.value = response.default_provider || 'iyzico'
-                selectedCurrency.value = response.default_currency || 'TRY'
-                detectedCountry.value = response.detected_country || 'TR'
-
-                console.log('✅ Real API - Available providers:', availableProviders.value)
-            } else {
-                throw new Error('API returned no data')
-            }
-        } catch (apiError) {
-            console.warn('⚠️ API failed, using mock data:', apiError.message)
-
-            // Use mock data as fallback
-            availableProviders.value = mockProviders
-            selectedProvider.value = 'iyzico'
-            selectedCurrency.value = 'TRY'
-            detectedCountry.value = 'TR'
-
-            console.log('🔄 Mock - Available providers:', availableProviders.value)
-        }
-
-        console.log('Selected provider:', selectedProvider.value, selectedCurrency.value)
-    } catch (error) {
-        console.error('Error loading payment providers:', error)
-        // Ultimate fallback
-        availableProviders.value = []
-        selectedProvider.value = 'iyzico'
-        selectedCurrency.value = 'TRY'
-    } finally {
-        isLoadingProviders.value = false
-    }
-}
-
-// Select payment provider
-function selectProvider(provider, currency) {
-    selectedProvider.value = provider
-    selectedCurrency.value = currency
-
-    // Recalculate prices when currency changes
-    if (selectedPackage.value.tokens) {
-        handleCustomTokenChange()
-    }
-
-    console.log('Selected provider:', provider, currency)
-}
-
-// Token price calculation function (matching the Go logic)
 function calculateTokenPrice(tokenCount) {
-    // Float değerleri üste yuvarla ve integer'a çevir
     const integerTokens = Math.ceil(Number(tokenCount) || 0)
 
     if (!integerTokens || integerTokens < 1) return 0
@@ -454,9 +277,7 @@ function calculateTokenPrice(tokenCount) {
     }
 }
 
-// Calculate price with formatting
 function calculatePrice(tokens, withDiscount = true) {
-    // Float değerleri üste yuvarla ve integer'a çevir
     const integerTokens = Math.ceil(Number(tokens) || 0)
 
     if (!integerTokens || integerTokens < 1) return '0.00'
@@ -465,9 +286,7 @@ function calculatePrice(tokens, withDiscount = true) {
     return price.toFixed(2)
 }
 
-// Get discount percentage
 function getDiscount(tokens) {
-    // Float değerleri üste yuvarla ve integer'a çevir
     const integerTokens = Math.ceil(Number(tokens) || 0)
 
     if (integerTokens < 50) return 0
@@ -475,27 +294,22 @@ function getDiscount(tokens) {
     return 20
 }
 
-// Get discount text
 function getDiscountText(tokens) {
-    // Float değerleri üste yuvarla ve integer'a çevir
     const integerTokens = Math.ceil(Number(tokens) || 0)
     const discount = getDiscount(integerTokens)
 
     if (discount === 0) {
         return t('pricing.calculator.no_discount')
     } else {
-        return t('pricing.calculator.discount', { discount })
+        return t('pricing.calculator.discount', { discount: discount + "%" })
     }
 }
 
-// Toggle FAQ
 function toggleFaq(index) {
     faqs.value[index].open = !faqs.value[index].open
 }
 
-// Select tokens for purchase
 function selectTokens(tokens) {
-    // Float değerleri üste yuvarla ve integer'a çevir
     const integerTokens = Math.ceil(Number(tokens) || 0)
 
     if (!integerTokens || integerTokens < 1) return
@@ -509,19 +323,14 @@ function selectTokens(tokens) {
     }
     customTokens.value = integerTokens
 
-    // Scroll to calculator-summary id smoothly
     const summaryElement = document.getElementById('calculator-summary')
     if (summaryElement) {
         summaryElement.scrollIntoView({ behavior: 'smooth' })
     }
 }
 
-// Handle custom token input change
 function handleCustomTokenChange() {
-    // Float değerleri üste yuvarla ve integer'a çevir
     const integerTokens = Math.ceil(Number(customTokens.value) || 0)
-
-    // Input değerini de integer'a çevir
     customTokens.value = integerTokens
 
     if (integerTokens && integerTokens >= 1) {
@@ -537,175 +346,14 @@ function handleCustomTokenChange() {
     }
 }
 
-// Proceed to backend purchase
 async function proceedToPurchase() {
-    // Float değerleri üste yuvarla ve integer'a çevir
-    const integerTokens = Math.ceil(Number(selectedPackage.value.tokens) || 0)
-
-    if (!integerTokens) return
-
-    try {
-        // For demo purposes, create a mock response
-        const mockResponse = {
-            success: true,
-            payment_url: selectedProvider.value === 'iyzico'
-                ? 'https://sandbox-cpp.iyzipay.com/?token=demo-token-12345'
-                : 'https://www.sandbox.paypal.com/checkoutnow?token=demo-paypal-token-67890',
-            transaction_id: 'txn_' + Date.now(),
-            amount: calculatePrice(integerTokens),
-            currency: selectedCurrency.value,
-            tokens: integerTokens,
-            provider: selectedProvider.value
-        }
-
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500))
-
-        // Try real API first, fallback to mock
-        let response
-        try {
-            response = await useFetch('/user/purchase-tokens', {
-                method: 'POST',
-                body: {
-                    tokens: integerTokens,
-                    provider: selectedProvider.value,
-                    currency: selectedCurrency.value
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (!response || !response.success) {
-                throw new Error(response?.error || 'API failed')
-            }
-
-            console.log('✅ Real API Response:', response)
-        } catch (apiError) {
-            console.warn('⚠️ API failed, using mock response:', apiError.message)
-            response = mockResponse
-            console.log('🔄 Mock Response:', response)
-        }
-
-        if (response && response.success) {
-            // Show the payment URL in an alert for demo purposes
-            if (response.payment_url.includes('demo-token') || response.payment_url.includes('demo-paypal')) {
-                // This is a demo URL
-                const providerName = selectedProvider.value === 'iyzico' ? 'İyzico' : 'PayPal'
-                const message = `DEMO: ${providerName} ödeme sayfasına yönlendiriliyorsunuz...\n\nURL: ${response.payment_url}\n\nGerçek ortamda bu URL otomatik olarak açılacaktır.`
-                alert(message)
-
-                // For demo, simulate successful payment after 3 seconds
-                setTimeout(() => {
-                    handleMockPaymentSuccess(response)
-                }, 3000)
-            } else {
-                // Real payment URL - open in new tab
-                window.open(response.payment_url, '_blank')
-
-                // Start polling for purchase status
-                pollPurchaseStatus(response.transaction_id)
-            }
-
-            toast.show('info', `${selectedProvider.value === 'iyzico' ? 'İyzico' : 'PayPal'} ödeme sayfasına yönlendiriliyorsunuz...`)
-        } else {
-            // Handle API error response
-            const errorMessage = response?.error || 'Bilinmeyen hata oluştu'
-            toast.show('error', errorMessage)
-        }
-    } catch (error) {
-        console.error('Purchase initiation failed:', error)
-        // Check if error has message from API
-        const errorMessage = error?.error || error?.message || 'Bağlantı hatası'
-        toast.show('error', errorMessage)
-    }
-}
-
-// Handle mock payment success for demo
-function handleMockPaymentSuccess(purchaseData) {
-    toast.show('success', `🎉 DEMO: ${purchaseData.tokens} token başarıyla hesabınıza eklendi!`)
-
-    // Reset selected package
-    selectedPackage.value = {}
-    customTokens.value = 50
-
-    // Emit event for parent components to refresh user data
-    window.dispatchEvent(new CustomEvent('tokensUpdated', { detail: { tokens: purchaseData.tokens } }))
-}
-
-// Poll purchase status
-async function pollPurchaseStatus(transactionId) {
-    const maxAttempts = 120 // 10 minutes of polling
-    let attempts = 0
-
-    // Show a persistent notification about polling
-    const pollingToast = toast.show('info', 'Ödeme durumunuz kontrol ediliyor...', 0) // 0 = persistent
-
-    const checkStatus = async () => {
-        try {
-            const response = await useFetch(`/user/purchase-status/${transactionId}`)
-
-            if (response.status === 'completed') {
-                // Hide polling notification
-                if (pollingToast && pollingToast.hide) {
-                    pollingToast.hide()
-                }
-
-                toast.show('success', `🎉 ${response.tokens} token başarıyla hesabınıza eklendi!`)
-
-                // Reset selected package
-                selectedPackage.value = {}
-                customTokens.value = 50
-
-                // Optionally emit event for parent components to refresh user data
-                window.dispatchEvent(new CustomEvent('tokensUpdated', { detail: { tokens: response.tokens } }))
-
-                return true
-            } else if (response.status === 'pending') {
-                attempts++
-                if (attempts < maxAttempts) {
-                    setTimeout(checkStatus, 5000) // Check every 5 seconds
-                } else {
-                    // Hide polling notification
-                    if (pollingToast && pollingToast.hide) {
-                        pollingToast.hide()
-                    }
-                    toast.show('warning', 'Ödeme durumu kontrol edilemedi. Lütfen hesabınızı kontrol edin veya destek ile iletişime geçin.')
-                }
-            }
-        } catch (error) {
-            console.error('Status check failed:', error)
-            attempts++
-            if (attempts < maxAttempts) {
-                setTimeout(checkStatus, 5000)
-            } else {
-                // Hide polling notification
-                if (pollingToast && pollingToast.hide) {
-                    pollingToast.hide()
-                }
-                toast.show('error', 'Ödeme durumu kontrol edilirken bir hata oluştu.')
-            }
+    const res = await useFetch("/payment/token", {
+        method: "POST",
+        body: {
+            token_count: selectedPackage.value.tokens,
         }
     }
-
-    // Start checking after 10 seconds (give user time to complete payment)
-    setTimeout(checkStatus, 10000)
+    );
 }
 
-
-// Gumroad entegrasyonu için artık bu fonksiyonlar kullanılmıyor
-/*
-// Close checkout modal
-function closeCheckoutModal() {
-    showCheckoutModal.value = false
-    selectedPackage.value = {}
-}
-
-// Handle successful purchase
-function handlePurchaseSuccess(packageInfo) {
-    toast.show('success', t('pricing.purchase.success', { tokens: packageInfo.tokens }))
-    // Here you would update the user's token balance
-    // updateUserTokens(packageInfo.tokens)
-}
-*/
 </script>

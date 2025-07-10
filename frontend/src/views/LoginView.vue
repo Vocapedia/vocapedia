@@ -13,7 +13,8 @@
                     <div class="mb-4 space-y-2">
                         <label for="otp" class="block text-sm font-medium">{{ $t('login.input.otp') }}</label>
                         <div class="flex justify-center space-x-2">
-                            <input type="text" inputmode="numeric" maxlength="6"
+                            <input type="text" inputmode="numeric" :placeholder="$t('login.input.otp_placeholder')"
+                                maxlength="6"
                                 class="w-full h-10 text-center text-xl border rounded-md outline-none border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-700"
                                 v-model="otp" />
                         </div>
@@ -27,7 +28,7 @@
                                     v-if="isLoading" name="loading" spin />
                             </span>
                             <span :class="isCaptchaVerified ? 'text-white dark:text-zinc-900' : ''"
-                                class="font-semibold text-lg">{{ $t('login.otp.verify_button') }}</span>
+                                class="font-semibold text-lg">{{ $t('login.button.otp.verify') }}</span>
                             <span>
                                 <mdicon v-if="isLoading" name="loading" spin
                                     :class="isCaptchaVerified ? 'text-sky-700' : 'text-zinc-200 dark:text-zinc-900'" />
@@ -65,7 +66,7 @@
                                     v-if="isLoading" name="loading" spin />
                             </span>
                             <span :class="isCaptchaVerified && !captchaLoadError ? 'text-white dark:text-zinc-900' : ''"
-                                class="font-semibold text-lg">{{ $t('login.otp.send_button') }}</span>
+                                class="font-semibold text-lg">{{ $t('login.button.otp.send') }}</span>
                             <span>
                                 <mdicon v-if="isLoading" name="loading" spin
                                     :class="isCaptchaVerified && !captchaLoadError ? 'text-sky-700' : 'text-zinc-200 dark:text-zinc-900'" />
@@ -150,7 +151,7 @@ const handleOTPSend = async () => {
             isLoading.value = false;
         });
     } else {
-        toast.show(i18n.global.t('login.otp.captcha_missing'));
+        toast.show(i18n.global.t('login.captcha.missing'));
         isLoading.value = false;
     }
 };
@@ -172,7 +173,7 @@ const handleVerifyOTP = async () => {
         });
 
         if (response.token) {
-            toast.show(i18n.global.t('login.otp.verify_success'));
+            toast.show(i18n.global.t('login.button.otp.verify_success'));
             localStorage.setItem("token", response.token);
             router.replace("/").then(() => router.go());
         } else {

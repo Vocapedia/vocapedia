@@ -1,0 +1,9 @@
+{
+    "helper": "The listed language is {lang}, the translated language is {target_lang}",
+    "section": {
+        "word-list": "Word List",
+        "tutorial": "Tutorial"
+    },
+    "search_chapter":"Search from {name}"
+    
+}

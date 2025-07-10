@@ -4,7 +4,7 @@
         <p class="py-5">
             <router-link :to="'/search?q=' + $route.query.q">
                 {{
-                    $t('search_results', { query: decodeURIComponent($route.query.q) })
+                    $t('search.results', { query: decodeURIComponent($route.query.q) })
                 }}
             </router-link>
 

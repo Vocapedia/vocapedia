@@ -1,0 +1,19 @@
+{
+    "input": {
+        "label": "Enter your email",
+        "placeholder": "Email",
+        "otp": "Enter the OTP sent to your email",
+        "otp_placeholder": "OTP"
+    },
+    "button": {
+        "otp": {
+            "send": "Send me an E-mail",
+            "verify": "Verify OTP"
+        }
+    },
+    "captcha": {
+        "missing": "Please complete the captcha",
+        "label": "I am not a robot",
+        "verified": "Captcha verified successfully"
+    }
+}

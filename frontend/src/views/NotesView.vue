@@ -1,15 +1,15 @@
 <template>
     <div class="max-w-160 mx-auto">
         <p class="py-5 text-center text-xl font-semibold">
-            {{ $t('notes') }}
+            {{ $t('notes.header') }}
         </p>
 
         <div class="p-6 transition-all">
             <div class="text-center">
-                <small>{{ $t('note_description') }}</small>
+                <small class="bg-yellow-200 dark:bg-yellow-900 px-2 py-1 rounded-full font-semibold">{{ $t('notes.warning') }}</small>
             </div>
             <div class="flex mt-4 gap-2">
-                <input v-model="newNote" @keyup.enter="addNote" :placeholder="$t('add_new_note')" class="w-full p-3 border shadow-sm outline-none transition-all 
+                <input v-model="newNote" @keyup.enter="addNote" :placeholder="$t('notes.add_note')" class="w-full p-3 border shadow-sm outline-none transition-all 
              bg-white text-zinc-900 border-none rounded-full
              dark:bg-zinc-800 dark:text-white" />
                 <button @click="addNote"
@@ -38,7 +38,7 @@
                         </div>
                     </template>
                 </draggable>
-                <div v-else class="text-center py-10">{{ $t('empty') }}</div>
+                <div v-else class="text-center py-10">{{ $t('notes.no_notes') }}</div>
             </transition>
         </div>
 

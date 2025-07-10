@@ -61,11 +61,10 @@ allow_origins:
 
 payment:
   providers:
-    iyzico:
+    lemonsqueezy:
+      base_url: https://api.lemonsqueezy.com/v1
+      webhook_url: https://api.lemonsqueezy.com/v1/webhooks/your-webhook-id
+      webhook_secret: your-webhook-secret
       api_key: sandbox-your-api-key
-      secret_key: sandbox-your-secret-key
-      production: false
-    paypal:  
-      client_id: sandbox-your-client-id
-      secret_key: sandbox-your-secret
-      production: false
+      product_id: "573496"
+      variant_id: "893629"

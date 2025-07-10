@@ -11,6 +11,7 @@ import (
 
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/auth"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/chapters"
+	"github.com/akifkadioglu/vocapedia/pkg/controllers/payment"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/stream"
 	"github.com/akifkadioglu/vocapedia/pkg/controllers/user"
 	"github.com/akifkadioglu/vocapedia/pkg/embed"
@@ -68,16 +69,9 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/vocatoken", user.GetVocaToken)
 				api.Get("/tokens", user.GetUserTokens)
 				api.Get("/streak", user.DailyStreak)
-				// Teacher request endpoints
 				api.Post("/request-teacher", user.RequestTeacher)
-				// Language preferences endpoints
 				api.Put("/language-preferences", user.UpdateLanguagePreferences)
 				api.Get("/language-preferences", user.GetLanguagePreferences)
-				// Token purchase endpoints
-				api.Get("/payment-providers", user.GetAvailablePaymentProviders)
-				api.Post("/purchase-tokens", user.InitiateTokenPurchase)
-				api.Get("/purchase-status/{transaction_id}", user.GetTokenPurchaseStatus)
-				api.Post("/confirm-purchase/{transaction_id}", user.ConfirmTokenPurchase)
 			})
 			api.Route("/auth", func(api chi.Router) {
 				api.Delete("/logout", auth.Logout)
@@ -95,6 +89,16 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/upcoming", stream.GetUpcomingStreams) // Next 12h
 				api.Get("/joined", stream.GetUserJoinedStreams) // User's joined streams
 			})
+			api.Route("/payment", func(api chi.Router) {
+				api.Post("/token", payment.PurchaseTokens)
+				api.Get("/history", payment.GetPaymentHistory)
+				api.Get("/stats", payment.GetPaymentStats)
+				api.Get("/{paymentID}", payment.GetPaymentStatus)
+			})
+			api.Route("/webhooks", func(api chi.Router) {
+				api.Post("/lemonsqueezy", payment.HandleLemonSqueezyWebhook)
+			})
+
 		})
 		api.Route("/public", func(api chi.Router) {
 			api.Route("/auth", func(api chi.Router) {
@@ -114,9 +118,7 @@ func (s *Server) MountHandlers(host string, port int, allowMethods []string, all
 				api.Get("/search", user.SearchUsers)
 			})
 			// Webhook endpoint for payment confirmations
-			api.Route("/webhooks", func(api chi.Router) {
-				api.Post("/payment", user.PaymentWebhook)
-			})
+
 			//api.Post("/speech-to-text", speechtotext.SpeechToText)
 		})
 		api.Route("/usage", func(api chi.Router) {

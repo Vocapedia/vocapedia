@@ -39,9 +39,9 @@
             <table class="w-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-md">
                 <thead class="bg-sky-100 dark:bg-sky-700  text-gray-900 dark:text-white">
                     <tr>
-                        <th class="w-10 px-4 py-2 text-left">{{ $t('settings.created_at') }}</th>
-                        <th class="px-4 py-2 text-left">{{ $t('settings.updated_at') }}</th>
-                        <th class="px-4 py-2 text-left">{{ $t('settings.device_info') }}</th>
+                        <th class="w-10 px-4 py-2 text-left">{{ $t('settings.tokens.created_at') }}</th>
+                        <th class="px-4 py-2 text-left">{{ $t('settings.tokens.updated_at') }}</th>
+                        <th class="px-4 py-2 text-left">{{ $t('settings.tokens.device_info') }}</th>
                         <th class="px-4 py-2 text-left"></th>
                     </tr>
                 </thead>
@@ -69,13 +69,13 @@
         </div>
         <div v-motion-slide-visible-once-right v-if="(tokenInfo ?? []).length > 0" class="flex justify-between">
             <div class="flex items-center justify-end space-x-5">
-                <span>{{ $t('settings.delete_account') }}</span>
+                <span>{{ $t('settings.actions.delete_account') }}</span>
                 <button @click="logout" class="smooth-click rounded-full bg-red-100 dark:bg-red-700 p-2">
                     <mdicon name="account-remove-outline" />
                 </button>
             </div>
             <div class="flex items-center justify-end space-x-5">
-                <span>{{ $t('settings.logout') }}</span>
+                <span>{{ $t('settings.actions.logout') }}</span>
                 <button @click="logout" class="smooth-click rounded-full bg-red-100 dark:bg-red-700 p-2">
                     <mdicon name="logout" />
                 </button>
@@ -152,7 +152,7 @@ async function UpdateVocatoken() {
 }
 async function CopyVocatoken() {
     await navigator.clipboard.writeText("VOCATOKEN-" + vocatoken.value);
-    toast.show(i18n.global.t('settings.vocatoken_copied'))
+    toast.show(i18n.global.t('settings.actions.vocatoken_copied'))
 }
 async function logout() {
     await useFetch("/auth/logout", {

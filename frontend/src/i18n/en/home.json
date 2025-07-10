@@ -12,8 +12,8 @@
                 "title": "Notes",
                 "description": "Notes create a space where you can save words you want to review later."
             },
-            "followed_results": {
-                "title": "Followed Results",
+            "followed": {
+                "title": "Followed",
                 "description": "You can see the word lists you are following."
             },
             "streamers": {

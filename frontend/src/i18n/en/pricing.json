@@ -1,0 +1,44 @@
+{
+    "header": "Buy Tokens",
+    "description": "Purchase tokens to enhance your language learning experience on Vocapedia. Access premium features and accelerate your learning process with tokens.",
+    "banner": {
+        "title": "What are Tokens?",
+        "description": "Tokens are used as digital currency in Vocapedia. You spend tokens for every feature.",
+        "use1": "Lesson Content",
+        "use2": "Extensions",
+        "use3": "Live Lessons"
+    },
+    "label": "Tokens",
+    "purchase": {
+        "title": "Secure Payment",
+        "description": "Your payment is processed securely through our trusted payment gateway. We accept various payment"
+    },
+    "discount": "discount",
+    "calculator": {
+        "title": "Token Calculator",
+        "token_count": "Token Count",
+        "discount": "Discount {discount}",
+        "no_discount": "No Discount",
+        "base_price": "Base Price",
+        "total": "Total",
+        "placeholder": "Enter the token count",
+        "buy_tokens": "Buy Tokens",
+        "purchase_instruction": "Enter the number of tokens you want to purchase. The total price will be calculated based on the current token rate and any applicable discounts."
+    },
+    "tiers": {
+        "title": "Pricing Tiers",
+        "per_token": "per token"
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": "How are tokens used?",
+        "a1": "Tokens are spent to access lesson content, extensions, and use speech recognition features.",
+        "q2": "When do tokens expire?",
+        "a2": "Tokens never expire, you can use them whenever you want.",
+        "q3": "How is the discount calculated?",
+        "a3": "10% discount is applied when buying 50+ tokens, 20% discount when buying 100+ tokens.",
+        "q4": "What are the payment methods?",
+        "a4": "lemonsqueezy.com is used for secure payments. It supports various payment methods."
+    },
+    "buy_now": "Buy Now"
+}

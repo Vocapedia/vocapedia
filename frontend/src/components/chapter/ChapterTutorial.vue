@@ -1,11 +1,12 @@
 <template>
     <div class="chapter-tutorial">
-        <ChapterTutorialContent :tutorial-content="response.chapter.tutorial" />
+        <div class="max-w-160 mx-auto prose dark:prose-invert">
+            <div v-html="response.chapter.tutorial" />
+        </div>
     </div>
 </template>
 
 <script setup>
-import ChapterTutorialContent from './ChapterTutorialContent.vue'
 
 const props = defineProps({
     response: {

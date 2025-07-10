@@ -8,10 +8,10 @@
                 </div>
                 <h1
                     class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    {{ $t('home.streamers') }}
+                    {{ $t('streamers.header') }}
                 </h1>
                 <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-                    {{ $t('home.streamers_description') }}
+                    {{ $t('streamers.description') }}
                 </p>
 
                 <!-- Token Balance -->

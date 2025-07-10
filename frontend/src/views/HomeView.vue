@@ -139,8 +139,8 @@ const cards = [
 
   }, {
     uri: '/followed',
-    name: 'followed_results.title',
-    description: 'followed_results.description',
+    name: 'followed.title',
+    description: 'followed.description',
     icon: 'format-list-text',
     icon_class: 'text-sky-600 dark:text-sky-500'
   },
